@@ -17,9 +17,9 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id',
+        'service_id',
+        'role',
     ];
 
     /**
@@ -28,8 +28,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     /**
@@ -38,17 +36,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
-    public function rooms()
+    public function users()
     {
-        return $this->belongsToMany(Room::class, 'users_rooms');
+        return $this->belongsToMany(User::class, 'users');
     }
 
-    public function service_relation()
+    public function services()
     {
-        return $this->belongsToMany(CustomerServiceRelationRole::class, 'customer_service_relation_role');
+        return $this->belongsToMany(Customerservice::class, 'customer_service');
     }
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class CustomerService extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -16,10 +16,9 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+
     protected $fillable = [
         'name',
-        'email',
-        'password',
     ];
 
     /**
@@ -28,8 +27,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
     ];
 
     /**
@@ -38,17 +35,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
-
-    public function rooms()
-    {
-        return $this->belongsToMany(Room::class, 'users_rooms');
-    }
-
-    public function service_relation()
-    {
-        return $this->belongsToMany(CustomerServiceRelationRole::class, 'customer_service_relation_role');
-    }
 
 }
