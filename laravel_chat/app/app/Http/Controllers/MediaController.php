@@ -100,15 +100,25 @@ class MediaController extends Controller
         return redirect()->route('media.index', $media->id);
     }
 
-    public function update($params)
+    public function update(Request $request)
     {
-        return Media::find($params['id'])
+        Media::find($request['id'])
             ->update([
-                'type'        => $params['type'],
-                'title'       => $params['title'],
-                'file'        => $params['file'],
-                'status'      => $params['status'],
+                'type'        => $request['type'],
+                'title'       => $request['title'],
+                'file'        => $request['file'],
         ]);
+        return redirect()->route('media.index');
+
+    }
+    public function upstatus(Request $request)
+    {
+        Media::find($request['id'])
+            ->update([
+                'status'        => 0,
+        ]);
+        return redirect()->route('media.index');
+
     }
 
     public function publish(int $id, Request $request)

@@ -253,14 +253,12 @@
                         <tbody>
                             <?php foreach ($media as $m): ?>
                             <tr>
-                                <td>{{ $m->type }}</td>
-                                <td>{{ $m->title}}</td>
-                                <td><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
+                                <td data-type="{{ $m->type }}" class="custom-type">{{ $m->type }}</td>
+                                <td data-title="{{ $m->title }}" class="custom-title">{{ $m->title }}</td>
+                                <td data-file="{{ $m->file }}" class="custom-file"><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
                                 <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
+                                    <button class="btn edit-btn btn-sm" data-id="{{ $m->id }}" data-title="{{ $m->id }}"data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                    <a href="/media/upstatus/{{$m->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -350,6 +348,47 @@
             </div>
             </div>
         </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/media/edit" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="type" class="col-form-label">Type:</label>
+                        <select name="type">
+                            <option value="交通問題">交通問題</option>
+                            <option value="設備問題">設備問題</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="file" class="col-form-label">File:</label>
+                        <div class="file-loading">
+                            <input  type="file" multiple id="file" name="file" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+            </div>
+        </div>
+
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
@@ -393,6 +432,36 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script>
+        $(function() {
+            $('#editModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
+                let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
+                let type = btn.closest('td').siblings('.custom-type').data('type');
+                let title = btn.closest('td').siblings('.custom-title').data('title');
+                //let file = btn.closest('td').siblings('.custom-file').data('file');
+                let modal = $(this); //要修改的modal就是現在開啟的這個modal
+
+                $('.modalTextInput').val('');
+                $('.saveEdit').data('id', id); // then pass it to the button inside the modal
+                modal.find('.modal-body input#type').val(type);//把抓到的資料顯示在input內
+                modal.find('.modal-body input#title').val(title);
+                //modal.find('.modal-body input#file').val(file);
+            })
+
+            $('.saveEdit').on('click', function() {
+                let id = $(this).data('id'); // the rest is just the same
+                saveNote(id);
+                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
+            })
+        })
+
+        function saveNote(id) {
+        let text = $('.modalTextInput').val();
+        $('.recentNote').data('note', text);
+        console.log($('.recentNote').data('note'));
+        console.log(text + ' --> ' + id);
+        }
+
         am5.ready(function() {
 
         // Create root element

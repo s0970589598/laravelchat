@@ -90,15 +90,26 @@ class MsgSampleController extends Controller
         return redirect()->route('msgsample.index', $frequently_msg->id);
     }
 
-    public function update($params)
+    public function update(Request $request)
     {
-        return Media::find($params['id'])
+        FrequentlyMsg::find($request['id'])
             ->update([
-                'type'        => $params['type'],
-                'title'       => $params['title'],
-                'file'        => $params['file'],
-                'status'      => $params['status'],
+                'type'        => $request['type'],
+                'subject'     => $request['subject'],
+                'reply'       => $request['reply'],
         ]);
+        return redirect()->route('msgsample.index');
+
+    }
+
+    public function upstatus(Request $request)
+    {
+        FrequentlyMsg::find($request['id'])
+            ->update([
+                'status'        => 0,
+        ]);
+        return redirect()->route('msgsample.index');
+
     }
 
     public function publish(int $id, Request $request)

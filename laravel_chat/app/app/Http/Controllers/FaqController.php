@@ -45,17 +45,34 @@ class FaqController extends Controller
 
     public function show(int $id)
     {
-        $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
-        $room  = Room::with(['users', 'messages.user' => function ($query) {
-            $query->orderBy('created_at', 'asc');
-        }])->find($id);
+        $faq = FAQ::find($id);
 
-        return view('rooms.index', [
-            'rooms'    => $rooms,
-            'currRoom' => $room,
-            'isJoin'   => $room->users->contains('id', Auth::user()->id),
+        return view('faq.index', [
+            'faqByid'    => $faq,
         ]);
     }
+
+    public function update(request $request)
+    {
+        $faq = FAQ::find($request['id'])
+            ->update([
+                'question'     => $request['question'],
+                'answer'       => $request['answer'],
+        ]);
+        return redirect()->route('faq.index');
+
+    }
+
+    public function upstatus(request $request)
+    {
+        $faq = FAQ::find($request['id'])
+            ->update([
+                'status'     => 0,
+        ]);
+        return redirect()->route('faq.index');
+
+    }
+
 
     public function join(int $id)
     {

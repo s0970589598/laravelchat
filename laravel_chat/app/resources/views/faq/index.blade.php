@@ -286,13 +286,11 @@
                             </tr>
                             <?php foreach ($faq as $f): ?>
                             <tr>
-                                <td>{{ $f->question }}</td>
-                                <td>{{ $f->answer }}</td>
+                                <td data-question="{{ $f->question }}" class="custom-question">{{ $f->question }}</td>
+                                <td data-answer="{{ $f->answer }}" class="custom-answer">{{ $f->answer }}</td>
                                 <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
+                                    <button class="btn edit-btn btn-sm" data-id="{{ $f->id }}" data-title="{{ $f->id }}"data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                    <a href="/faq/upstatus/{{$f->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -342,7 +340,7 @@
         </div>
         <!-- END FOOTER -->
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -372,6 +370,38 @@
             </div>
             </div>
         </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/faq/edit" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="question" class="col-form-label">Question:</label>
+                        <input type="text" class="form-control" id="question" name="question">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="answer" class="col-form-label">Answer:</label>
+                        <textarea class="form-control" id="answer" name="answer"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+            </div>
+        </div>
+
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
@@ -419,6 +449,35 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script>
+        $(function() {
+            $('#editModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
+                let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
+                let question = btn.closest('td').siblings('.custom-question').data('question');
+                let answer = btn.closest('td').siblings('.custom-answer').data('answer');
+                let modal = $(this); //要修改的modal就是現在開啟的這個modal
+
+                $('.modalTextInput').val('');
+                $('.saveEdit').data('id', id); // then pass it to the button inside the modal
+                modal.find('.modal-body input#question').val(question);//把抓到的資料顯示在input內
+                modal.find('.modal-body textarea#answer').val(answer);
+                modal.find('.modal-body input#id').val(id);
+            })
+
+            $('.saveEdit').on('click', function() {
+                let id = $(this).data('id'); // the rest is just the same
+                saveNote(id);
+                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
+            })
+        })
+
+        function saveNote(id) {
+        let text = $('.modalTextInput').val();
+        $('.recentNote').data('note', text);
+        console.log($('.recentNote').data('note'));
+        console.log(text + ' --> ' + id);
+        }
+
         am5.ready(function() {
 
         // Create root element

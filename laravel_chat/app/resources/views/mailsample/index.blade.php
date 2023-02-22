@@ -253,13 +253,11 @@
 
                             <?php foreach ($email_sample as $mail): ?>
                             <tr>
-                                <td>{{  $mail->subject }}</td>
-                                <td>{{ $mail->content}}</td>
+                                <td data-subject="{{ $mail->subject }}" class="custom-subject">{{ $mail->subject }}</td>
+                                <td data-content="{{ $mail->content }}" class="custom-content">{{ $mail->content }}</td>
                                 <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
+                                    <button class="btn edit-btn btn-sm" data-id="{{ $mail->id }}" data-title="{{ $mail->id }}"data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                    <a href="/mailsample/upstatus/{{$mail->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -341,6 +339,39 @@
             </div>
             </div>
         </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/mailsample/edit" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input type="text" class="form-control" id="subject" name="subject">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="content" class="col-form-label">Content:</label>
+                        <textarea class="form-control" id="content" name="content"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+            </div>
+        </div>
+
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
@@ -384,6 +415,35 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script>
+        $(function() {
+            $('#editModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
+                let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
+                let subject = btn.closest('td').siblings('.custom-subject').data('subject');
+                let content = btn.closest('td').siblings('.custom-content').data('content');
+                let modal = $(this); //要修改的modal就是現在開啟的這個modal
+
+                $('.modalTextInput').val('');
+                $('.saveEdit').data('id', id); // then pass it to the button inside the modal
+                modal.find('.modal-body input#subject').val(subject);//把抓到的資料顯示在input內
+                modal.find('.modal-body textarea#content').val(content);
+                modal.find('.modal-body input#id').val(id);
+            })
+
+            $('.saveEdit').on('click', function() {
+                let id = $(this).data('id'); // the rest is just the same
+                saveNote(id);
+                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
+            })
+        })
+
+        function saveNote(id) {
+        let text = $('.modalTextInput').val();
+        $('.recentNote').data('note', text);
+        console.log($('.recentNote').data('note'));
+        console.log(text + ' --> ' + id);
+        }
+
         am5.ready(function() {
 
         // Create root element

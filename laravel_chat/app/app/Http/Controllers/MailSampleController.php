@@ -96,16 +96,26 @@ class MailSampleController extends Controller
         return redirect()->route('mailsample.index', $mailsample->id);
     }
 
-    public function update($params)
+    public function update(Request $request)
     {
-        return Media::find($params['id'])
+        EmailSample::find($request['id'])
             ->update([
-                'type'        => $params['type'],
-                'title'       => $params['title'],
-                'file'        => $params['file'],
-                'status'      => $params['status'],
+                'subject'        => $request['subject'],
+                'content'       => $request['content'],
         ]);
+        return redirect()->route('mailsample.index');
+
     }
+
+    public function upstatus(Request $request)
+    {
+        EmailSample::find($request['id'])
+            ->update([
+                'status'        => 0,
+        ]);
+        return redirect()->route('mailsample.index');
+    }
+
 
     public function publish(int $id, Request $request)
     {
