@@ -92,20 +92,25 @@
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                             <li class="dropdown dropdown-user dropdown-dark">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username username-hide-on-mobile">User</span>
+                                    <span class="username username-hide-on-mobile">{{ Auth::user()->email }}</span>
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                     <img alt="" class="img-circle" src="assets/images/user-default.png"/>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
                                     <li>
-                                        <a href="javascript:volid(0);">
+                                        <a href="">
                                             <i class="icon-user"></i> 個人資料修改
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="javascript:volid(0);">
-                                            <i class="icon-key"></i> Log Out
-                                        </a>
+                                          <!-- Authentication -->
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                                <i class="icon-key"></i> {{ __('Log Out') }}
+                                            </x-dropdown-link>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>
@@ -113,7 +118,13 @@
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
-                                <i class="icon-logout"></i>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        <i class="icon-logout"></i>
+                                    </x-dropdown-link>
+                                </form>
                             </li>
                             <!-- END QUICK SIDEBAR TOGGLER -->
                         </ul>
