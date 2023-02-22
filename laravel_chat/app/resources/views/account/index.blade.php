@@ -145,7 +145,7 @@
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start ">
-                            <a href="javascript:volid(0);" class="nav-link active">
+                            <a href="/dashboard" class="nav-link active">
                                 <i class="icon-graph"></i>
                                 <span class="title">Dashboard</span>
                             </a>
@@ -170,19 +170,19 @@
                             </a>
                             <ul class="sub-menu" style="display: block;">
                                 <li class="nav-item start ">
-                                    <a href="index.html" class="nav-link ">
+                                    <a href="/mailsample" class="nav-link ">
                                         <i class="icon-envelope"></i>
                                         <span class="title">信件範本</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start ">
-                                    <a href="dashboard_2.html" class="nav-link ">
+                                <li class="nav-item start">
+                                    <a href="/msgsample" class="nav-link ">
                                         <i class="icon-bubbles"></i>
                                         <span class="title">訊息範本</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_3.html" class="nav-link ">
+                                    <a href="/media" class="nav-link ">
                                         <i class="icon-folder"></i>
                                         <span class="title">媒體庫</span>
                                     </a>
@@ -190,13 +190,13 @@
                             </ul>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/faq" class="nav-link nav-toggle">
                                 <i class="icon-drawer"></i>
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                        <li class="nav-item active">
+                            <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
                             </a>
@@ -260,13 +260,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach ($users as $user): ?>
                             <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->role }}</td>
+                                <td>{{ $user->name }}</td>
                                 <td>
                                     <a href="#" class="edit-btn">
                                         <i class="icon-pencil"></i> 編輯</a>
@@ -274,132 +272,9 @@
                                         <i class="icon-trash"></i>刪除</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>example@mail.com</td>
-                                <td>客服人員</td>
-                                <td>
-                                    <span class="tag">A旅遊服務中心</span>
-                                    <span class="tag">B旅遊服務中心</span>
-                                </td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
+                            <?php endforeach; ?>
+
+
                         </tbody>
                     </table>
                 </div>

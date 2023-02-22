@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class EmailSample extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'email_sample';
 
     /**
      * The attributes that are mass assignable.

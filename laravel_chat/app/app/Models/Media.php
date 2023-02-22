@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Media extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'media';
 
     /**
      * The attributes that are mass assignable.

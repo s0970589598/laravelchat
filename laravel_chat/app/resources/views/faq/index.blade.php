@@ -145,7 +145,7 @@
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start ">
-                            <a href="javascript:volid(0);" class="nav-link active">
+                            <a href="/dashboard" class="nav-link active">
                                 <i class="icon-graph"></i>
                                 <span class="title">Dashboard</span>
                             </a>
@@ -170,33 +170,33 @@
                             </a>
                             <ul class="sub-menu" style="display: block;">
                                 <li class="nav-item start ">
-                                    <a href="index.html" class="nav-link ">
+                                    <a href="/mailsample" class="nav-link ">
                                         <i class="icon-envelope"></i>
                                         <span class="title">信件範本</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_2.html" class="nav-link ">
+                                    <a href="/msgsample" class="nav-link ">
                                         <i class="icon-bubbles"></i>
                                         <span class="title">訊息範本</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_3.html" class="nav-link ">
+                                    <a href="/media" class="nav-link ">
                                         <i class="icon-folder"></i>
                                         <span class="title">媒體庫</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                        <li class="nav-item active">
+                            <a href="/faq" class="nav-link nav-toggle">
                                 <i class="icon-drawer"></i>
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
                             </a>
@@ -250,7 +250,7 @@
                             <input type="checkbox">
                             異常URL
                         </label>
-                        <a class="add-btn" href="javascript:volid(0);">
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
                             <i class="icon-plus"></i>
                             新增問答
                         </a>
@@ -284,9 +284,10 @@
                                         <i class="icon-trash"></i>刪除</button>
                                 </td>
                             </tr>
+                            <?php foreach ($faq as $f): ?>
                             <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
+                                <td>{{ $f->question }}</td>
+                                <td>{{ $f->answer }}</td>
                                 <td>
                                     <a href="#" class="edit-btn">
                                         <i class="icon-pencil"></i> 編輯</a>
@@ -294,86 +295,7 @@
                                         <i class="icon-trash"></i>刪除</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -400,6 +322,7 @@
                 <!-- pagination -->
                 <div class="pull-right">
                     <ul id="pagination" class="pagination-sm pagination"></ul>
+                    <?php echo $faq->links(); ?>
                 </div>
                 <!-- /pagination -->
                 <div style="clear:both;"></div>
@@ -418,6 +341,37 @@
             </div>
         </div>
         <!-- END FOOTER -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新增FAQ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="/faq/add" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="question" class="col-form-label">Question:</label>
+                        <input type="text" class="form-control" id="question" name="question">
+                    </div>
+                    <div class="form-group">
+                        <label for="answer" class="col-form-label">Answer:</label>
+                        <textarea class="form-control" id="answer" name="answer"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+
+            </div>
+            </div>
+        </div>
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>

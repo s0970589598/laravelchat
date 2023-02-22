@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class CustomerService extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'customer_service';
 
     /**
      * The attributes that are mass assignable.

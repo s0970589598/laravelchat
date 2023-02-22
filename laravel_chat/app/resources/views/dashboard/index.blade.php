@@ -94,20 +94,25 @@
                             <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                             <li class="dropdown dropdown-user dropdown-dark">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <span class="username username-hide-on-mobile">User</span>
+                                    <span class="username username-hide-on-mobile">{{ Auth::user()->email }}</span>
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                     <img alt="" class="img-circle" src="assets/images/user-default.png"/>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
                                     <li>
-                                        <a href="https://app.starcharger.com.tw/index.php/administrator/manager/form/7">
+                                        <a href="">
                                             <i class="icon-user"></i> 個人資料修改
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="https://app.starcharger.com.tw/index.php/administrator/user/logout">
-                                            <i class="icon-key"></i> Log Out
-                                        </a>
+                                          <!-- Authentication -->
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                                this.closest('form').submit();">
+                                                <i class="icon-key"></i> {{ __('Log Out') }}
+                                            </x-dropdown-link>
+                                        </form>
                                     </li>
                                 </ul>
                             </li>
@@ -115,7 +120,13 @@
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
-                                <i class="icon-logout"></i>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        <i class="icon-logout"></i>
+                                    </x-dropdown-link>
+                                </form>
                             </li>
                             <!-- END QUICK SIDEBAR TOGGLER -->
                         </ul>
@@ -146,8 +157,8 @@
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                        <li class="nav-item start ">
-                            <a href="javascript:volid(0);" class="nav-link active">
+                        <li class="nav-item start active">
+                            <a href="/dashboard" class="nav-link active">
                                 <i class="icon-graph"></i>
                                 <span class="title">Dashboard</span>
                             </a>
@@ -172,19 +183,19 @@
                             </a>
                             <ul class="sub-menu" style="display: block;">
                                 <li class="nav-item start ">
-                                    <a href="index.html" class="nav-link ">
+                                    <a href="/mailsample" class="nav-link ">
                                         <i class="icon-envelope"></i>
                                         <span class="title">信件範本</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_2.html" class="nav-link ">
+                                    <a href="/msgsample" class="nav-link ">
                                         <i class="icon-bubbles"></i>
                                         <span class="title">訊息範本</span>
                                     </a>
                                 </li>
                                 <li class="nav-item start ">
-                                    <a href="dashboard_3.html" class="nav-link ">
+                                    <a href="/media" class="nav-link ">
                                         <i class="icon-folder"></i>
                                         <span class="title">媒體庫</span>
                                     </a>
@@ -192,13 +203,13 @@
                             </ul>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/faq" class="nav-link nav-toggle">
                                 <i class="icon-drawer"></i>
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
                             </a>

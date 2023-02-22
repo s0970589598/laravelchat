@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\Media;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -27,9 +28,20 @@ class MediaController extends Controller
         // $rooms = Room::with(['users', 'messages' => function ($query) {
         //     $query->orderBy('created_at', 'asc');
         // }])->orderBy('created_at', 'desc')->get();
+        $rooms = 0;
+        //$email_sample = EmailSample::get();
+        $limit = 2;
+        if (isset($request['limit']) && $request['limit']) {
+            $limit = $request['limit'] ;
+        }
+        //$email_sample = DB::table('email_sample');
+        $media = Media::orderBy('id', 'desc')
+        ->where('status','1')
+        ->paginate($limit);
 
         return view('media.index', [
             'rooms' => $rooms,
+            'media' => $media,
         ]);
     }
 
@@ -57,21 +69,46 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:32', 'unique:rooms'],
+        $params = $request->validate([
+            'type'   => ['required'],
+            'title'  => ['required'],
+            'file'   => ['required'],
         ]);
+        $fileName = time() . '.'. $request->file->extension();
+
+        $type = $request->file->getClientMimeType();
+        $size = $request->file->getSize();
+
+        $request->file->move(public_path('file'), $fileName);
+
 
         DB::beginTransaction();
         try {
-            $room = Room::create(['name' => $request->get('name')]);
-            $room->users()->attach(Auth::user()->id);
+            $media = Media::create([
+                'type'        => $params['type'],
+                'title'       => $params['title'],
+                'file'        => $fileName,
+                'status'      => 1,
+            ]);
+            // $room->users()->attach(Auth::user()->id);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
             Log::error($e->getMessage());
         }
 
-        return redirect()->route('rooms.show', $room->id);
+        return redirect()->route('media.index', $media->id);
+    }
+
+    public function update($params)
+    {
+        return Media::find($params['id'])
+            ->update([
+                'type'        => $params['type'],
+                'title'       => $params['title'],
+                'file'        => $params['file'],
+                'status'      => $params['status'],
+        ]);
     }
 
     public function publish(int $id, Request $request)

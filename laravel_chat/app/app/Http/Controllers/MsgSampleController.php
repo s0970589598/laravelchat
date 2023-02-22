@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FAQ;
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\FrequentlyMsg;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class FaqController extends Controller
+class MsgSampleController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
@@ -24,22 +24,22 @@ class FaqController extends Controller
 
     public function index()
     {
-        $rooms = 0;
         // $rooms = Room::with(['users', 'messages' => function ($query) {
         //     $query->orderBy('created_at', 'asc');
         // }])->orderBy('created_at', 'desc')->get();
+        $rooms = 0;
+        //$email_sample = EmailSample::get();
         $limit = 2;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
         //$email_sample = DB::table('email_sample');
-        $faq = FAQ::orderBy('id', 'desc')
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
         ->where('status','1')
         ->paginate($limit);
-
-        return view('faq.index', [
+        return view('msgsample.index', [
             'rooms' => $rooms,
-            'faq'=> $faq,
+            'msg_sample' => $msg_sample
         ]);
     }
 
@@ -68,16 +68,17 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $params = $request->validate([
-            'question'   => ['required'],
-            'answer'   => ['required'],
+            'type'     => ['required'],
+            'subject'  => ['required'],
+            'reply'    => ['required'],
         ]);
-        Log::info($params);
         DB::beginTransaction();
         try {
-            $faq = FAQ::create([
-                'question'     => $params['question'],
-                'answer'       => $params['answer'],
-                'status'       => 1,
+            $frequently_msg = FrequentlyMsg::create([
+                'type'        => $params['type'],
+                'subject'     => $params['subject'],
+                'reply'       => $params['reply'],
+                'status'      => 1,
             ]);
             // $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -86,7 +87,18 @@ class FaqController extends Controller
             Log::error($e->getMessage());
         }
 
-        return redirect()->route('faq.index', $faq->id);
+        return redirect()->route('msgsample.index', $frequently_msg->id);
+    }
+
+    public function update($params)
+    {
+        return Media::find($params['id'])
+            ->update([
+                'type'        => $params['type'],
+                'title'       => $params['title'],
+                'file'        => $params['file'],
+                'status'      => $params['status'],
+        ]);
     }
 
     public function publish(int $id, Request $request)

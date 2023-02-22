@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FAQ;
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\Media;
+use App\Models\EmailSample;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class FaqController extends Controller
+class MailSampleController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
@@ -22,24 +23,30 @@ class FaqController extends Controller
         $this->centrifugo = $centrifugo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $rooms = 0;
-        // $rooms = Room::with(['users', 'messages' => function ($query) {
-        //     $query->orderBy('created_at', 'asc');
-        // }])->orderBy('created_at', 'desc')->get();
+        //$email_sample = EmailSample::get();
         $limit = 2;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
         //$email_sample = DB::table('email_sample');
-        $faq = FAQ::orderBy('id', 'desc')
+        $email_sample = EmailSample::orderBy('id', 'desc')
         ->where('status','1')
         ->paginate($limit);
 
-        return view('faq.index', [
+        // if (isset($r['title']) && $r['title']) {
+        //     $email_sample->whereLike('title', 'ab');
+        // }
+
+        // $rooms = Room::with(['users', 'messages' => function ($query) {
+        //     $query->orderBy('created_at', 'asc');
+        // }])->orderBy('created_at', 'desc')->get();
+
+        return view('mailsample.index', [
             'rooms' => $rooms,
-            'faq'=> $faq,
+            'email_sample' => $email_sample,
         ]);
     }
 
@@ -68,16 +75,16 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $params = $request->validate([
-            'question'   => ['required'],
-            'answer'   => ['required'],
+            'subject'   => ['required'],
+            'content'   => ['required'],
         ]);
-        Log::info($params);
+
         DB::beginTransaction();
         try {
-            $faq = FAQ::create([
-                'question'     => $params['question'],
-                'answer'       => $params['answer'],
-                'status'       => 1,
+            $mailsample = EmailSample::create([
+                'subject'     => $params['subject'],
+                'content'     => $params['content'],
+                'status'      => 1,
             ]);
             // $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -86,7 +93,18 @@ class FaqController extends Controller
             Log::error($e->getMessage());
         }
 
-        return redirect()->route('faq.index', $faq->id);
+        return redirect()->route('mailsample.index', $mailsample->id);
+    }
+
+    public function update($params)
+    {
+        return Media::find($params['id'])
+            ->update([
+                'type'        => $params['type'],
+                'title'       => $params['title'],
+                'file'        => $params['file'],
+                'status'      => $params['status'],
+        ]);
     }
 
     public function publish(int $id, Request $request)

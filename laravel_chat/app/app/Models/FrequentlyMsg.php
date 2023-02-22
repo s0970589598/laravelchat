@@ -11,6 +11,8 @@ class FrequentlyMsg extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'frequently_msg';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DialogueController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\MsgSampleController;
+use App\Http\Controllers\MailSampleController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +28,13 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/account', [AccountController::class, 'index'])->name('account.index');
 Route::get('/dialogue', [DialogueController::class, 'index'])->name('dialogue.index');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+Route::post('/faq/add', [FaqController::class, 'store'])->name('faq.store');
 Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+Route::post('/media/add', [MediaController::class, 'store'])->name('media.store');
+Route::get('/msgsample', [MsgSampleController::class, 'index'])->name('msgsample.index');
+Route::post('/msgsample/add', [MsgSampleController::class, 'store'])->name('msgsample.store');
+Route::get('/mailsample', [MailsampleController::class, 'index'])->name('mailsample.index');
+Route::post('/mailsample/add', [MailsampleController::class, 'store'])->name('mailsample.store');
 
 Route::group([
     'middleware' => 'auth',

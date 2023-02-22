@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class FAQ extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    protected $table = 'faq';
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class FAQ extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'qution',
+        'question',
         'answer',
         'status',
     ];

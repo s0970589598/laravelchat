@@ -7,7 +7,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>媒體庫</title>
+        <title>訊息範本</title>
         <meta name="robots" content="noindex , nofollow">
 		<!-- <base href="https://app.starcharger.com.tw/" /> -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -175,13 +175,13 @@
                                         <span class="title">信件範本</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start ">
+                                <li class="nav-item start active">
                                     <a href="/msgsample" class="nav-link ">
                                         <i class="icon-bubbles"></i>
                                         <span class="title">訊息範本</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start active">
+                                <li class="nav-item start ">
                                     <a href="/media" class="nav-link ">
                                         <i class="icon-folder"></i>
                                         <span class="title">媒體庫</span>
@@ -221,7 +221,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="page-title">
-            <h1 class="title">媒體庫</h1>
+            <h1 class="title">訊息範本</h1>
         </div>
         <div class="portlet light">
             <div class="portlet-title">
@@ -232,9 +232,9 @@
                             <option value="1">問題</option>
                             <option value="2">答案</option>
                         </select>
-                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
+                        <a class="add-btn" href="javascript:volid(0);"  data-toggle="modal" data-target="#exampleModal">
                             <i class="icon-plus"></i>
-                            新增媒體範本
+                            新增訊息範本
                         </a>
                     </form>
                 </div>
@@ -246,16 +246,16 @@
                             <tr>
                                 <th>分類</th>
                                 <th>標題</th>
-                                <th>檔案</th>
+                                <th>回答</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($media as $m): ?>
+                            <?php foreach ($msg_sample as $msg): ?>
                             <tr>
-                                <td>{{ $m->type }}</td>
-                                <td>{{ $m->title}}</td>
-                                <td><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
+                                <td>{{ $msg->type }}</td>
+                                <td>{{ $msg->subject }}</td>
+                                <td>{{ $msg->reply }}</td>
                                 <td>
                                     <a href="#" class="edit-btn">
                                         <i class="icon-pencil"></i> 編輯</a>
@@ -264,6 +264,7 @@
                                 </td>
                             </tr>
                             <?php endforeach; ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -290,7 +291,7 @@
                 <!-- pagination -->
                 <div class="pull-right">
                     <ul id="pagination" class="pagination-sm pagination"></ul>
-                    <?php echo $media->links(); ?>
+                    <?php echo $msg_sample->links(); ?>
 
                 </div>
                 <!-- /pagination -->
@@ -320,36 +321,35 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/media/add" method="post" enctype="multipart/form-data">
+                <form action="/msgsample/add" method="post">
                     {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="type" class="col-form-label">Type:</label>
-                            <select name="type">
-                                <option value="交通問題">交通問題</option>
-                                <option value="設備問題">設備問題</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="title" class="col-form-label">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title">
-                        </div>
-                        <div class="form-group">
-                            <label for="file" class="col-form-label">File:</label>
-                            <div class="file-loading">
-                                <input  type="file" multiple id="file" name="file" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip">
-                            </div>
-                        </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="type" class="col-form-label">Type:</label>
+                        <select name="type">
+                            <option value="交通問題">交通問題</option>
+                            <option value="設備問題">設備問題</option>
+                        </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="form-group">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input type="text" class="form-control" id="subject" name="subject">
                     </div>
+                    <div class="form-group">
+                        <label for="reply" class="col-form-label">Reply:</label>
+                        <textarea class="form-control" id="reply" name="reply"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
                 </form>
 
             </div>
             </div>
         </div>
+
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
