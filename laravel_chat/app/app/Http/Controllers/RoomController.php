@@ -63,7 +63,12 @@ class RoomController extends Controller
 
         DB::beginTransaction();
         try {
-            $room = Room::create(['name' => $request->get('name')]);
+            $room = Room::create([
+                'name' => $request->get('name'),
+                'status' => 0,
+                'service' => $request->get('service'),
+
+            ]);
             $room->users()->attach(Auth::user()->id);
             DB::commit();
         } catch (Throwable $e) {

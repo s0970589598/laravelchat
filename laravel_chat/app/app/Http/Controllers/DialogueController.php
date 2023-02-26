@@ -10,6 +10,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Carbon;
+
 use Throwable;
 
 class DialogueController extends Controller
@@ -33,17 +35,32 @@ class DialogueController extends Controller
         ]);
     }
 
+    public function manage()
+    {
+        $rooms = 0;
+        $limit = 10;
+        $rooms = Room::with(['users', 'messages' => function ($query) {
+            $query->orderBy('created_at', 'asc');
+        }])->orderBy('created_at', 'desc')
+        ->paginate($limit);
+        return view('dialogue.manage', [
+            'rooms' => $rooms,
+        ]);
+    }
+
+
     public function show(int $id)
     {
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
-        $room  = Room::with(['users', 'messages.user' => function ($query) {
+        $room = Room::with(['users', 'messages.user' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->find($id);
 
-        return view('rooms.index', [
-            'rooms'    => $rooms,
+        return view('dialogue.index', [
+            'rooms' => $rooms,
             'currRoom' => $room,
-            'isJoin'   => $room->users->contains('id', Auth::user()->id),
+            'isJoin' => $room->users->contains('id', Auth::user()->id),
+            'now' => Carbon::now('GMT+8')->toDateString()
         ]);
     }
 

@@ -9,7 +9,7 @@ class Room extends Model
     protected $fillable = [
         'name',
         'status',
-        'service_id',
+        'service',
     ];
 
     public function users()

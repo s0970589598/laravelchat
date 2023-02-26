@@ -16,12 +16,12 @@ class CreateCustomerServiceRelationRoleTable extends Migration
         Schema::create('customer_service_relation_role', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('service_id');
-            $table->string('role');
+            $table->string('service')->nullable();
+            $table->string('role')->default('user');
 
-            $table->foreign('service_id')
-                ->references('id')
-                ->on('customer_service');
+            // $table->foreign('service_id')
+            //     ->references('id')
+            //     ->on('customer_service');
 
             $table->foreign('user_id')
                 ->references('id')

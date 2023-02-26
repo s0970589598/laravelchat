@@ -35,7 +35,7 @@ class MsgSampleController extends Controller
         }
         //$email_sample = DB::table('email_sample');
         $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
-        ->where('status','1')
+        ->where('status','0')
         ->paginate($limit);
         return view('msgsample.index', [
             'rooms' => $rooms,
@@ -78,7 +78,7 @@ class MsgSampleController extends Controller
                 'type'        => $params['type'],
                 'subject'     => $params['subject'],
                 'reply'       => $params['reply'],
-                'status'      => 1,
+                'status'      => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -106,7 +106,7 @@ class MsgSampleController extends Controller
     {
         FrequentlyMsg::find($request['id'])
             ->update([
-                'status'        => 0,
+                'status'        => 1,
         ]);
         return redirect()->route('msgsample.index');
 

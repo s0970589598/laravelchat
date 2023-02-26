@@ -17,7 +17,7 @@ class CreateEmailSampleTable extends Migration
             $table->id();
             $table->string('subject');
             $table->text('content');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

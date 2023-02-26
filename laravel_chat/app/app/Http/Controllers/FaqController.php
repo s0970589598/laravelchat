@@ -28,13 +28,13 @@ class FaqController extends Controller
         // $rooms = Room::with(['users', 'messages' => function ($query) {
         //     $query->orderBy('created_at', 'asc');
         // }])->orderBy('created_at', 'desc')->get();
-        $limit = 2;
+        $limit = 10;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
         //$email_sample = DB::table('email_sample');
         $faq = FAQ::orderBy('id', 'desc')
-        ->where('status','1')
+        // ->where('status','0')
         ->paginate($limit);
 
         return view('faq.index', [
@@ -58,6 +58,7 @@ class FaqController extends Controller
             ->update([
                 'question'     => $request['question'],
                 'answer'       => $request['answer'],
+                'url'          => $request['url'],
         ]);
         return redirect()->route('faq.index');
 
@@ -67,7 +68,7 @@ class FaqController extends Controller
     {
         $faq = FAQ::find($request['id'])
             ->update([
-                'status'     => 0,
+                'status'     => 1,
         ]);
         return redirect()->route('faq.index');
 
@@ -87,14 +88,15 @@ class FaqController extends Controller
         $params = $request->validate([
             'question'   => ['required'],
             'answer'   => ['required'],
+            'url'   => ['required'],
         ]);
-        Log::info($params);
         DB::beginTransaction();
         try {
             $faq = FAQ::create([
                 'question'     => $params['question'],
                 'answer'       => $params['answer'],
-                'status'       => 1,
+                'url'          => $params['url'],
+                'status'       => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -103,7 +105,7 @@ class FaqController extends Controller
             Log::error($e->getMessage());
         }
 
-        return redirect()->route('faq.index', $faq->id);
+        return redirect()->route('faq.index');
     }
 
     public function publish(int $id, Request $request)

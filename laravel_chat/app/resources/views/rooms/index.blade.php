@@ -393,7 +393,6 @@
                         '</div>' +
                         '<div class="message my-message float-right">' + text + '</div>'
                 }
-
                 const chatNewThread = document.createElement('li');
                 chatNewThread.className = "clearfix";
                 chatNewThread.innerHTML = msg;
