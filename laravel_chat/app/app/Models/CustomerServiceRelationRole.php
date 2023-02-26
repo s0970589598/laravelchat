@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class CustomerServiceRelationRole extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'customer_service_relation_role';
@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'user_id',
-        'service_id',
+        'service',
         'role',
     ];
 
@@ -39,14 +39,14 @@ class User extends Authenticatable
     protected $casts = [
     ];
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'users');
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'users');
+    // }
 
-    public function services()
-    {
-        return $this->belongsToMany(Customerservice::class, 'customer_service');
-    }
+    // public function services()
+    // {
+    //     return $this->belongsToMany(Customerservice::class, 'customer_service');
+    // }
 
 }

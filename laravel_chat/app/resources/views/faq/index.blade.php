@@ -162,7 +162,7 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/dialoguelist" class="nav-link nav-toggle">
                                 <i class="icon-bubble"></i>
                                 <span class="title">對話管理</span>
                             </a>
@@ -281,24 +281,16 @@
                             <tr>
                                 <th>問題</th>
                                 <th>答案</th>
+                                <th>Url</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>請問附近有停車場嗎？</td>
-                                <td>局處附近都有多個公有停車場。請聯繫公有停管處：<a href="https://pma.gov.taipei/">https://pma.gov.taipei/</a></td>
-                                <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
-                                </td>
-                            </tr>
                             <?php foreach ($faq as $f): ?>
                             <tr>
                                 <td data-question="{{ $f->question }}" class="custom-question">{{ $f->question }}</td>
                                 <td data-answer="{{ $f->answer }}" class="custom-answer">{{ $f->answer }}</td>
+                                <td data-url="{{ $f->url }}" class="custom-url">{{ $f->url }}</td>
                                 <td>
                                     <button class="btn edit-btn btn-sm" data-id="{{ $f->id }}" data-title="{{ $f->id }}"data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/faq/upstatus/{{$f->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
@@ -371,6 +363,10 @@
                         <label for="answer" class="col-form-label">Answer:</label>
                         <textarea class="form-control" id="answer" name="answer"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="url" class="col-form-label">Url:</label>
+                        <input type="text" class="form-control" id="url" name="url">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -402,6 +398,10 @@
                     <div class="form-group">
                         <label for="answer" class="col-form-label">Answer:</label>
                         <textarea class="form-control" id="answer" name="answer"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="url" class="col-form-label">Url:</label>
+                        <input type="text" class="form-control" id="url" name="url">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -466,12 +466,14 @@
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
                 let question = btn.closest('td').siblings('.custom-question').data('question');
                 let answer = btn.closest('td').siblings('.custom-answer').data('answer');
+                let url = btn.closest('td').siblings('.custom-url').data('url');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
                 $('.modalTextInput').val('');
                 $('.saveEdit').data('id', id); // then pass it to the button inside the modal
                 modal.find('.modal-body input#question').val(question);//把抓到的資料顯示在input內
                 modal.find('.modal-body textarea#answer').val(answer);
+                modal.find('.modal-body input#url').val(url);
                 modal.find('.modal-body input#id').val(id);
             })
 

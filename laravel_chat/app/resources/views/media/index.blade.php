@@ -456,6 +456,7 @@
                 $('.saveEdit').data('id', id); // then pass it to the button inside the modal
                 modal.find('.modal-body input#type').val(type);//把抓到的資料顯示在input內
                 modal.find('.modal-body input#title').val(title);
+                modal.find('.modal-body input#id').val(id);
                 //modal.find('.modal-body input#file').val(file);
             })
 

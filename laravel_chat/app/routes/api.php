@@ -25,4 +25,5 @@ Route::group([
 ], function () {
     Route::post('/centrifugo/connect', [CentrifugoProxyController::class, 'connect']);
     Route::post('/rooms/{id}/publish', [RoomController::class, 'publish'])->name('rooms.publish');
+    Route::post('/dialogue/{id}/publish', [DialogueController::class, 'publish'])->name('dialogue.publish');
 });

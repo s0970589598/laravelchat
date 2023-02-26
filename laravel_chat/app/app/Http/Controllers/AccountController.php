@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\CustomerServiceRelationRole;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -12,6 +13,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AccountController extends Controller
@@ -31,15 +34,14 @@ class AccountController extends Controller
         // }])->orderBy('created_at', 'desc')->get();
         $rooms = 0;
         //$email_sample = EmailSample::get();
-        $limit = 2;
+        $limit = 10;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
         //$email_sample = DB::table('email_sample');
         $users = User::orderBy('users.id', 'desc')
-        //->where('status','1')
-        ->rightJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
-        ->leftJoin('customer_service', 'customer_service.id', '=', 'customer_service_relation_role.service_id')
+        //->where('status','0')
+        ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
 
         return view('account.index', [
@@ -72,32 +74,55 @@ class AccountController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name'  => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $params = $request->validate([
+             'email' => ['required'],
+             'service' => ['required'],
+             'role' => ['required'],
+         ]);
 
-        $user = User::create([
-            'name'  => $request->name,
-            'email' => $request->email,
-            //'password' => Hash::make($request->password),
-        ]);
+        DB::beginTransaction();
+        try {
+            $user = User::create([
+                'name'  =>  $params['email'],
+                'email' =>  $params['email'],
+                'password' => Hash::make('test123'),
+            ]);
+            $service_relation_role = CustomerServiceRelationRole::create([
+                'user_id'  => $user->id,
+                'service' => $params['service'],
+                'role' => $params['role'],
+            ]);
 
-        $param = array(
-            'email'   => $request->email,
-            'service' => array(
-                'service_id' => $request->email,
-                'role'       => $request->role,
+            $param = array(
+                'email'   => $request->email,
+                'service' => $request->service,
+                'role' => $request->role,
+            );
 
-            ),
-        );
+            //$this->sendUserConfirmMail($param);
+            // $room->users()->attach(Auth::user()->id);
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+        }
+        // event(new Registered($user));
 
-        $this->sendUserConfirmMail($param);
-        event(new Registered($user));
-
-        return redirect()->route('rooms.show', $room->id);
+        return redirect()->route('account.index');
     }
+
+    public function update(Request $request)
+    {
+        Log::info($request);
+        CustomerServiceRelationRole::where('user_id', $request['id'])
+            ->update([
+                'service'  => $request['service'],
+                'role'     => $request['role'],
+            ]);
+        return redirect()->route('account.index');
+
+    }
+
 
     public function publish(int $id, Request $request)
     {
@@ -168,4 +193,13 @@ class AccountController extends Controller
 
     }
 
+    public function upstatus(request $request)
+    {
+        User::find($request['id'])
+            ->update([
+                'status'     => 1,
+        ]);
+        return redirect()->route('account.index');
+
+    }
 }

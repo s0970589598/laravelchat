@@ -27,13 +27,13 @@ class MailSampleController extends Controller
     {
         $rooms = 0;
         //$email_sample = EmailSample::get();
-        $limit = 2;
+        $limit = 10;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
         //$email_sample = DB::table('email_sample');
         $email_sample = EmailSample::orderBy('id', 'desc')
-        ->where('status','1')
+        ->where('status','0')
         ->paginate($limit);
 
         // if (isset($r['title']) && $r['title']) {
@@ -84,7 +84,7 @@ class MailSampleController extends Controller
             $mailsample = EmailSample::create([
                 'subject'     => $params['subject'],
                 'content'     => $params['content'],
-                'status'      => 1,
+                'status'      => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -111,7 +111,7 @@ class MailSampleController extends Controller
     {
         EmailSample::find($request['id'])
             ->update([
-                'status'        => 0,
+                'status'        => 1,
         ]);
         return redirect()->route('mailsample.index');
     }

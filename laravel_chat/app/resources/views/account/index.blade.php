@@ -22,6 +22,9 @@
     <link href="assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
     <link href="assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
+     <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
+
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <link href="assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css" rel="stylesheet" type="text/css" />
@@ -162,7 +165,7 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/dialoguelist" class="nav-link nav-toggle">
                                 <i class="icon-bubble"></i>
                                 <span class="title">對話管理</span>
                             </a>
@@ -252,7 +255,7 @@
                             <option value="4">Ｄ旅遊服務中心</option>
                             <option value="5">Ｅ旅遊服務中心</option>
                         </select>
-                        <a class="add-btn" href="javascript:volid(0);">
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
                             <i class="icon-plus"></i>
                             新增人員
                         </a>
@@ -273,14 +276,12 @@
                         <tbody>
                             <?php foreach ($users as $user): ?>
                             <tr>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->role }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>
+                                <td data-role="{{ $user->role }}" class="custom-role">{{ $user->role }}</td>
+                                <td data-service="{{ $user->service }}" class="custom-service">{{ $user->service }}</td>
                                 <td>
-                                    <a href="#" class="edit-btn">
-                                        <i class="icon-pencil"></i> 編輯</a>
-                                    <button type="button" class="delet-btn" data-sn="23">
-                                        <i class="icon-trash"></i>刪除</button>
+                                    <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                    <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -331,6 +332,92 @@
             </div>
         </div>
         <!-- END FOOTER -->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新增帳號</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="/account/add" method="post">
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email" class="col-form-label">email:</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="role" class="col-form-label">role:</label>
+                            <select name="role">
+                                <option value="admin">管理者</option>
+                                <option value="customer">客服</option>
+                                <option value="user">一般</option>
+                                <option value="admin99">最高管理者</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="service" class="col-form-label">中心:</label>
+                            <div class="file-loading">
+                                <input class="typeahead" type="text" id="service" value="Amsterdam,Washington" data-role="tagsinput" name="service"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+
+            </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/account/edit" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email" class="col-form-label">email:</label>
+                        <input type="text" class="form-control" id="email" name="email">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="role" class="col-form-label">role:</label>
+                        <select name="role">
+                            <option value="admin">管理者</option>
+                            <option value="customer">客服</option>
+                            <option value="user">一般</option>
+                            <option value="admin99">最高管理者</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="service" class="col-form-label">中心:</label>
+                        <div class="file-loading">
+                            <input class="typeahead" type="text" id="service" value="Amsterdam,Washington" data-role="tagsinput" name="service"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+            </div>
+        </div>
+
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
@@ -338,6 +425,7 @@
          <!-- BEGIN CORE PLUGINS -->
     <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
     <script src="assets/metronic/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="js/typeahead.bundle.js" type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
@@ -345,8 +433,7 @@
     <script src="assets/metronic/theme/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
-    <!-- END CORE PLUGINS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>    <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
@@ -373,7 +460,61 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
     <script>
+
+        $(function() {
+            $('#editModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
+                let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
+                let email = btn.closest('td').siblings('.custom-email').data('email');
+                let role = btn.closest('td').siblings('.custom-role').data('role');
+                let service = btn.closest('td').siblings('.custom-service').data('service');
+
+                let modal = $(this); //要修改的modal就是現在開啟的這個modal
+
+                $('.modalTextInput').val('');
+                $('.saveEdit').data('id', id); // then pass it to the button inside the modal
+                modal.find('.modal-body input#email').val(email);//把抓到的資料顯示在input內
+                modal.find('.modal-body input#role').val(role);
+                modal.find('.modal-body input#service').val(service);
+                modal.find('.modal-body input#id').val(id);
+            })
+
+            $('.saveEdit').on('click', function() {
+                let id = $(this).data('id'); // the rest is just the same
+                saveNote(id);
+                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
+            })
+        })
+
+        function saveNote(id) {
+        let text = $('.modalTextInput').val();
+        $('.recentNote').data('note', text);
+        console.log($('.recentNote').data('note'));
+        console.log(text + ' --> ' + id);
+        }
+
+        function getValue(){
+        var value= $.ajax({
+            url: '/assets/citynames.json',
+            async: false
+        }).responseText;
+        return value;
+        }
+
+        var aa = this.getValue();
+
+
+        $('#service').tagsinput({
+        typeahead: {
+            source: function(query) {
+            return aa;
+            }
+        }
+        });
+
+
         am5.ready(function() {
 
         // Create root element

@@ -17,7 +17,7 @@ class CreateFrequentlyMsgTable extends Migration
             $table->id();
             $table->string('subject');
             $table->string('type');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->text('reply');
             $table->timestamps();
         });

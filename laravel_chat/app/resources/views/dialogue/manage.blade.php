@@ -3,13 +3,11 @@
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <!--<![endif]-->
+        <!--<![endif]-->
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>客服摘要</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <title>對話管理</title>
         <meta name="robots" content="noindex , nofollow">
 		<!-- <base href="https://app.starcharger.com.tw/" /> -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -157,13 +155,13 @@
                     <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                        <li class="nav-item start active">
+                        <li class="nav-item start ">
                             <a href="/dashboard" class="nav-link active">
                                 <i class="icon-graph"></i>
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item active">
                             <a href="/dialoguelist" class="nav-link nav-toggle">
                                 <i class="icon-bubble"></i>
                                 <span class="title">對話管理</span>
@@ -202,7 +200,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item">
                             <a href="/faq" class="nav-link nav-toggle">
                                 <i class="icon-drawer"></i>
                                 <span class="title">知識庫FAQ</span>
@@ -234,113 +232,192 @@
 <div class="row">
     <div class="col-md-12">
         <div class="page-title">
-            <h1 class="title">客服摘要</h1>
+            <h1 class="title">對話管理</h1>
         </div>
-        <div class="portlet-title">
-            <div class="row widget-row">
-                <div class="col-md-4">
-                    <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="#">
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                            <h4 class="widget-thumb-heading">等待客服人數</h4>
-                            <div class="widget-thumb-wrap">
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">10<small class="unit">人</small></span>
-                                </div>
-                                <i class="widget-thumb-icon bg-orange icon-user"></i>
-                            </div>
-                            <div class="actions">
-                                <div class="go-btn" href="#">
-                                    <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                <!-- END WIDGET THUMB -->
-                </div>
-                <div class="col-md-4">
-                    <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="#">
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                            <h4 class="widget-thumb-heading">在線客服人數</h4>
-                            <div class="widget-thumb-wrap">
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">02<small class="unit">人</small></span>
-                                </div>
-                                <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
-                            </div>
-                            <div class="actions">
-                                <div class="go-btn" href="#">
-                                    <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- END WIDGET THUMB -->
-                </div>
-                <div class="col-md-4">
-                    <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="#">
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                            <h4 class="widget-thumb-heading">待審核異常URL</h4>
-                            <div class="widget-thumb-wrap">
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">00<small class="unit">條</small></span>
-                                </div>
-                                <i class="widget-thumb-icon bg-red icon-link"></i>
-                            </div>
-                            <div class="actions">
-                                <div class="go-btn" href="#">
-                                    <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- END WIDGET THUMB -->
-                </div>
-            </div>
         <div class="portlet light">
             <div class="portlet-title">
-                <div class="caption">
-                    <span class="caption-subject">客服對話量</span>
-                </div>
                 <div class="actions">
-                    <div class="form-group">
-                        <form class="form-inline">
-                            <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy" style="margin-right: 5px;">
-                                <input type="text" class="form-control" name="from">
-                                <span class="input-group-addon"> to </span>
-                                <input type="text" class="form-control" name="to">
-                            </div>
-                            <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
-                                <i class="fa fa-search"></i>
-                                查詢
-                            </button>
-                        </form>
-                    </div>
+                    <form class="form-inline" id="form-search" method="GET">
+                        {{-- <select name="manager_question_type" class="form-control" style="margin-right: 5px;">
+                            <option value="0">全部</option>
+                            <option value="1">問題</option>
+                            <option value="2">答案</option>
+                        </select> --}}
+                        <input name="user_name_keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
+                        <input name="page" type="hidden" value="1" />
+                        <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
+                            <i class="fa fa-search"></i>
+                            查詢
+                        </button>
+                        <select name="manager_group_sn" class="form-control">
+                            <option value="0">請選擇所屬單位</option>
+                            <option value="1">Ａ旅遊服務中心</option>
+                            <option value="2">Ｂ旅遊服務中心</option>
+                            <option value="3">Ｃ旅遊服務中心</option>
+                            <option value="4">Ｄ旅遊服務中心</option>
+                            <option value="5">Ｅ旅遊服務中心</option>
+                        </select>
+                        {{-- <label class="d-inline margin-right-10">
+                            <input type="checkbox">
+                            異常URL
+                        </label>
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
+                            <i class="icon-plus"></i>
+                            新增問答
+                        </a>
+                        <a class="import-btn" href="javascript:volid(0);">
+                            匯入問答
+                        </a>
+                        <a class="add-btn" href="javascript:volid(0);">
+                            下載問答
+                        </a> --}}
+                    </form>
                 </div>
             </div>
             <div class="portlet-body">
-                <div id="chartdiv"></div>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover" id="table_member">
+                        <thead>
+                            <tr>
+                                <th>使用者名稱</th>
+                                <th>節錄對話</th>
+                                <th>狀態</th>
+                                <th>狀態敘述</th>
+                                <th>回覆</th>
+                                <th class="feature">指派</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rooms as $room): ?>
+                            <tr>
+                                <td>{{ $room->name }}</td>
+                                <td>{{ ($room->messages->count() > 0) ? $room->messages->last()->user->name : '' }} <br/>
+                                    {{ ($room->messages->count() > 0) ? Str::limit($room->messages->last()->message, 15) : '' }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <button onclick="location.href='{{ route('rooms.show', $room->id) }}'" id="room-{{ $room->id }}" class="btn" >使用者回覆</button>
+                                    <button onclick="location.href='{{ route('dialogue.show', $room->id) }}'" id="room-{{ $room->id }}" class="btn" >客服回覆</button>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="pull-left">
+                    <div class="pagination-panel">
+                        顯示第 1 到 10 筆
+                        <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;">
+                            <option value="administrator/manager/table/1?limit=10&">
+                                10
+                            </option>
+                            <option value="administrator/manager/table/1?limit=30&">
+                                30
+                            </option>
+                            <option value="administrator/manager/table/1?limit=50&">
+                                50
+                            </option>
+                            <option value="administrator/manager/table/1?limit=100&">
+                                100
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <!-- pagination -->
+                <div class="pull-right">
+                    <ul id="pagination" class="pagination-sm pagination"></ul>
+                    <?php
+
+                            echo $rooms->links();
+                    ?>
+                </div>
                 <!-- /pagination -->
                 <div style="clear:both;"></div>
+                </div>
+            </div>
+            <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="page-footer-inner"> Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.</div>
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
             </div>
         </div>
-            <!-- /.portlet-body -->
+        <!-- END FOOTER -->
+        <!-- Modal -->
+        <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">新增FAQ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form action="/faq/add" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="question" class="col-form-label">Question:</label>
+                        <input type="text" class="form-control" id="question" name="question">
+                    </div>
+                    <div class="form-group">
+                        <label for="answer" class="col-form-label">Answer:</label>
+                        <textarea class="form-control" id="answer" name="answer"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+
+            </div>
+            </div>
         </div>
-    </div>
-        <!-- /.portlet -->
-</div>
-    <!-- END CONTAINER -->
-    <!-- BEGIN FOOTER -->
-    <div class="page-footer">
-        <div class="page-footer-inner"> Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.</div>
-        <div class="scroll-to-top">
-            <i class="icon-arrow-up"></i>
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="/faq/edit" method="post">
+                    {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="question" class="col-form-label">Question:</label>
+                        <input type="text" class="form-control" id="question" name="question">
+                        <input type="hidden" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group">
+                        <label for="answer" class="col-form-label">Answer:</label>
+                        <textarea class="form-control" id="answer" name="answer"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+              </div>
+            </div>
         </div>
-    </div>
-    <!-- END FOOTER -->
-    <!--[if lt IE 9]>
+
+        <!--[if lt IE 9]>
+            <script src="assets/metronic/global/plugins/respond.min.js"></script>
+            <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
+        <![endif]-->
+        <!--[if lt IE 9]>
         <script src="assets/metronic/global/plugins/respond.min.js"></script>
         <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
     <![endif]-->
@@ -383,6 +460,35 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script>
+        $(function() {
+            $('#editModal').on('show.bs.modal', function(e) {
+                let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
+                let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
+                let question = btn.closest('td').siblings('.custom-question').data('question');
+                let answer = btn.closest('td').siblings('.custom-answer').data('answer');
+                let modal = $(this); //要修改的modal就是現在開啟的這個modal
+
+                $('.modalTextInput').val('');
+                $('.saveEdit').data('id', id); // then pass it to the button inside the modal
+                modal.find('.modal-body input#question').val(question);//把抓到的資料顯示在input內
+                modal.find('.modal-body textarea#answer').val(answer);
+                modal.find('.modal-body input#id').val(id);
+            })
+
+            $('.saveEdit').on('click', function() {
+                let id = $(this).data('id'); // the rest is just the same
+                saveNote(id);
+                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
+            })
+        })
+
+        function saveNote(id) {
+        let text = $('.modalTextInput').val();
+        $('.recentNote').data('note', text);
+        console.log($('.recentNote').data('note'));
+        console.log(text + ' --> ' + id);
+        }
+
         am5.ready(function() {
 
         // Create root element

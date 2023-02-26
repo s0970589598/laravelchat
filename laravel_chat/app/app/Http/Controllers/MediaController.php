@@ -36,7 +36,7 @@ class MediaController extends Controller
         }
         //$email_sample = DB::table('email_sample');
         $media = Media::orderBy('id', 'desc')
-        ->where('status','1')
+        ->where('status','0')
         ->paginate($limit);
 
         return view('media.index', [
@@ -74,6 +74,7 @@ class MediaController extends Controller
             'title'  => ['required'],
             'file'   => ['required'],
         ]);
+
         $fileName = time() . '.'. $request->file->extension();
 
         $type = $request->file->getClientMimeType();
@@ -88,7 +89,7 @@ class MediaController extends Controller
                 'type'        => $params['type'],
                 'title'       => $params['title'],
                 'file'        => $fileName,
-                'status'      => 1,
+                'status'      => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -102,11 +103,18 @@ class MediaController extends Controller
 
     public function update(Request $request)
     {
+        $fileName = time() . '.'. $request->file->extension();
+
+        $type = $request->file->getClientMimeType();
+        $size = $request->file->getSize();
+
+        $request->file->move(public_path('file'), $fileName);
+
         Media::find($request['id'])
             ->update([
                 'type'        => $request['type'],
                 'title'       => $request['title'],
-                'file'        => $request['file'],
+                'file'        =>  $fileName,
         ]);
         return redirect()->route('media.index');
 
@@ -115,7 +123,7 @@ class MediaController extends Controller
     {
         Media::find($request['id'])
             ->update([
-                'status'        => 0,
+                'status'        => 1,
         ]);
         return redirect()->route('media.index');
 

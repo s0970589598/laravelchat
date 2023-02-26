@@ -26,7 +26,13 @@ Route::get('/', function () {
 });
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/account', [AccountController::class, 'index'])->name('account.index');
+Route::get('/account/upstatus/{id}', [AccountController::class, 'upstatus'])->name('account.upstatus');
+Route::post('/account/add', [AccountController::class, 'store'])->name('account.store');
+Route::post('/account/edit', [AccountController::class, 'update'])->name('account.update');
+
 Route::get('/dialogue', [DialogueController::class, 'index'])->name('dialogue.index');
+Route::get('/dialogue/{id}', [DialogueController::class, 'show'])->name('dialogue.show');
+Route::get('/dialoguelist', [DialogueController::class, 'manage'])->name('dialogue.manage');
 
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 Route::post('/faq/add', [FaqController::class, 'store'])->name('faq.store');
