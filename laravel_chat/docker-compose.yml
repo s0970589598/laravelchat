@@ -85,8 +85,10 @@ services:
     container_name: nginxt
     image: nginx:1.17.2-alpine
     ports:
-      - "80:80"
+      - "8080:8080"
+      - "443:443"
     expose:
+      - 8080
       - 80
     volumes:
       - ./app/:/app:delegated
