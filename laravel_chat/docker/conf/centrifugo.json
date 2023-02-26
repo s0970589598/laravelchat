@@ -5,7 +5,8 @@
   "allowed_origins": [
     "http://localhost",
     "http://localhost:8080",
-    "http://127.0.0.1"
+    "http://127.0.0.1",
+    "http://motc.faninsights.io:8080"
   ],
   "proxy_connect_endpoint": "http://nginxt/centrifugo/connect/",
   "proxy_http_headers": [
