@@ -168,11 +168,20 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
-                                <i class="icon-pie-chart"></i>
-                                <span class="title">統計資料</span>
-                            </a>
-                        </li>
+                        <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <i class="icon-list"></i>
+                            <span class="title">管理統計資料</span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu" style="display: block;">
+                            <li class="nav-item start ">
+                                <a href="/satisfaction" class="nav-link ">
+                                    <i class="icon-pencil"></i>
+                                    <span class="title">滿意度調查</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                         <li class="nav-item ">
                             <a href="javascript:volid(0);" class="nav-link nav-toggle">
                                 <i class="icon-list"></i>
@@ -238,43 +247,44 @@
             <div class="portlet-title">
                 <div class="actions">
                     <form class="form-inline" id="form-search" method="GET">
-                        {{-- <select name="manager_question_type" class="form-control" style="margin-right: 5px;">
-                            <option value="0">全部</option>
-                            <option value="1">問題</option>
-                            <option value="2">答案</option>
-                        </select> --}}
-                        <input name="user_name_keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
-                        <input name="page" type="hidden" value="1" />
-                        <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
-                            <i class="fa fa-search"></i>
-                            查詢
-                        </button>
-                        <select name="manager_group_sn" class="form-control">
-                            <option value="0">請選擇所屬單位</option>
+                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy" style="margin-right: 5px;">
+                            <input type="text" class="form-control" name="from" placeholder="請選擇開始時間">
+                            <span class="input-group-addon"> to </span>
+                            <input type="text" class="form-control" name="to" placeholder="請選擇結束時間">
+                        </div>
+                        <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                            <option value="0">請選擇服務中心</option>
                             <option value="1">Ａ旅遊服務中心</option>
                             <option value="2">Ｂ旅遊服務中心</option>
                             <option value="3">Ｃ旅遊服務中心</option>
                             <option value="4">Ｄ旅遊服務中心</option>
                             <option value="5">Ｅ旅遊服務中心</option>
                         </select>
-                        {{-- <label class="d-inline margin-right-10">
-                            <input type="checkbox">
-                            異常URL
-                        </label>
-                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
-                            <i class="icon-plus"></i>
-                            新增問答
-                        </a>
-                        <a class="import-btn" href="javascript:volid(0);">
-                            匯入問答
-                        </a>
+                        <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                            <option value="0">請選擇狀態</option>
+                            <option value="1">待客服</option>
+                            <option value="2">客服中</option>
+                            <option value="3">已完成</option>
+                            <option value="4">逾期未回覆</option>
+                            <option value="5">智能客服</option>
+                            <option value="6">客服轉介</option>
+                        </select>
+                        <input name="question_keyword" class="form-control" placeholder="請搜尋關鍵字"
+                            value="" style="margin-right: 5px;">
+                        <input name="page" type="hidden" value="1" />
+                        <button type="submit" class="search-btn" id="btn-search"
+                            style="margin-right: 5px;">
+                            <i class="fa fa-search"></i>
+                            查詢
+                        </button>
                         <a class="add-btn" href="javascript:volid(0);">
-                            下載問答
-                        </a> --}}
+                            <i class="fa fa-download"></i>
+                            匯出
+                        </a>
                     </form>
                 </div>
             </div>
-            <div class="portlet-body">
+<div class="portlet-body">
                 <div class="table-scrollable">
                     <table class="table table-striped table-bordered table-hover" id="table_member">
                         <thead>

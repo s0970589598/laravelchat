@@ -7,7 +7,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>媒體庫</title>
+        <title>滿意度調查</title>
         <meta name="robots" content="noindex , nofollow">
 		<!-- <base href="https://app.starcharger.com.tw/" /> -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -156,13 +156,13 @@
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start ">
-                            <a href="/dashboard" class="nav-link active">
+                            <a href="/dashboard" class="nav-link">
                                 <i class="icon-graph"></i>
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/dialoguelist" class="nav-link nav-toggle">
                                 <i class="icon-bubble"></i>
                                 <span class="title">對話管理</span>
                             </a>
@@ -174,8 +174,8 @@
                             <span class="arrow open"></span>
                         </a>
                         <ul class="sub-menu" style="display: block;">
-                            <li class="nav-item start ">
-                                <a href="/satisfaction" class="nav-link ">
+                            <li class="nav-item start active">
+                                <a href="/satisfaction" class="nav-link">
                                     <i class="icon-pencil"></i>
                                     <span class="title">滿意度調查</span>
                                 </a>
@@ -195,13 +195,13 @@
                                         <span class="title">信件範本</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start ">
+                                <li class="nav-item start">
                                     <a href="/msgsample" class="nav-link ">
                                         <i class="icon-bubbles"></i>
                                         <span class="title">訊息範本</span>
                                     </a>
                                 </li>
-                                <li class="nav-item start active">
+                                <li class="nav-item start ">
                                     <a href="/media" class="nav-link ">
                                         <i class="icon-folder"></i>
                                         <span class="title">媒體庫</span>
@@ -227,99 +227,244 @@
                 <!-- END SIDEBAR -->
             </div>
             <!-- END SIDEBAR -->
-            <!-- BEGIN CONTENT -->
-            <div class="page-content-wrapper">
-                <!-- BEGIN CONTENT BODY -->
-                <div class="page-content">
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
 
-<style>
-    .clearfix{clear:both;}
-    td{
-        overflow: hidden;
-    }
-</style>
-<div class="row">
-    <div class="col-md-12">
-        <div class="page-title">
-            <h1 class="title">媒體庫</h1>
-        </div>
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
-                        <select name="manager_question_type" class="form-control"
-                            style="margin-right: 5px;">
-                            <option value="0">全部</option>
-                            <option value="1">問題</option>
-                            <option value="2">答案</option>
-                        </select>
-                        <a class="add-btn" href="javascript:volid(0);">
-                            <i class="icon-plus"></i>
-                            新增媒體範本
-                        </a>
-                    </form>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="table-scrollable">
-                    <table class="table table-striped table-bordered table-hover" id="table_member">
-                        <thead>
-                            <tr>
-                                <th>分類</th>
-                                <th>標題</th>
-                                <th>檔案</th>
-                                <th class="feature">功能</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($media as $m): ?>
-                            <tr>
-                                <td data-type="{{ $m->type }}" class="custom-type">{{ $m->type }}</td>
-                                <td data-title="{{ $m->title }}" class="custom-title">{{ $m->title }}</td>
-                                <td data-file="{{ $m->file }}" class="custom-file"><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
-                                <td>
-                                    <button class="btn edit-btn btn-sm" data-id="{{ $m->id }}" data-title="{{ $m->id }}"data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
-                                    <a href="/media/upstatus/{{$m->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div style="clear:both;"></div>
-                <div class="pull-left">
-                    <div class="pagination-panel">
-                        顯示第 1 到 10 筆
-                        <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;">
-                            <option value="administrator/manager/table/1?limit=10&">
-                                10
-                            </option>
-                            <option value="administrator/manager/table/1?limit=30&">
-                                30
-                            </option>
-                            <option value="administrator/manager/table/1?limit=50&">
-                                50
-                            </option>
-                            <option value="administrator/manager/table/1?limit=100&">
-                                100
-                            </option>
-                        </select>
+                <style>
+                    .clearfix {
+                        clear: both;
+                    }
+
+                    td {
+                        overflow: hidden;
+                    }
+                </style>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="page-title">
+                            <h1 class="title">滿意度調查</h1>
+                            <div class="time"></div>
+                        </div>
+                        <div class="portlet-title">
+                            <div class="row widget-row">
+                                <div class="col-md-4">
+                                    <!-- BEGIN WIDGET THUMB -->
+                                    <a class="widget-thumb-click" href="#">
+                                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="padding-bottom: 20px;">
+                                            <h4 class="widget-thumb-heading">滿意度調查發出數</h4>
+                                            <div class="widget-thumb-wrap">
+                                                <div class="widget-thumb-body">
+                                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                                        data-value="7,644">10<small class="unit">份</small></span>
+                                                </div>
+                                                <i class="widget-thumb-icon bg-orange icon-user"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- END WIDGET THUMB -->
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- BEGIN WIDGET THUMB -->
+                                    <a class="widget-thumb-click" href="#">
+                                        <div
+                                            class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="padding-bottom: 20px;">
+                                            <h4 class="widget-thumb-heading">在線客服人數</h4>
+                                            <div class="widget-thumb-wrap">
+                                                <div class="widget-thumb-body">
+                                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                                        data-value="7,644">02<small class="unit">份</small></span>
+                                                </div>
+                                                <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- END WIDGET THUMB -->
+                                </div>
+                                <div class="col-md-4">
+                                    <!-- BEGIN WIDGET THUMB -->
+                                    <a class="widget-thumb-click" href="#">
+                                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="padding-bottom: 20px;">
+                                            <h4 class="widget-thumb-heading">滿意度調查平均分數</h4>
+                                            <div class="widget-thumb-wrap">
+                                                <div class="widget-thumb-body">
+                                                    <span class="widget-thumb-body-stat" data-counter="counterup"
+                                                        data-value="7,644">4.2<small class="unit">分</small></span>
+                                                </div>
+                                                <i class="widget-thumb-icon bg-red icon-link"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- END WIDGET THUMB -->
+                                </div>
+                            </div>
+                            <div class="portlet light">
+                                <div class="portlet-title">
+                                    <div class="actions">
+                                        <div class="form-group">
+                                            <form class="form-inline">
+                                                <div class="input-group input-large date-picker input-daterange"
+                                                    data-date="10/11/2012" data-date-format="mm/dd/yyyy"
+                                                    style="margin-right: 5px;">
+                                                    <input type="text" class="form-control" name="from"
+                                                        placeholder="請選擇開始時間">
+                                                    <span class="input-group-addon"> to </span>
+                                                    <input type="text" class="form-control" name="to"
+                                                        placeholder="請選擇結束時間">
+                                                </div>
+                                                <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                                                    <option value="0">請選擇服務中心</option>
+                                                    <option value="1">Ａ旅遊服務中心</option>
+                                                    <option value="2">Ｂ旅遊服務中心</option>
+                                                    <option value="3">Ｃ旅遊服務中心</option>
+                                                    <option value="4">Ｄ旅遊服務中心</option>
+                                                    <option value="5">Ｅ旅遊服務中心</option>
+                                                </select>
+                                                <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                                                    <option value="0">請選擇滿意度評分</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <button type="submit" class="search-btn" id="btn-search"
+                                                    style="margin-right: 5px;">
+                                                    <i class="fa fa-search"></i>
+                                                    查詢
+                                                </button>
+                                                <a class="add-btn" href="javascript:volid(0);">
+                                                    <i class="fa fa-download"></i>
+                                                    匯出
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="portlet-body">
+                                        <div class="table-scrollable">
+                                            <table class="table table-striped table-bordered table-hover" id="table_member">
+                                                <thead>
+                                                    <tr>
+                                                        <th>旅服中心</th>
+                                                        <th>填寫日期</th>
+                                                        <th>評分</th>
+                                                        <th>未成單率</th>
+                                                        <th>平均回覆時間</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>基隆火車站旅遊服務中心</td>
+                                                        <td>2022-10-1 10:23:49</td>
+                                                        <td>5</td>
+                                                        <td>1%</td>
+                                                        <td>1 小時</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                        <div class="pull-left">
+                                            <div class="pagination-panel">
+                                                顯示第 1 到 10 筆
+                                                <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;">
+                                                    <option value="administrator/manager/table/1?limit=10&amp;">
+                                                        10
+                                                    </option>
+                                                    <option value="administrator/manager/table/1?limit=30&amp;">
+                                                        30
+                                                    </option>
+                                                    <option value="administrator/manager/table/1?limit=50&amp;">
+                                                        50
+                                                    </option>
+                                                    <option value="administrator/manager/table/1?limit=100&amp;">
+                                                        100
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- pagination -->
+                                        <div class="pull-right">
+                                            <ul id="pagination" class="pagination-sm pagination"></ul>
+                                        </div>
+                                        <!-- /pagination -->
+                                        <div style="clear:both;"></div>
+                                        <!-- /.portlet -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.portlet-body -->
+                        </div>
                     </div>
+                    <!-- /.portlet -->
                 </div>
-                <!-- pagination -->
-                <div class="pull-right">
-                    <ul id="pagination" class="pagination-sm pagination"></ul>
-                    <?php echo $media->links(); ?>
-
-                </div>
-                <!-- /pagination -->
-                <div style="clear:both;"></div>
-                </div>
-            </div>
-            <!-- END CONTENT BODY -->
-            </div>
-            <!-- END CONTENT -->
-        </div>
+                <!-- END CONTAINER -->
         <!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
@@ -339,31 +484,29 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <form action="/media/add" method="post" enctype="multipart/form-data">
+                <form action="/msgsample/add" method="post">
                     {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="type" class="col-form-label">Type:</label>
-                            <select name="type">
-                                <option value="交通問題">交通問題</option>
-                                <option value="設備問題">設備問題</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="title" class="col-form-label">Title:</label>
-                            <input type="text" class="form-control" id="title" name="title">
-                        </div>
-                        <div class="form-group">
-                            <label for="file" class="col-form-label">File:</label>
-                            <div class="file-loading">
-                                <input  type="file" multiple id="file" name="file" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip">
-                            </div>
-                        </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="type" class="col-form-label">Type:</label>
+                        <select name="type">
+                            <option value="交通問題">交通問題</option>
+                            <option value="設備問題">設備問題</option>
+                        </select>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="form-group">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input type="text" class="form-control" id="subject" name="subject">
                     </div>
+                    <div class="form-group">
+                        <label for="reply" class="col-form-label">Reply:</label>
+                        <textarea class="form-control" id="reply" name="reply"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
                 </form>
 
             </div>
@@ -379,7 +522,7 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="/media/edit" method="post" enctype="multipart/form-data">
+                <form action="/msgsample/edit" method="post">
                     {{ csrf_field() }}
                 <div class="modal-body">
                     <div class="form-group">
@@ -390,15 +533,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="title" class="col-form-label">Title:</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <label for="subject" class="col-form-label">Subject:</label>
+                        <input type="text" class="form-control" id="subject" name="subject">
                         <input type="hidden" class="form-control" id="id" name="id">
                     </div>
                     <div class="form-group">
-                        <label for="file" class="col-form-label">File:</label>
-                        <div class="file-loading">
-                            <input  type="file" multiple id="file" name="file" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip">
-                        </div>
+                        <label for="reply" class="col-form-label">Reply:</label>
+                        <textarea class="form-control" id="reply" name="reply"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -458,16 +599,16 @@
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
                 let type = btn.closest('td').siblings('.custom-type').data('type');
-                let title = btn.closest('td').siblings('.custom-title').data('title');
-                //let file = btn.closest('td').siblings('.custom-file').data('file');
+                let subject = btn.closest('td').siblings('.custom-subject').data('subject');
+                let reply = btn.closest('td').siblings('.custom-reply').data('reply');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
                 $('.modalTextInput').val('');
                 $('.saveEdit').data('id', id); // then pass it to the button inside the modal
-                modal.find('.modal-body input#type').val(type);//把抓到的資料顯示在input內
-                modal.find('.modal-body input#title').val(title);
+                modal.find('.modal-body select#type').val(type);//把抓到的資料顯示在input內
+                modal.find('.modal-body input#subject').val(subject);
+                modal.find('.modal-body textarea#reply').val(reply);
                 modal.find('.modal-body input#id').val(id);
-                //modal.find('.modal-body input#file').val(file);
             })
 
             $('.saveEdit').on('click', function() {

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-class AccountController extends Controller
+class SatisfactionController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
@@ -44,7 +44,7 @@ class AccountController extends Controller
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
 
-        return view('account.index', [
+        return view('satisfaction.manage', [
             'rooms' => $rooms,
             'users' => $users,
         ]);
