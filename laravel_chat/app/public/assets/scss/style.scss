@@ -63,6 +63,12 @@ body{
     max-width: 100%
 }
 
+#dropchart {
+    width: 100%;
+    height: 500px;
+    max-width: 100%
+}
+
 .page-title{
     .title{
         font-size: $font-l ;
@@ -136,6 +142,86 @@ body{
             }
         }
     }
+    .caption{
+        .caption-subject{
+            font-size: $font-m;
+            font-weight: $weight-s;
+            color: $text-content;
+        }
+    }
+    .tools{
+        button{  
+            border: transparent;
+            img{
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}
+
+.portlet-body{
+    table{
+        thead{
+            .scenario{
+                width: 150px;
+            }
+        }
+        tbody{
+            tr{
+                td{
+                    vertical-align: middle;
+                    .customer{
+                        display: flex;
+                        align-items: center;
+                        .contact{
+                            margin-left: 10px;
+                            .contact-name{
+                                font-size: $font-m;
+                                font-weight: $weight-m;
+                            }
+                            .item-label{
+                                font-size: $font-s;
+                            }
+                        }
+                    }
+                    .dialogue-content{
+                        .time{
+                            font-size: $font-s;
+                        }
+                        p{
+                            margin: 10px 0;
+                        }
+                    }
+                    .label-robot{
+                        background-color: $primary;
+                    }
+                    .assign{
+                        display: flex;
+                        .reply-btn{
+                            display: block;
+                            white-space: nowrap;
+                            font-size: $font-m;
+                            font-weight: $weight-m;
+                            padding: 4px 8px;
+                            margin-right: 5px;
+                            background-color: $secondary;
+                            border: 1px solid $secondary-dark;
+                            border-radius: 3px !important;
+                            color: $text-light;
+                            text-decoration: none;
+                            @extend %transition;
+                            &:hover{
+                                background-color: $secondary-dark;
+                                color: $text-light;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .caption{
@@ -172,7 +258,7 @@ body{
     border: 1px solid $primary;
     color: $text-light;
     border-radius: 3px !important;
-    padding: 6px;
+    padding: 6px 12px;
     margin-right: 5px;
     display: block;
     @extend %transition;
@@ -226,7 +312,7 @@ body{
 table{
     thead{
         .feature{
-            width: 150px;
+            width: 300px;
             text-align: center;
         }
     }

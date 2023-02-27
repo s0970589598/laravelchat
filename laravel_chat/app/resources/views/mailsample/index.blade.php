@@ -168,11 +168,20 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
-                                <i class="icon-pie-chart"></i>
-                                <span class="title">統計資料</span>
-                            </a>
-                        </li>
+                        <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <i class="icon-list"></i>
+                            <span class="title">管理統計資料</span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu" style="display: block;">
+                            <li class="nav-item start ">
+                                <a href="/satisfaction" class="nav-link ">
+                                    <i class="icon-pencil"></i>
+                                    <span class="title">滿意度調查</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                         <li class="nav-item ">
                             <a href="javascript:volid(0);" class="nav-link nav-toggle">
                                 <i class="icon-list"></i>
@@ -238,18 +247,20 @@
             <div class="portlet-title">
                 <div class="actions">
                     <form class="form-inline" id="form-search" method="GET">
-                        <select name="manager_question_type" class="form-control" style="margin-right: 5px;">
-                            <option value="0">全部</option>
-                            <option value="1">問題</option>
-                            <option value="2">答案</option>
-                        </select>
-                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
+                        <input name="user_name_keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
+                        <input name="page" type="hidden" value="1"/>
+                        <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
+                            <i class="fa fa-search"></i>
+                            查詢
+                        </button>
+                        <a class="add-btn" href="javascript:volid(0);">
                             <i class="icon-plus"></i>
                             新增信件範本
                         </a>
                     </form>
                 </div>
             </div>
+
             <div class="portlet-body">
                 <div class="table-scrollable">
                     <table class="table table-striped table-bordered table-hover" id="table_member">

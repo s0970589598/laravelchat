@@ -8,6 +8,8 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MsgSampleController;
 use App\Http\Controllers\MailSampleController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SatisfactionController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +56,9 @@ Route::get('/mailsample', [MailsampleController::class, 'index'])->name('mailsam
 Route::post('/mailsample/add', [MailsampleController::class, 'store'])->name('mailsample.store');
 Route::post('/mailsample/edit', [MailsampleController::class, 'update'])->name('mailsample.update');
 Route::get('/mailsample/upstatus/{id}', [MailsampleController::class, 'upstatus'])->name('mailsample.upstatus');
+
+Route::get('/satisfaction', [SatisfactionController::class, 'index'])->name('satisfaction.index');
+
 
 Route::group([
     'middleware' => 'auth',

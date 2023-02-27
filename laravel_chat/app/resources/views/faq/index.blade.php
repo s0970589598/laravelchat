@@ -168,11 +168,20 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
-                                <i class="icon-pie-chart"></i>
-                                <span class="title">統計資料</span>
-                            </a>
-                        </li>
+                        <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <i class="icon-list"></i>
+                            <span class="title">管理統計資料</span>
+                            <span class="arrow open"></span>
+                        </a>
+                        <ul class="sub-menu" style="display: block;">
+                            <li class="nav-item start ">
+                                <a href="/satisfaction" class="nav-link ">
+                                    <i class="icon-pencil"></i>
+                                    <span class="title">滿意度調查</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                         <li class="nav-item ">
                             <a href="javascript:volid(0);" class="nav-link nav-toggle">
                                 <i class="icon-list"></i>
