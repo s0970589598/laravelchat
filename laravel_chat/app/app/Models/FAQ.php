@@ -22,6 +22,7 @@ class FAQ extends Authenticatable
         'answer',
         'status',
         'url',
+        'is_err',
     ];
     /**
      * The attributes that should be hidden for serialization.
