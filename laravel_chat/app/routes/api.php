@@ -20,6 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::namespace ('Api')->group(function () {
+    Route::post('/api/rooms/add1', [RoomController::class, 'addrooms'])->name('rooms.addrooms');
+});
+
 Route::group([
     'middleware' => 'auth',
 ], function () {

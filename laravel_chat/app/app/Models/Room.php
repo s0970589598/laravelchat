@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+    const AI_CUSTOMER_SERVICE    = 1;
+    const WAIT_CUSTOMER_SERVICE  = 2;
+    const IN_CUSTOMER_SERVICEING = 3;
+    const OVERDUE_NO_REPLY       = 4;
+    const REFERRALS              = 5;
+    const COMPLETED              = 6;
+
     protected $fillable = [
         'name',
         'status',

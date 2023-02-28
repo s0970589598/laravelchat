@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\User;
+use App\Models\CustomerServiceRelationRole;
+
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -11,6 +14,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
+
 use Throwable;
 
 class RoomController extends Controller
@@ -113,4 +118,81 @@ class RoomController extends Controller
 
         return response('', $status);
     }
+
+    public function addRooms(Request $request){
+        $status = Response::HTTP_OK;
+        //Log::info($request->all());
+        $res = 'success';
+
+        $params = $request->validate([
+            'session_id'   => ['required'],
+            'sn'           => ['required'],
+            'status'       => ['required'],
+        ]);
+
+       DB::beginTransaction();
+       try {
+
+           $user = User::where('email',$params['session_id'] . '@motc.go')->get();
+            if ( count($user) == 0 ) {
+                $user = User::create([
+                'email'    =>  $params['session_id'] . '@motc.go',
+                'password' =>  Hash::make('test123'),
+                'authcode' =>  $params['session_id'],
+                ]);
+                $user_id  = $user->id;
+                $authcode = $user->authcode;
+
+                $service_relation_role = CustomerServiceRelationRole::create([
+                    'user_id'  => $user_id ,
+                    'service'  => $params['sn'],
+                    'role' => 'user',
+                ]);
+
+            } else {
+                $user_id = $user[0]->id;
+                $authcode = $user[0]->authcode;
+            }
+
+           $room = Room::create([
+            'name'    => $this->generateRandomString(5),
+            'status'  => $params['status'],
+            'service' => $params['sn'],
+           ]);
+
+           $room->users()->attach($user_id);
+           $res = array(
+            'msg'              => 'success',
+            'room_name'        => $room->name,
+            'room_service'     => $room->service,
+            'room_status'      => $room->status,
+            'authcode'         => $authcode,
+           );
+
+           //$this->sendUserConfirmMail($param);
+           // $room->users()->attach(Auth::user()->id);
+           DB::commit();
+       } catch (Throwable $e) {
+           DB::rollBack();
+           Log::error($e->getMessage());
+           $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+           $res = array(
+            'msg'        => 'fail',
+           );
+       }
+       // event(new Registered($user));
+       //return redirect()->route('account.index');
+       return response(json_encode($res), $status);
+    }
+
+    public function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 }
