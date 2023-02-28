@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->id();
             $table->string('name', 32)->unique();
             $table->string('status')->default(0);
+            $table->string('score')->nullable();
             $table->string('service')->nullable();
             $table->timestamps();
         });

@@ -10,6 +10,7 @@ class Room extends Model
         'name',
         'status',
         'service',
+        'score',
     ];
 
     public function users()
