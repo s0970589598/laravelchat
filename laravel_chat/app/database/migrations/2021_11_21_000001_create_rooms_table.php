@@ -16,7 +16,7 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name', 32)->unique();
-            $table->string('status')->default(0);
+            $table->string('status')->default(1);
             $table->string('score')->nullable();
             $table->string('service')->nullable();
             $table->timestamps();
