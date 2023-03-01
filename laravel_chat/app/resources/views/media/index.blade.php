@@ -253,7 +253,7 @@
                             <option value="1">問題</option>
                             <option value="2">答案</option>
                         </select>
-                        <a class="add-btn" href="javascript:volid(0);">
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
                             <i class="icon-plus"></i>
                             新增媒體範本
                         </a>
@@ -334,7 +334,7 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">新增信件範本</h5>
+                <h5 class="modal-title" id="exampleModalLabel">新增媒體範本</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

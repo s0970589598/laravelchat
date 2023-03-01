@@ -253,10 +253,11 @@
                             <i class="fa fa-search"></i>
                             查詢
                         </button>
-                        <a class="add-btn" href="javascript:volid(0);">
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
                             <i class="icon-plus"></i>
                             新增信件範本
                         </a>
+
                     </form>
                 </div>
             </div>
