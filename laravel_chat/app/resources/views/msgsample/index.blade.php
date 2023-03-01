@@ -254,7 +254,7 @@
                             <option value="2">Ｂ分類</option>
                             <option value="3">Ｃ分類</option>
                         </select>
-                        <a class="add-btn" href="javascript:volid(0);">
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
                             <i class="icon-plus"></i>
                             新增訊息範本
                         </a>
@@ -337,7 +337,7 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">新增信件範本</h5>
+                <h5 class="modal-title" id="exampleModalLabel">新增訊息範本</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
