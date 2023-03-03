@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace ('Api')->group(function () {
-    Route::post('/api/rooms/add1', [RoomController::class, 'addrooms'])->name('rooms.addrooms');
+    Route::post('/api/rooms/firstadd', [RoomController::class, 'addrooms'])->name('rooms.addrooms');
 });
 
 Route::group([
