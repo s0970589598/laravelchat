@@ -17,5 +17,7 @@ class VerifyCsrfToken extends Middleware
         'https://localhost/api/rooms/*',
         'https://motc.faninsights.io/api/rooms/*',
         'https://motc.faninsights.io/api/rooms/firstadd',
+        'http://motc.faninsights.io/api/rooms/*',
+        'http://motc.faninsights.io/api/rooms/firstadd',
     ];
 }
