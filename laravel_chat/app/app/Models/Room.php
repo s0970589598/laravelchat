@@ -12,12 +12,14 @@ class Room extends Model
     const OVERDUE_NO_REPLY       = 4;
     const REFERRALS              = 5;
     const COMPLETED              = 6;
+    const WAIT_CONNACT           = 7;
 
     protected $fillable = [
         'name',
         'status',
         'service',
         'score',
+        'code',
     ];
 
     public function users()

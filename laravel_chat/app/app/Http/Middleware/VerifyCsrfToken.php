@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'centrifugo/*',
-        'http://localhost:8080/api/rooms/*'
+        'http://localhost/api/rooms/*',
     ];
 }

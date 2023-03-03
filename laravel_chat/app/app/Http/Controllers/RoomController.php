@@ -72,7 +72,7 @@ class RoomController extends Controller
                 'name' => $request->get('name'),
                 'status' => 0,
                 'service' => $request->get('service'),
-
+                'code' => $this->indexgenerateRandomString(5),
             ]);
             $room->users()->attach(Auth::user()->id);
             DB::commit();
