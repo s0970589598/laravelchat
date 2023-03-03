@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         'centrifugo/*',
         'http://localhost/api/rooms/*',
         'https://localhost/api/rooms/*',
+        'https://motc.faninsights.io/api/rooms/*',
     ];
 }
