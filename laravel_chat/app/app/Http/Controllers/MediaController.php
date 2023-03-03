@@ -103,19 +103,20 @@ class MediaController extends Controller
 
     public function update(Request $request)
     {
-        $fileName = time() . '.'. $request->file->extension();
-
-        $type = $request->file->getClientMimeType();
-        $size = $request->file->getSize();
-
-        $request->file->move(public_path('file'), $fileName);
+        $params = array(
+            'type' =>$request['type'],
+            'title' =>$request['title'],
+        );
+        if ($request->file) {
+            $fileName = time() . '.'. $request->file->extension();
+            $type = $request->file->getClientMimeType();
+            $size = $request->file->getSize();
+            $request->file->move(public_path('file'), $fileName);
+            $params['file'] = $fileName;
+        }
 
         Media::find($request['id'])
-            ->update([
-                'type'        => $request['type'],
-                'title'       => $request['title'],
-                'file'        =>  $fileName,
-        ]);
+            ->update($params);
         return redirect()->route('media.index');
 
     }

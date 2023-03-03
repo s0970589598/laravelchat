@@ -7,7 +7,7 @@
     <!-- BEGIN HEAD -->
     <head>
         <meta charset="utf-8" />
-        <title>客服摘要</title>
+        <title>客服摘要對話</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <meta name="robots" content="noindex , nofollow">
@@ -160,7 +160,7 @@
                         <li class="nav-item start active">
                             <a href="/dashboard" class="nav-link active">
                                 <i class="icon-graph"></i>
-                                <span class="title">Dashboard</span>
+                                <span class="title">客服摘要對話</span>
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -178,6 +178,12 @@
                         <ul class="sub-menu" style="display: block;">
                             <li class="nav-item start ">
                                 <a href="/satisfaction" class="nav-link ">
+                                    <i class="icon-pencil"></i>
+                                    <span class="title">管理統計</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="/satisfaction/manage" class="nav-link ">
                                     <i class="icon-pencil"></i>
                                     <span class="title">滿意度調查</span>
                                 </a>

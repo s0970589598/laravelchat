@@ -177,6 +177,12 @@
                             <li class="nav-item start ">
                                 <a href="/satisfaction" class="nav-link ">
                                     <i class="icon-pencil"></i>
+                                    <span class="title">管理統計</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="/satisfaction/manage" class="nav-link ">
+                                    <i class="icon-pencil"></i>
                                     <span class="title">滿意度調查</span>
                                 </a>
                             </li>

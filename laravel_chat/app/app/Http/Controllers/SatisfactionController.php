@@ -44,11 +44,36 @@ class SatisfactionController extends Controller
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
 
+        return view('satisfaction.index', [
+            'rooms' => $rooms,
+            'users' => $users,
+        ]);
+    }
+
+    public function manage()
+    {
+        $rooms = 0;
+        // $rooms = Room::with(['users', 'messages' => function ($query) {
+        //     $query->orderBy('created_at', 'asc');
+        // }])->orderBy('created_at', 'desc')->get();
+        $rooms = 0;
+        //$email_sample = EmailSample::get();
+        $limit = 10;
+        if (isset($request['limit']) && $request['limit']) {
+            $limit = $request['limit'] ;
+        }
+        //$email_sample = DB::table('email_sample');
+        $users = User::orderBy('users.id', 'desc')
+        //->where('status','0')
+        ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
+        ->paginate($limit);
+
         return view('satisfaction.manage', [
             'rooms' => $rooms,
             'users' => $users,
         ]);
     }
+
 
     public function show(int $id)
     {
