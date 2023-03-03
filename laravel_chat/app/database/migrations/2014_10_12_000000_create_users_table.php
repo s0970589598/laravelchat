@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->text('note')->nullable();
             $table->string('point')->nullable();
             $table->integer('status')->default(0);
+            $table->integer('is_offline')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

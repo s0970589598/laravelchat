@@ -26,7 +26,8 @@ class User extends Authenticatable
         'line',
         'contact_email',
         'note',
-        'point'
+        'point',
+        'is_offline'
     ];
 
     /**

@@ -6,15 +6,104 @@
   box-sizing: border-box;
 }
 
-.modal .modal-content .modal-footer .submit-btn, .modal .modal-content .modal-footer .close-btn, .feature-section .feature-btn .submit-btn, .feature-section .feature-btn .return-btn, .dialogue-section .dialogue-body .message-content .message-feature .customer-turn .refer-btn, .dialogue-section .dialogue-body .message-content .message-feature .send .submit-btn, .delet-btn, .edit-btn, .add-btn, .import-btn, .search-btn, .portlet-title .widget-thumb-click .go-btn, .portlet-title .widget-thumb-click {
+.modal .modal-footer .submit-btn, .modal .modal-footer .close-btn, .modal .modal-body .btn-file, .feature-section .feature-btn .submit-btn, .feature-section .feature-btn .return-btn, .dialogue-section .dialogue-body .message-content .message-feature .customer-turn .refer-btn, .dialogue-section .dialogue-body .message-content .message-feature .send .submit-btn, .delet-btn, .edit-btn, .add-btn, .import-btn, .search-btn, .portlet-body table tbody tr td .assign .reply-btn, .portlet-title .widget-thumb-click .go-btn, .portlet-title .widget-thumb-click, body .user-content .form-actions .close-btn, body .user-content .form-actions .submit-btn {
   transition: all 0.2s ease;
 }
 
 body {
   background-color: #FAF2EA !important;
 }
+body .logo {
+  margin-top: 200px;
+}
+body .logo a img {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+}
+body .user-content {
+  background-color: #ffffff;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  width: 400px;
+  margin: 30px auto 10px;
+  padding: 20px 30px 30px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+body .user-content .form-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #EF7F19;
+  margin-bottom: 45px;
+}
+body .user-content .register-form .form-group {
+  display: flex;
+  align-items: center;
+}
+body .user-content .register-form .form-group .control-label {
+  width: 30%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #485A6A;
+}
+body .user-content .register-form .form-group .user-info {
+  width: 70%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #485A6A;
+}
+body .user-content .form-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body .user-content .form-actions .submit-btn {
+  margin: 20px 0;
+  width: 100%;
+  text-decoration: none;
+  background-color: #f28c2c;
+  border: 1px solid #EF7F19;
+  color: #ffffff;
+  border-radius: 3px !important;
+  padding: 8px;
+  display: block;
+}
+body .user-content .form-actions .submit-btn:hover {
+  background-color: #EF7F19;
+  color: #ffffff;
+  text-decoration: none;
+}
+body .user-content .form-actions .close-btn {
+  width: 100%;
+  text-decoration: none;
+  background-color: #485A6A;
+  border: 1px solid #3F444A;
+  color: #ffffff;
+  border-radius: 3px !important;
+  padding: 6px;
+  margin-right: 5px;
+  display: block;
+}
+body .user-content .form-actions .close-btn:hover {
+  background-color: #3F444A;
+  color: #ffffff;
+  text-decoration: none;
+}
 
 #chartdiv {
+  width: 100%;
+  height: 500px;
+  max-width: 100%;
+}
+
+#dropchart {
   width: 100%;
   height: 500px;
   max-width: 100%;
@@ -88,6 +177,69 @@ body {
   left: 50%;
   transform: translate(-5%, -50%);
 }
+.portlet-title .caption .caption-subject {
+  font-size: 14px;
+  font-weight: 300;
+  color: #485A6A;
+}
+.portlet-title .tools button {
+  border: transparent;
+}
+.portlet-title .tools button img {
+  width: 20px;
+  height: 20px;
+}
+
+.portlet-body table thead .scenario {
+  width: 150px;
+}
+.portlet-body table tbody tr td {
+  vertical-align: middle;
+}
+.portlet-body table tbody tr td .customer {
+  display: flex;
+  align-items: center;
+}
+.portlet-body table tbody tr td .customer .contact {
+  margin-left: 10px;
+}
+.portlet-body table tbody tr td .customer .contact .contact-name {
+  font-size: 14px;
+  font-weight: 400;
+}
+.portlet-body table tbody tr td .customer .contact .item-label {
+  font-size: 12px;
+}
+.portlet-body table tbody tr td .dialogue-content .time {
+  font-size: 12px;
+}
+.portlet-body table tbody tr td .dialogue-content p {
+  margin: 10px 0;
+}
+.portlet-body table tbody tr td .label-robot {
+  background-color: #EF7F19;
+}
+.portlet-body table tbody tr td .assign {
+  display: flex;
+}
+.portlet-body table tbody tr td .assign .reply-btn {
+  display: block;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 4px 8px;
+  margin-right: 5px;
+  background-color: #42BDEA;
+  border: 1px solid #34B0DD;
+  border-radius: 3px !important;
+  color: #ffffff;
+  text-decoration: none;
+}
+.portlet-body table tbody tr td .assign .reply-btn:hover {
+  background-color: #34B0DD;
+  color: #ffffff;
+  text-decoration: none;
+}
 
 .caption .caption-subject {
   font-size: 14px;
@@ -119,7 +271,7 @@ body {
   border: 1px solid #EF7F19;
   color: #ffffff;
   border-radius: 3px !important;
-  padding: 6px;
+  padding: 6px 12px;
   margin-right: 5px;
   display: block;
 }
@@ -169,7 +321,7 @@ body {
 }
 
 table thead .feature {
-  width: 150px;
+  width: 300px;
   text-align: center;
 }
 
@@ -437,57 +589,60 @@ table thead .feature {
   text-decoration: none;
 }
 
-.modal .modal-content .modal-header .modal-title {
+.modal .modal-header .modal-title {
   font-size: 16px;
   font-weight: 400;
 }
-.modal .modal-content .modal-body .media-content .media {
+.modal .modal-body {
+  padding: 20px;
+}
+.modal .modal-body .media-content .media {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 6px;
   margin-top: 20px;
 }
-.modal .modal-content .modal-body .media-content .media .media-info {
+.modal .modal-body .media-content .media .media-info {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 15px;
 }
-.modal .modal-content .modal-body .media-content .media .media-info .media-title {
+.modal .modal-body .media-content .media .media-info .media-title {
   display: flex;
   align-items: center;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue {
+.modal .modal-body .dialogue-content .dialogue {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 6px;
   margin-top: 20px;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info {
   padding: 15px;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .source {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .source {
   display: flex;
   align-items: flex-start;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .source p {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .source p {
   margin: 0;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .source p a {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .source p a {
   display: block;
   width: 100%;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .activity {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .activity {
   display: flex;
   align-items: flex-start;
   margin-top: 10px;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .activity .activity-content {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .activity .activity-content {
   margin-left: 20px;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .activity .activity-content .title {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .activity .activity-content .title {
   font-size: 16px;
   font-weight: 700;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .activity .activity-content p {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .activity .activity-content p {
   margin: 5px 15px 0 0;
   text-align: justify;
   font-size: 14px;
@@ -499,14 +654,29 @@ table thead .feature {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.modal .modal-content .modal-body .dialogue-content .dialogue .dialogue-info .activity .thumbnail img {
+.modal .modal-body .dialogue-content .dialogue .dialogue-info .activity .thumbnail img {
   max-width: 100px;
 }
-.modal .modal-content .modal-footer {
+.modal .modal-body .btn-file {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 4px 8px;
+  background-color: #42BDEA;
+  border: 1px solid #34B0DD;
+  border-radius: 3px !important;
+  color: #ffffff;
+  text-decoration: none;
+}
+.modal .modal-body .btn-file:hover {
+  background-color: #34B0DD;
+  color: #ffffff;
+  text-decoration: none;
+}
+.modal .modal-footer {
   display: flex;
   justify-content: flex-end;
 }
-.modal .modal-content .modal-footer .close-btn {
+.modal .modal-footer .close-btn {
   width: 10%;
   text-decoration: none;
   background-color: #485A6A;
@@ -517,12 +687,12 @@ table thead .feature {
   margin-right: 5px;
   display: block;
 }
-.modal .modal-content .modal-footer .close-btn:hover {
+.modal .modal-footer .close-btn:hover {
   background-color: #3F444A;
   color: #ffffff;
   text-decoration: none;
 }
-.modal .modal-content .modal-footer .submit-btn {
+.modal .modal-footer .submit-btn {
   width: 10%;
   text-decoration: none;
   background-color: #f28c2c;
@@ -533,7 +703,7 @@ table thead .feature {
   margin-right: 5px;
   display: block;
 }
-.modal .modal-content .modal-footer .submit-btn:hover {
+.modal .modal-footer .submit-btn:hover {
   background-color: #EF7F19;
   color: #ffffff;
   text-decoration: none;

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use Illuminate\Support\Facades\Password;
+
 
 class AccountController extends Controller
 {
@@ -40,7 +42,7 @@ class AccountController extends Controller
         }
         //$email_sample = DB::table('email_sample');
         $users = User::orderBy('users.id', 'desc')
-        //->where('status','0')
+        ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
 
@@ -99,6 +101,14 @@ class AccountController extends Controller
                 'service' => $request->service,
                 'role' => $request->role,
             );
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+
+            // $status == Password::RESET_LINK_SENT
+            //             ? back()->with('status', __($status))
+            //             : back()->withInput($request->only('email'))
+            //                     ->withErrors(['email' => __($status)]);
 
             //$this->sendUserConfirmMail($param);
             // $room->users()->attach(Auth::user()->id);
@@ -196,10 +206,11 @@ class AccountController extends Controller
 
     public function upstatus(request $request)
     {
-        User::find($request['id'])
+        $user = User::find($request['id'])
             ->update([
                 'status'     => 1,
         ]);
+
         return redirect()->route('account.index');
 
     }

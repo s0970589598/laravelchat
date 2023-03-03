@@ -109,7 +109,7 @@ class MailSampleController extends Controller
 
     public function upstatus(Request $request)
     {
-        EmailSample::find($request['id'])
+        $mail = EmailSample::find($request['id'])
             ->update([
                 'status'        => 1,
         ]);
