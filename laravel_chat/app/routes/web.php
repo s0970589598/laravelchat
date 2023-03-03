@@ -67,6 +67,7 @@ Route::group([
     Route::get('/mailsample/upstatus/{id}', [MailsampleController::class, 'upstatus'])->name('mailsample.upstatus');
 
     Route::get('/satisfaction', [SatisfactionController::class, 'index'])->name('satisfaction.index');
+    Route::get('/satisfaction/manage', [SatisfactionController::class, 'manage'])->name('satisfaction.manage');
 
 
 });
