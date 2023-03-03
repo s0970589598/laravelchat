@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'centrifugo/*',
         'http://localhost/api/rooms/*',
+        'https://localhost/api/rooms/*',
     ];
 }
