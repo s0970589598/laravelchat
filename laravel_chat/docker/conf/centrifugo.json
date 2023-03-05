@@ -10,7 +10,7 @@
     "http://motc.faninsights.io",
     "https://motc.faninsights.io"
   ],
-  "proxy_connect_endpoint": "https://nginx/centrifugo/connect/",
+  "proxy_connect_endpoint": "http://nginx/centrifugo/connect/",
   "proxy_http_headers": [
     "Cookie"
   ],
