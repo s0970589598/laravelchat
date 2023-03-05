@@ -6,4 +6,10 @@ $( document ).ready(function() {
         confirm('是否確認刪除？')
         $(this).closest('tr').remove();
     });
+
+    // EMOJI
+    $("#welcome").emojioneArea({
+        pickerPosition: "bottom",
+        filtersPosition: "bottom"
+    });
 });
