@@ -309,7 +309,7 @@
                             <?php foreach ($users as $user): ?>
                             <tr>
                                 <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>
-                                <td data-role="{{ $user->role }}" class="custom-role">{{ $user->role }}</td>
+                                <td data-role="{{ $user->role }}" class="custom-role">{{ Config::get('motcrole.'.$user->role) }}</td>
                                 <td data-service="{{ $user->service }}" class="custom-service">
                                     <?php
                                         $service_dec = json_decode($user->service);
