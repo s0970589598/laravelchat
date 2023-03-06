@@ -90,9 +90,10 @@ class AccountController extends Controller
                 'password' => Hash::make('test123'),
                 'authcode' => $this->generateRandomString(5),
             ]);
+           // Log::info(json_encode($params['service']));
             $service_relation_role = CustomerServiceRelationRole::create([
                 'user_id'  => $user->id,
-                'service' => $params['service'],
+                'service' =>json_encode($params['service']),
                 'role' => $params['role'],
             ]);
 

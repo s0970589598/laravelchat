@@ -16,29 +16,42 @@
     <meta content="" name="author" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
-     <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet"
+        type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css"
+        rel="stylesheet" type="text/css" />
     <link href="assets/metronic/theme/assets/global/plugins/morris/morris.css" rel="sfatylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"
+        rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
+        rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
-    <link href="assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components"
+        type="text/css" />
     <link href="assets/metronic/theme/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet"
+        type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet"
+        type="text/css" id="style_color" />
     <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="assets/images/fav-icon.png" />
@@ -56,14 +69,18 @@
         .page-header .page-header-top .top-menu{
             margin-top: 6px;
         }*/
-        .form-body h4{
+        .form-body h4 {
             margin-bottom: 32px;
             color: #999;
         }
-        .btn_file_upload{
+
+        .btn_file_upload {
             float: left;
         }
-        .page-content-wrapper .page-content{padding-top: 0px;}
+
+        .page-content-wrapper .page-content {
+            padding-top: 0px;
+        }
     </style>
     </head>
     <!-- END HEAD -->
@@ -270,7 +287,7 @@
                             <option value="4">Ｄ旅遊服務中心</option>
                             <option value="5">Ｅ旅遊服務中心</option>
                         </select>
-                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
+                        <a class="add-btn" data-target="#add-account" data-toggle="modal">
                             <i class="icon-plus"></i>
                             新增人員
                         </a>
@@ -293,7 +310,14 @@
                             <tr>
                                 <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>
                                 <td data-role="{{ $user->role }}" class="custom-role">{{ $user->role }}</td>
-                                <td data-service="{{ $user->service }}" class="custom-service">{{ $user->service }}</td>
+                                <td data-service="{{ $user->service }}" class="custom-service">
+                                    <?php
+                                        $service_dec = json_decode($user->service);
+                                        foreach ($service_dec as $s) {
+                                            echo '<span class="tag">'.$s.'</span>';
+                                        }
+                                    ?>
+                                </td>
                                 <td>
                                     <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
@@ -347,51 +371,106 @@
             </div>
         </div>
         <!-- END FOOTER -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">新增帳號</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <form action="/account/add" method="post">
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="email" class="col-form-label">email:</label>
-                            <input type="text" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="role" class="col-form-label">role:</label>
-                            <select name="role">
-                                <option value="admin">管理者</option>
-                                <option value="customer">客服</option>
-                                <option value="user">一般</option>
-                                <option value="admin99">最高管理者</option>
+
+        <!-- BEGIN ADD ACCOUNT MODAL -->
+        <div id="add-account" class="modal container fade" tabindex="-1" aria-hidden="true"
+        style="display: none; margin-top: -156px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">新增帳號</h4>
+        </div>
+        <form action="/account/add" method="post">
+            {{ csrf_field() }}
+            <div class="modal-body">
+                <div class="row">
+                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">Email</label>
+                    <div class="col-md-9" style="margin-bottom: 20px;">
+                        <input type="email" class="form-control" placeholder="請輸入Email" name="email" id="email">
+                    </div>
+                    <label class="control-label col-md-3" style="margin-bottom: 20px;">所屬旅服中心</label>
+                    <div class="col-md-9" style="margin-bottom: 20px;">
+                        <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
+                            aria-hidden="true" name="service[]">
+                            <optgroup label="基隆市">
+                                <option value="基隆火車站旅遊服務中心">基隆火車站旅遊服務中心</option>
+                            </optgroup>
+                            <optgroup label="台北市">
+                                <option value="臺北火車站旅遊服務中心">臺北火車站旅遊服務中心</option>
+                                <option value="桃園捷運A1台北車站旅遊服務中心">桃園捷運A1台北車站旅遊服務中心</option>
+                                <option value="捷運西門站旅遊服務中心">捷運西門站旅遊服務中心</option>
+                                <option value="捷運臺北101/世貿站旅遊服務中心">捷運臺北101/世貿站旅遊服務中心</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <label class="control-label col-md-3" style="margin-bottom: 20px;">權限</label>
+                    <div class="col-md-9" style="margin-bottom: 20px;">
+                        <select class="bs-select form-control bs-select-hidden" name="role">
+                            <option value="customer">客服人員</option>
+                            <option value="admin">站長</option>
+                            <option value="admin99">超級管理員</option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="service" class="col-form-label">中心:</label>
-                            <div class="file-loading">
-                                <input class="typeahead" type="text" id="service" value="Amsterdam,Washington" data-role="tagsinput" name="service"/>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-
+                </div>
             </div>
+            <div class="modal-footer">
+                <button class="close-btn" data-dismiss="modal">取消</button>
+                <button class="submit-btn">新增</button>
+            </div>
+        </form>
+    </div>
+    <!-- END ADD ACCOUNT MODAL -->
+
+    <!-- BEGIN EDIT ACCOUNT MODAL -->
+    <div id="editModal" class="modal container fade" tabindex="-1" aria-hidden="true"
+        style="display: none; margin-top: -156px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">編輯帳號</h4>
+        </div>
+        <form action="/account/edit" method="post">
+            {{ csrf_field() }}
+        <div class="modal-body">
+            <div class="row">
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;">Email</label>
+                <div class="col-md-9" style="margin-bottom: 20px;">
+                    <input type="email" class="form-control" placeholder="請輸入Email" id="email" name="email">
+                    <input type="hidden" class="form-control" id="id" name="id">
+                </div>
+                <label class="control-label col-md-3" style="margin-bottom: 20px;">所屬旅服中心</label>
+                <div class="col-md-9" style="margin-bottom: 20px;">
+                    <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
+                        aria-hidden="true" name="service[]" id="serviceedit">
+                        <optgroup label="基隆市">
+                            <option value="基隆火車站旅遊服務中心">基隆火車站旅遊服務中心</option>
+                        </optgroup>
+                        <optgroup label="台北市">
+                            <option value="臺北火車站旅遊服務中心">臺北火車站旅遊服務中心</option>
+                            <option value="桃園捷運A1台北車站旅遊服務中心">桃園捷運A1台北車站旅遊服務中心</option>
+                            <option value="捷運西門站旅遊服務中心">捷運西門站旅遊服務中心</option>
+                            <option value="捷運臺北101/世貿站旅遊服務中心">捷運臺北101/世貿站旅遊服務中心</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <label class="control-label col-md-3" style="margin-bottom: 20px;">權限</label>
+                <div class="col-md-9" style="margin-bottom: 20px;">
+                    <select class="bs-select form-control bs-select-hidden" name="role" id ="roleedit">
+                        <option id="roleOption" value="customer">客服人員</option>
+                        <option id="roleOption" value="admin">站長</option>
+                        <option id="roleOption" value="admin99">超級管理員</option>
+                </select>
+                </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <button class="close-btn" data-dismiss="modal">取消</button>
+            <button class="submit-btn">儲存</button>
+        </div>
+        </form>
+    </div>
+    <!-- END EDIT ACCOUNT MODAL -->
 
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        {{-- <div class="modal container fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -431,207 +510,92 @@
                 </form>
               </div>
             </div>
-        </div>
+        </div> --}}
 
         <!--[if lt IE 9]>
             <script src="assets/metronic/global/plugins/respond.min.js"></script>
             <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
         <![endif]-->
          <!-- BEGIN CORE PLUGINS -->
+    <!-- BEGIN CORE PLUGINS -->
     <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
     <script src="assets/metronic/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="js/typeahead.bundle.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js"
+        type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+        type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
+        type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>    <!-- END CORE PLUGINS -->
+    <script src="assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js"
+        type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
+        type="text/javascript"></script>
+    <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
+    <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js"
+        type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"
+        type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"
+        type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"
+        type="text/javascript"></script>
+    <script
+        src="assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
+        type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="assets/metronic/theme/assets/global/scripts/app.min.js" type="text/javascript"></script>
     <!-- END THEME GLOBAL SCRIPTS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+    <script src="assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js"
+        type="text/javascript"></script>
+
+    {{-- bug modal js--}}
+    {{-- <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+    <script src="assets/metronic/theme/assets/pages/scripts/ui-extended-modals.min.js"></script> --}}
+
+    <script src="assets/metronic/theme/assets/global/plugins/select2/js/select2.full.min.js"></script>
+    <script src="assets/metronic/theme/assets/pages/scripts/components-select2.min.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
-    <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js"
+        type="text/javascript"></script>
     <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
     <!-- <script src="assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
     <!-- <script type="text/javascript" src="assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
     <!-- END THEME LAYOUT SCRIPTS -->
-    <script type="text/javascript" src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
+    <script type="text/javascript"
+        src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
-    <!-- Resources -->
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="js/all.js"></script>
 
     <script>
-
+        // 非同型陣列
         $(function() {
+            const arr4 = [{ admin: "站長", admin99: "超級管理員",customer: "客服" }]
+            //console.log(arr4[0].admin)
+
             $('#editModal').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
                 let email = btn.closest('td').siblings('.custom-email').data('email');
                 let role = btn.closest('td').siblings('.custom-role').data('role');
                 let service = btn.closest('td').siblings('.custom-service').data('service');
-
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
-                $('.modalTextInput').val('');
-                $('.saveEdit').data('id', id); // then pass it to the button inside the modal
                 modal.find('.modal-body input#email').val(email);//把抓到的資料顯示在input內
-                modal.find('.modal-body input#role').val(role);
-                modal.find('.modal-body input#service').val(service);
+                modal.find('#roleedit').val(role);
+                var serviceStrAry = String(service).split(',');
+                $('#serviceedit').select2('val',serviceStrAry);
                 modal.find('.modal-body input#id').val(id);
             })
-
-            $('.saveEdit').on('click', function() {
-                let id = $(this).data('id'); // the rest is just the same
-                saveNote(id);
-                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
-            })
         })
-
-        function saveNote(id) {
-        let text = $('.modalTextInput').val();
-        $('.recentNote').data('note', text);
-        console.log($('.recentNote').data('note'));
-        console.log(text + ' --> ' + id);
-        }
-
-        function getValue(){
-        var value= $.ajax({
-            url: '/assets/citynames.json',
-            async: false
-        }).responseText;
-        return value;
-        }
-
-        var aa = this.getValue();
-
-
-        $('#service').tagsinput({
-        typeahead: {
-            source: function(query) {
-            return aa;
-            }
-        }
-        });
-
-
-        am5.ready(function() {
-
-        // Create root element
-        // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv");
-
-
-        // Set themes
-        // https://www.amcharts.com/docs/v5/concepts/themes/
-        root.setThemes([
-            am5themes_Animated.new(root)
-        ]);
-
-        // Create chart
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/
-        var chart = root.container.children.push(am5xy.XYChart.new(root, {
-            panX: true,
-            panY: true,
-            wheelX: "panX",
-            wheelY: "zoomX",
-            pinchZoomX:true
-        }));
-
-        // Add cursor
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-            behavior: "none"
-        }));
-        cursor.lineY.set("visible", false);
-
-
-        // Generate random data
-        var date = new Date();
-        date.setHours(0, 0, 0, 0);
-        var value = 100;
-
-        function generateData() {
-            value = Math.round((Math.random() * 10 - 5) + value);
-            am5.time.add(date, "day", 1);
-            return {
-                date: date.getTime(),
-                value: value
-            };
-        }
-
-        function generateDatas(count) {
-            var data = [];
-            for (var i = 0; i < count; ++i) {
-                data.push(generateData());
-            }
-            return data;
-        }
-
-        // Create axes
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-        var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
-            maxDeviation: 0.2,
-            baseInterval: {
-                timeUnit: "day",
-                count: 1
-            },
-            renderer: am5xy.AxisRendererX.new(root, {}),
-            tooltip: am5.Tooltip.new(root, {})
-        }));
-
-        var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-            renderer: am5xy.AxisRendererY.new(root, {})
-        }));
-
-
-        // Add series
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-        var series = chart.series.push(am5xy.LineSeries.new(root, {
-            name: "Series",
-            xAxis: xAxis,
-            yAxis: yAxis,
-            valueYField: "value",
-            valueXField: "date",
-            tooltip: am5.Tooltip.new(root, {
-                labelText: "{valueY}"
-            })
-        }));
-
-
-        // Add scrollbar
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-        chart.set("scrollbarX", am5.Scrollbar.new(root, {
-            orientation: "horizontal"
-        }));
-
-
-        // Set data
-        var data = generateDatas(1200);
-        series.data.setAll(data);
-
-
-        // Make stuff animate on load
-        // https://www.amcharts.com/docs/v5/concepts/animations/
-        series.appear(1000);
-        chart.appear(1000, 100);
-
-        }); // end am5.ready()
-        </script>
+    </script>
     </body>
 </html>

@@ -8,8 +8,8 @@ $( document ).ready(function() {
     });
 
     // EMOJI
-    $("#welcome").emojioneArea({
-        pickerPosition: "bottom",
-        filtersPosition: "bottom"
-    });
+    // $("#welcome").emojioneArea({
+    //     pickerPosition: "bottom",
+    //     filtersPosition: "bottom"
+    // });
 });
