@@ -15,6 +15,7 @@ class CreateEmailSampleTable extends Migration
     {
         Schema::create('email_sample', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->default('未分類');;
             $table->string('subject');
             $table->text('content');
             $table->integer('status')->default(0);

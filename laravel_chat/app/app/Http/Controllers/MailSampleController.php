@@ -75,13 +75,15 @@ class MailSampleController extends Controller
     public function store(Request $request)
     {
         $params = $request->validate([
+            'type'   => ['required'],
             'subject'   => ['required'],
             'content'   => ['required'],
         ]);
-
+        Log::info($request);
         DB::beginTransaction();
         try {
             $mailsample = EmailSample::create([
+                'type'        => $params['type'],
                 'subject'     => $params['subject'],
                 'content'     => $params['content'],
                 'status'      => 0,
@@ -100,8 +102,9 @@ class MailSampleController extends Controller
     {
         EmailSample::find($request['id'])
             ->update([
-                'subject'        => $request['subject'],
-                'content'       => $request['content'],
+                'type'        => $request['type'],
+                'subject'     => $request['subject'],
+                'content'     => $request['content'],
         ]);
         return redirect()->route('mailsample.index');
 
