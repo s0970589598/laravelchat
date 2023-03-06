@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
 
         CustomerServiceRelationRole::create([
             'user_id'  => $user->id,
-            'service' => '未分類',
+            'service' => '["未分類"]',
             'role' => 'user',
         ]);
 

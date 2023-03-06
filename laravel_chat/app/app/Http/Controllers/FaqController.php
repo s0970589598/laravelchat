@@ -34,7 +34,7 @@ class FaqController extends Controller
         }
         //$email_sample = DB::table('email_sample');
         $faq = FAQ::orderBy('id', 'desc')
-        // ->where('status','0')
+        ->where('status','0')
         ->paginate($limit);
 
         return view('faq.index', [
@@ -88,14 +88,14 @@ class FaqController extends Controller
         $params = $request->validate([
             'question'   => ['required'],
             'answer'   => ['required'],
-            'url'   => ['required'],
+            //'url'   => ['required'],
         ]);
         DB::beginTransaction();
         try {
             $faq = FAQ::create([
                 'question'     => $params['question'],
                 'answer'       => $params['answer'],
-                'url'          => $params['url'],
+                //'url'          => $params['url'],
                 'status'       => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);

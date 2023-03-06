@@ -707,4 +707,8 @@ table thead .feature {
   background-color: #EF7F19;
   color: #ffffff;
   text-decoration: none;
+}
+
+.emojionearea .emojionearea-editor {
+  min-height: 400px !important;
 }/*# sourceMappingURL=style.css.map */

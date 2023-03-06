@@ -18,6 +18,7 @@ class EmailSample extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'type',
         'subject',
         'content',
         'status',
