@@ -21,7 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::namespace ('Api')->group(function () {
-    Route::post('/api/rooms/firstadd', [RoomController::class, 'addrooms'])->name('rooms.addrooms');
+    Route::post('/api/rooms/join', [RoomController::class, 'addrooms'])->name('rooms.addrooms');
+    Route::post('/api/contact/update', [AccountController::class, 'updateUserContact'])->name('contact.updatecontact');
+    Route::post('/api/satisfaction/store', [SatisfactionController::class, 'storeSatisfaction'])->name('satisfaction.store');
+    Route::post('/api/rooms/update/status', [RoomController::class, 'updateRoomsStatus'])->name('room.updatestatus');
+
+
 });
 
 Route::group([

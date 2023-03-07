@@ -132,7 +132,25 @@ class AccountController extends Controller
                 'role'     => $request['role'],
             ]);
         return redirect()->route('account.index');
+    }
 
+    public function updateUserContact(Request $request)
+    {
+        $status = Response::HTTP_OK;
+        Log::info($request);
+        //$params =  $request->all();
+        DB::beginTransaction();
+
+        try {
+            User::where('id', $request['id'])
+            ->update($request);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        }
+
+        return response(json_encode($satifaction), $status);
     }
 
 

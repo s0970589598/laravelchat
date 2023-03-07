@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\SatisfactionSurvey;
 use App\Models\CustomerServiceRelationRole;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Auth\Events\Registered;
@@ -25,6 +26,50 @@ class SatisfactionController extends Controller
     {
         $this->centrifugo = $centrifugo;
     }
+
+    public function updateSatisfaction(Request $request)
+    {
+        Log::info($request);
+        SatisfactionSurvey::where('room_id', $request['id'])
+            ->update([
+                'service'  => $request['service'],
+                'role'     => $request['role'],
+            ]);
+        return redirect()->route('satisfaction.index');
+    }
+
+    public function storeSatisfaction(Request $request)
+    {
+        $status = Response::HTTP_OK;
+        $params = $request->validate([
+             'room_id'  => ['required'],
+             'service'  => ['required'],
+             'point'    => ['required'],
+             'memo'     => ['required'],
+         ]);
+
+        DB::beginTransaction();
+
+        try {
+            $satifaction = SatisfactionSurvey::create([
+                'room_id'  =>  $params['email'],
+                'service'  =>  $params['service'],
+                'point'    =>  $params['point'],
+                'memo'     =>  $params['memo'],
+            ]);
+
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+
+        }
+        // event(new Registered($user));
+
+        return response(json_encode($satifaction), $status);
+    }
+
 
     public function index()
     {
@@ -228,6 +273,7 @@ class SatisfactionController extends Controller
         return redirect()->route('account.index');
 
     }
+
 
     public function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

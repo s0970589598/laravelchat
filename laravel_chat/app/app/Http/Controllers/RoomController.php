@@ -127,7 +127,6 @@ class RoomController extends Controller
         $params = $request->validate([
             'session_id'   => ['required'],
             'sn'           => ['required'],
-            'status'       => ['required'],
         ]);
 
        DB::beginTransaction();
@@ -183,6 +182,34 @@ class RoomController extends Controller
        // event(new Registered($user));
        //return redirect()->route('account.index');
        return response(json_encode($res), $status);
+    }
+
+    public function updateRoomsStatus(Request $request) {
+        $status = Response::HTTP_OK;
+        DB::beginTransaction();
+        try {
+            $params = $request->validate([
+                'id'     => ['required'],
+                'status' => ['required'],
+            ]);
+
+            $rooms = Room::find($params['id'])
+                ->update([
+                    'status'     => $params['status'],
+            ]);
+            DB::commit();
+            $res = array(
+                'msg'        => 'success',
+            );
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $res = array(
+             'msg'        => 'fail',
+            );
+        }
+        return response(json_encode($res), $status);
     }
 
     public function generateRandomString($length = 10) {
