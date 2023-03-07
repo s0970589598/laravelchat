@@ -65,10 +65,21 @@ class DialogueController extends Controller
     {
         $requestData = $request->json()->all();
         $status      = Response::HTTP_OK;
+        if (isset($requestData["sender_id"])){
+            $sender_id = $requestData["sender_id"];
+        } else {
+            $sender_id = Auth::user()->id;
+        }
+
+        if (isset($requestData["sender_name"])){
+            $sender_name = $requestData["sender_name"];
+        } else {
+            $sender_name = Auth::user()->name;
+        }
 
         try {
             $message = Message::create([
-                'sender_id' => Auth::user()->id,
+                'sender_id' => $sender_id,
                 'message'   => $requestData["message"],
                 'room_id'   => $id,
             ]);
@@ -85,14 +96,22 @@ class DialogueController extends Controller
                 "createdAt"          => $message->created_at->toDateTimeString(),
                 "createdAtFormatted" => $message->created_at->toFormattedDateString() . ", " . $message->created_at->toTimeString(),
                 "roomId"             => $id,
-                "senderId"           => Auth::user()->id,
-                "senderName"         => Auth::user()->name,
+                "senderId"           => $sender_id,
+                "senderName"         => $sender_name,
             ]);
+
+            $rs = array(
+                'msg'=>'success',
+                'data'=>$message
+            );
         } catch (Throwable $e) {
             Log::error($e->getMessage());
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $rs = array(
+                'msg'=>'fail'
+            );
         }
 
-        return response('', $status);
+        return response($rs, $status);
     }
 }

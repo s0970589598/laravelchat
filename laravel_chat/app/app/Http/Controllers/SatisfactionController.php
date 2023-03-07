@@ -30,6 +30,7 @@ class SatisfactionController extends Controller
     public function storeSatisfaction(Request $request)
     {
         $status = Response::HTTP_OK;
+        $satifaction = 0;
         $params = $request->validate([
              'room_id'  => ['required'],
              'service'  => ['required'],
@@ -41,14 +42,20 @@ class SatisfactionController extends Controller
 
         try {
             $satifaction = SatisfactionSurvey::create([
-                'room_id'  =>  $params['email'],
+                'room_id'  =>  $params['room_id'],
                 'service'  =>  $params['service'],
                 'point'    =>  $params['point'],
                 'memo'     =>  $params['memo'],
             ]);
-
+            $rs = array(
+                'msg'=>'success',
+                'data'=> $satifaction,
+            );
             DB::commit();
         } catch (Throwable $e) {
+            $rs = array(
+                'msg'=>'fail',
+            );
             DB::rollBack();
             Log::error($e->getMessage());
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
@@ -56,7 +63,7 @@ class SatisfactionController extends Controller
         }
         // event(new Registered($user));
 
-        return response(json_encode($satifaction), $status);
+        return response(json_encode($rs), $status);
     }
 
 
