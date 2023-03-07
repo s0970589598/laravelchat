@@ -178,7 +178,7 @@
                     <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
                     <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
                         <li class="nav-item start ">
-                            <a href="/dashboard" class="nav-link active">
+                            <a href="/dashboard" class="nav-link">
                                 <i class="icon-graph"></i>
                                 <span class="title">Dashboard</span>
                             </a>
@@ -217,7 +217,7 @@
                                 <span class="arrow open"></span>
                             </a>
                             <ul class="sub-menu" style="display: block;">
-                                <li class="nav-item start active">
+                                <li class="nav-item start">
                                     <a href="/mailsample" class="nav-link ">
                                         <i class="icon-envelope"></i>
                                         <span class="title">信件範本</span>
@@ -233,6 +233,12 @@
                                     <a href="/media" class="nav-link ">
                                         <i class="icon-folder"></i>
                                         <span class="title">媒體庫</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item start active">
+                                    <a href="/salutatory" class="nav-link ">
+                                        <i class="fa fa-hand-paper-o"></i>
+                                        <span class="title">歡迎詞設定</span>
                                     </a>
                                 </li>
                             </ul>
