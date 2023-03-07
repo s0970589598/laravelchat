@@ -9,6 +9,8 @@ use App\Http\Controllers\MsgSampleController;
 use App\Http\Controllers\MailSampleController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SatisfactionController;
+use App\Http\Controllers\SalutatoryController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +67,12 @@ Route::group([
     Route::post('/mailsample/add', [MailsampleController::class, 'store'])->name('mailsample.store');
     Route::post('/mailsample/edit', [MailsampleController::class, 'update'])->name('mailsample.update');
     Route::get('/mailsample/upstatus/{id}', [MailsampleController::class, 'upstatus'])->name('mailsample.upstatus');
+
+    Route::get('/salutatory', [SalutatoryController::class, 'index'])->name('salutatory.index');
+    Route::post('/salutatory/add', [SalutatoryController::class, 'store'])->name('salutatory.store');
+    Route::post('/salutatory/edit', [SalutatoryController::class, 'update'])->name('salutatory.update');
+    Route::get('/salutatory/upstatus/{id}', [SalutatoryController::class, 'upstatus'])->name('salutatory.upstatus');
+
 
     Route::get('/satisfaction', [SatisfactionController::class, 'index'])->name('satisfaction.index');
     Route::get('/satisfaction/manage', [SatisfactionController::class, 'manage'])->name('satisfaction.manage');
