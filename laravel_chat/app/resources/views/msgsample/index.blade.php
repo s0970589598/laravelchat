@@ -300,8 +300,8 @@
                             <tr>
                                 <th>分類</th>
                                 <th>標題</th>
-                                <th>回覆</th>
-                                <th>連結</th>
+                                <th>內容</th>
+                                <th>Url</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
