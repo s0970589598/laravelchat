@@ -391,7 +391,7 @@
                                 <span class="fileinput-new"><i class="fa fa-plus"></i>
                                     上傳檔案</span>
                                 <span class="fileinput-exists">更換</span>
-                                <input type="hidden" value="" name=""><input type="file"  name="file"> </span>
+                                <input type="hidden" value="" name=""><input type="file"  id="fileadd" name="file" accept=".jpg,.jpeg,.gif,.png,.pdf,.mov,.mp4"> </span>
                             <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput" style="padding: 4px 8px;border-radius: 3px !important;">移除</a>
                         </div>
                     </div>
@@ -402,7 +402,7 @@
         </div>
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">取消</button>
-            <button class="submit-btn">新增</button>
+            <button class="submit-btn" >新增</button>
         </div>
     </form>
     </div>
@@ -442,7 +442,7 @@
                                 <span class="fileinput-new"><i class="fa fa-plus"></i>
                                     上傳檔案</span>
                                 <span class="fileinput-exists">更換</span>
-                                <input type="hidden" value="" name=""><input type="file" name="file" id="fileedit"> </span>
+                                <input type="hidden" value="" name=""><input type="file" name="file" id="fileedit" accept=".jpg,.jpeg,.gif,.png,.pdf,.mov,.mp4"> </span>
                             <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput" style="padding: 4px 8px;border-radius: 3px !important;">移除</a>
                         </div>
                     </div>
@@ -453,7 +453,7 @@
         </div>
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">取消</button>
-            <button class="submit-btn">儲存</button>
+            <button class="submit-btn" >儲存</button>
         </div>
         </form>
     </div>
@@ -526,7 +526,39 @@
             src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <script src="js/all.js"></script>
-    <script>
+
+
+        <script type="text/javascript">
+
+            var uploadField = document.getElementById("fileedit");
+            var uploadFieldadd = document.getElementById("fileadd");
+
+            uploadField.onchange = function() {
+                if(this.files[0].size > 2097152){
+                alert("File is too big!");
+                this.value = "";
+                };
+            };
+            uploadFieldadd.onchange = function() {
+                if(this.files[0].size > 2097152){
+                alert("File is too big!");
+                this.value = "";
+                };
+            };
+            // function VerifyUploadSizeIsOK()
+            // {
+            //    /* Attached file size check. Will Bontrager Software LLC, https://www.willmaster.com */
+            //    var UploadFieldID = "file-upload";
+            //    var MaxSizeInBytes = 2048;
+            //    var fld = document.getElementById(UploadFieldID);
+            //    if( fld.files && fld.files.length == 1 && fld.files[0].size > MaxSizeInBytes )
+            //    {
+            //       alert("The file size must be no more than " + parseInt(MaxSizeInBytes/1024/1024) + "MB");
+            //       return false;
+            //    }
+            //    return true;
+            // } // function VerifyUploadSizeIsOK()
+
         $(function() {
             $('#edit-media').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
