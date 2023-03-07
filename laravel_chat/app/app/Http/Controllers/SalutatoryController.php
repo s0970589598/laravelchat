@@ -24,16 +24,11 @@ class SalutatoryController extends Controller
 
     public function index()
     {
-        // $rooms = Room::with(['users', 'messages' => function ($query) {
-        //     $query->orderBy('created_at', 'asc');
-        // }])->orderBy('created_at', 'desc')->get();
         $rooms = 0;
-        //$email_sample = EmailSample::get();
         $limit = 2;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
-        //$email_sample = DB::table('email_sample');
         $salutatory = Salutatory::orderBy('id', 'desc')
         ->where('status','0')
         ->paginate($limit);
@@ -57,7 +52,6 @@ class SalutatoryController extends Controller
                 'content'     => $params['content'],
                 'status'      => 0,
             ]);
-            // $room->users()->attach(Auth::user()->id);
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();
