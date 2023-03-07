@@ -72,12 +72,20 @@ class MsgSampleController extends Controller
             'subject'  => ['required'],
             'reply'    => ['required'],
         ]);
+
+        if (isset($request->url)){
+            $params['url'] = $request->url;
+        } else {
+            $params['url'] = '';
+        }
+
         DB::beginTransaction();
         try {
             $frequently_msg = FrequentlyMsg::create([
                 'type'        => $params['type'],
                 'subject'     => $params['subject'],
                 'reply'       => $params['reply'],
+                'url'         => $params['url'],
                 'status'      => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);
@@ -97,6 +105,7 @@ class MsgSampleController extends Controller
                 'type'        => $request['type'],
                 'subject'     => $request['subject'],
                 'reply'       => $request['reply'],
+                'url'         => $request['url'],
         ]);
         return redirect()->route('msgsample.index');
 
