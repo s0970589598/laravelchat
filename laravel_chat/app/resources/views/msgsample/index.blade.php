@@ -14,34 +14,50 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="css/style.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" type="text/css" />
-        <!-- END GLOBAL MANDATORY STYLES -->
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/morris/morris.css" rel="sfatylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-        <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
-        <!-- END THEME GLOBAL STYLES -->
-        <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
-        <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="assets/images/fav-icon.png" />
-        <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <style>
-            /*.page-header .page-header-top .page-logo .logo-default {
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet"
+        type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css"
+        rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/morris/morris.css" rel="sfatylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"
+        rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
+        rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components"
+        type="text/css" />
+    <link href="assets/metronic/theme/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet"
+        type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet"
+        type="text/css" id="style_color" />
+    <link href="assets/metronic/theme_rtl/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="assets/images/fav-icon.png" />
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        /*.page-header .page-header-top .page-logo .logo-default {
                 margin: 10px 0 0;
             }
             .page-header .page-header-top{
@@ -53,15 +69,19 @@
             .page-header .page-header-top .top-menu{
                 margin-top: 6px;
             }*/
-            .form-body h4{
-                margin-bottom: 32px;
-                color: #999;
-            }
-            .btn_file_upload{
-                float: left;
-            }
-            .page-content-wrapper .page-content{padding-top: 0px;}
-        </style>
+        .form-body h4 {
+            margin-bottom: 32px;
+            color: #999;
+        }
+
+        .btn_file_upload {
+            float: left;
+        }
+
+        .page-content-wrapper .page-content {
+            padding-top: 0px;
+        }
+    </style>
     </head>
     <!-- END HEAD -->
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
@@ -260,7 +280,7 @@
                             <option value="2">Ｂ分類</option>
                             <option value="3">Ｃ分類</option>
                         </select>
-                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#exampleModal">
+                        <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-message">
                             <i class="icon-plus"></i>
                             新增訊息範本
                         </a>
@@ -274,7 +294,8 @@
                             <tr>
                                 <th>分類</th>
                                 <th>標題</th>
-                                <th>回答</th>
+                                <th>回覆</th>
+                                <th>連結</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
@@ -284,8 +305,10 @@
                                 <td data-type="{{ $msg->type }}" class="custom-type">{{ $msg->type }}</td>
                                 <td data-subject="{{ $msg->subject }}" class="custom-subject">{{ $msg->subject }}</td>
                                 <td data-reply="{{ $msg->reply }}" class="custom-reply">{{ $msg->reply }}</td>
+                                <td data-url="{{ $msg->url }}" class="custom-url">{{ $msg->url }}</td>
+
                                 <td>
-                                    <button class="btn edit-btn btn-sm" data-id="{{ $msg->id }}" data-title="{{ $msg->id }}"data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                    <button class="btn edit-btn btn-sm" data-id="{{ $msg->id }}" data-title="{{ $msg->id }}"data-toggle="modal" data-target="#edit-message"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/msgsample/upstatus/{{$msg->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
 
                                 </td>
@@ -338,133 +361,161 @@
             </div>
         </div>
         <!-- END FOOTER -->
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">新增訊息範本</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <form action="/msgsample/add" method="post">
-                    {{ csrf_field() }}
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="type" class="col-form-label">Type:</label>
-                        <select name="type">
-                            <option value="交通問題">交通問題</option>
-                            <option value="設備問題">設備問題</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject" class="col-form-label">Subject:</label>
-                        <input type="text" class="form-control" id="subject" name="subject">
-                    </div>
-                    <div class="form-group">
-                        <label for="reply" class="col-form-label">Reply:</label>
-                        <textarea class="form-control" id="reply" name="reply"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
 
-            </div>
+        <!-- BEGIN ADD MESSAGE MODAL -->
+        <div id="add-message" class="modal container fade" tabindex="-1" aria-hidden="true"
+        style="display: none; margin-top: -156px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">新增訊息</h4>
+        </div>
+        <form action="/msgsample/add" method="post">
+            {{ csrf_field() }}
+        <div class="modal-body">
+            <div class="row">
+                <label class="control-label col-md-2" style="margin-bottom: 20px;">分類</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select class="bs-select form-control bs-select-hidden" name="type">
+                        <option value="全部">全部</option>
+                        <option value="交通資訊">交通資訊</option>
+                        <option value="景點資訊">景點資訊</option>
+                        <option value="設備資訊">設備資訊</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">標題</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                    <input type="text" class="form-control" placeholder="請輸入標題" id="subject" name="subject">
+                </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">內容</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                    <textarea class="form-control" row="10" placeholder="請輸入資訊" style="height: 400px;" id="reply" name="reply"></textarea>
+                </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">地圖連結</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                    <input type="text" class="form-control" placeholder="請輸入google連結" id="url" name="url">
+                </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <button class="close-btn" data-dismiss="modal">取消</button>
+            <button class="submit-btn">新增</button>
+        </div>
+        </form>
 
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <form action="/msgsample/edit" method="post">
-                    {{ csrf_field() }}
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="type" class="col-form-label">Type:</label>
-                        <select name="type">
-                            <option value="交通問題">交通問題</option>
-                            <option value="設備問題">設備問題</option>
+    </div>
+    <!-- END ADD MESSAGE MODAL -->
+    <!-- BEGIN EDIT MESSAGE MODAL -->
+    <div id="edit-message" class="modal container fade" tabindex="-1" aria-hidden="true"
+        style="display: none; margin-top: -156px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">編輯訊息</h4>
+        </div>
+        <form action="/msgsample/edit" method="post">
+            {{ csrf_field() }}
+            <div class="modal-body">
+                <div class="row">
+                    <label class="control-label col-md-2" style="margin-bottom: 20px;">分類</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                        <select class="bs-select form-control bs-select-hidden" id="type" name="type">
+                            <option value="全部">全部</option>
+                            <option value="交通資訊">交通資訊</option>
+                            <option value="景點資訊">景點資訊</option>
+                            <option value="設備資訊">設備資訊</option>
+                            <option value="其他">其他</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="subject" class="col-form-label">Subject:</label>
-                        <input type="text" class="form-control" id="subject" name="subject">
+                    <label class="col-md-2 control-label" style="margin-bottom: 20px;">標題</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                        <input type="text" class="form-control" placeholder="請輸入標題" id="subject" name="subject">
                         <input type="hidden" class="form-control" id="id" name="id">
                     </div>
-                    <div class="form-group">
-                        <label for="reply" class="col-form-label">Reply:</label>
-                        <textarea class="form-control" id="reply" name="reply"></textarea>
+                    <label class="col-md-2 control-label" style="margin-bottom: 20px;">內容</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                        <textarea class="form-control" row="10" placeholder="請輸入資訊" style="height: 400px;" id="reply" name="reply"></textarea>
+                    </div>
+                    <label class="col-md-2 control-label" style="margin-bottom: 20px;">地圖連結</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                        <input type="text" class="form-control" placeholder="請輸入google連結" id="url" name="url">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-                </form>
-              </div>
             </div>
-        </div>
+            <div class="modal-footer">
+                <button class="close-btn" data-dismiss="modal">取消</button>
+                <button class="submit-btn">儲存</button>
+            </div>
+        </form>
+    </div>
+    <!-- END EDIT MESSAGE MODAL -->
 
         <!--[if lt IE 9]>
-            <script src="assets/metronic/global/plugins/respond.min.js"></script>
-            <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
+        <script src="assets/metronic/global/plugins/respond.min.js"></script>
+        <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
         <![endif]-->
-       <!-- BEGIN CORE PLUGINS -->
-    <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
-    <script src="assets/metronic/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
-    <!-- END CORE PLUGINS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- BEGIN THEME GLOBAL SCRIPTS -->
-    <script src="assets/metronic/theme/assets/global/scripts/app.min.js" type="text/javascript"></script>
-    <!-- END THEME GLOBAL SCRIPTS -->
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->
-    <!-- BEGIN THEME LAYOUT SCRIPTS -->
-    <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
-    <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
-    <!-- <script src="assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
-    <!-- <script type="text/javascript" src="assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
-    <!-- END THEME LAYOUT SCRIPTS -->
-    <script type="text/javascript" src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
-    <!-- END PAGE LEVEL PLUGINS -->
-    <!-- Resources -->
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+        <!-- BEGIN CORE PLUGINS -->
+        <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
+        <script src="assets/metronic/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js"
+            type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script
+            src="assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+            type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
+            type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js"
+            type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
+            type="text/javascript"></script>
+        <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"
+            type="text/javascript"></script>
+        <script
+            src="assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
+            type="text/javascript"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/clockface/js/clockface.js"
+            type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="assets/metronic/theme/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js"
+            type="text/javascript"></script>
+        {{-- <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+        <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+        <script src="assets/metronic/theme/assets/pages/scripts/ui-extended-modals.min.js"></script> --}}
+        <script src="assets/metronic/theme/assets/global/plugins/select2/js/select2.full.min.js"></script>
+        <script src="assets/metronic/theme/assets/pages/scripts/components-select2.min.js"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js"
+            type="text/javascript"></script>
+        <script src="assets/metronic/theme_rtl/assets/layouts/layout4/scripts/demo.min.js"
+            type="text/javascript"></script>
+        <!-- <script src="assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
+        <!-- <script type="text/javascript" src="assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <script type="text/javascript"
+            src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <script src="js/all.js"></script>
     <script>
         $(function() {
-            $('#editModal').on('show.bs.modal', function(e) {
+            $('#edit-message').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
                 let type = btn.closest('td').siblings('.custom-type').data('type');
                 let subject = btn.closest('td').siblings('.custom-subject').data('subject');
                 let reply = btn.closest('td').siblings('.custom-reply').data('reply');
+                let url = btn.closest('td').siblings('.custom-url').data('url');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
                 $('.modalTextInput').val('');
@@ -473,12 +524,13 @@
                 modal.find('.modal-body input#subject').val(subject);
                 modal.find('.modal-body textarea#reply').val(reply);
                 modal.find('.modal-body input#id').val(id);
+                modal.find('.modal-body input#url').val(url);
             })
 
             $('.saveEdit').on('click', function() {
                 let id = $(this).data('id'); // the rest is just the same
                 saveNote(id);
-                $('#editModal').modal('toggle'); // this is to close the modal after clicking the modal button
+                $('#edit-message').modal('toggle'); // this is to close the modal after clicking the modal button
             })
         })
 
