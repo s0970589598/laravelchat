@@ -82,7 +82,6 @@ class MediaController extends Controller
 
         $request->file->move(public_path('file'), $fileName);
 
-
         DB::beginTransaction();
         try {
             $media = Media::create([
