@@ -71,8 +71,8 @@ class RoomController extends Controller
             $room = Room::create([
                 'name' => $request->get('name'),
                 'status' => 0,
-                'service' => $request->get('service'),
-                'code' => $this->indexgenerateRandomString(5),
+                'service' => '未分類',
+                'code' => $this->generateRandomString(5),
             ]);
             $room->users()->attach(Auth::user()->id);
             DB::commit();
@@ -134,17 +134,19 @@ class RoomController extends Controller
            $user = User::where('email',$params['session_id'] . '@motc.go')->get();
             if ( count($user) == 0 ) {
                 $user = User::create([
+                'name'     =>  $params['session_id'],
                 'email'    =>  $params['session_id'] . '@motc.go',
                 'password' =>  Hash::make('test123'),
                 'authcode' =>  $params['session_id'],
                 ]);
                 $user_id  = $user->id;
                 $authcode = $user->authcode;
+                $user_name = $user->name;
 
                 $service_relation_role = CustomerServiceRelationRole::create([
                     'user_id'  => $user_id ,
                     'service'  => $params['sn'],
-                    'role' => 'user',
+                    'role'     => 'user',
                 ]);
 
             } else {
@@ -154,18 +156,26 @@ class RoomController extends Controller
 
            $room = Room::create([
             'name'    => $this->generateRandomString(5),
-            'status'  => $params['status'],
+            'status'  => '1',
             'service' => $params['sn'],
+            'code'    => $this->generateRandomString(5),
            ]);
 
            $room->users()->attach($user_id);
            $res = array(
             'msg'              => 'success',
-            'room_name'        => $room->name,
-            'room_service'     => $room->service,
-            'room_status'      => $room->status,
-            'authcode'         => $authcode,
-           );
+            'data' => array(
+                'room_id'          => $room->id,
+                'room_name'        => $room->name,
+                'room_service'     => $room->service,
+                'room_status'      => $room->status,
+                'room_code'        => $room->code,
+                'user_authcode'    => $authcode,
+                'user_id'          => $user_id,
+                'user_name'        => $user_name,
+            ),
+        );
+
            DB::commit();
        } catch (Throwable $e) {
            DB::rollBack();
@@ -191,9 +201,13 @@ class RoomController extends Controller
                 ->update([
                     'status'     => $params['status'],
             ]);
+
+            $getrooms = Room::where('id',$params['id'])->get();
+
             DB::commit();
             $res = array(
                 'msg'        => 'success',
+                'data'       => $getrooms
             );
         } catch (Throwable $e) {
             DB::rollBack();

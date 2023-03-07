@@ -120,21 +120,34 @@ class AccountController extends Controller
         return redirect()->route('account.index');
     }
 
-    public function updateUserContact(Request $request)
+    public function updateUserContact(string $authcode, Request $request)
     {
         $status = Response::HTTP_OK;
+        $params = $request->all();
         DB::beginTransaction();
-
+        $userupdate = array(
+            'msg'=>'fail'
+        );
         try {
-            User::where('id', $request['id'])
-            ->update($request);
+            $user = User::where('authcode', $authcode)
+            ->update($params);
+            $userupdate =
+            $userupdate = array(
+                'msg' =>'success',
+                'data' => $this->getUserByAuthcode($authcode)
+            );
         } catch (Throwable $e) {
             DB::rollBack();
             Log::error($e->getMessage());
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
-        return response(json_encode($satifaction), $status);
+        return response(json_encode($userupdate), $status);
+    }
+
+    public function getUserByAuthcode(string $authcode){
+        return User::where('authcode', $authcode)->get();
+
     }
 
     public function upstatus(request $request)
