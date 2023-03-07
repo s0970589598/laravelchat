@@ -19,54 +19,77 @@
         <meta content="" name="author" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="/css/style.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet" type="text/css" />
-        <!-- END GLOBAL MANDATORY STYLES -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+            type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+            type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet"
+            type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+            type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet"
+            type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet"
+            type="text/css" />
+            <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css"
+        rel="stylesheet" type="text/css" />
         <link href="/assets/metronic/theme/assets/global/plugins/morris/morris.css" rel="sfatylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"
+            rel="stylesheet" type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
+            rel="stylesheet">
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
+        rel="stylesheet">
+        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
+        <link href="/assets/metronic/theme/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet">
+        <link href="/assets/metronic/theme/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="/assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components"
+        type="text/css" />
         <link href="/assets/metronic/theme/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet"
+        type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet"
+            type="text/css" id="style_color" />
         <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="/shortcut icon" href="/assets/images/fav-icon.png" />
+        <link rel="shortcut icon" href="/assets/images/fav-icon.png" />
         <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <style>
             /*.page-header .page-header-top .page-logo .logo-default {
-                margin: 10px 0 0;
-            }
-            .page-header .page-header-top{
-                height: 60px;
-            }
-            .page-header .page-header-top .page-logo{
-                height: 60px;
-            }
-            .page-header .page-header-top .top-menu{
-                margin-top: 6px;
-            }*/
+                    margin: 10px 0 0;
+                }
+                .page-header .page-header-top{
+                    height: 60px;
+                }
+                .page-header .page-header-top .page-logo{
+                    height: 60px;
+                }
+                .page-header .page-header-top .top-menu{
+                    margin-top: 6px;
+                }*/
             /* *{
-                outline: 1px solid #ccc;
-            }  */
-            .form-body h4{
+                    outline: 1px solid #ccc;
+                }  */
+            .form-body h4 {
                 margin-bottom: 32px;
                 color: #999;
             }
-            .btn_file_upload{
+
+            .btn_file_upload {
                 float: left;
             }
-            .page-content-wrapper .page-content{padding-top: 0px;}
+
+            .page-content-wrapper .page-content {
+                padding-top: 0px;
+            }
         </style>
     </head>
     <!-- END HEAD -->
@@ -130,7 +153,8 @@
                     <div class="message-content">
                         <div class="message-send">
                             <div class="message-input">
-                                <textarea id="chat-message-input" class="form-control" maxlength="300" rows="5" placeholder="請輸入訊息"></textarea>
+                                <textarea id="maxlength_textarea" class="form-control" maxlength="300" rows="5"
+                                    placeholder="請輸入訊息"></textarea>
                                 <div class="message-input-actions btn-group">
                                     <label class="upload-btn">
                                         <input id="upload_img" style="display:none;" type="file">
@@ -139,20 +163,21 @@
                                 </div>
                             </div>
                             <!-- BEGIN FOOTER -->
-                            <div class="page-footer-inner">Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.</div>
+                            <div class="page-footer-inner">Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.
+                            </div>
                             <!-- END FOOTER -->
                         </div>
                         <div class="message-feature">
                             <div class="send">
-                                    <button type="submit" class="submit-btn" onclick="send()">發送</button>
+                                <button class="submit-btn">發送</button>
                             </div>
                             <div class="customer-turn">
-                                <button class="refer-btn">客服轉介</button>
+                                <button class="refer-btn" data-target="#apply-return" data-toggle="modal">客服轉介</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
         </div>
         <div class="col-md-3" style="padding: 0;border: 1px solid #F5F5F5;">
             <div class="feature-section">
@@ -175,7 +200,7 @@
                             </li>
                             <li class="list-items">
                                 <span class="info"><i class="fa fa-phone"></i>手機</span>
-                                <span class="num"></span>
+                                <span class="num">＋886-912-345-678</span>
                             </li>
                             <li class="list-items">
                                 <span class="info"><i class="fa fa-comment"></i>Line</span>
@@ -209,14 +234,14 @@
                                 </a>
                             </div>
                             <div class="col-md-4" style="padding: 0 20px 0 5px;">
-                                <a href="javascript:;" class="icon-btn">
+                                <a href="#sticker" class="icon-btn" data-toggle="modal">
                                     <i class="fa fa-image"></i>
                                     <div>貼圖</div>
                                 </a>
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
                 <div class="portlet">
                     <div class="portlet-title">
                         <div class="caption">
@@ -239,231 +264,693 @@
 </div>
 <!-- END CONTAINER -->
     <!-- BEGIN MEDIA MODAL -->
-    <div class="modal container fade in" id="media" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-right: 15px;">
-        <div class="modal-dialog modal-full">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">媒體庫</h4>
+    <div class="modal container fade in" id="media" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">媒體庫</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value=""
+                        style="margin-right: 5px;">
+                    <input name="page" type="hidden" value="1" />
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
-                            <input name="page" type="hidden" value="1" />
-                        </div>
-                        <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
-                            <i class="fa fa-search"></i>
-                            查詢
-                        </button>
-                    </div>
-                    <div class="media-content">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
+                <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
+                    <i class="fa fa-search"></i>
+                    查詢
+                </button>
+            </div>
+            <div class="media-content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="media">
-                                    <div class="media-info">
-                                        <div class="media-title">
-                                            <input type="checkbox" id="checkbox-1">
-                                            <label for="checkbox-1">檔案格式.jpg</label>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="close-btn" data-dismiss="modal">關閉</button>
-                    <button class="submit-btn">確定</button>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="media">
+                            <div class="media-info">
+                                <div class="media-title">
+                                    <input type="checkbox" id="checkbox-1">
+                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                </div>
+                                <div class="thumbnail" style="margin: 0;">
+                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <div class="modal-footer">
+            <button class="close-btn" data-dismiss="modal">關閉</button>
+            <button class="submit-btn">確定</button>
+        </div>
     </div>
     <!-- END MEDIA MODAL -->
     <!-- BEGIN MESSAGE MODAL -->
-    <div class="modal container fade in" id="message" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; padding-right: 15px;">
-        <div class="modal-dialog modal-full">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title">訊息範本</h4>
+    <div class="modal container fade in" id="message" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">訊息範本</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value=""
+                        style="margin-right: 5px;">
+                    <input name="page" type="hidden" value="1" />
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
-                            <input name="page" type="hidden" value="1" />
+                <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
+                    <i class="fa fa-search"></i>
+                    查詢
+                </button>
+            </div>
+            <div class="dialogue-content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
-                            <i class="fa fa-search"></i>
-                            查詢
-                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dialogue">
+                            <div class="dialogue-info">
+                                <div class="dialogue-title">
+                                    <div class="source">
+                                        <input type="checkbox" id="checkbox-1">
+                                        <p>
+                                            <a
+                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                        </p>
+                                    </div>
+                                    <div class="activity">
+                                        <div class="activity-content">
+                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="content">
+                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="thumbnail" style="margin: 0;">
+                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="close-btn" data-dismiss="modal">關閉</button>
-                    <button class="submit-btn">確定</button>
-                </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <div class="modal-footer">
+            <button class="close-btn" data-dismiss="modal">關閉</button>
+            <button class="submit-btn">確定</button>
+        </div>
     </div>
     <!-- END MESSAGE MODAL -->
+    <!-- BEGIN CUSTOMER RETURN MODAL -->
+    <div id="apply-return" class="modal container fade" tabindex="-1" aria-hidden="true" style="display: none; margin-top: -156px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">申請客服轉介</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <label class="control-label col-md-2" style="margin-bottom: 20px;">指派單位</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
+                        aria-hidden="true">
+                        <optgroup label="Alaskan">
+                            <option value="AK">Alaska</option>
+                            <option value="HI">Hawaii</option>
+                        </optgroup>
+                        <optgroup label="Pacific Time Zone">
+                            <option value="CA">California</option>
+                            <option value="NV">Nevada</option>
+                            <option value="OR">Oregon</option>
+                            <option value="WA">Washington</option>
+                        </optgroup>
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
+                        <optgroup label="Central Time Zone">
+                            <option value="AL">Alabama</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TX">Texas</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="WI">Wisconsin</option>
+                        </optgroup>
+                        <optgroup label="Eastern Time Zone">
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="IN">Indiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="OH">Ohio</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WV">West Virginia</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">指派原因</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                    <textarea class="form-control" row="10" placeholder="請輸入指派原因" style="height: 400px;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="close-btn" data-dismiss="modal">取消</button>
+            <button class="submit-btn">送出</button>
+        </div>
+    </div>
+    <!-- END CUSTOMER RETURN MODAL -->
+    <!-- BEGIN STICKER MODAL -->
+    <div class="modal container fade in" id="sticker" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">貼圖</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row gx-3">
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">好</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/ok.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">我知道了</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/i_got_it.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">謝謝</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/thank-you.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">不客氣</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/welcome.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">給你</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/for_you.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">收到</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/got_it.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">再見</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/goodbye.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="sticker">
+                        <div class="sticker-info">
+                            <div class="sticker-title">
+                                <input type="checkbox" id="checkbox-1">
+                                <label for="checkbox-1">疑惑</label>
+                            </div>
+                            <div class="img-wrap">
+                                <img src="/assets/images/sticker/doubt.png" alt="images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="close-btn" data-dismiss="modal">關閉</button>
+            <button class="submit-btn">確定</button>
+        </div>
+    </div>
+    <!-- END STICKER MODAL -->
     <!--[if lt IE 9]>
-        <script src="/assets/metronic/global/plugins/respond.min.js"></script>
-        <script src="/assets/metronic/global/plugins/excanvas.min.js"></script>
+        <script src="assets/metronic/global/plugins/respond.min.js"></script>
+        <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
     <![endif]-->
     <!-- BEGIN CORE PLUGINS -->
     <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
     <script src="/assets/metronic/theme/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap/js/bootstrap.min.js"
+        type="text/javascript"></script>
     <script src="/assets/metronic/theme/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+        type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
+        type="text/javascript"></script>
     <script src="/assets/metronic/theme/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <!-- <script src="/assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
+    <script src="/assets/metronic/theme/assets/global/plugins/uniform/jquery.uniform.min.js"
+        type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
+        type="text/javascript"></script>
+    <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="/assets/metronic/theme/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
-    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/jquery-ui/jquery-ui.min.js"
+        type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/moment.min.js"
+        type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"
+        type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"
+        type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"
+        type="text/javascript"></script>
+    <script
+        src="/assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
+        type="text/javascript"></script>
     <script src="/assets/metronic/theme/assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="/assets/metronic/theme/assets/global/scripts/app.min.js" type="text/javascript"></script>
     <!-- END THEME GLOBAL SCRIPTS -->
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="/assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+    <script src="/assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js"
+        type="text/javascript"></script>
     <script src="/assets/metronic/theme/assets/pages/scripts/ui-modals.min.js" type="text/javascript"></script>
+    {{-- <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+    <script src="assets/metronic/theme/assets/pages/scripts/ui-extended-modals.min.js"></script> --}}
+    <script src="/assets/metronic/theme/assets/global/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/assets/metronic/theme/assets/pages/scripts/components-select2.min.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
-    <script src="/assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="/assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js"
+        type="text/javascript"></script>
     <script src="/assets/metronic/theme_rtl/assets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
-    <!-- <script src="/assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
-    <!-- <script type="text/javascript" src="/assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
+    <!-- <script src="assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
+    <!-- <script type="text/javascript" src="assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
     <!-- END THEME LAYOUT SCRIPTS -->
-    <script type="text/javascript" src="/assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
+    <script type="text/javascript"
+        src="/assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- Resources -->
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
     <script>
         var output = document.getElementById("output");
         function send(){
