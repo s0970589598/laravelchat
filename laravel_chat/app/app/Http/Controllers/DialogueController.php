@@ -26,9 +26,6 @@ class DialogueController extends Controller
     public function index()
     {
         $rooms = 0;
-        // $rooms = Room::with(['users', 'messages' => function ($query) {
-        //     $query->orderBy('created_at', 'asc');
-        // }])->orderBy('created_at', 'desc')->get();
 
         return view('dialogue.index', [
             'rooms' => $rooms,
@@ -52,7 +49,7 @@ class DialogueController extends Controller
     public function show(int $id)
     {
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
-        $room = Room::with(['users', 'messages.user' => function ($query) {
+        $room  = Room::with(['users', 'messages.user' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->find($id);
 
@@ -62,33 +59,6 @@ class DialogueController extends Controller
             'isJoin' => $room->users->contains('id', Auth::user()->id),
             'now' => Carbon::now('GMT+8')->toDateString()
         ]);
-    }
-
-    public function join(int $id)
-    {
-        $room = Room::find($id);
-        $room->users()->attach(Auth::user()->id);
-
-        return redirect()->route('rooms.show', $id);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:32', 'unique:rooms'],
-        ]);
-
-        DB::beginTransaction();
-        try {
-            $room = Room::create(['name' => $request->get('name')]);
-            $room->users()->attach(Auth::user()->id);
-            DB::commit();
-        } catch (Throwable $e) {
-            DB::rollBack();
-            Log::error($e->getMessage());
-        }
-
-        return redirect()->route('rooms.show', $room->id);
     }
 
     public function publish(int $id, Request $request)

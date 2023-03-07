@@ -25,14 +25,10 @@ class FaqController extends Controller
     public function index()
     {
         $rooms = 0;
-        // $rooms = Room::with(['users', 'messages' => function ($query) {
-        //     $query->orderBy('created_at', 'asc');
-        // }])->orderBy('created_at', 'desc')->get();
         $limit = 10;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
-        //$email_sample = DB::table('email_sample');
         $faq = FAQ::orderBy('id', 'desc')
         ->where('status','0')
         ->paginate($limit);
@@ -74,15 +70,6 @@ class FaqController extends Controller
 
     }
 
-
-    public function join(int $id)
-    {
-        $room = Room::find($id);
-        $room->users()->attach(Auth::user()->id);
-
-        return redirect()->route('rooms.show', $id);
-    }
-
     public function store(Request $request)
     {
         $params = $request->validate([
@@ -108,38 +95,4 @@ class FaqController extends Controller
         return redirect()->route('faq.index');
     }
 
-    public function publish(int $id, Request $request)
-    {
-        $requestData = $request->json()->all();
-        $status      = Response::HTTP_OK;
-
-        try {
-            $message = Message::create([
-                'sender_id' => Auth::user()->id,
-                'message'   => $requestData["message"],
-                'room_id'   => $id,
-            ]);
-
-            $room = Room::with('users')->find($id);
-
-            $channels = [];
-            foreach ($room->users as $user) {
-                $channels[] = "personal:#" . $user->id;
-            }
-
-            $this->centrifugo->broadcast($channels, [
-                "text"               => $message->message,
-                "createdAt"          => $message->created_at->toDateTimeString(),
-                "createdAtFormatted" => $message->created_at->toFormattedDateString() . ", " . $message->created_at->toTimeString(),
-                "roomId"             => $id,
-                "senderId"           => Auth::user()->id,
-                "senderName"         => Auth::user()->name,
-            ]);
-        } catch (Throwable $e) {
-            Log::error($e->getMessage());
-            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
-        }
-
-        return response('', $status);
-    }
 }

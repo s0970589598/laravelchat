@@ -121,7 +121,6 @@ class RoomController extends Controller
 
     public function addRooms(Request $request){
         $status = Response::HTTP_OK;
-        //Log::info($request->all());
         $res = 'success';
 
         $params = $request->validate([
@@ -167,9 +166,6 @@ class RoomController extends Controller
             'room_status'      => $room->status,
             'authcode'         => $authcode,
            );
-
-           //$this->sendUserConfirmMail($param);
-           // $room->users()->attach(Auth::user()->id);
            DB::commit();
        } catch (Throwable $e) {
            DB::rollBack();
@@ -179,8 +175,6 @@ class RoomController extends Controller
             'msg'        => 'fail',
            );
        }
-       // event(new Registered($user));
-       //return redirect()->route('account.index');
        return response(json_encode($res), $status);
     }
 

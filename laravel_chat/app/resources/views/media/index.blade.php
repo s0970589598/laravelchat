@@ -234,6 +234,12 @@
                                         <span class="title">媒體庫</span>
                                     </a>
                                 </li>
+                                <li class="nav-item ">
+                                    <a href="/salutatory" class="nav-link ">
+                                        <i class="fa fa-hand-paper-o"></i>
+                                        <span class="title">歡迎詞設定</span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item ">
@@ -246,12 +252,6 @@
                             <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start">
-                            <a href="/salutatory" class="nav-link ">
-                                <i class="fa fa-hand-paper-o"></i>
-                                <span class="title">歡迎詞設定</span>
                             </a>
                         </li>
                     </ul>
