@@ -280,12 +280,12 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
+                    {{-- <form class="form-inline" id="form-search" method="GET">
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-welcome">
                             <i class="icon-plus"></i>
                             新增歡迎詞
                         </a>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
 
