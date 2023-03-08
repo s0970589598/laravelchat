@@ -72,6 +72,8 @@ class DialogueController extends Controller
     public function publish(int $id, Request $request)
     {
         $requestData = $request->json()->all();
+        $msg = $requestData["message"];
+
         $status      = Response::HTTP_OK;
         if (isset($requestData["sender_id"])){
             $sender_id = $requestData["sender_id"];
@@ -85,11 +87,26 @@ class DialogueController extends Controller
             $sender_name = Auth::user()->name;
         }
 
+        if(isset($requestData["type"])) {
+            $msg_type = 'msg';
+        } else {
+            $msg_type = $requestData["type"];
+        }
+
+        if ($msg_type == 'file'){
+            $fileName = time() . '.'. $request->file->extension();
+            $type = $request->file->getClientMimeType();
+            $size = $request->file->getSize();
+            $request->file->move(public_path('file'), $fileName);
+            $msg = public_path('file') . '/' . $fileName;
+        }
+
         try {
             $message = Message::create([
                 'sender_id' => $sender_id,
-                'message'   => $requestData["message"],
+                'message'   => $msg,
                 'room_id'   => $id,
+                'type'      => $msg_type,
             ]);
 
             $room = Room::with('users')->find($id);
@@ -106,6 +123,7 @@ class DialogueController extends Controller
                 "roomId"             => $id,
                 "senderId"           => $sender_id,
                 "senderName"         => $sender_name,
+                "type"               => $msg_type,
             ]);
 
             $rs = array(
