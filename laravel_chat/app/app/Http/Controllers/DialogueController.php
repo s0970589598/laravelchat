@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\RoomUserRelation;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -49,9 +50,16 @@ class DialogueController extends Controller
     public function show(int $id)
     {
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
+
         $room  = Room::with(['users', 'messages.user' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->find($id);
+
+        $is_join = $room->users->contains('id', Auth::user()->id);
+
+        if (empty($is_join)){
+            $room->users()->attach(Auth::user()->id);
+        }
 
         return view('dialogue.index', [
             'rooms' => $rooms,
