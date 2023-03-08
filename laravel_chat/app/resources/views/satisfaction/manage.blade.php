@@ -282,7 +282,7 @@
                                     <a class="widget-thumb-click" href="#">
                                         <div
                                             class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered" style="padding-bottom: 20px;">
-                                            <h4 class="widget-thumb-heading">在線客服人數</h4>
+                                            <h4 class="widget-thumb-heading">滿意度調查填寫數</h4>
                                             <div class="widget-thumb-wrap">
                                                 <div class="widget-thumb-body">
                                                     <span class="widget-thumb-body-stat" data-counter="counterup"

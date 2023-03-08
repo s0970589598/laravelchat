@@ -7,7 +7,7 @@ $( document ).ready(function() {
         $(this).closest('tr').remove();
     });
 
-    // EMOJI
+    // // EMOJI
     // $("#welcome").emojioneArea({
     //     pickerPosition: "bottom",
     //     filtersPosition: "bottom"
