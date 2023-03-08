@@ -222,19 +222,19 @@
                         <div class="portlet-body">
                             <div class="row">
                                 <div class="col-md-4" style="padding: 0 5px 0 20px;">
-                                    <a  data-target="media" class="icon-btn" data-toggle="modal">
+                                    <a  data-target="#media" class="icon-btn" data-toggle="modal">
                                         <i class="fa fa-folder-o"></i>
                                         <div>媒體庫</div>
                                     </a>
                                 </div>
                                 <div class="col-md-4">
-                                    <a  data-target="message" class="icon-btn" data-toggle="modal">
+                                    <a  data-target="#message" class="icon-btn" data-toggle="modal">
                                         <i class="fa fa-comment"></i>
                                         <div>訊息範本</div>
                                     </a>
                                 </div>
                                 <div class="col-md-4" style="padding: 0 20px 0 5px;">
-                                    <a data-target="sticker" class="icon-btn" data-toggle="modal">
+                                    <a data-target="#sticker" class="icon-btn" data-toggle="modal">
                                         <i class="fa fa-image"></i>
                                         <div>貼圖</div>
                                     </a>
