@@ -784,6 +784,22 @@ table{
                 text-decoration: none;
             }
         }
+        .sticker{
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            border-radius: 6px;
+            margin-top: 20px;
+            .sticker-info{
+                padding: 15px;
+                .img-wrap{
+                    margin: 0 auto;
+                    width: 100px;
+                    height: 100px;
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
     .modal-footer{
         display: flex;
