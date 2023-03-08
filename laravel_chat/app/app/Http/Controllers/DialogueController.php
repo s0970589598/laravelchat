@@ -78,6 +78,7 @@ class DialogueController extends Controller
         $media = Media::orderBy('id', 'desc')
         ->where('status','0')
         ->paginate($limit);
+
         $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
         ->where('status','0')
         ->paginate($limit);
@@ -92,10 +93,27 @@ class DialogueController extends Controller
         ]);
     }
 
+    // 一般訊息  msg// 圖片/檔案 file
+    // 貼圖     stickers// 訊息範本  msgtem// 媒體庫    media
     public function publish(int $id, Request $request)
     {
         $requestData = $request->json()->all();
-        $msg = $requestData["message"];
+        $check_api = 1;
+        if(isset($requestData["type"])) {
+            $msg_type = $requestData["type"];
+        } else {
+            if ( isset($request['type'])){
+                $msg_type = $request['type'];
+            } else {
+                $msg_type = 'msg';
+            }
+        }
+
+        // file tmp not
+        if ($msg_type == 'msgtem'  || $msg_type == 'media' || $msg_type == 'stickers'){
+            $requestData = $request->all();
+            $check_api = 0;
+        }
 
         $status      = Response::HTTP_OK;
         if (isset($requestData["sender_id"])){
@@ -110,18 +128,26 @@ class DialogueController extends Controller
             $sender_name = Auth::user()->name;
         }
 
-        if(isset($requestData["type"])) {
-            $msg_type = 'msg';
-        } else {
-            $msg_type = $requestData["type"];
-        }
-
         if ($msg_type == 'file'){
             $fileName = time() . '.'. $request->file->extension();
             $type = $request->file->getClientMimeType();
             $size = $request->file->getSize();
             $request->file->move(public_path('file'), $fileName);
             $msg = public_path('file') . '/' . $fileName;
+        } else if ($msg_type == 'msgtem' || $msg_type == 'media') {
+            foreach($requestData["items"] as $key =>$rd) {
+                $arr[]=(int)$rd;
+            }
+
+            $msg = json_encode($arr);
+        } else if ($msg_type == 'stickers') {
+            foreach($requestData["items"] as $key =>$rd) {
+                $arr[]=$rd;
+            }
+            $msg = json_encode($arr);
+
+        } else {
+            $msg = $requestData["message"];
         }
 
         try {
@@ -160,7 +186,10 @@ class DialogueController extends Controller
                 'msg'=>'fail'
             );
         }
-
-        return response($rs, $status);
+        if ($check_api){
+            return response($rs, $status);
+        } else {
+            return redirect()->route('dialogue.show',$id);
+        }
     }
 }
