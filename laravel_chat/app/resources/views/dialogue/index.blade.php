@@ -88,6 +88,19 @@
         .page-content-wrapper .page-content {
             padding-top: 0px;
         }
+
+        .initImg{
+            width: 80px;
+            height: 80px;
+        }
+        .initStickersImg{
+            width: 100px;
+            height: 100px;
+        }
+
+        .containImg{
+            object-fit: contain;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -100,53 +113,131 @@
                     <div class="dialogue-head" id="chat-history">
                         <p class="real-time">{{$now}}</p>
                         @if (!empty($currRoom))
-                        @foreach($currRoom->messages as $message)
-                        @if ($message->sender_id === Auth::user()->id)
-                        <!-- BEGIN RESPONCSE DIALOGUE -->
-                        <div class="response-dialogue">
-                            <div class="user">
-                                <img class="user-avatar" src="https://robohash.org/{{ $message->user->name }}" alt="images">
-                                <div class="dialogue">
-                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
-                                    <div class="dialogue-content">
-                                        <div class="dialogue-info">
-                                            <div class="activity">
-                                                <div class="content">
-                                                    <p> {{ $message->message }}</p>
+                            @foreach($currRoom->messages as $message)
+                            @if ($message->sender_id === Auth::user()->id)
+                                @if ($message->type === 'msgtem')
+                                    <?php
+                                        $msg_sample_id = json_decode($message->message);
+                                        $msg_sample = App\Models\FrequentlyMsg::whereIn('id', $msg_sample_id)->get();
+                                    ?>
+                                    <?php foreach($msg_sample as $msgtem){?>
+                                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                                        <div class="response-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                <div class="dialogue">
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                    <div class="dialogue-content">
+                                                        <p><a href="{{$msgtem->url}}">{{$msgtem->url}}</a>
+                                                        </p>
+                                                        <div class="dialogue-info">
+                                                            <div class="activity">
+                                                                <div class="title">{{$msgtem->suject}}</div>
+                                                                <div class="content">
+                                                                    <p>{{$msgtem->reply}}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="thumbnail" style="margin: 0;">
+                                                                <img src="/assets/images/thumbnail.png" alt="images">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END RESPONCSE DIALOGUE-->
+                                    <?php }?>
+                                @elseif ($message->type === 'media')
+                                    <?php
+                                    $media_id = json_decode($message->message);
+                                    $media_v = App\Models\Media::whereIn('id', $media_id)->get();
+                                    ?>
+                                    <?php foreach($media_v as $med){?>
+                                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                                        <div class="response-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                <div class="dialogue">
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                    <div class="dialogue-content">
+                                                        <div class="dialogue-info">
+                                                            <img src="/file/{{ $med->file}}" alt="" class="initStickersImg containImg">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END RESPONCSE DIALOGUE-->
+                                    <?php }?>
+                                @elseif ($message->type === 'stickers')
+                                    <?php
+                                    $sticker_name = json_decode($message->message);
+                                    ?>
+                                    <?php foreach($sticker_name as $sticker){?>
+                                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                                        <div class="response-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                <div class="dialogue">
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                    <div class="dialogue-content">
+                                                        <div class="dialogue-info">
+                                                            <img src="/assets/images/sticker/{{ $sticker}}" alt="" class="initStickersImg containImg">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END RESPONCSE DIALOGUE-->
+                                    <?php }?>
+
+                                @else
+                                    <!-- BEGIN RESPONCSE DIALOGUE -->
+                                    <div class="response-dialogue">
+                                        <div class="user">
+                                            <img class="user-avatar" src="https://robohash.org/{{ $message->user->name }}" alt="images">
+                                            <div class="dialogue">
+                                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                <div class="dialogue-content">
+                                                    <div class="dialogue-info">
+                                                        <div class="activity">
+                                                            <div class="content">
+                                                                <p> {{ $message->message }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END RESPONCSE DIALOGUE-->
+                                    <!-- END RESPONCSE DIALOGUE-->
+                                @endif
+                            @else
+                                    <!-- BEGIN REQUEST DIALOGUE -->
+                                    <div class="request-dialogue">
+                                        <div class="user">
+                                            <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
+                                            <div class="dialogue-content">
+                                                <p>
+                                                    <?php
+                                                        $user = $message->user->name;
+                                                        $email = $message->user->email;
+                                                    ?>
+                                                    {{ $message->message }}
+                                                </p>
+                                            </div>
+                                            <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                        </div>
+                                    </div>
+                                    <!-- END REQUEST DIALOGUE -->
+                            @endif
+                            @endforeach
                         @else
-                        <!-- BEGIN REQUEST DIALOGUE -->
-                        <div class="request-dialogue">
-                            <div class="user">
-                                <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
-                                <div class="dialogue-content">
-                                    <p>
-                                        <?php
-                                            $user = $message->user->name;
-                                            $email = $message->user->email;
-                                        ?>
-                                        {{ $message->message }}
-                                    </p>
-                                </div>
-                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                您好，歡迎使用客服系統，請問您有什麼問題
                             </div>
-                        </div>
-                        <!-- END REQUEST DIALOGUE -->
                         @endif
-                        @endforeach
-                        @else
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                            您好，歡迎使用客服系統，請問您有什麼問題
-                        </div>
-                        @endif
-
                     </div>
                         <div class="dialogue-body">
                         <div class="message-content">
@@ -206,10 +297,10 @@
                                     <span class="info"><i class="fa fa-comment"></i>Line</span>
                                     <span class="num"></span>
                                 </li>
-                                <li class="list-items">
+                                {{-- <li class="list-items">
                                     <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
                                     <span class="num"></span>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -281,132 +372,37 @@
                     查詢
                 </button>
             </div>
+            <form id="publish-msg-sample" action="/dialogue/{{$currRoom->id}}/publish" method="POST" enctype="application/json">
+                <input type="hidden" id="msg-type" name="type" value="media">
+
             <div class="media-content">
                 <div class="row">
+                    <?php foreach ($media as $m): ?>
                     <div class="col-md-4">
                         <div class="media">
                             <div class="media-info">
                                 <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                    <input type="checkbox" id="media-{{ $m->id }}" name="items[]" value="{{ $m->id }}">
+
+                                    <label for="media-{{ $m->id }}">{{ $m->file}}</label>
                                 </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                {{-- <div class="thumbnail" style="margin: 0;"> --}}
+                                <div  style="margin: 0;">
+                                        <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
+
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">關閉</button>
-            <button class="submit-btn">確定</button>
+            <button type="submit" class="submit-btn">確定</button>
         </div>
+    </form>
     </div>
     <!-- END MEDIA MODAL -->
     <!-- BEGIN MESSAGE MODAL -->
@@ -427,258 +423,52 @@
                     查詢
                 </button>
             </div>
-            <div class="dialogue-content">
+            <form id="publish-msg-sample" action="/dialogue/{{$currRoom->id}}/publish" method="POST" enctype="application/json">
+            {{-- <form id="publish-msg-sample" > --}}
+                    @csrf
+                <input type="hidden" id="msg-type" name="type" value="msgtem">
+                <div class="dialogue-content">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
+                    <?php foreach ($msg_sample as $msg): ?>
+                        <div class="col-md-4">
+                            <div class="dialogue">
+                                <div class="dialogue-info">
+                                    <div class="dialogue-title">
+                                        <div class="source">
+                                            <input class="messageCheckbox" type="checkbox" id="msgsample"  name="items[]" value="{{ $msg->id }}">
+                                            <p>
+                                                <a
+                                                    href="{{ $msg->url }}">{{ $msg->url }}</a>
+                                            </p>
                                         </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                        <div class="activity">
+                                            <div class="activity-content">
+                                                <div class="title">{{ $msg->subject }}</div>
+                                                <div class="content">
+                                                    <p>
+                                                        {{ $msg->reply }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="thumbnail" style="margin: 0;">
+                                                <img src="/assets/images/thumbnail.png" alt="images">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
+
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">關閉</button>
-            <button class="submit-btn">確定</button>
+            <button type="submit" class="submit-btn" id="msgtemsubmit">確定</button>
         </div>
+    </form>
+
     </div>
     <!-- END MESSAGE MODAL -->
     <!-- BEGIN CUSTOMER RETURN MODAL -->
@@ -769,6 +559,9 @@
     <!-- END CUSTOMER RETURN MODAL -->
     <!-- BEGIN STICKER MODAL -->
     <div class="modal container fade in" id="sticker" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <form id="publish-msg-sample" action="/dialogue/{{$currRoom->id}}/publish" method="POST" enctype="application/json">
+            <input type="hidden" id="msg-type" name="type" value="stickers">
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">貼圖</h4>
@@ -779,7 +572,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[0]" value="ok.png">
                                 <label for="checkbox-1">好</label>
                             </div>
                             <div class="img-wrap">
@@ -792,7 +585,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[1]" value="i_got_it.png">
                                 <label for="checkbox-1">我知道了</label>
                             </div>
                             <div class="img-wrap">
@@ -805,7 +598,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[2]" value="thank-you.png">
                                 <label for="checkbox-1">謝謝</label>
                             </div>
                             <div class="img-wrap">
@@ -818,7 +611,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[3]" value="welcome.png">
                                 <label for="checkbox-1">不客氣</label>
                             </div>
                             <div class="img-wrap">
@@ -831,7 +624,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[4]" value="for_you.png">
                                 <label for="checkbox-1">給你</label>
                             </div>
                             <div class="img-wrap">
@@ -844,7 +637,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[5]" value="got_it.png">
                                 <label for="checkbox-1">收到</label>
                             </div>
                             <div class="img-wrap">
@@ -857,7 +650,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[6]" value="goodbye.png">
                                 <label for="checkbox-1">再見</label>
                             </div>
                             <div class="img-wrap">
@@ -870,7 +663,7 @@
                     <div class="sticker">
                         <div class="sticker-info">
                             <div class="sticker-title">
-                                <input type="checkbox" id="checkbox-1">
+                                <input type="checkbox" id="checkbox-1" name="items[7]" value="doubt.png">
                                 <label for="checkbox-1">疑惑</label>
                             </div>
                             <div class="img-wrap">
@@ -883,8 +676,9 @@
         </div>
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">關閉</button>
-            <button class="submit-btn">確定</button>
+            <button type="submit" class="submit-btn">確定</button>
         </div>
+        </form>
     </div>
     <!-- END STICKER MODAL -->
     <!--[if lt IE 9]>
@@ -957,9 +751,57 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"> --}}
     <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
 
+    <script type="text/javascript">
 
-    <script>
+    // $('#msgtemsubmit').click(function(e){
+    //     const currentUserId = "{{ Auth::user() -> id }}";
+    //     const currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+    //     const csrfToken     = "{{ csrf_token() }}";
+    //     var checkmsgtem = document.querySelector('.messageCheckbox').checked;
+    //     var msgtype = document.getElementById("msg-type").value;
+    //     alert('json');
+    //     e.preventDefault();
+    //     var formData = $('#publish-msg-sample').serialize();
+    //     //var form = $('#publish-msg-sample').serializeArray();
+    //     //alert(JSON.stringify(form))
+    //     $.ajax({
+    //         url: "/dialogue/" + currentRoomId + "/publish",
+    //         data: formData,
+    //         dataType: 'json',
+    //         contentType: 'application/json;charset=UTF-8',
+    //         method: 'POST',
+    //         processData: false, // important
+    //         contentType: false, // important
+    //         cache: false,
+    //         success: function(data)
+    //         {
+    //             console.log(data)
+    //             alert('json');
+
+    //             // redirect
+    //             //window.location.replace(data.redirect);
+    //         },
+    //         error: function(data)
+    //         {
+    //             alert(data);
+    //             // intergrate Swal to display error
+    //             Swal.close();
+    //             if (data.status == 419) {
+    //                 window.location.reload();
+    //             } else {
+    //                 Swal.fire({
+    //                     icon: 'info',
+    //                     title: 'Error',
+    //                     html: data.responseJSON.message,
+    //                 });
+    //             }
+    //         }
+    //     });
+    // })
+
         var output = document.getElementById("output");
+
+
         function send(){
             //output.innerHTML = input.value;
             const currentUserId = "{{ Auth::user() -> id }}";
@@ -975,7 +817,7 @@
                     return;
                 }
                 const xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "/rooms/" + currentRoomId + "/publish");
+                xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
                 xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
                 xhttp.send(JSON.stringify({
                     message: message

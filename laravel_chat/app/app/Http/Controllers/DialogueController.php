@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\Media;
 use App\Models\RoomUserRelation;
+use App\Models\FrequentlyMsg;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -27,9 +29,20 @@ class DialogueController extends Controller
     public function index()
     {
         $rooms = 0;
+        $media = 0;
+        $limit = 10;
+
+        $media = Media::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+
 
         return view('dialogue.index', [
             'rooms' => $rooms,
+
         ]);
     }
 
@@ -49,6 +62,7 @@ class DialogueController extends Controller
 
     public function show(int $id)
     {
+        $limit = 9;
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
 
         $room  = Room::with(['users', 'messages.user' => function ($query) {
@@ -61,18 +75,45 @@ class DialogueController extends Controller
             $room->users()->attach(Auth::user()->id);
         }
 
+        $media = Media::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+
         return view('dialogue.index', [
             'rooms' => $rooms,
             'currRoom' => $room,
             'isJoin' => $room->users->contains('id', Auth::user()->id),
-            'now' => Carbon::now('GMT+8')->toDateString()
+            'now' => Carbon::now('GMT+8')->toDateString(),
+            'media' => $media,
+            'msg_sample' => $msg_sample
         ]);
     }
 
+    // 一般訊息  msg// 圖片/檔案 file
+    // 貼圖     stickers// 訊息範本  msgtem// 媒體庫    media
     public function publish(int $id, Request $request)
     {
         $requestData = $request->json()->all();
-        $msg = $requestData["message"];
+        $check_api = 1;
+        if(isset($requestData["type"])) {
+            $msg_type = $requestData["type"];
+        } else {
+            if ( isset($request['type'])){
+                $msg_type = $request['type'];
+            } else {
+                $msg_type = 'msg';
+            }
+        }
+
+        // file tmp not
+        if ($msg_type == 'msgtem'  || $msg_type == 'media' || $msg_type == 'stickers'){
+            $requestData = $request->all();
+            $check_api = 0;
+        }
 
         $status      = Response::HTTP_OK;
         if (isset($requestData["sender_id"])){
@@ -87,18 +128,26 @@ class DialogueController extends Controller
             $sender_name = Auth::user()->name;
         }
 
-        if(isset($requestData["type"])) {
-            $msg_type = 'msg';
-        } else {
-            $msg_type = $requestData["type"];
-        }
-
         if ($msg_type == 'file'){
             $fileName = time() . '.'. $request->file->extension();
             $type = $request->file->getClientMimeType();
             $size = $request->file->getSize();
             $request->file->move(public_path('file'), $fileName);
             $msg = public_path('file') . '/' . $fileName;
+        } else if ($msg_type == 'msgtem' || $msg_type == 'media') {
+            foreach($requestData["items"] as $key =>$rd) {
+                $arr[]=(int)$rd;
+            }
+
+            $msg = json_encode($arr);
+        } else if ($msg_type == 'stickers') {
+            foreach($requestData["items"] as $key =>$rd) {
+                $arr[]=$rd;
+            }
+            $msg = json_encode($arr);
+
+        } else {
+            $msg = $requestData["message"];
         }
 
         try {
@@ -137,7 +186,10 @@ class DialogueController extends Controller
                 'msg'=>'fail'
             );
         }
-
-        return response($rs, $status);
+        if ($check_api){
+            return response($rs, $status);
+        } else {
+            return redirect()->route('dialogue.show',$id);
+        }
     }
 }

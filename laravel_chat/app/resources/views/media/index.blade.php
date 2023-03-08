@@ -183,7 +183,7 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="javascript:volid(0);" class="nav-link nav-toggle">
+                            <a href="/dialoguelist" class="nav-link nav-toggle">
                                 <i class="icon-bubble"></i>
                                 <span class="title">對話管理</span>
                             </a>
