@@ -125,7 +125,7 @@ class RoomController extends Controller
 
         $params = $request->validate([
             'session_id'   => ['required'],
-            'sn'           => ['required'],
+            'service'           => ['required'],
         ]);
 
        DB::beginTransaction();
@@ -145,7 +145,7 @@ class RoomController extends Controller
 
                 $service_relation_role = CustomerServiceRelationRole::create([
                     'user_id'  => $user_id ,
-                    'service'  => $params['sn'],
+                    'service'  => $params['service'],
                     'role'     => 'user',
                 ]);
 
