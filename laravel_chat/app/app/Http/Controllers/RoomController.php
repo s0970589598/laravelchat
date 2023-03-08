@@ -125,7 +125,7 @@ class RoomController extends Controller
 
         $params = $request->validate([
             'session_id'   => ['required'],
-            'service'           => ['required'],
+            'service'      => ['required'],
         ]);
 
        DB::beginTransaction();
@@ -157,7 +157,7 @@ class RoomController extends Controller
            $room = Room::create([
             'name'    => $this->generateRandomString(5),
             'status'  => '1',
-            'service' => $params['sn'],
+            'service' => $params['service'],
             'code'    => $this->generateRandomString(5),
            ]);
 
