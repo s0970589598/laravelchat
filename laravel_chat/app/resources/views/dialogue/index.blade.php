@@ -153,7 +153,7 @@
                     <div class="message-content">
                         <div class="message-send">
                             <div class="message-input">
-                                <textarea id="maxlength_textarea" class="form-control" maxlength="300" rows="5"
+                                <textarea id="chat-message-input" class="form-control" maxlength="300" rows="5"
                                     placeholder="請輸入訊息"></textarea>
                                 <div class="message-input-actions btn-group">
                                     <label class="upload-btn">
@@ -169,7 +169,7 @@
                         </div>
                         <div class="message-feature">
                             <div class="send">
-                                <button class="submit-btn">發送</button>
+                                <button class="submit-btn" onclick="send()">發送</button>
                             </div>
                             <div class="customer-turn">
                                 <button class="refer-btn" data-target="#apply-return" data-toggle="modal">客服轉介</button>
@@ -951,6 +951,13 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+    <!-- websocket centrifuge -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
+
+
     <script>
         var output = document.getElementById("output");
         function send(){
@@ -995,6 +1002,7 @@
         })
 
         function initApp() {
+            alert('abc');
             const currentUserId = "{{ Auth::user() -> id }}";
             const currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
 
