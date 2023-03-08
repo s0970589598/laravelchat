@@ -58,6 +58,7 @@
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="assets/images/fav-icon.png" />
     <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
     <style>
         /*.page-header .page-header-top .page-logo .logo-default {
                 margin: 10px 0 0;
@@ -376,9 +377,10 @@
                           <input type="text" class="form-control" placeholder="請輸入標題" id="subject" name="subject">
                       </div>
                       <label class="control-label col-md-2">內容</label>
-                      <div class="col-md-10">
-                        <textarea class="form-control" id="content" name="content" rows="10" ></textarea>
-                      </div>
+                      <div class="col-md-10" style="margin-bottom: 20px;">
+                        <textarea  name="content" class="form-control" row="10" placeholder="請輸入歡迎詞" style="height: 540px !important;"></textarea>
+                        </div>
+
                   </div>
               </div>
               <div class="modal-footer">
@@ -407,7 +409,7 @@
                   </div>
                   <label class="control-label col-md-2">內容</label>
                   <div class="col-md-10">
-                      <textarea class="form-control" id="content" name="content" rows="10" ></textarea>
+                    <textarea id="content" name="content" class="form-control" row="10" placeholder="請輸入歡迎詞" style="height: 540px !important;"></textarea>
                 </div>
               </div>
           </div>
@@ -487,14 +489,23 @@
             src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <script src="js/all.js"></script>
-    <script>
+        <script src="assets/emojionearea-master/dist/emojionearea.min.js"></script>
+        <link href="assets/emojionearea-master/dist/emojionearea.min.css" rel="stylesheet">
+
+<script>
+
         $(function() {
+
             $('#edit-welcome').on('show.bs.modal', function(e) {
+                    // EMOJI
+                $("#content").emojioneArea({
+                    pickerPosition: "bottom",
+                    filtersPosition: "bottom"
+                });
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
                 let subject = btn.closest('td').siblings('.custom-subject').data('subject');
                 let content = btn.closest('td').siblings('.custom-content').data('content');
-
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
                 $('.modalTextInput').val('');

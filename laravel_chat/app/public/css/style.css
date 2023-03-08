@@ -672,6 +672,22 @@ table thead .feature {
   color: #ffffff;
   text-decoration: none;
 }
+.modal .modal-body .sticker {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+.modal .modal-body .sticker .sticker-info {
+  padding: 15px;
+}
+.modal .modal-body .sticker .sticker-info .img-wrap {
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+}
+.modal .modal-body .sticker .sticker-info .img-wrap img {
+  width: 100%;
+}
 .modal .modal-footer {
   display: flex;
   justify-content: flex-end;

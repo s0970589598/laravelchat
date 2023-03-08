@@ -1,268 +1,268 @@
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-        <!--<![endif]-->
-    <!-- BEGIN HEAD -->
-    <head>
-        <meta charset="utf-8" />
-        <title>旅客名稱</title>
-        <meta name="robots" content="noindex , nofollow">
-		<!-- <base href="https://app.starcharger.com.tw/" /> -->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="/css/style.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
-            type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
-            type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet"
-            type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-            type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet"
-            type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet"
-            type="text/css" />
-            <!-- END GLOBAL MANDATORY STYLES -->
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css"
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8" />
+    <title>旅客名稱</title>
+    <meta name="robots" content="noindex , nofollow">
+    <!-- <base href="https://app.starcharger.com.tw/" /> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
+        type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/simple-line-icons/simple-line-icons.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet"
+        type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.css" rel="stylesheet"
+        type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-datepaginator/bootstrap-datepaginator.min.css"
         rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/morris/morris.css" rel="sfatylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"
-            rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
-            rel="stylesheet">
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
+    <link href="/assets/metronic/theme/assets/global/plugins/morris/morris.css" rel="sfatylesheet" type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css"
+        rel="stylesheet" type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
         rel="stylesheet">
-        <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
-        <link href="/assets/metronic/theme/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet">
-        <link href="/assets/metronic/theme/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
-        <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="/assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components"
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"
+    rel="stylesheet">
+    <link href="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
+    <link href="/assets/metronic/theme/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="/assets/metronic/theme/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="/assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components"
         type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet"
+    <link href="/assets/metronic/theme/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/metronic/theme/assets/global/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet"
         type="text/css" />
-        <!-- END THEME GLOBAL STYLES -->
-        <!-- BEGIN THEME LAYOUT STYLES -->
-        <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
-        <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet"
-            type="text/css" id="style_color" />
-        <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
-        <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="/assets/images/fav-icon.png" />
-        <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <style>
-            /*.page-header .page-header-top .page-logo .logo-default {
-                    margin: 10px 0 0;
-                }
-                .page-header .page-header-top{
-                    height: 60px;
-                }
-                .page-header .page-header-top .page-logo{
-                    height: 60px;
-                }
-                .page-header .page-header-top .top-menu{
-                    margin-top: 6px;
-                }*/
-            /* *{
-                    outline: 1px solid #ccc;
-                }  */
-            .form-body h4 {
-                margin-bottom: 32px;
-                color: #999;
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet"
+        type="text/css" id="style_color" />
+    <link href="/assets/metronic/theme_rtl/assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME LAYOUT STYLES -->
+    <link rel="shortcut icon" href="/assets/images/fav-icon.png" />
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        /*.page-header .page-header-top .page-logo .logo-default {
+                margin: 10px 0 0;
             }
+            .page-header .page-header-top{
+                height: 60px;
+            }
+            .page-header .page-header-top .page-logo{
+                height: 60px;
+            }
+            .page-header .page-header-top .top-menu{
+                margin-top: 6px;
+            }*/
+        /* *{
+                outline: 1px solid #ccc;
+            }  */
+        .form-body h4 {
+            margin-bottom: 32px;
+            color: #999;
+        }
 
-            .btn_file_upload {
-                float: left;
-            }
+        .btn_file_upload {
+            float: left;
+        }
 
-            .page-content-wrapper .page-content {
-                padding-top: 0px;
-            }
-        </style>
-    </head>
-    <!-- END HEAD -->
+        .page-content-wrapper .page-content {
+            padding-top: 0px;
+        }
+    </style>
+</head>
+<!-- END HEAD -->
+
 <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-9" style="padding: 0;">
-            <div class="dialogue-section" >
-                <div class="dialogue-head" id="chat-history">
-                    <p class="real-time">{{$now}}</p>
-                    @if (!empty($currRoom))
-                    @foreach($currRoom->messages as $message)
-                    @if ($message->sender_id === Auth::user()->id)
-                    <!-- BEGIN RESPONCSE DIALOGUE -->
-                    <div class="response-dialogue">
-                        <div class="user">
-                            <img class="user-avatar" src="https://robohash.org/{{ $message->user->name }}" alt="images">
-                            <div class="dialogue">
-                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
-                                <div class="dialogue-content">
-                                    <div class="dialogue-info">
-                                        <div class="activity">
-                                            <div class="content">
-                                                <p> {{ $message->message }}</p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9" style="padding: 0;">
+                <div class="dialogue-section">
+                    <div class="dialogue-head" id="chat-history">
+                        <p class="real-time">{{$now}}</p>
+                        @if (!empty($currRoom))
+                        @foreach($currRoom->messages as $message)
+                        @if ($message->sender_id === Auth::user()->id)
+                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                        <div class="response-dialogue">
+                            <div class="user">
+                                <img class="user-avatar" src="https://robohash.org/{{ $message->user->name }}" alt="images">
+                                <div class="dialogue">
+                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                    <div class="dialogue-content">
+                                        <div class="dialogue-info">
+                                            <div class="activity">
+                                                <div class="content">
+                                                    <p> {{ $message->message }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- END RESPONCSE DIALOGUE-->
-                    @else
-                    <!-- BEGIN REQUEST DIALOGUE -->
-                    <div class="request-dialogue">
-                        <div class="user">
-                            <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
-                            <div class="dialogue-content">
-                                <p>
-                                    <?php
-                                        $user = $message->user->name;
-                                        $email = $message->user->email;
-                                    ?>
-                                    {{ $message->message }}
-                                </p>
+                        <!-- END RESPONCSE DIALOGUE-->
+                        @else
+                        <!-- BEGIN REQUEST DIALOGUE -->
+                        <div class="request-dialogue">
+                            <div class="user">
+                                <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
+                                <div class="dialogue-content">
+                                    <p>
+                                        <?php
+                                            $user = $message->user->name;
+                                            $email = $message->user->email;
+                                        ?>
+                                        {{ $message->message }}
+                                    </p>
+                                </div>
+                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                             </div>
-                            <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                         </div>
-                    </div>
-                    <!-- END REQUEST DIALOGUE -->
-                    @endif
-                    @endforeach
-                    @else
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                        您好，歡迎使用客服系統，請問您有什麼問題
-                    </div>
-                    @endif
+                        <!-- END REQUEST DIALOGUE -->
+                        @endif
+                        @endforeach
+                        @else
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            您好，歡迎使用客服系統，請問您有什麼問題
+                        </div>
+                        @endif
 
-                </div>
-                <div class="dialogue-body">
-                    <div class="message-content">
-                        <div class="message-send">
-                            <div class="message-input">
-                                <textarea id="chat-message-input" class="form-control" maxlength="300" rows="5"
-                                    placeholder="請輸入訊息"></textarea>
-                                <div class="message-input-actions btn-group">
-                                    <label class="upload-btn">
-                                        <input id="upload_img" style="display:none;" type="file">
-                                        <i class="icon-paper-clip"></i>
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- BEGIN FOOTER -->
-                            <div class="page-footer-inner">Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.
-                            </div>
-                            <!-- END FOOTER -->
-                        </div>
-                        <div class="message-feature">
-                            <div class="send">
-                                <button class="submit-btn" onclick="send()">發送</button>
-                            </div>
-                            <div class="customer-turn">
-                                <button class="refer-btn" data-target="#apply-return" data-toggle="modal">客服轉介</button>
-                            </div>
-                        </div>
                     </div>
-                </div>
-        </div>
-        </div>
-        <div class="col-md-3" style="padding: 0;border: 1px solid #F5F5F5;">
-            <div class="feature-section">
-                <div class="portlet">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <div class="media">
-                                <img class="media-object" src="/assets/images/user-default.png" alt="...">
-                                <div class="media-body">
-                                    <h4 class="media-heading">{{isset($user) ? $user : ''}}</h4>
+                        <div class="dialogue-body">
+                        <div class="message-content">
+                            <div class="message-send">
+                                <div class="message-input">
+                                        <textarea id="chat-message-input" class="form-control" maxlength="300" rows="5"
+                                        placeholder="請輸入訊息"></textarea>
+
+                                    <div class="message-input-actions btn-group">
+                                        <label class="upload-btn">
+                                            <input id="upload_img" style="display:none;" type="file">
+                                            <i class="icon-paper-clip"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- BEGIN FOOTER -->
+                                <div class="page-footer-inner">Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.
+                                </div>
+                                <!-- END FOOTER -->
+                            </div>
+                            <div class="message-feature">
+                                <div class="send">
+                                    <button class="submit-btn" onclick="send()">發送</button>
+                                </div>
+                                <div class="customer-turn">
+                                    <button class="refer-btn" data-target="#apply-return" data-toggle="modal">客服轉介</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        <ul class="list-unstyled">
-                            <li class="list-items">
-                                <span class="info"><i class="fa fa-envelope"></i>Email</span>
-                                <span class="num"> {{isset($email) ? $email : ''}}</span>
-                            </li>
-                            <li class="list-items">
-                                <span class="info"><i class="fa fa-phone"></i>手機</span>
-                                <span class="num">＋886-912-345-678</span>
-                            </li>
-                            <li class="list-items">
-                                <span class="info"><i class="fa fa-comment"></i>Line</span>
-                                <span class="num"></span>
-                            </li>
-                            <li class="list-items">
-                                <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
-                                <span class="num"></span>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-                <div class="portlet">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <span class="caption-subject">功能</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="row">
-                            <div class="col-md-4" style="padding: 0 5px 0 20px;">
-                                <a href="#media" class="icon-btn" data-toggle="modal">
-                                    <i class="fa fa-folder-o"></i>
-                                    <div>媒體庫</div>
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="#message" class="icon-btn" data-toggle="modal">
-                                    <i class="fa fa-comment"></i>
-                                    <div>訊息範本</div>
-                                </a>
-                            </div>
-                            <div class="col-md-4" style="padding: 0 20px 0 5px;">
-                                <a href="#sticker" class="icon-btn" data-toggle="modal">
-                                    <i class="fa fa-image"></i>
-                                    <div>貼圖</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
             </div>
-                <div class="portlet">
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <span class="caption-subject">回覆備註</span>
+            <div class="col-md-3" style="padding: 0;border: 1px solid #F5F5F5;">
+                <div class="feature-section">
+                    <div class="portlet">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <div class="media">
+                                    <img class="media-object" src="/assets/images/user-default.png" alt="...">
+                                    <div class="media-body">
+                                        <h4 class="media-heading">Bob Nilson</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <ul class="list-unstyled">
+                                <li class="list-items">
+                                    <span class="info"><i class="fa fa-envelope"></i>Email</span>
+                                    <span class="num"> example@mail.com</span>
+                                </li>
+                                <li class="list-items">
+                                    <span class="info"><i class="fa fa-phone"></i>手機</span>
+                                    <span class="num">＋886-912-345-678</span>
+                                </li>
+                                <li class="list-items">
+                                    <span class="info"><i class="fa fa-comment"></i>Line</span>
+                                    <span class="num"></span>
+                                </li>
+                                <li class="list-items">
+                                    <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
+                                    <span class="num"></span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="5" placeholder="請輸入備註"></textarea>
+                    <div class="portlet">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject">功能</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="row">
+                                <div class="col-md-4" style="padding: 0 5px 0 20px;">
+                                    <a  data-target="media" class="icon-btn" data-toggle="modal">
+                                        <i class="fa fa-folder-o"></i>
+                                        <div>媒體庫</div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    <a  data-target="message" class="icon-btn" data-toggle="modal">
+                                        <i class="fa fa-comment"></i>
+                                        <div>訊息範本</div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4" style="padding: 0 20px 0 5px;">
+                                    <a data-target="sticker" class="icon-btn" data-toggle="modal">
+                                        <i class="fa fa-image"></i>
+                                        <div>貼圖</div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="feature-btn">
-                    <button class="return-btn" onclick="location.href='{{ route('dialogue.manage') }}'">返回</button>
-                    <button class="submit-btn">客服完成</button>
+                    <div class="portlet">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <span class="caption-subject">回覆備註</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" placeholder="請輸入備註"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-btn">
+                        <button class="return-btn">返回</button>
+                        <button class="submit-btn">客服完成</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- END CONTAINER -->
+    <!-- END CONTAINER -->
     <!-- BEGIN MEDIA MODAL -->
     <div class="modal container fade in" id="media" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
         <div class="modal-header">
@@ -888,8 +888,8 @@
     </div>
     <!-- END STICKER MODAL -->
     <!--[if lt IE 9]>
-        <script src="assets/metronic/global/plugins/respond.min.js"></script>
-        <script src="assets/metronic/global/plugins/excanvas.min.js"></script>
+        <script src="/assets/metronic/global/plugins/respond.min.js"></script>
+        <script src="/assets/metronic/global/plugins/excanvas.min.js"></script>
     <![endif]-->
     <!-- BEGIN CORE PLUGINS -->
     <!-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> -->
@@ -906,7 +906,7 @@
         type="text/javascript"></script>
     <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
         type="text/javascript"></script>
-    <!-- <script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
+    <!-- <script src="/assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script> -->
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     <script src="/assets/metronic/theme/assets/global/plugins/jquery-ui/jquery-ui.min.js"
@@ -931,9 +931,9 @@
     <script src="/assets/metronic/theme/assets/pages/scripts/components-date-time-pickers.min.js"
         type="text/javascript"></script>
     <script src="/assets/metronic/theme/assets/pages/scripts/ui-modals.min.js" type="text/javascript"></script>
-    {{-- <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
-    <script src="assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
-    <script src="assets/metronic/theme/assets/pages/scripts/ui-extended-modals.min.js"></script> --}}
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+    <script src="/assets/metronic/theme/assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js"></script>
+    <script src="/assets/metronic/theme/assets/pages/scripts/ui-extended-modals.min.js"></script>
     <script src="/assets/metronic/theme/assets/global/plugins/select2/js/select2.full.min.js"></script>
     <script src="/assets/metronic/theme/assets/pages/scripts/components-select2.min.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
@@ -941,8 +941,8 @@
     <script src="/assets/metronic/theme_rtl/assets/layouts/layout4/scripts/layout.min.js"
         type="text/javascript"></script>
     <script src="/assets/metronic/theme_rtl/assets/layouts/layout4/scripts/demo.min.js" type="text/javascript"></script>
-    <!-- <script src="assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
-    <!-- <script type="text/javascript" src="assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
+    <!-- <script src="/assets/metronic/layouts/layout4/scripts/quick-sidebar.min.js" type="text/javascript"></script> -->
+    <!-- <script type="text/javascript" src="/assets/js/lib/fancybox/jquery.fancybox.pack.js"></script> -->
     <!-- END THEME LAYOUT SCRIPTS -->
     <script type="text/javascript"
         src="/assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
@@ -954,7 +954,7 @@
 
     <!-- websocket centrifuge -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"> --}}
     <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
 
 
@@ -1002,7 +1002,6 @@
         })
 
         function initApp() {
-            alert('abc');
             const currentUserId = "{{ Auth::user() -> id }}";
             const currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
 
@@ -1117,5 +1116,7 @@
             centrifuge.connect();
         }
     </script>
-    </body>
+
+</body>
+
 </html>
