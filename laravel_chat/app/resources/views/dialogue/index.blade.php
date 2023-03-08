@@ -88,6 +88,15 @@
         .page-content-wrapper .page-content {
             padding-top: 0px;
         }
+
+        .initImg{
+            width: 80px;
+            height: 80px;
+        }
+
+        .containImg{
+            object-fit: contain;
+        }
     </style>
 </head>
 <!-- END HEAD -->
@@ -283,123 +292,24 @@
             </div>
             <div class="media-content">
                 <div class="row">
+                    <?php foreach ($media as $m): ?>
                     <div class="col-md-4">
                         <div class="media">
                             <div class="media-info">
                                 <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
+                                    <input type="checkbox" id="media-{{ $m->id }}" value="{{ $m->id }}">
+
+                                    <label for="media-{{ $m->id }}">{{ $m->file}}</label>
                                 </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
+                                {{-- <div class="thumbnail" style="margin: 0;"> --}}
+                                <div  style="margin: 0;">
+                                        <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="checkbox-1">
-                                    <label for="checkbox-1">檔案格式.jpg</label>
-                                </div>
-                                <div class="thumbnail" style="margin: 0;">
-                                    <img src="/assets/images/thumbnail.png" alt="images">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
+
                 </div>
             </div>
         </div>
@@ -429,22 +339,24 @@
             </div>
             <div class="dialogue-content">
                 <div class="row">
+                    <?php foreach ($msg_sample as $msg): ?>
                     <div class="col-md-4">
                         <div class="dialogue">
                             <div class="dialogue-info">
                                 <div class="dialogue-title">
                                     <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
+                                        <input type="checkbox" id="msgsample-{{ $msg->id }}" value="{{ $msg->id }}">
                                         <p>
                                             <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
+                                                href="{{ $msg->url }}">{{ $msg->url }}</a>
                                         </p>
                                     </div>
                                     <div class="activity">
                                         <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
+                                            <div class="title">{{ $msg->subject }}</div>
                                             <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
+                                                <p>
+                                                    {{ $msg->reply }}
                                                 </p>
                                             </div>
                                         </div>
@@ -456,222 +368,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="dialogue">
-                            <div class="dialogue-info">
-                                <div class="dialogue-title">
-                                    <div class="source">
-                                        <input type="checkbox" id="checkbox-1">
-                                        <p>
-                                            <a
-                                                href="https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844">https://www.taiwan.net.tw/m1.aspx?sNo=0001019&lid=080844</a>
-                                        </p>
-                                    </div>
-                                    <div class="activity">
-                                        <div class="activity-content">
-                                            <div class="title">溫泉美食嘉年華</div>
-                                            <div class="content">
-                                                <p>您好，溫泉美食嘉年華已於9⽉開跑，將持續到2023/06/30，詳情請參考：時序逐漸進入冬天，也正式宣告臺灣已進入溫泉泡湯旺季！臺灣得天獨厚，擁有冷泉、熱泉、濁泉、海底泉等多樣性泉質，是世界知名的溫泉勝地。
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="thumbnail" style="margin: 0;">
-                                            <img src="/assets/images/thumbnail.png" alt="images">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>

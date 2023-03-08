@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Room;
+use App\Models\Media;
 use App\Models\RoomUserRelation;
+use App\Models\FrequentlyMsg;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -27,9 +29,20 @@ class DialogueController extends Controller
     public function index()
     {
         $rooms = 0;
+        $media = 0;
+        $limit = 10;
+
+        $media = Media::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+
 
         return view('dialogue.index', [
             'rooms' => $rooms,
+
         ]);
     }
 
@@ -49,6 +62,7 @@ class DialogueController extends Controller
 
     public function show(int $id)
     {
+        $limit = 9;
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
 
         $room  = Room::with(['users', 'messages.user' => function ($query) {
@@ -61,11 +75,20 @@ class DialogueController extends Controller
             $room->users()->attach(Auth::user()->id);
         }
 
+        $media = Media::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
+        ->where('status','0')
+        ->paginate($limit);
+
         return view('dialogue.index', [
             'rooms' => $rooms,
             'currRoom' => $room,
             'isJoin' => $room->users->contains('id', Auth::user()->id),
-            'now' => Carbon::now('GMT+8')->toDateString()
+            'now' => Carbon::now('GMT+8')->toDateString(),
+            'media' => $media,
+            'msg_sample' => $msg_sample
         ]);
     }
 
