@@ -77,7 +77,7 @@ Route::group([
     Route::get('/satisfaction', [SatisfactionController::class, 'index'])->name('satisfaction.index');
     Route::get('/satisfaction/manage', [SatisfactionController::class, 'manage'])->name('satisfaction.manage');
 
-
+    Route::post('/room/assign/apply',[RoomController::class, 'applyAssign'])->name('rooms.apply');
 });
 
 require __DIR__ . '/auth.php';

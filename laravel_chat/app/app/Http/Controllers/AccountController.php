@@ -110,7 +110,6 @@ class AccountController extends Controller
 
     public function update(Request $request)
     {
-        Log::info($request);
         CustomerServiceRelationRole::where('user_id', $request['id'])
             ->update([
                 'service'  => json_encode($request['service'], JSON_UNESCAPED_UNICODE),
@@ -121,8 +120,11 @@ class AccountController extends Controller
 
     public function updateUserContact(string $authcode, Request $request)
     {
+
         $status = Response::HTTP_OK;
         $params = $request->json()->all();
+        Log::info($params);
+
         DB::beginTransaction();
         $userupdate = array(
             'msg'=>'fail'

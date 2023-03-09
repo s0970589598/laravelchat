@@ -225,6 +225,8 @@
                                                         $contact_email = $message->user->contact_email;
                                                         $line          = $message->user->line;
                                                         $phone         = $message->user->phone;
+                                                        $user_authcode = $message->user->authcode;
+                                                        $note = $message->user->note;
                                                     ?>
                                                     {{ $message->message }}
                                                 </p>
@@ -280,7 +282,7 @@
                                 <div class="media">
                                     <img class="media-object" src="/assets/images/user-default.png" alt="...">
                                     <div class="media-body">
-                                        <h4 class="media-heading">{{$user_name}}</h4>
+                                        <h4 class="media-heading">{{isset($user_name) ? $user_name : ''}}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -289,15 +291,15 @@
                             <ul class="list-unstyled">
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-envelope"></i>Email</span>
-                                    <span class="num">{{$contact_email}}</span>
+                                    <span class="num">{{isset($contact_email) ? $contact_email : ''}}</span>
                                 </li>
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-phone"></i>手機</span>
-                                    <span class="num">{{$phone}}</span>
+                                    <span class="num">{{isset($phone) ? $phone : ''}}</span>
                                 </li>
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-comment"></i>Line</span>
-                                    <span class="num">{{$line}}</span>
+                                    <span class="num">{{isset($line) ? $line : ''}}</span>
                                 </li>
                                 {{-- <li class="list-items">
                                     <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
@@ -343,13 +345,14 @@
                         </div>
                         <div class="portlet-body">
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" placeholder="請輸入備註"></textarea>
+                                <input type="hidden" name="authcode" id="authcode" value="{{$user_authcode}}">
+                                <textarea class="form-control" rows="5" placeholder="請輸入備註" id="note" name="note" >{{isset($note) ? $note :''}}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="feature-btn">
-                        <button class="return-btn">返回</button>
-                        <button class="submit-btn">客服完成</button>
+                        <button class="return-btn" onClick="javascript:history.back()">返回</button>
+                        <button class="submit-btn" type="submit" onclick="roomcomplete()">客服完成</button>
                     </div>
                 </div>
             </div>
@@ -479,84 +482,39 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">申請客服轉介</h4>
         </div>
-        <div class="modal-body">
+        <form action="/room/assign/apply" method="POST">
+            @csrf
+        <div class="modal-body" >
             <div class="row">
                 <label class="control-label col-md-2" style="margin-bottom: 20px;">指派單位</label>
                 <div class="col-md-10" style="margin-bottom: 20px;">
+                    <input type="hidden" name="assign_service" value="{{ $currRoom->service }}">
+                    <input type="hidden" name="room_id" value="{{ $currRoom->id }}">
+                    <input type="hidden" name="assign_id" value="{{ Auth::user() -> id }}">
                     <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
-                        aria-hidden="true">
-                        <optgroup label="Alaskan">
-                            <option value="AK">Alaska</option>
-                            <option value="HI">Hawaii</option>
+                    aria-hidden="true"  name="assigned_service">
+                        <optgroup label="基隆市">
+                            <option value="1">基隆火車站旅遊服務中心</option>
                         </optgroup>
-                        <optgroup label="Pacific Time Zone">
-                            <option value="CA">California</option>
-                            <option value="NV">Nevada</option>
-                            <option value="OR">Oregon</option>
-                            <option value="WA">Washington</option>
-                        </optgroup>
-                        <optgroup label="Mountain Time Zone">
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                        </optgroup>
-                        <optgroup label="Central Time Zone">
-                            <option value="AL">Alabama</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="WI">Wisconsin</option>
-                        </optgroup>
-                        <optgroup label="Eastern Time Zone">
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="IN">Indiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="OH">Ohio</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WV">West Virginia</option>
+                        <optgroup label="台北市">
+                            <option value="2">臺北火車站旅遊服務中心</option>
+                            <option value="3">桃園捷運A1台北車站旅遊服務中心</option>
+                            <option value="4">捷運西門站旅遊服務中心</option>
+                            <option value="5">捷運臺北101/世貿站旅遊服務中心</option>
                         </optgroup>
                     </select>
                 </div>
                 <label class="col-md-2 control-label" style="margin-bottom: 20px;">指派原因</label>
                 <div class="col-md-10" style="margin-bottom: 20px;">
-                    <textarea class="form-control" row="10" placeholder="請輸入指派原因" style="height: 400px;"></textarea>
+                    <textarea class="form-control" row="10" placeholder="請輸入指派原因" style="height: 400px;" name="assign_reason"></textarea>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">取消</button>
-            <button class="submit-btn">送出</button>
+            <button type="submit" class="submit-btn">送出</button>
         </div>
+    </form>
     </div>
     <!-- END CUSTOMER RETURN MODAL -->
     <!-- BEGIN STICKER MODAL -->
@@ -754,8 +712,85 @@
     <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
 
     <script type="text/javascript">
+        function roomcomplete(){
+            var note = document.getElementById("note").value;
+            var authcode = document.getElementById("authcode").value;
+            var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+            $.ajax({
+                url: "/api/contact/" + authcode + "/update",
+                data: JSON.stringify({
+                    "note":note
+                }),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                method: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                cache: false,
+                success: function(data)
+                {
+                    //console.log(data)
+                    //alet(data)
+                    // redirect
+                    //window.location.replace(data.redirect);
+                },
+                error: function(data)
+                {
+                    alert(data);
+                    // intergrate Swal to display error
+                    // Swal.close();
+                    // if (data.status == 419) {
+                    //     window.location.reload();
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'info',
+                    //         title: 'Error',
+                    //         html: data.responseJSON.message,
+                    //     });
+                    // }
+                }
+            });
+            $.ajax({
+                url: "/api/rooms/update/status",
+                data: JSON.stringify({
+                    "id":currentRoomId,
+                    "status":6
+                }),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                method: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                cache: false,
+                success: function(data)
+                {
+                    //console.log(data)
+                    //alet(data)
+                    // redirect
+                    //window.location.replace(data.redirect);
+                },
+                error: function(data)
+                {
+                    alert(data);
+                    // intergrate Swal to display error
+                    // Swal.close();
+                    // if (data.status == 419) {
+                    //     window.location.reload();
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'info',
+                    //         title: 'Error',
+                    //         html: data.responseJSON.message,
+                    //     });
+                    // }
+                }
+            });
+            alert('success');
+            }
 
-    // $('#msgtemsubmit').click(function(e){
+
+
+            // $('#msgtemsubmit').click(function(e){
     //     const currentUserId = "{{ Auth::user() -> id }}";
     //     const currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
     //     const csrfToken     = "{{ csrf_token() }}";
