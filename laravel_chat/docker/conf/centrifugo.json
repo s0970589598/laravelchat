@@ -1,6 +1,9 @@
 {
   "port": 8000,
-  "engine": "memory",
+  "engine": "redis",
+  "redis_api_key": "some-long-api-key-which-you-should-keep-secret",
+  "redis_host": "192.168.48.3",
+  "redis_address": "redis:6379",
   "api_key": "some-long-api-key-which-you-should-keep-secret",
   "allowed_origins": [
     "http://localhost",
