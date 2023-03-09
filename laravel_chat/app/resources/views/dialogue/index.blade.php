@@ -937,7 +937,7 @@
             //     lastRoomMessageUserName.innerHTML = safeTagsReplace(data.senderName);
             // }
 
-            const centrifuge = new Centrifuge("ws://" + window.location.host + "/connection/websocket");
+            const centrifuge = new Centrifuge("wss://" + window.location.host + "/connection/websocket");
 
             centrifuge.on('connect', function(ctx) {
                 console.log("connected", ctx);

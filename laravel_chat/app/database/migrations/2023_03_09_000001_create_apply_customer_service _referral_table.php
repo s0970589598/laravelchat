@@ -36,6 +36,6 @@ class CreateApplyCustomerServiceReferralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('apply_customer_service_referral');
     }
 }

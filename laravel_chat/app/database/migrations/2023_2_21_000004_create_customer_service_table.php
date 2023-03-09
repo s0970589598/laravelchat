@@ -27,6 +27,6 @@ class CreateCustomerServiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('customer_service');
     }
 }

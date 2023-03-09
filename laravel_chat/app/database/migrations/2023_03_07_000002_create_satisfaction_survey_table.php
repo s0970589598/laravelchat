@@ -31,6 +31,6 @@ class CreateSatisfactionSurveyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('satisfaction_survey');
     }
 }
