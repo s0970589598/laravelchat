@@ -31,6 +31,6 @@ class CreateFrequentlyMsgTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('frequently_msg');
     }
 }

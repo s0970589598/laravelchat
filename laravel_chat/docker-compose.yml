@@ -11,41 +11,41 @@ services:
     ports:
       - "6379:6379"
 
-  pg:
-    image: postgres:13.3-alpine
-    container_name: pg
-    environment:
-      - POSTGRES_DB=app_db
-      - POSTGRES_USER=app_user
-      - POSTGRES_PASSWORD
-      - PAGER=less
-      - POSTGRES_HOST_AUTH_METHOD=trust
-    expose:
-      - "5432"
-    ports:
-      - "5432:5432"
-    volumes:
-      #- data:/var/lib/postgresql
-      - db:/var/lib/postgresql
-    networks:
-      - app
+  # pg:
+  #   image: postgres:13.3-alpine
+  #   container_name: pg
+  #   environment:
+  #     - POSTGRES_DB=app_db
+  #     - POSTGRES_USER=app_user
+  #     - POSTGRES_PASSWORD
+  #     - PAGER=less
+  #     - POSTGRES_HOST_AUTH_METHOD=trust
+  #   expose:
+  #     - "5432"
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     #- data:/var/lib/postgresql
+  #     - db:/var/lib/postgresql
+  #   networks:
+  #     - app
 
-  pgAdminNew:
-    container_name: pgAdmin_new
-    # restart: unless-stopped
-    image: dpage/pgadmin4:4.29
-    environment:
-        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-        PGADMIN_LISTEN_PORT: 5050
-    volumes:
-        - pgadmin:/root/.pgadmin
-    ports:
-        - "5050:5050"
-    depends_on:
-        -   pg
-    networks:
-        - app
+  # pgAdminNew:
+  #   container_name: pgAdmin_new
+  #   # restart: unless-stopped
+  #   image: dpage/pgadmin4:4.29
+  #   environment:
+  #       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+  #       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+  #       PGADMIN_LISTEN_PORT: 5050
+  #   volumes:
+  #       - pgadmin:/root/.pgadmin
+  #   ports:
+  #       - "5050:5050"
+  #   depends_on:
+  #       -   pg
+  #   networks:
+  #       - app
 
   app:
     container_name: app
@@ -55,21 +55,21 @@ services:
     expose:
       - 9000
     depends_on:
-      - pg
+      #- pg
       - nginx
-    environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=pg
-      - DB_PORT=5432
-      - DB_DATABASE=app_db
-      - DB_USERNAME=app_user
-      - DB_PASSWORD
-      # - DB_CONNECTION=mysql
-      # - DB_HOST=hualien-db.faninsights.io
-      # - DB_PORT=3306
-      # - DB_DATABASE=faninsights_motc
-      # - DB_USERNAME=faninsights_motc
-      # - DB_PASSWORD=kOUPp1H@S1plzEGBJ
+    # environment:
+    #   # - DB_CONNECTION=pgsql
+    #   # - DB_HOST=pg
+    #   # - DB_PORT=5432
+    #   # - DB_DATABASE=app_db
+    #   # - DB_USERNAME=app_user
+    #   # - DB_PASSWORD
+    #   - DB_CONNECTION=mysql
+    #   - DB_HOST=139.162.85.170
+    #   - DB_PORT=3306
+    #   - DB_DATABASE=faninsights_motc
+    #   - DB_USERNAME=faninsights_motc
+    #   - DB_PASSWORD=kOUPp1H@S1plzEGBJ
     volumes:
       - ./app/:/app:delegated
       - ./docker/entrypoints/app.sh:/entrypoint.sh:ro
@@ -115,9 +115,8 @@ services:
 volumes:
   redis-data:
   centrifugo-data:
-  data:
-  pgadmin:
-  db:
-    driver: local
+  # pgadmin:
+  # db:
+  #   driver: local
 networks:
   app:
