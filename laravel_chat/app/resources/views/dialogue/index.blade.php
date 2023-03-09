@@ -345,13 +345,13 @@
                         </div>
                         <div class="portlet-body">
                             <div class="form-group">
-                                <input type="hidden" name="authcode" id="authcode" value="{{$user_authcode}}">
+                                <input type="hidden" name="authcode" id="authcode" value="{{isset($user_authcode) ? $user_authcode : ''}}">
                                 <textarea class="form-control" rows="5" placeholder="請輸入備註" id="note" name="note" >{{isset($note) ? $note :''}}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="feature-btn">
-                        <button class="return-btn" onClick="javascript:history.back()">返回</button>
+                        <button class="return-btn" onClick="location.href='/dialoguelist'">返回</button>
                         <button class="submit-btn" type="submit" onclick="roomcomplete()">客服完成</button>
                     </div>
                 </div>

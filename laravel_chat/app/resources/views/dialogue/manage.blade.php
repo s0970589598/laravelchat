@@ -301,27 +301,79 @@
                     <table class="table table-striped table-bordered table-hover" id="table_member">
                         <thead>
                             <tr>
-                                <th>使用者名稱</th>
+                                <th>訊息來源</th>
+                                <th>旅客名稱</th>
                                 <th>節錄對話</th>
                                 <th>狀態</th>
-                                <th>狀態敘述</th>
-                                <th>回覆</th>
                                 <th class="feature">指派</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($rooms as $room): ?>
                             <tr>
-                                <td>{{ $room->name }}</td>
-                                <td>{{ ($room->messages->count() > 0) ? $room->messages->last()->user->name : '' }} <br/>
-                                    {{ ($room->messages->count() > 0) ? Str::limit($room->messages->last()->message, 15) : '' }}</td>
-                                <td></td>
-                                <td></td>
                                 <td>
-                                    <button onclick="location.href='{{ route('rooms.show', $room->id) }}'" id="room-{{ $room->id }}" class="btn" >使用者回覆</button>
-                                    <button onclick="location.href='{{ route('dialogue.show', $room->id) }}'" id="room-{{ $room->id }}" class="btn" >客服回覆</button>
+                                    <?php
+                                        $service = App\Models\MotcStation::where('sn',$room->service)->first();
+                                        echo $service_name = $service['station_name'];
+                                    ?>
                                 </td>
-                                <td></td>
+                                <td>
+                                    <div class="customer">
+                                        <img class="contact-pic" src="assets/images/user-default.png">
+                                        <div class="contact">
+                                            <div class="contact-name">{{ $room->name }}</div>
+                                            <div class="item-label">
+                                            <?php
+
+                                            Illuminate\Support\Carbon::setLocale('zh-tw');
+                                            echo Illuminate\Support\Carbon::create($room->updated_at)->diffForHumans();
+                                            ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dialogue-content">
+                                        <div class="time">{{isset($room->messages->last()->updated_at) ? $room->messages->last()->updated_at : ''}}</div>
+                                        <p calss="content">{{ ($room->messages->count() > 0) ? $room->messages->last()->user->name : '' }} <br/>
+                                            {{ ($room->messages->count() > 0) ? Str::limit($room->messages->last()->message, 15) : '' }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if($room->status == 1)
+                                    <span class="label label-sm label-robot"> 智能客服 </span>
+                                    @elseif($room->status == 2)
+                                    <span class="label label-sm label-warning"> 待客服 </span>
+                                    @elseif($room->status == 3)
+                                    <span class="label label-sm label-info"> 客服中 </span>
+                                    @elseif($room->status == 4)
+                                    <span class="label label-sm label-danger"> 逾期未回覆 </span>
+                                    @elseif($room->status == 5)
+                                    <span class="label label-sm label-default"> 客服轉介 </span>
+                                    @elseif($room->status == 6)
+                                    <span class="label label-sm label-success"> 已完成 </span>
+                                    @elseif($room->status == 7)
+                                    <span class="label label-sm label-primary"> 待聯絡 </span>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    <div class="assign">
+                                        <a href="#" class="reply-btn" onclick="location.href='{{ route('dialogue.show', $room->id) }}'">
+                                            <i class="icon-bubble"></i> 回覆
+                                        </a>
+                                        <select name="manager_group_sn" class="form-control"
+                                            style="margin-right: 5px;">
+                                            <option value="0">請選擇指派人員</option>
+                                            <option value="1">A客服人員</option>
+                                            <option value="2">B客服人員</option>
+                                            <option value="3">C客服人員</option>
+                                            <option value="4">D客服人員</option>
+                                            <option value="5">E客服人員</option>
+                                            <option value="6">F客服人員</option>
+                                        </select>
+                                    </div>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
