@@ -312,24 +312,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($users as $user): ?>
+
+
+                        @foreach ($users as $user)
                             <tr>
                                 <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>
                                 <td data-role="{{ $user->role }}" class="custom-role">{{ Config::get('motcrole.'.$user->role) }}</td>
                                 <td data-service="{{ $user->service }}" class="custom-service">
-                                    <?php
-                                        $service_dec = json_decode($user->service);
-                                        foreach ($service_dec as $s) {
-                                            echo '<span class="tag">'.$s.'</span>';
-                                        }
-                                    ?>
+                                    @if(!empty($user->service))
+                                        @foreach(json_decode($user->service) as $s)
+                                           <span class="tag">{{$s}}</span>
+                                        @endforeach
+                                    @endif
                                 </td>
                                 <td>
                                     <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                            @endforeach
 
 
                         </tbody>

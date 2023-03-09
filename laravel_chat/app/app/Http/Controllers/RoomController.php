@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\CustomerServiceRelationRole;
+use App\Models\MotcStation;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Database\Eloquent\Builder;
@@ -135,17 +136,18 @@ class RoomController extends Controller
             if ( count($user) == 0 ) {
                 $user = User::create([
                 'name'     =>  $params['session_id'],
-                'email'    =>  $params['session_id'] . '@motc.go',
+                'email'    =>  $params['session_id'] . '@motc.cu',
                 'password' =>  Hash::make('test123'),
                 'authcode' =>  $params['session_id'],
                 ]);
                 $user_id  = $user->id;
                 $authcode = $user->authcode;
                 $user_name = $user->name;
-
+                $service = MotcStation::where('sn',$params['service'])->first();
+                $service_name = $service['station_name'];
                 $service_relation_role = CustomerServiceRelationRole::create([
                     'user_id'  => $user_id ,
-                    'service'  => $params['service'],
+                    'service'  => json_encode(array($service_name),JSON_UNESCAPED_UNICODE),
                     'role'     => 'user',
                 ]);
 

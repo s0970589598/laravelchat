@@ -36,8 +36,8 @@ class AccountController extends Controller
             $limit = $request['limit'] ;
         }
         $users = User::orderBy('users.id', 'desc')
-        ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
+        ->where('status','0')
         ->paginate($limit);
 
         return view('account.index', [
@@ -113,7 +113,7 @@ class AccountController extends Controller
         Log::info($request);
         CustomerServiceRelationRole::where('user_id', $request['id'])
             ->update([
-                'service'  => $request['service'],
+                'service'  => json_encode($request['service'], JSON_UNESCAPED_UNICODE),
                 'role'     => $request['role'],
             ]);
         return redirect()->route('account.index');
