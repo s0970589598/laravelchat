@@ -87,7 +87,7 @@ class AccountController extends Controller
 
             $service_relation_role = CustomerServiceRelationRole::create([
                 'user_id'  => $user->id,
-                'service' =>json_encode($params['service']),
+                'service' =>json_encode($params['service'],JSON_UNESCAPED_UNICODE),
                 'role' => $params['role'],
             ]);
 
@@ -122,15 +122,18 @@ class AccountController extends Controller
     public function updateUserContact(string $authcode, Request $request)
     {
         $status = Response::HTTP_OK;
-        $params = $request->all();
+        $params = $request->json()->all();
         DB::beginTransaction();
         $userupdate = array(
             'msg'=>'fail'
         );
+
         try {
             $user = User::where('authcode', $authcode)
             ->update($params);
-            $userupdate =
+
+            DB::commit();
+
             $userupdate = array(
                 'msg' =>'success',
                 'data' => $this->getUserByAuthcode($authcode)
