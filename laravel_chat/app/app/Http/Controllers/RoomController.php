@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\CustomerServiceRelationRole;
 use App\Models\MotcStation;
+use App\Models\ApplyCustomerServiceReferral;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Database\Eloquent\Builder;
@@ -194,11 +195,12 @@ class RoomController extends Controller
         $status = Response::HTTP_OK;
         DB::beginTransaction();
         try {
-            $params = $request->validate([
-                'id'     => ['required'],
-                'status' => ['required'],
-            ]);
-
+            // $params = $request->validate([
+            //     'id'     => ['required'],
+            //     'status' => ['required'],
+            // ]);
+            $params = $request->json()->all();
+            // Log::info($params);
             $rooms = Room::find($params['id'])
                 ->update([
                     'status'     => $params['status'],
@@ -220,6 +222,32 @@ class RoomController extends Controller
             );
         }
         return response(json_encode($res), $status);
+    }
+
+    public function applyAssign(Request $request){
+        $params = $request->validate([
+            'assign_service' => ['required'],
+            'assign_reason' => ['required'],
+            'assigned_service' => ['required'],
+            'assign_id' => ['required'],
+            'room_id' => ['required'],
+        ]);
+        DB::beginTransaction();
+        try {
+            // room_id 同時間只有一張轉介 未做
+            $room = ApplyCustomerServiceReferral::create($params);
+            $rooms = Room::find($params['room_id'])
+            ->update([
+                    'status'     => Room::REFERRALS,
+            ]);
+            DB::commit();
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+        }
+
+        return redirect()->route('dialogue.show', $room->room_id);
+
     }
 
     public function generateRandomString($length = 10) {
