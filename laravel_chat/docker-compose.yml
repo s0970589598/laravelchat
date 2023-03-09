@@ -107,6 +107,7 @@ services:
       - ./app/:/app:delegated
       - ./docker/conf/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./docker/conf/ssl:/etc/nginx/ssl
+      - ./docker/conf/letsencrypt/:/etc/letsencrypt/
     restart: on-failure
     networks:
       - app
