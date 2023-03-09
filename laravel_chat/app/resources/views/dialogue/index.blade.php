@@ -221,8 +221,10 @@
                                             <div class="dialogue-content">
                                                 <p>
                                                     <?php
-                                                        $user = $message->user->name;
-                                                        $email = $message->user->email;
+                                                        $user_name     = $message->user->name;
+                                                        $contact_email = $message->user->contact_email;
+                                                        $line          = $message->user->line;
+                                                        $phone         = $message->user->phone;
                                                     ?>
                                                     {{ $message->message }}
                                                 </p>
@@ -278,7 +280,7 @@
                                 <div class="media">
                                     <img class="media-object" src="/assets/images/user-default.png" alt="...">
                                     <div class="media-body">
-                                        <h4 class="media-heading">Bob Nilson</h4>
+                                        <h4 class="media-heading">{{$user_name}}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -287,15 +289,15 @@
                             <ul class="list-unstyled">
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-envelope"></i>Email</span>
-                                    <span class="num"> example@mail.com</span>
+                                    <span class="num">{{$contact_email}}</span>
                                 </li>
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-phone"></i>手機</span>
-                                    <span class="num">＋886-912-345-678</span>
+                                    <span class="num">{{$phone}}</span>
                                 </li>
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-comment"></i>Line</span>
-                                    <span class="num"></span>
+                                    <span class="num">{{$line}}</span>
                                 </li>
                                 {{-- <li class="list-items">
                                     <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
