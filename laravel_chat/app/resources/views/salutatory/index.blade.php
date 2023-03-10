@@ -308,7 +308,6 @@
                                 <td data-content="{{ $welcome->content }}" class="custom-content">{{ $welcome->content }}</td>
                                 <td>
                                     <button class="btn edit-btn btn-sm" data-id="{{ $welcome->id }}" data-title="{{ $welcome->id }}"data-toggle="modal" data-target="#edit-welcome"><i class="icon-pencil"></i>編輯</button>
-                                    <a href="/salutatory/upstatus/{{$welcome->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
