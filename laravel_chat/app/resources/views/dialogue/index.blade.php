@@ -291,21 +291,27 @@
                             <ul class="list-unstyled">
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-envelope"></i>Email</span>
-                                    <span class="num">{{isset($contact_email) ? $contact_email : ''}}</span>
+                                    {{-- <span class="num">{{isset($contact_email) ? $contact_email : ''}}</span> --}}
+                                    <input class="form-control input"  type="text" name="email" id="email" value="{{isset($contact_email) ? $contact_email : ''}}">
                                 </li>
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-phone"></i>手機</span>
-                                    <span class="num">{{isset($phone) ? $phone : ''}}</span>
+                                    {{-- <span class="num">{{isset($phone) ? $phone : ''}}</span> --}}
+                                    <input class="form-control input"  type="text" name="phone" id="phone" value="{{isset($phone) ? $phone : ''}}">
+
                                 </li>
                                 <li class="list-items">
                                     <span class="info"><i class="fa fa-comment"></i>Line</span>
-                                    <span class="num">{{isset($line) ? $line : ''}}</span>
+                                    {{-- <span class="num">{{isset($line) ? $line : ''}}</span> --}}
+                                    <input class="form-control input"  type="text" name="line" id="line" value="{{isset($line) ? $line : ''}}">
+
                                 </li>
                                 {{-- <li class="list-items">
                                     <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
                                     <span class="num"></span>
                                 </li> --}}
                             </ul>
+                            <button  type="button" id="updateUserInfo" onclick="updateuserinfo()" class="search-btn" id="btn-search" style="margin-right: 5px;">更新聯絡資料</button>
                         </div>
                     </div>
                     <div class="portlet">
@@ -717,6 +723,48 @@
     <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
 
     <script type="text/javascript">
+        function updateuserinfo(){
+            var authcode = document.getElementById("authcode").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var line = document.getElementById("line").value;
+            var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+
+            $.ajax({
+                url: "/api/contact/" + authcode + "/update",
+                data: JSON.stringify({
+                    "contact_email":email,
+                    "phone":phone,
+                    "line":line
+                }),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                method: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                cache: false,
+                success: function(data)
+                {
+                    // redirect
+                    window.location.replace('/dialogue/'+ currentRoomId);
+                },
+                error: function(data)
+                {
+                    // intergrate Swal to display error
+                    // Swal.close();
+                    // if (data.status == 419) {
+                    //     window.location.reload();
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'info',
+                    //         title: 'Error',
+                    //         html: data.responseJSON.message,
+                    //     });
+                    // }
+                }
+            });
+        }
+
         function roomcomplete(){
             var note = document.getElementById("note").value;
             var authcode = document.getElementById("authcode").value;
