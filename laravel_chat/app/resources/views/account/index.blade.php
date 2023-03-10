@@ -447,7 +447,14 @@
                 <div class="col-md-9" style="margin-bottom: 20px;">
                     <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
                         aria-hidden="true" name="service[]" id="serviceedit">
-                        <optgroup label="基隆市">
+
+                        <optgroup label="旅遊服務中心">
+                            @foreach($motc_station as $motc)
+                            <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
+                            @endforeach
+                        </optgroup>
+
+                        {{-- <optgroup label="基隆市">
                             <option value="基隆火車站旅遊服務中心">基隆火車站旅遊服務中心</option>
                         </optgroup>
                         <optgroup label="台北市">
@@ -455,7 +462,7 @@
                             <option value="桃園捷運A1台北車站旅遊服務中心">桃園捷運A1台北車站旅遊服務中心</option>
                             <option value="捷運西門站旅遊服務中心">捷運西門站旅遊服務中心</option>
                             <option value="捷運臺北101/世貿站旅遊服務中心">捷運臺北101/世貿站旅遊服務中心</option>
-                        </optgroup>
+                        </optgroup> --}}
                     </select>
                 </div>
                 <label class="control-label col-md-3" style="margin-bottom: 20px;">權限</label>

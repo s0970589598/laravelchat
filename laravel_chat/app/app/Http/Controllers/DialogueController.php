@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\Media;
 use App\Models\RoomUserRelation;
 use App\Models\FrequentlyMsg;
+use App\Repositories\MotcStationRepository;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,9 +22,12 @@ class DialogueController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo)
+    protected $motc_station_repository;
+
+    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
     {
         $this->centrifugo = $centrifugo;
+        $this->motc_station_repository = $motc_station_repository;
     }
 
     public function index()
@@ -50,12 +54,14 @@ class DialogueController extends Controller
     {
         $rooms = 0;
         $limit = 10;
+        $motc_station = $this->motc_station_repository->motcStationList();
         $rooms = Room::with(['users', 'messages' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->orderBy('created_at', 'desc')
         ->paginate($limit);
         return view('dialogue.manage', [
-            'rooms' => $rooms,
+            'rooms'        => $rooms,
+            'motc_station' => $motc_station
         ]);
     }
 
