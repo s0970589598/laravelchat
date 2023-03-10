@@ -729,14 +729,11 @@
                 cache: false,
                 success: function(data)
                 {
-                    //console.log(data)
-                    //alet(data)
                     // redirect
                     //window.location.replace(data.redirect);
                 },
                 error: function(data)
                 {
-                    alert(data);
                     // intergrate Swal to display error
                     // Swal.close();
                     // if (data.status == 419) {
@@ -767,11 +764,10 @@
                     //console.log(data)
                     //alet(data)
                     // redirect
-                    //window.location.replace(data.redirect);
+                    window.location.replace('/dialoguelist');
                 },
                 error: function(data)
                 {
-                    alert(data);
                     // intergrate Swal to display error
                     // Swal.close();
                     // if (data.status == 419) {
@@ -785,7 +781,7 @@
                     // }
                 }
             });
-            alert('success');
+
             }
 
 
