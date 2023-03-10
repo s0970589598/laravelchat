@@ -89,9 +89,12 @@ class DialogueController extends Controller
         ->where('status','0')
         ->paginate($limit);
 
+        $motc_station = $this->motc_station_repository->motcStationList();
+
         return view('dialogue.index', [
             'rooms' => $rooms,
             'currRoom' => $room,
+            'motc_station' => $motc_station,
             'isJoin' => $room->users->contains('id', Auth::user()->id),
             'now' => Carbon::now('GMT+8')->toDateString(),
             'media' => $media,
