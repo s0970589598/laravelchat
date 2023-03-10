@@ -15,7 +15,6 @@
     "https://qa.taiwan.net.tw/",
     "https://motcbot.faninsights.io/",
     "https://qa-service.taiwan.net.tw/"
-
   ],
   "proxy_connect_endpoint": "http://nginx/centrifugo/connect/",
   "proxy_http_headers": [
