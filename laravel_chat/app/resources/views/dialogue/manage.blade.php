@@ -322,9 +322,8 @@
                                             <div class="contact-name">{{ $room->name }}</div>
                                             <div class="item-label">
                                             <?php
-
-                                            Illuminate\Support\Carbon::setLocale('zh-tw');
-                                            echo Illuminate\Support\Carbon::create($room->updated_at)->diffForHumans();
+                                                Illuminate\Support\Carbon::setLocale('zh-tw');
+                                                echo Illuminate\Support\Carbon::create($room->updated_at)->diffForHumans();
                                             ?>
                                             </div>
                                         </div>
@@ -332,9 +331,23 @@
                                 </td>
                                 <td>
                                     <div class="dialogue-content">
-                                        <div class="time">{{isset($room->messages->last()->updated_at) ? $room->messages->last()->updated_at : ''}}</div>
-                                        <p calss="content">{{ ($room->messages->count() > 0) ? $room->messages->last()->user->name : '' }} <br/>
-                                            {{ ($room->messages->count() > 0) ? Str::limit($room->messages->last()->message, 15) : '' }}</p>
+                                        <div class="time">
+                                            {{isset($room->messages->last()->updated_at) ? $room->messages->last()->updated_at : ''}}
+                                        </div>
+                                        <p calss="content">
+                                        @if(isset($room->messages->last()->type))
+                                            @if($room->messages->last()->type === 'msgtem')
+                                                訊息
+                                            @elseif($room->messages->last()->type === 'media')
+                                                檔案
+                                            @elseif($room->messages->last()->type === 'stickers')
+                                                貼圖
+                                            @else
+                                                {{ ($room->messages->count() > 0) ? $room->messages->last()->user->name : '' }} <br/>
+                                                {{ ($room->messages->count() > 0) ? Str::limit($room->messages->last()->message, 15) : '' }}
+                                            @endif
+                                        @endif
+                                        </p
                                     </div>
                                 </td>
                                 <td>
