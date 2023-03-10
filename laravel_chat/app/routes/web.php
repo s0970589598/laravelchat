@@ -25,14 +25,15 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return redirect('/dashboard');
-});
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
 Route::group([
     'middleware' => 'auth',
 ], function () {
+    Route::get('/', function () {
+        return redirect('/dashboard');
+    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
     Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
     Route::get('/rooms/{id}', [RoomController::class, 'show'])->name('rooms.show');
