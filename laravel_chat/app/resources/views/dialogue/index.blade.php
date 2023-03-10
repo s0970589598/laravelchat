@@ -114,32 +114,105 @@
                         <p class="real-time">{{$now}}</p>
                         @if (!empty($currRoom))
                             @foreach($currRoom->messages as $message)
-                            @if ($message->sender_id === Auth::user()->id)
-                                @if ($message->type === 'msgtem')
-                                    <?php
-                                        $msg_sample_id = json_decode($message->message);
-                                        $msg_sample = App\Models\FrequentlyMsg::whereIn('id', $msg_sample_id)->get();
-                                    ?>
-                                    <?php foreach($msg_sample as $msgtem){?>
-                                        <!-- BEGIN RESPONCSE DIALOGUE -->
-                                        <div class="response-dialogue">
-                                            <div class="user">
-                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
-                                                <div class="dialogue">
-                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
-                                                    <div class="dialogue-content">
-                                                        <p><a href="{{$msgtem->url}}">{{$msgtem->url}}</a>
-                                                        </p>
-                                                        <div class="dialogue-info">
-                                                            <div class="activity">
-                                                                <div class="title">{{$msgtem->suject}}</div>
-                                                                <div class="content">
-                                                                    <p>{{$msgtem->reply}}
-                                                                    </p>
+                                <?php
+                                    $user_name     = $message->user->name;
+                                    $contact_email = $message->user->contact_email;
+                                    $line          = $message->user->line;
+                                    $phone         = $message->user->phone;
+                                    $user_authcode = $message->user->authcode;
+                                    $note          = $message->user->note;
+                                ?>
+                                @if ($message->sender_id === Auth::user()->id)
+                                    @if ($message->type === 'msgtem')
+                                        <?php
+                                            $msg_sample_id = json_decode($message->message);
+                                            $msg_sample = App\Models\FrequentlyMsg::whereIn('id', $msg_sample_id)->get();
+                                        ?>
+                                        <?php foreach($msg_sample as $msgtem){?>
+                                            <!-- BEGIN RESPONCSE DIALOGUE -->
+                                            <div class="response-dialogue">
+                                                <div class="user">
+                                                    <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                    <div class="dialogue">
+                                                        <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                        <div class="dialogue-content">
+                                                            <p><a href="{{$msgtem->url}}">{{$msgtem->url}}</a>
+                                                            </p>
+                                                            <div class="dialogue-info">
+                                                                <div class="activity">
+                                                                    <div class="title">{{$msgtem->suject}}</div>
+                                                                    <div class="content">
+                                                                        <p>{{$msgtem->reply}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="thumbnail" style="margin: 0;">
+                                                                    <img src="/assets/images/thumbnail.png" alt="images">
                                                                 </div>
                                                             </div>
-                                                            <div class="thumbnail" style="margin: 0;">
-                                                                <img src="/assets/images/thumbnail.png" alt="images">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END RESPONCSE DIALOGUE-->
+                                        <?php }?>
+                                    @elseif ($message->type === 'media')
+                                        <?php
+                                        $media_id = json_decode($message->message);
+                                        $media_v = App\Models\Media::whereIn('id', $media_id)->get();
+                                        ?>
+                                        <?php foreach($media_v as $med){?>
+                                            <!-- BEGIN RESPONCSE DIALOGUE -->
+                                            <div class="response-dialogue">
+                                                <div class="user">
+                                                    <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                    <div class="dialogue">
+                                                        <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                        <div class="dialogue-content">
+                                                            <div class="dialogue-info">
+                                                                <img src="/file/{{ $med->file}}" alt="" class="initStickersImg containImg">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END RESPONCSE DIALOGUE-->
+                                        <?php }?>
+                                    @elseif ($message->type === 'stickers')
+                                        <?php
+                                        $sticker_name = json_decode($message->message);
+                                        ?>
+                                        <?php foreach($sticker_name as $sticker){?>
+                                            <!-- BEGIN RESPONCSE DIALOGUE -->
+                                            <div class="response-dialogue">
+                                                <div class="user">
+                                                    <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                    <div class="dialogue">
+                                                        <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                        <div class="dialogue-content">
+                                                            <div class="dialogue-info">
+                                                                <img src="/assets/images/sticker/{{ $sticker}}" alt="" class="initStickersImg containImg">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END RESPONCSE DIALOGUE-->
+                                        <?php }?>
+
+                                    @else
+                                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                                        <div class="response-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="https://robohash.org/{{ $message->user->name }}" alt="images">
+                                                <div class="dialogue">
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                    <div class="dialogue-content">
+                                                        <div class="dialogue-info">
+                                                            <div class="activity">
+                                                                <div class="content">
+                                                                    <p> {{ $message->message }}</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -147,95 +220,92 @@
                                             </div>
                                         </div>
                                         <!-- END RESPONCSE DIALOGUE-->
-                                    <?php }?>
-                                @elseif ($message->type === 'media')
-                                    <?php
-                                    $media_id = json_decode($message->message);
-                                    $media_v = App\Models\Media::whereIn('id', $media_id)->get();
-                                    ?>
-                                    <?php foreach($media_v as $med){?>
-                                        <!-- BEGIN RESPONCSE DIALOGUE -->
-                                        <div class="response-dialogue">
-                                            <div class="user">
-                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
-                                                <div class="dialogue">
-                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
-                                                    <div class="dialogue-content">
-                                                        <div class="dialogue-info">
-                                                            <img src="/file/{{ $med->file}}" alt="" class="initStickersImg containImg">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END RESPONCSE DIALOGUE-->
-                                    <?php }?>
-                                @elseif ($message->type === 'stickers')
-                                    <?php
-                                    $sticker_name = json_decode($message->message);
-                                    ?>
-                                    <?php foreach($sticker_name as $sticker){?>
-                                        <!-- BEGIN RESPONCSE DIALOGUE -->
-                                        <div class="response-dialogue">
-                                            <div class="user">
-                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
-                                                <div class="dialogue">
-                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
-                                                    <div class="dialogue-content">
-                                                        <div class="dialogue-info">
-                                                            <img src="/assets/images/sticker/{{ $sticker}}" alt="" class="initStickersImg containImg">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END RESPONCSE DIALOGUE-->
-                                    <?php }?>
-
+                                    @endif
                                 @else
-                                    <!-- BEGIN RESPONCSE DIALOGUE -->
-                                    <div class="response-dialogue">
-                                        <div class="user">
-                                            <img class="user-avatar" src="https://robohash.org/{{ $message->user->name }}" alt="images">
-                                            <div class="dialogue">
-                                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
-                                                <div class="dialogue-content">
+                                    @if ($message->type === 'msgtem')
+                                        <?php
+                                        $msg_sample_id = json_decode($message->message);
+                                        $msg_sample = App\Models\FrequentlyMsg::whereIn('id', $msg_sample_id)->get();
+                                        foreach($msg_sample as $msgtem){
+                                        ?>
+                                        <!-- BEGIN REQUEST DIALOGUE -->
+                                        <div class="request-dialogue">
+                                                <div class="user">
+                                                    <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
+                                                    <div class="dialogue-content">
+                                                    <p>
+                                                        <a href="{{$msgtem->url}}">{{$msgtem->url}}</a>
+                                                    </p>
                                                     <div class="dialogue-info">
                                                         <div class="activity">
+                                                            <div class="title">{{$msgtem->suject}}</div>
                                                             <div class="content">
-                                                                <p> {{ $message->message }}</p>
+                                                                <p>{{$msgtem->reply}}
+                                                                </p>
                                                             </div>
                                                         </div>
+                                                        <div class="thumbnail" style="margin: 0;">
+                                                            <img src="/assets/images/thumbnail.png" alt="images">
+                                                        </div>
                                                     </div>
+                                                    </div>
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <!-- END RESPONCSE DIALOGUE-->
-                                @endif
-                            @else
-                                    <!-- BEGIN REQUEST DIALOGUE -->
-                                    <div class="request-dialogue">
-                                        <div class="user">
-                                            <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
-                                            <div class="dialogue-content">
-                                                <p>
-                                                    <?php
-                                                        $user_name     = $message->user->name;
-                                                        $contact_email = $message->user->contact_email;
-                                                        $line          = $message->user->line;
-                                                        $phone         = $message->user->phone;
-                                                        $user_authcode = $message->user->authcode;
-                                                        $note = $message->user->note;
-                                                    ?>
-                                                    {{ $message->message }}
-                                                </p>
+                                            <!-- END REQUEST DIALOGUE -->
+                                        <?php }?>
+                                    @elseif ($message->type === 'media')
+                                        <?php
+                                            $media_id = json_decode($message->message);
+                                            $media_v = App\Models\Media::whereIn('id', $media_id)->get();
+                                            foreach($media_v as $med){
+                                        ?>
+                                        <!-- BEGIN REQUEST DIALOGUE -->
+                                        <div class="request-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
+                                                <div class="dialogue-content">
+                                                <div class="dialogue-info">
+                                                    <img src="/file/{{ $med->file}}" alt="" class="initStickersImg containImg">
+                                                </div>
+                                                </div>
+                                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                                             </div>
-                                            <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                                         </div>
-                                    </div>
-                                    <!-- END REQUEST DIALOGUE -->
-                            @endif
+                                        <!-- END REQUEST DIALOGUE-->
+                                        <?php }?>
+                                    @elseif ($message->type === 'stickers')
+                                        <?php $sticker_name = json_decode($message->message);
+                                            foreach($sticker_name as $sticker){
+                                        ?>
+                                        <!-- BEGIN REQUEST DIALOGUE -->
+                                        <div class="request-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
+                                                <div class="dialogue-content">
+                                                <img src="/assets/images/sticker/{{ $sticker}}" alt="" class="initStickersImg containImg">
+                                                </div>
+                                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                            </div>
+                                        </div>
+                                        <!-- END REQUEST DIALOGUE -->
+                                        <?php }?>
+                                    @else
+                                        <!-- BEGIN REQUEST DIALOGUE -->
+                                        <div class="request-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
+                                                <div class="dialogue-content">
+                                                    <p>
+                                                        {{ $message->message }}
+                                                    </p>
+                                                </div>
+                                                <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                            </div>
+                                        </div>
+                                        <!-- END REQUEST DIALOGUE -->
+                                    @endif
+                                @endif
                             @endforeach
                         @else
                             <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
