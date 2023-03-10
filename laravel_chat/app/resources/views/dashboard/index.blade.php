@@ -261,7 +261,7 @@
             <div class="row widget-row">
                 <div class="col-md-4">
                     <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="#">
+                    <a class="widget-thumb-click" href="/dialoguelist">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                             <h4 class="widget-thumb-heading">等待客服人數</h4>
                             <div class="widget-thumb-wrap">
@@ -271,7 +271,7 @@
                                 <i class="widget-thumb-icon bg-orange icon-user"></i>
                             </div>
                             <div class="actions">
-                                <div class="go-btn" href="#">
+                                <div class="go-btn" href="/dialoguelist">
                                     <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
                                 </div>
                             </div>
@@ -281,7 +281,7 @@
                 </div>
                 <div class="col-md-4">
                     <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="#">
+                    <a class="widget-thumb-click" href="/dialoguelist">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                             <h4 class="widget-thumb-heading">在線客服人數</h4>
                             <div class="widget-thumb-wrap">
@@ -291,7 +291,7 @@
                                 <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
                             </div>
                             <div class="actions">
-                                <div class="go-btn" href="#">
+                                <div class="go-btn" href="/dialoguelist">
                                     <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
                                 </div>
                             </div>
@@ -301,7 +301,7 @@
                 </div>
                 <div class="col-md-4">
                     <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="#">
+                    <a class="widget-thumb-click" href="/msgsample">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                             <h4 class="widget-thumb-heading">待審核異常URL</h4>
                             <div class="widget-thumb-wrap">
@@ -311,7 +311,7 @@
                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                             </div>
                             <div class="actions">
-                                <div class="go-btn" href="#">
+                                <div class="go-btn" href="/msgsample">
                                     <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
                                 </div>
                             </div>

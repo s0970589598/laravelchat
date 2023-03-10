@@ -7,6 +7,8 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\SatisfactionSurvey;
 use App\Models\CustomerServiceRelationRole;
+use App\Repositories\MotcStationRepository;
+
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -22,10 +24,14 @@ class SatisfactionController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo)
+    protected $motc_station_repository;
+
+    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
     {
         $this->centrifugo = $centrifugo;
+        $this->motc_station_repository = $motc_station_repository;
     }
+
 
     public function storeSatisfaction(Request $request)
     {
@@ -75,13 +81,15 @@ class SatisfactionController extends Controller
             $limit = $request['limit'] ;
         }
         $users = User::orderBy('users.id', 'desc')
-        //->where('status','0')
+        ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
+        $motc_station = $this->motc_station_repository->motcStationList();
 
         return view('satisfaction.index', [
             'rooms' => $rooms,
             'users' => $users,
+            'motc_station' => $motc_station
         ]);
     }
 
@@ -98,14 +106,18 @@ class SatisfactionController extends Controller
             $limit = $request['limit'] ;
         }
         //$email_sample = DB::table('email_sample');
+        $motc_station = $this->motc_station_repository->motcStationList();
+
         $users = User::orderBy('users.id', 'desc')
-        //->where('status','0')
+        ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
+
 
         return view('satisfaction.manage', [
             'rooms' => $rooms,
             'users' => $users,
+            'motc_station' => $motc_station
         ]);
     }
 

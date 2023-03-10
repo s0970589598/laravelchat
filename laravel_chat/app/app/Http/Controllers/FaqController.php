@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\FAQ;
 use App\Models\Message;
 use App\Models\Room;
+use App\Repositories\MotcStationRepository;
+
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,13 +17,15 @@ use Throwable;
 
 class FaqController extends Controller
 {
-    //private Centrifugo $centrifugo;
-    protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo)
-    {
-        $this->centrifugo = $centrifugo;
-    }
+   //private Centrifugo $centrifugo;
+   protected $centrifugo;
+   protected $motc_station_repository;
 
+   public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
+   {
+       $this->centrifugo = $centrifugo;
+       $this->motc_station_repository = $motc_station_repository;
+   }
     public function index()
     {
         $rooms = 0;
@@ -32,10 +36,12 @@ class FaqController extends Controller
         $faq = FAQ::orderBy('id', 'desc')
         ->where('status','0')
         ->paginate($limit);
+        $motc_station = $this->motc_station_repository->motcStationList();
 
         return view('faq.index', [
             'rooms' => $rooms,
             'faq'=> $faq,
+            'motc_station' => $motc_station
         ]);
     }
 
