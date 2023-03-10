@@ -6,6 +6,8 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\CustomerServiceRelationRole;
+use App\Repositories\MotcStationRepository;
+
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -23,9 +25,12 @@ class AccountController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo)
+    protected $motc_station_repository;
+
+    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
     {
         $this->centrifugo = $centrifugo;
+        $this->motc_station_repository = $motc_station_repository;
     }
 
     public function index()
@@ -35,14 +40,18 @@ class AccountController extends Controller
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
+
         $users = User::orderBy('users.id', 'desc')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->where('status','0')
         ->paginate($limit);
 
+        $motc_station = $this->motc_station_repository->motcStationList();
+
         return view('account.index', [
             'rooms' => $rooms,
             'users' => $users,
+            'motc_station' => $motc_station
         ]);
     }
 

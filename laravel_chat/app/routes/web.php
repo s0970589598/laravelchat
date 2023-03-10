@@ -38,7 +38,7 @@ Route::group([
     Route::get('/rooms/{id}', [RoomController::class, 'show'])->name('rooms.show');
     Route::post('/rooms/{id}', [RoomController::class, 'join'])->name('rooms.join');
 
-    Route::get('/dialogue', [DialogueController::class, 'index'])->name('dialogue.index');
+    // Route::get('/dialogue', [DialogueController::class, 'index'])->name('dialogue.index');
     Route::get('/dialogue/{id}', [DialogueController::class, 'show'])->name('dialogue.show');
     Route::get('/dialoguelist', [DialogueController::class, 'manage'])->name('dialogue.manage');
 

@@ -265,12 +265,10 @@
                             <input type="text" class="form-control" name="to" placeholder="請選擇結束時間">
                         </div>
                         <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
-                            <option value="0">請選擇服務中心</option>
-                            <option value="1">Ａ旅遊服務中心</option>
-                            <option value="2">Ｂ旅遊服務中心</option>
-                            <option value="3">Ｃ旅遊服務中心</option>
-                            <option value="4">Ｄ旅遊服務中心</option>
-                            <option value="5">Ｅ旅遊服務中心</option>
+                            <option value="">請選擇服務中心</option>
+                            @foreach($motc_station as $motc)
+                            <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                            @endforeach
                         </select>
                         <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
                             <option value="0">請選擇狀態</option>
