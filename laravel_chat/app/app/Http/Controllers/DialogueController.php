@@ -156,7 +156,14 @@ class DialogueController extends Controller
             $msg = json_encode($arr);
 
         } else {
-            $msg = $requestData["message"];
+            //  save 文件
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $path = $file->store('uploads');
+                $msg = $request->input('message');
+            } else {
+                $msg = $requestData["message"];
+            }
         }
 
         try {

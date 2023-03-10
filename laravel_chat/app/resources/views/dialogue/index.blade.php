@@ -321,6 +321,8 @@
                                         placeholder="請輸入訊息"></textarea>
 
                                     <div class="message-input-actions btn-group">
+                                        <div id="preview"></div>
+
                                         <label class="upload-btn">
                                             <input id="upload_img" style="display:none;" type="file">
                                             <i class="icon-paper-clip"></i>
@@ -905,58 +907,31 @@
                 }
             });
 
-            }
-
-
-
-            // $('#msgtemsubmit').click(function(e){
-    //     const currentUserId = "{{ Auth::user() -> id }}";
-    //     const currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
-    //     const csrfToken     = "{{ csrf_token() }}";
-    //     var checkmsgtem = document.querySelector('.messageCheckbox').checked;
-    //     var msgtype = document.getElementById("msg-type").value;
-    //     alert('json');
-    //     e.preventDefault();
-    //     var formData = $('#publish-msg-sample').serialize();
-    //     //var form = $('#publish-msg-sample').serializeArray();
-    //     //alert(JSON.stringify(form))
-    //     $.ajax({
-    //         url: "/dialogue/" + currentRoomId + "/publish",
-    //         data: formData,
-    //         dataType: 'json',
-    //         contentType: 'application/json;charset=UTF-8',
-    //         method: 'POST',
-    //         processData: false, // important
-    //         contentType: false, // important
-    //         cache: false,
-    //         success: function(data)
-    //         {
-    //             console.log(data)
-    //             alert('json');
-
-    //             // redirect
-    //             //window.location.replace(data.redirect);
-    //         },
-    //         error: function(data)
-    //         {
-    //             alert(data);
-    //             // intergrate Swal to display error
-    //             Swal.close();
-    //             if (data.status == 419) {
-    //                 window.location.reload();
-    //             } else {
-    //                 Swal.fire({
-    //                     icon: 'info',
-    //                     title: 'Error',
-    //                     html: data.responseJSON.message,
-    //                 });
-    //             }
-    //         }
-    //     });
-    // })
+        }
 
         var output = document.getElementById("output");
+        const messageInput = document.querySelector('#chat-message-input');
+        const imageInput = document.querySelector('#upload_img');
+        const preview = document.querySelector('#preview');
+        const maxWidth = 1000;
 
+        imageInput.addEventListener('change', function() {
+            const file = this.files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener('load', function() {
+                const img = document.createElement('img');
+                            // 調整圖片大小
+                img.src = reader.result;
+                img.width = 50;
+                img.height = 50;
+                preview.innerHTML = '';
+                preview.appendChild(img);
+                // messageInput.value += `[file]${file.name}[file]` ;
+                // messageInput.value = `[file]${file.name}[file]` ;
+            });
+            reader.readAsDataURL(file);
+        });
 
         function send(){
             //output.innerHTML = input.value;
@@ -965,21 +940,43 @@
 
             const chatHistory = document.querySelector('#chat-history');
             const messageInput = document.querySelector('#chat-message-input');
+            const uploadInput = document.querySelector('#upload_img');
             const csrfToken = "{{ csrf_token() }}";
 
-                //e.preventDefault();
-                const message = messageInput.value;
-                if (!message) {
-                    return;
-                }
-                const xhttp = new XMLHttpRequest();
-                xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
-                xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            const message = messageInput.value;
+            const formData = new FormData();
+
+            // Add message to form data
+            formData.append('message', message);
+
+            // Add selected file to form data
+            if (uploadInput.files.length > 0) {
+                const file = uploadInput.files[0];
+                formData.append('file', file);
+                //messageInput.value += ' [附加圖片] ';
+            }
+
+            //e.preventDefault();
+            // const message = messageInput.value;
+            if (!message) {
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+
+            if (uploadInput.files.length == 0) {
                 xhttp.send(JSON.stringify({
                     message: message
                 }));
-                messageInput.value = '';
+            } else {
+                xhttp.send(formData);
+            }
+
+            messageInput.value = '';
         }
+
+
         // helper functions to work with escaping html.
         const tagsToReplace = {
             '&': '&amp;',
