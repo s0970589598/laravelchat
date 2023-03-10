@@ -286,6 +286,7 @@
                             查詢
                         </button>
                         <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                            <option value="">請選擇所屬中心單位</option>
                             @foreach($motc_station as $motc)
                             <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
                             @endforeach
