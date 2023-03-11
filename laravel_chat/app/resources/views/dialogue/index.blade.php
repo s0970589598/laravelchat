@@ -15,6 +15,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="/css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
@@ -604,7 +605,7 @@
     <div class="modal container fade in" id="sticker" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
         <form id="publish-msg-sample" action="/dialogue/{{$currRoom->id}}/publish" method="POST" enctype="application/json">
             <input type="hidden" id="msg-type" name="type" value="stickers">
-
+            @csrf
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">貼圖</h4>
@@ -843,6 +844,7 @@
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
             $.ajax({
                 url: "/api/contact/" + authcode + "/update",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 data: JSON.stringify({
                     "note":note
                 }),

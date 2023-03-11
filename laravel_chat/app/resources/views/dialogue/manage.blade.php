@@ -374,14 +374,11 @@
                                             <i class="icon-bubble"></i> 回覆
                                         </a>
                                         <select name="manager_group_sn" class="form-control"
-                                            style="margin-right: 5px;">
-                                            <option value="0">請選擇指派人員</option>
-                                            <option value="1">A客服人員</option>
-                                            <option value="2">B客服人員</option>
-                                            <option value="3">C客服人員</option>
-                                            <option value="4">D客服人員</option>
-                                            <option value="5">E客服人員</option>
-                                            <option value="6">F客服人員</option>
+                                            style="margin-right: 5px;" id="assign" onchange="assignroom(this,`{{$room->id}}`)">
+                                            <option value="">請選擇指派人員{{$room->id}}</option>
+                                            @foreach ($customer_list as $customer)
+                                                <option value="{{$customer->user_id}}">{{$customer->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </td>
@@ -545,6 +542,12 @@
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script>
+        function assignroom(selectObj,roomId){
+            alert(selectObj.value)
+
+            alert(roomId)
+        }
+
         $(function() {
             $('#editModal').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
@@ -578,31 +581,7 @@
 
         // Create root element
         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-        var root = am5.Root.new("chartdiv");
 
-
-        // Set themes
-        // https://www.amcharts.com/docs/v5/concepts/themes/
-        root.setThemes([
-            am5themes_Animated.new(root)
-        ]);
-
-        // Create chart
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/
-        var chart = root.container.children.push(am5xy.XYChart.new(root, {
-            panX: true,
-            panY: true,
-            wheelX: "panX",
-            wheelY: "zoomX",
-            pinchZoomX:true
-        }));
-
-        // Add cursor
-        // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-        var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
-            behavior: "none"
-        }));
-        cursor.lineY.set("visible", false);
 
 
         // Generate random data
