@@ -944,6 +944,8 @@
             const csrfToken = "{{ csrf_token() }}";
 
             const message = messageInput.value;
+            const preview = document.querySelector('#preview');
+
             const formData = new FormData();
 
             // Add message to form data
@@ -974,6 +976,7 @@
             }
 
             messageInput.value = '';
+            preview.innerHTML = '';
         }
 
 

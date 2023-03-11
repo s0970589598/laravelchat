@@ -161,6 +161,12 @@ class DialogueController extends Controller
                 $file = $request->file('file');
                 $path = $file->store('uploads');
                 $msg = $request->input('message');
+                $msg_type = 'file';
+                $fileName = time() . '.'. $file->extension();
+                $type = $file->getClientMimeType();
+                $size = $file->getSize();
+                $file->move(public_path('file'), $fileName);
+                $msg .= '[' . $type . ']' . public_path('file') . '/' . $fileName;
             } else {
                 $msg = $requestData["message"];
             }
