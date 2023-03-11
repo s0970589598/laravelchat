@@ -191,6 +191,30 @@ class RoomController extends Controller
        return response(json_encode($res), $status);
     }
 
+    public function asignCustomer(Request $request){
+        $params = $request->validate([
+            'customID'   => ['required'],
+            'roomId'      => ['required'],
+        ]);
+        $status = Response::HTTP_OK;
+        $res = 'success';
+        try {
+            $room = Room::find($params['roomId']);
+            Log::info($room;
+
+            $room->users()->attach($params);
+        } catch (Throwable $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $res = array(
+            'msg'        => 'fail',
+            );
+        }
+        return response(json_encode($res), $status);
+
+    }
+
     public function updateRoomsStatus(Request $request) {
         $status = Response::HTTP_OK;
         DB::beginTransaction();

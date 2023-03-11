@@ -543,9 +543,38 @@
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script>
         function assignroom(selectObj,roomId){
-            alert(selectObj.value)
-
-            alert(roomId)
+            $.ajax({
+                url: "/api/room/asign",
+                data: JSON.stringify({
+                    "customID":selectObj,
+                    "roomID":roomId
+                }),
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                method: 'POST',
+                processData: false, // important
+                contentType: false, // important
+                cache: false,
+                success: function(data)
+                {
+                    // redirect
+                    window.location.replace('/dialoguelist');
+                },
+                error: function(data)
+                {
+                    // intergrate Swal to display error
+                    // Swal.close();
+                    // if (data.status == 419) {
+                    //     window.location.reload();
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'info',
+                    //         title: 'Error',
+                    //         html: data.responseJSON.message,
+                    //     });
+                    // }
+                }
+            });
         }
 
         $(function() {
