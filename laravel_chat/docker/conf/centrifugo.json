@@ -12,8 +12,9 @@
     "http://motc.faninsights.io:8080",
     "http://motc.faninsights.io",
     "https://motc.faninsights.io",
-    "https://qa.taiwan.net.tw/",
-    "https://motcbot.faninsights.io/"
+    "https://qa.taiwan.net.tw",
+    "https://motcbot.faninsights.io",
+    "https://qa-service.taiwan.net.tw"
   ],
   "proxy_connect_endpoint": "http://nginx/centrifugo/connect/",
   "proxy_http_headers": [
