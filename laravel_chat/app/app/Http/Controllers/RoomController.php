@@ -200,7 +200,7 @@ class RoomController extends Controller
         $res = 'success';
         try {
             $room = Room::find($params['roomId']);
-            Log::info($room;
+            Log::info($room);
 
             $room->users()->attach($params);
         } catch (Throwable $e) {
