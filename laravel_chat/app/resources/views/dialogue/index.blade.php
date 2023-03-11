@@ -457,6 +457,7 @@
                 </button>
             </div>
             <form id="publish-msg-sample" action="/dialogue/{{$currRoom->id}}/publish" method="POST" enctype="application/json">
+                @csrf
                 <input type="hidden" id="msg-type" name="type" value="media">
 
             <div class="media-content">
