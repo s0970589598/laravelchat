@@ -7,7 +7,11 @@ use App\Models\Room;
 use App\Models\Media;
 use App\Models\RoomUserRelation;
 use App\Models\FrequentlyMsg;
+use App\Models\User;
+
 use App\Repositories\MotcStationRepository;
+use App\Repositories\UserRepository;
+
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,11 +27,13 @@ class DialogueController extends Controller
     //private Centrifugo $centrifugo;
     protected $centrifugo;
     protected $motc_station_repository;
+    protected $user_repository;
 
-    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
+    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository, UserRepository $user_repository)
     {
         $this->centrifugo = $centrifugo;
         $this->motc_station_repository = $motc_station_repository;
+        $this->user_repository = $user_repository;
     }
 
     public function index()
@@ -59,9 +65,18 @@ class DialogueController extends Controller
             $query->orderBy('created_at', 'asc');
         }])->orderBy('created_at', 'desc')
         ->paginate($limit);
+
+        $get_customer_params = array(
+            'role' => 'customer'
+        );
+
+        $get_customer = $this->user_repository->getUserListByParams($get_customer_params);
+
+
         return view('dialogue.manage', [
             'rooms'        => $rooms,
-            'motc_station' => $motc_station
+            'motc_station' => $motc_station,
+            'customer_list' => $get_customer
         ]);
     }
 
