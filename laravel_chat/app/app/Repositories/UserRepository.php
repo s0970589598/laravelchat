@@ -7,11 +7,11 @@ use App\Models\User;
 
 class UserRepository
 {
-    public function motcStationList()
-    {
-        $motc_sation = MotcStation::get();
-        return $motc_sation;
-    }
+    // public function motcStationList()
+    // {
+    //     $motc_sation = MotcStation::get();
+    //     return $motc_sation;
+    // }
 
     public function getUserListByParams($params)
     {
