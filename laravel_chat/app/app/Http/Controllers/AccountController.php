@@ -34,9 +34,9 @@ class AccountController extends Controller
      UserRepository $user_repository
      )
     {
-        $this->centrifugo = $centrifugo;
+        $this->centrifugo              = $centrifugo;
         $this->motc_station_repository = $motc_station_repository;
-        $this->user_repository = $user_repository;
+        $this->user_repository         = $user_repository;
     }
 
     public function index()
