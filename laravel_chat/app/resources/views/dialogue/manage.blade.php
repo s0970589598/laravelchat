@@ -40,6 +40,9 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="assets/images/fav-icon.png" />
         <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.5/sweetalert2.min.js?1"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
         <style>
             /*.page-header .page-header-top .page-logo .logo-default {
                 margin: 10px 0 0;
@@ -312,7 +315,7 @@
                                 <td>
                                     <?php
                                         $service = App\Models\MotcStation::where('sn',$room->service)->first();
-                                        echo $service_name = $service['station_name'];
+                                        echo $service_name = isset($service['station_name']) ? $service['station_name']: '';
                                     ?>
                                 </td>
                                 <td>
@@ -330,6 +333,7 @@
                                     </div>
                                 </td>
                                 <td>
+                                    @if(isset($room->messages))
                                     <div class="dialogue-content">
                                         <div class="time">
                                             {{isset($room->messages->last()->updated_at) ? $room->messages->last()->updated_at : ''}}
@@ -347,8 +351,11 @@
                                                 {{ ($room->messages->count() > 0) ? Str::limit($room->messages->last()->message, 15) : '' }}
                                             @endif
                                         @endif
-                                        </p
+
+                                    </p>
                                     </div>
+                                    @endif
+
                                 </td>
                                 <td>
                                     @if($room->status == 1)
@@ -375,12 +382,17 @@
                                         </a>
                                         <select name="manager_group_sn" class="form-control"
                                             style="margin-right: 5px;" id="assign" onchange="assignroom(this,`{{$room->id}}`)">
-                                            <option value="">請選擇指派人員{{$room->id}}</option>
+                                            <option value="">請選擇指派人員</option>
                                             @foreach ($customer_list as $customer)
                                                 <option value="{{$customer->user_id}}">{{$customer->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    @if(isset($room->users))
+                                        @foreach($room->users as $user)
+                                            <span class="label label-info" style="margin-right: 5px;display:inline-block;margin-top:10px;re">{{$user->name}}</span>
+                                        @endforeach
+                                    @endif
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -541,13 +553,20 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+
     <script>
         function assignroom(selectObj,roomId){
+            var selectedText = selectObj.options[selectObj.selectedIndex].text;
+            console.log(Swal);
+            if (!confirm('確定要指派' + selectedText + '嗎？')) {
+                return; // 如果使用者取消，則不進行後續動作
+            }
             $.ajax({
-                url: "/api/room/asign",
+                url: "/api/rooms/asign",
                 data: JSON.stringify({
-                    "customID":selectObj,
-                    "roomID":roomId
+                    "custom_id":selectObj.value,
+                    "room_id":roomId
                 }),
                 dataType: 'json',
                 contentType: 'application/json;charset=UTF-8',
@@ -558,7 +577,14 @@
                 success: function(data)
                 {
                     // redirect
-                    window.location.replace('/dialoguelist');
+                     // 顯示成功通知
+                    Swal.fire({
+                        icon: 'success',
+                        title: '指派成功',
+                        text: '已成功指派' + selectedText
+                    }).then(function() {
+                        window.location.replace('/dialoguelist');
+                    });
                 },
                 error: function(data)
                 {
