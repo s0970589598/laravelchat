@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\SatisfactionSurvey;
 use App\Models\CustomerServiceRelationRole;
 use App\Repositories\MotcStationRepository;
+use App\Repositories\UserRepository;
+
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Auth\Events\Registered;
@@ -25,13 +27,17 @@ class SatisfactionController extends Controller
     //private Centrifugo $centrifugo;
     protected $centrifugo;
     protected $motc_station_repository;
+    protected $user_repository;
 
-    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
+    public function __construct(Centrifugo $centrifugo,
+     MotcStationRepository $motc_station_repository,
+     UserRepository $user_repository
+     )
     {
-        $this->centrifugo = $centrifugo;
+        $this->centrifugo              = $centrifugo;
         $this->motc_station_repository = $motc_station_repository;
+        $this->user_repository         = $user_repository;
     }
-
 
     public function storeSatisfaction(Request $request)
     {
@@ -84,7 +90,21 @@ class SatisfactionController extends Controller
         ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
-        $motc_station = $this->motc_station_repository->motcStationList();
+
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
 
         return view('satisfaction.index', [
             'rooms' => $rooms,
@@ -105,8 +125,21 @@ class SatisfactionController extends Controller
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
-        //$email_sample = DB::table('email_sample');
-        $motc_station = $this->motc_station_repository->motcStationList();
+
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
 
         $users = User::orderBy('users.id', 'desc')
         ->where('status','0')
