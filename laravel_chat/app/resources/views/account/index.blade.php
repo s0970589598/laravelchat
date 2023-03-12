@@ -357,6 +357,8 @@
                 <!-- pagination -->
                 <div class="pull-right">
                     <ul id="pagination" class="pagination-sm pagination"></ul>
+                    <?php echo $users->links(); ?>
+
                 </div>
                 <!-- /pagination -->
                 <div style="clear:both;"></div>
