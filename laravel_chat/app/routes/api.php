@@ -29,7 +29,7 @@ Route::namespace ('Api')->group(function () {
     Route::post('/api/contact/{authcode}/update', [AccountController::class, 'updateUserContact'])->name('contact.updatecontact');
     Route::post('/api/satisfaction/store', [SatisfactionController::class, 'storeSatisfaction'])->name('satisfaction.store');
     Route::post('/api/rooms/update/status', [RoomController::class, 'updateRoomsStatus'])->name('room.updatestatus');
-    Route::post('/api/rooms/asign/', [RoomController::class, 'asignCustomer'])->name('room.asign');
+    Route::post('/api/rooms/asign', [RoomController::class, 'asignCustomer'])->name('room.asign');
     Route::post('/api/dialogue/{id}/publish', [DialogueController::class, 'publish'])->name('dialogue.publish');
 });
 

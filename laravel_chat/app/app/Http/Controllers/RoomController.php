@@ -192,14 +192,17 @@ class RoomController extends Controller
     }
 
     public function asignCustomer(Request $request){
-        $params = $request->validate([
-            'customID'   => ['required'],
-            'roomId'      => ['required'],
-        ]);
+
+        // $params = $request->validate([
+        //     'custom_id'   => ['required'],
+        //     'room_id'      => ['required'],
+        // ]);
+        $params = $request->json()->all();
+        Log::info($params);
         $status = Response::HTTP_OK;
         $res = 'success';
         try {
-            $room = Room::find($params['roomId']);
+            $room = Room::find($params['room_id']);
             Log::info($room);
 
             $room->users()->attach($params);
