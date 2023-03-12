@@ -304,10 +304,9 @@
                             <i class="icon-plus"></i>
                             新增問答
                         </a>
-                        <a class="import-btn" href="javascript:volid(0);">
-                            匯入問答
-                        </a>
-                        <a class="add-btn" href="javascript:volid(0);">
+                        <input type="file" onchange="importCSV()" name="csv_file" id="csv_file" style="display:none;">
+                        <a class="import-btn"  onclick="document.getElementById('csv_file').click()">匯入問答
+                        <a class="add-btn"  onclick="exportCSV()">
                             下載問答
                         </a>
                     </form>
@@ -515,6 +514,45 @@
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="js/all.js"></script>
     <script>
+
+        function importCSV(){
+            const uploadInput = document.querySelector('#csv_file');
+            const csrfToken = "{{ csrf_token() }}";
+
+            const formData = new FormData();
+
+            // Add selected file to form data
+            if (uploadInput.files.length > 0) {
+                const file = uploadInput.files[0];
+                formData.append('file', file);
+            }
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        const response = JSON.parse(this.responseText);
+                        if (response.success && response.url) {
+                            window.location.href = response.url;
+                        } else {
+                            console.error('Redirect failed');
+                        }
+                    } else {
+                        console.error(`Server error: ${this.status}`);
+                    }
+                }
+            };
+            console.log(xhttp.getAllResponseHeaders())
+            xhttp.open("POST", "/import-faq-csv");
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            xhttp.send(formData);
+
+        }
+
+        function exportCSV() {
+            window.location.href = '/export-faq-csv'; // 導出路徑
+        }
+
         $(function() {
             $('#edit-qa').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
