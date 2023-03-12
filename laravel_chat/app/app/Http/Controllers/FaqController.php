@@ -123,4 +123,61 @@ class FaqController extends Controller
         return redirect()->route('faq.index');
     }
 
+    public function exportCsv()
+{
+    $fileName = 'faq.csv';
+    $faqData = FAQ::all(['question', 'answer'])->toArray();
+    $headers = [
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=$fileName",
+    ];
+    $callback = function() use ($faqData) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, ['Question', 'Answer']);
+        foreach ($faqData as $row) {
+            fputcsv($file, $row);
+        }
+        fclose($file);
+    };
+    return response()->stream($callback, 200, $headers);
+}
+public function importCsv(Request $request)
+{
+    $status = Response::HTTP_OK;
+
+    try {
+        $file = $request->file('file');
+
+        // validate the file
+        $request->validate([
+            'file' => 'required|mimes:csv,txt',
+        ]);
+
+        // read the file contents
+        $csvData = array_map('str_getcsv', file($file->getPathname()));
+
+        // process the data
+        foreach ($csvData as $row) {
+            $faq = new FAQ();
+            $faq->question = $row[0];
+            $faq->answer = $row[1];
+            // $faq->status = $row[2];
+            // $faq->url = $row[3];
+            // $faq->is_err = $row[4];
+            $faq->save();
+        }
+    } catch (Throwable $e) {
+        Log::error($e->getMessage());
+        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $rs = array(
+            'msg'=>'fail'
+        );
+    }
+    if ($status === Response::HTTP_OK) {
+        return response()->json(['success' => true, 'url' => '/faq']);
+    } else {
+        return response()->json(['success' => false]);
+    }
+}
+
 }

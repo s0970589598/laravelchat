@@ -1,26 +1,21 @@
 <?php
-namespace App\Import;
+namespace App\Export;
 
-use App\Models\YourModel;
-use Maatwebsite\Excel\Concerns\FromQuery;
+use App\Models\FAQ;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class Export implements FromQuery, WithHeadings
+class FAQExport implements FromCollection
 {
     use Exportable;
 
-    public function query()
+    public function collection()
     {
-        return YourModel::query();
+        return FAQ::all();
     }
+}
 
-    public function headings(): array
-    {
-        return [
-            'Column 1',
-            'Column 2',
-            'Column 3',
-        ];
-    }
+public function exportCSV()
+{
+    return Excel::download(new FAQExport, 'faq.csv');
 }

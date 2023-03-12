@@ -79,6 +79,10 @@ Route::group([
     Route::get('/satisfaction/manage', [SatisfactionController::class, 'manage'])->name('satisfaction.manage');
 
     Route::post('/room/assign/apply',[RoomController::class, 'applyAssign'])->name('rooms.apply');
+
+    Route::get('/export-faq-csv', [FAQController::class, 'exportCsv'])->name('export_faq_csv');
+    Route::POST('/import-faq-csv', [FAQController::class, 'importCsv'])->name('import_faq_csv');
+
 });
 
 require __DIR__ . '/auth.php';
