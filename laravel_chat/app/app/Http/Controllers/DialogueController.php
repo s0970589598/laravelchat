@@ -11,6 +11,7 @@ use App\Models\User;
 
 use App\Repositories\MotcStationRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\RoomsRepository;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
@@ -28,12 +29,18 @@ class DialogueController extends Controller
     protected $centrifugo;
     protected $motc_station_repository;
     protected $user_repository;
+    protected $rooms_repository;
 
-    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository, UserRepository $user_repository)
+    public function __construct(Centrifugo $centrifugo,
+      MotcStationRepository $motc_station_repository,
+      UserRepository $user_repository,
+      RoomsRepository $rooms_repository
+    )
     {
         $this->centrifugo = $centrifugo;
         $this->motc_station_repository = $motc_station_repository;
         $this->user_repository = $user_repository;
+        $this->rooms_repository = $rooms_repository;
     }
 
     public function index()
@@ -60,16 +67,29 @@ class DialogueController extends Controller
     {
         $rooms = 0;
         $limit = 10;
-        $motc_station = $this->motc_station_repository->motcStationList();
-        $rooms = Room::with(['users', 'messages' => function ($query) {
-            $query->orderBy('created_at', 'asc');
-        }])->orderBy('created_at', 'desc')
-        ->paginate($limit);
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+        $rooms = $this->rooms_repository->getAllMsgListByServiceRole($sn,$auth['role']);
 
         $get_customer_params = array(
             'role' => 'customer'
         );
-
         $get_customer = $this->user_repository->getUserListByParams($get_customer_params);
 
 
@@ -104,12 +124,27 @@ class DialogueController extends Controller
         ->where('status','0')
         ->paginate($limit);
 
-        $motc_station = $this->motc_station_repository->motcStationList();
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+        $motc_station_transfer = $this->motc_station_repository->motcStationList($motc_params=[]);
 
         return view('dialogue.index', [
             'rooms' => $rooms,
             'currRoom' => $room,
             'motc_station' => $motc_station,
+            'motc_station_transfer' => $motc_station_transfer,
             'isJoin' => $room->users->contains('id', Auth::user()->id),
             'now' => Carbon::now('GMT+8')->toDateString(),
             'media' => $media,

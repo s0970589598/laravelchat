@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\CustomerServiceRelationRole;
 use App\Repositories\MotcStationRepository;
+use App\Repositories\UserRepository;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Auth\Events\Registered;
@@ -26,32 +27,49 @@ class AccountController extends Controller
     //private Centrifugo $centrifugo;
     protected $centrifugo;
     protected $motc_station_repository;
+    protected $user_repository;
 
-    public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
+    public function __construct(Centrifugo $centrifugo,
+     MotcStationRepository $motc_station_repository,
+     UserRepository $user_repository
+     )
     {
-        $this->centrifugo = $centrifugo;
+        $this->centrifugo              = $centrifugo;
         $this->motc_station_repository = $motc_station_repository;
+        $this->user_repository         = $user_repository;
     }
 
     public function index()
     {
         $rooms = 0;
         $limit = 10;
+
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
 
-        $users = User::orderBy('users.id', 'desc')
-        ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
-        ->where('status','0')
-        ->paginate($limit);
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
 
-        $motc_station = $this->motc_station_repository->motcStationList();
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+        $users        = $this->user_repository->getAllUserListByServiceRole($auth['service'], $auth['role'], $limit);
 
         return view('account.index', [
-            'rooms' => $rooms,
-            'users' => $users,
-            'motc_station' => $motc_station
+            'rooms'        => $rooms,
+            'users'        => $users,
+            'motc_station' => $motc_station,
+            'auth'         => $auth,
         ]);
     }
 
@@ -132,7 +150,6 @@ class AccountController extends Controller
 
         $status = Response::HTTP_OK;
         $params = $request->json()->all();
-        Log::info($params);
 
         DB::beginTransaction();
         $userupdate = array(

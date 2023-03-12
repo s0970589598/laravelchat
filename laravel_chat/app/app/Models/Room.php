@@ -27,11 +27,6 @@ class Room extends Model
         return $this->belongsToMany(User::class, 'users_rooms');
     }
 
-    public function services()
-    {
-        return $this->belongsToMany(CustomerService::class, 'customer_service');
-    }
-
     public function messages()
     {
         return $this->hasMany(Message::class);

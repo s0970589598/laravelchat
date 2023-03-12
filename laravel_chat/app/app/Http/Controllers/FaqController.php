@@ -6,6 +6,7 @@ use App\Models\FAQ;
 use App\Models\Message;
 use App\Models\Room;
 use App\Repositories\MotcStationRepository;
+use App\Repositories\UserRepository;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
@@ -20,12 +21,17 @@ class FaqController extends Controller
    //private Centrifugo $centrifugo;
    protected $centrifugo;
    protected $motc_station_repository;
+   protected $user_repository;
 
-   public function __construct(Centrifugo $centrifugo, MotcStationRepository $motc_station_repository)
+   public function __construct(Centrifugo $centrifugo,
+    MotcStationRepository $motc_station_repository,
+    UserRepository $user_repository
+    )
    {
        $this->centrifugo = $centrifugo;
        $this->motc_station_repository = $motc_station_repository;
-   }
+       $this->user_repository         = $user_repository;
+    }
     public function index()
     {
         $rooms = 0;
@@ -33,10 +39,26 @@ class FaqController extends Controller
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
+
         $faq = FAQ::orderBy('id', 'desc')
         ->where('status','0')
         ->paginate($limit);
-        $motc_station = $this->motc_station_repository->motcStationList();
+
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
 
         return view('faq.index', [
             'rooms' => $rooms,

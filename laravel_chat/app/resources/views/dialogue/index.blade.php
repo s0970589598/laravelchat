@@ -574,7 +574,7 @@
                     <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
                     aria-hidden="true"  name="assigned_service">
                         <optgroup label="旅遊服務中心">
-                            @foreach($motc_station as $motc)
+                            @foreach($motc_station_transfer as $motc)
                             <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
                             @endforeach
                         </optgroup>
