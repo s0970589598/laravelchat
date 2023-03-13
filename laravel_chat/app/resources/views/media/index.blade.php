@@ -286,7 +286,7 @@
                             <option value="1">問題</option>
                             <option value="2">答案</option>
                         </select>
-                        @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                        @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
 
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-media">
                             <i class="icon-plus"></i>
@@ -314,7 +314,7 @@
                                 <td data-title="{{ $m->title }}" class="custom-title">{{ $m->title }}</td>
                                 <td data-file="{{ $m->file }}" class="custom-file"><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
                                 <td>
-                                    @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                                    @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                     <button class="btn edit-btn btn-sm" data-id="{{ $m->id }}" data-title="{{ $m->id }}"data-toggle="modal" data-target="#edit-media"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/media/upstatus/{{$m->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif

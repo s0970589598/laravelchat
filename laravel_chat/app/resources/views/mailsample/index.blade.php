@@ -287,7 +287,7 @@
                             <i class="fa fa-search"></i>
                             查詢
                         </button>
-                        @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                        @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-mail">
                             <i class="icon-plus"></i>
                             新增信件範本
@@ -316,7 +316,7 @@
                                 <td data-subject="{{ $mail->subject }}" class="custom-subject">{{ $mail->subject }}</td>
                                 <td data-content="{{ $mail->content }}" class="custom-content">{{ $mail->content }}</td>
                                 <td>
-                                    @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                                    @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
 
                                     <button class="btn edit-btn btn-sm" data-id="{{ $mail->id }}" data-title="{{ $mail->id }}"data-toggle="modal" data-target="#edit-mail"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/mailsample/upstatus/{{$mail->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>

@@ -291,7 +291,7 @@
                             <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
                             @endforeach
                         </select>
-                        @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                        @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                         <a class="add-btn" data-target="#add-account" data-toggle="modal">
                             <i class="icon-plus"></i>
                             新增人員
@@ -326,7 +326,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                                    @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                     <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
