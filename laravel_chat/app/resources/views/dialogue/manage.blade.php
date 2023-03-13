@@ -342,7 +342,7 @@
                                         @if(isset($room->messages->last()->type))
                                             @if($room->messages->last()->type === 'msgtem')
                                                 訊息
-                                            @elseif($room->messages->last()->type === 'media')
+                                            @elseif($room->messages->last()->type === 'media' || $room->messages->last()->type === 'file' )
                                                 檔案
                                             @elseif($room->messages->last()->type === 'stickers')
                                                 貼圖
