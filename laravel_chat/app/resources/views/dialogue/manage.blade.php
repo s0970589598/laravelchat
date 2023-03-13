@@ -392,9 +392,9 @@
                                     </div>
                                     @if(isset($room->users))
                                         @foreach($room->users as $user)
-                                            @if(! preg_match("/\motc.go/i", $user->email))
+                                            {{-- @if(! preg_match("/\motc.go/i", $user->email)) --}}
                                             <span class="label label-info" style="margin-right: 5px;display:inline-block;margin-top:10px;re">{{$user->name}}</span>
-                                            @endif
+                                            {{-- @endif --}}
                                         @endforeach
                                     @endif
                                     @endif
