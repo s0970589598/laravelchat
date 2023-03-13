@@ -331,7 +331,6 @@
                         </thead>
                         <tbody>
 
-
                         @foreach ($users as $user)
                             <tr>
                                 <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>

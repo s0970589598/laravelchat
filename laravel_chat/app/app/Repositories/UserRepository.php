@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class UserRepository
 {
@@ -19,9 +20,13 @@ class UserRepository
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->where('status','0');
 
-        if(isset($params['role'])) {
-            $users->where('role', $params['role']);
+
+        if(isset($params['start_time']) && isset($params['end_time']))
+        {
+            $users->where('last_seen', '>', $params['start_time']);
+            $users->where('last_seen', '<', $params['end_time']);
         }
+
 
         if(isset($params['service'])) {
             $users->where('service', 'like', '%' . $params['service'] . '%');
@@ -30,11 +35,13 @@ class UserRepository
         if(isset($params['user_id'])) {
             $users->where('users.id', $params['user_id']);
         }
+        Log::info(json_encode($users->get()));
 
         return $users->get();
     }
 
-    public function getAllUserListByServiceRole($service, $role, $limit = 10) {
+    public function getAllUserListByServiceRole($service, $role, $limit = 10)
+    {
         if ($role == 'admin99'){
             $users = User::select('*')
             ->orderBy('users.id', 'desc')
@@ -58,7 +65,8 @@ class UserRepository
         return $users;
     }
 
-    public function getUserServiceRole($params_auth){
+    public function getUserServiceRole($params_auth)
+    {
         $auth       = $this->getUserListByParams($params_auth);
         $service    = $auth[0]->service;
         $role       = $auth[0]->role;
