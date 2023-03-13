@@ -230,7 +230,7 @@ class RoomController extends Controller
             // Log::info($params);
             $rooms = Room::find($params['id'])
                 ->update([
-                    'status'     => $params['status'],
+                    'status'     => Room::IN_CUSTOMER_SERVICEING,
             ]);
 
             $getrooms = Room::where('id',$params['id'])->get();
