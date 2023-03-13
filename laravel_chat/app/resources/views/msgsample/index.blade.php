@@ -286,7 +286,7 @@
                             <option value="2">Ｂ分類</option>
                             <option value="3">Ｃ分類</option>
                         </select>
-                        @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                        @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-message">
                             <i class="icon-plus"></i>
                             新增訊息範本
@@ -316,7 +316,7 @@
                                 <td data-url="{{ $msg->url }}" class="custom-url">{{ $msg->url }}</td>
 
                                 <td>
-                                    @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                                    @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                         <button class="btn edit-btn btn-sm" data-id="{{ $msg->id }}" data-title="{{ $msg->id }}"data-toggle="modal" data-target="#edit-message"><i class="icon-pencil"></i>編輯</button>
                                         <a href="/msgsample/upstatus/{{$msg->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
