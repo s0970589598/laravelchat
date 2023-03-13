@@ -88,7 +88,7 @@
             <img src="/assets/images/logo.png" alt="images">
         </a>
     </div>
-    <div class="content">
+    <div class="user-content">
         <!-- BEGIN FORGOT PASSWORD FORM -->
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
