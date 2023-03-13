@@ -99,23 +99,7 @@
                                     <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                     <img alt="" class="img-circle" src="assets/images/user-default.png"/>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <a href="">
-                                            <i class="icon-user"></i> 個人資料修改
-                                        </a>
-                                    </li>
-                                    <li>
-                                          <!-- Authentication -->
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">
-                                                <i class="icon-key"></i> {{ __('Log Out') }}
-                                            </x-dropdown-link>
-                                        </form>
-                                    </li>
-                                </ul>
+
                             </li>
                             <!-- END USER LOGIN DROPDOWN -->
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
