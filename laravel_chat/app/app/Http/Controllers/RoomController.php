@@ -203,6 +203,12 @@ class RoomController extends Controller
         try {
             $room = Room::find($params['room_id']);
             $room->users()->attach($params);
+
+            $rooms = Room::find($params['room_id'])
+            ->update([
+                'status'     => Room::IN_CUSTOMER_SERVICEING,
+            ]);
+
         } catch (Throwable $e) {
             DB::rollBack();
             Log::error($e->getMessage());

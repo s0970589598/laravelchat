@@ -361,9 +361,11 @@
                                 </td>
                                 <td>
                                     <div class="assign">
+                                        @if($room->status == 2 || $room->status == 3 || $room->status == 7)
                                         <a href="#" class="reply-btn" onclick="location.href='{{ route('dialogue.show', $room->id) }}'">
                                             <i class="icon-bubble"></i> 回覆
                                         </a>
+                                        @endif
                                         @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
 
                                         <select name="manager_group_sn" class="form-control"
