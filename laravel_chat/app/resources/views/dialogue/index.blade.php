@@ -216,6 +216,13 @@
                                                     <?php
                                                     list($msg, $file) = explode("[file]", $message->message);
                                                     list($type, $filename) = explode("#", $file);
+                                                    if (strpos($type, "image") !== false) {
+                                                        // $fileType 中包含 "image" 字串
+                                                        $filename = $filename;
+                                                    } else {
+                                                        // $fileType 中不包含 "image" 字串
+                                                        $filename = 'assets/images/file.png';
+                                                    }
                                                 ?>
                                                     <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                                                     <div class="dialogue-content">
@@ -335,6 +342,13 @@
                                                     <?php
                                                     list($msg, $file) = explode("[file]", $message->message);
                                                     list($type, $filename) = explode("#", $file);
+                                                    if (strpos($type, "image") !== false) {
+                                                        // $fileType 中包含 "image" 字串
+                                                        $filename = $filename;
+                                                    } else {
+                                                        // $fileType 中不包含 "image" 字串
+                                                        $filename = 'assets/images/file.png';
+                                                    }
                                                 ?>
                                                     <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                                                     <div class="dialogue-content">
@@ -385,11 +399,16 @@
                                         placeholder="請輸入訊息"></textarea>
 
                                     <div class="message-input-actions btn-group">
-                                        <div id="preview"></div>
-
+                                        {{-- <div id="preview"></div> --}}
+                                        <div id="preview">
+                                            <img src="/assets/images/file.png" id="showImg" width="80" height="80">
+                                        </div>
                                         <label class="upload-btn">
                                             <input id="upload_img" style="display:none;" type="file">
-                                            <i class="icon-paper-clip"></i>
+                                            <i class="icon-paper-clip" id="uploadfile"></i>
+                                        </label>
+                                        <label class="upload-btn">
+                                            <i class=" icon-trash" id="clearfile" style="display:none;"></i>
                                         </label>
                                     </div>
                                 </div>
@@ -400,7 +419,7 @@
                             </div>
                             <div class="message-feature">
                                 <div class="send">
-                                    <button class="submit-btn" onclick="send()">發送</button>
+                                    <button id="submit-msg" class="submit-btn" onclick="send()">發送</button>
                                 </div>
                                 <div class="customer-turn">
                                     <button class="refer-btn" data-target="#apply-return" data-toggle="modal">客服轉介</button>
@@ -860,6 +879,16 @@
     <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
 
     <script type="text/javascript">
+    // const textarea = document.getElementById("chat-message-input");
+    // const button = document.getElementById("submit-msg");
+
+    // textarea.addEventListener("keydown", function(event) {
+    // if (event.key === "Enter" && !event.shiftKey && event.target === textarea) {
+    //     event.preventDefault();
+    //     button.click();
+    // }
+    // });
+
         function downloadFile(url) {
             var newurl = location.protocol +'//' +location.hostname+url
             fetch(newurl, {
@@ -1002,25 +1031,56 @@
         const messageInput = document.querySelector('#chat-message-input');
         const imageInput = document.querySelector('#upload_img');
         const preview = document.querySelector('#preview');
+        const showImg = document.querySelector('#showImg');
         const maxWidth = 1000;
+
+        const clearBtn = document.getElementById('clearfile');
+        const uploadBtn = document.getElementById('uploadfile');
+        preview.style.display = 'none';
+
+        preview.addEventListener('click', function() {
+            imageInput.click();
+        });
 
         imageInput.addEventListener('change', function() {
             const file = this.files[0];
             const reader = new FileReader();
 
+
             reader.addEventListener('load', function() {
                 const img = document.createElement('img');
                             // 調整圖片大小
-                img.src = reader.result;
-                img.width = 50;
-                img.height = 50;
+                if (file.type.startsWith('image/')) {
+                    img.src = reader.result;
+                } else {
+                    img.src = '/assets/images/file.png';
+                }
+
+
+                img.width = 80;
+                img.height = 80;
                 preview.innerHTML = '';
+
                 preview.appendChild(img);
+                preview.style.display = 'inline-block';
+                clearBtn.style.display = 'inline-block';
+                uploadBtn.style.display = 'none';
                 // messageInput.value += `[file]${file.name}[file]` ;
                 // messageInput.value = `[file]${file.name}[file]` ;
             });
+
+
             reader.readAsDataURL(file);
         });
+
+        clearBtn.addEventListener('click', function() {
+            imageInput.value = '';
+            preview.innerHTML = '';
+            clearBtn.style.display = 'none';
+            uploadBtn.style.display = 'inline-block';
+
+        });
+        //preview.appendChild(clearBtn);
 
         function send(){
             //output.innerHTML = input.value;
@@ -1034,7 +1094,7 @@
 
             const message = messageInput.value;
             const preview = document.querySelector('#preview');
-
+            var type;
             const formData = new FormData();
 
             // Add message to form data
@@ -1044,6 +1104,7 @@
             if (uploadInput.files.length > 0) {
                 const file = uploadInput.files[0];
                 formData.append('file', file);
+                type = 'file';
                 //messageInput.value += ' [附加圖片] ';
             }
 
@@ -1053,6 +1114,24 @@
                 return;
             }
             const xhttp = new XMLHttpRequest();
+            if (type == 'file') {
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4) {
+                        if (this.status === 200) {
+                            const response = JSON.parse(this.responseText);
+                            if (response.msg == 'success') {
+                                window.location.href = "/dialogue/" + currentRoomId ;
+                            } else {
+                                console.error('Redirect failed');
+                            }
+                        } else {
+                            console.error(`Server error: ${this.status}`);
+                        }
+                    }
+                };
+            }
+
+
             xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
             xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
 
@@ -1066,6 +1145,7 @@
 
             messageInput.value = '';
             preview.innerHTML = '';
+
         }
 
 
@@ -1104,15 +1184,18 @@
                 messageInput.focus();
 
                 const csrfToken = "{{ csrf_token() }}";
-                messageInput.onkeyup = function(e) {
-                    if (e.keyCode === 13) { // enter, return
+                messageInput.onkeypress = function(e) {
+                    if (e.key === "Enter" && document.activeElement === messageInput) { // enter, return
+                        if (window.getSelection().toString().length !== 0 && window.getSelection().anchorNode.parentElement !== messageInput) {
+                            return;
+                        }
                         e.preventDefault();
                         const message = messageInput.value;
                         if (!message) {
                             return;
                         }
                         const xhttp = new XMLHttpRequest();
-                        xhttp.open("POST", "/rooms/" + currentRoomId + "/publish");
+                        xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
                         xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
                         xhttp.send(JSON.stringify({
                             message: message
