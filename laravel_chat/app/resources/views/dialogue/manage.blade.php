@@ -380,6 +380,8 @@
                                         <a href="#" class="reply-btn" onclick="location.href='{{ route('dialogue.show', $room->id) }}'">
                                             <i class="icon-bubble"></i> 回覆
                                         </a>
+                                        @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+
                                         <select name="manager_group_sn" class="form-control"
                                             style="margin-right: 5px;" id="assign" onchange="assignroom(this,`{{$room->id}}`)">
                                             <option value="">請選擇指派人員</option>
@@ -392,6 +394,7 @@
                                         @foreach($room->users as $user)
                                             <span class="label label-info" style="margin-right: 5px;display:inline-block;margin-top:10px;re">{{$user->name}}</span>
                                         @endforeach
+                                    @endif
                                     @endif
                                 </td>
                             </tr>

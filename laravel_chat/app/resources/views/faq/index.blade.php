@@ -300,6 +300,7 @@
                             <input type="checkbox">
                             異常URL
                         </label>
+                        @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-qa">
                             <i class="icon-plus"></i>
                             新增問答
@@ -309,6 +310,7 @@
                         <a class="add-btn"  onclick="exportCSV()">
                             下載問答
                         </a>
+                        @endif
                     </form>
                 </div>
             </div>
@@ -330,8 +332,10 @@
                                 <td data-answer="{{ $f->answer }}" class="custom-answer">{{ $f->answer }}</td>
                                 {{-- <td data-url="{{ $f->url }}" class="custom-url">{{ $f->url }}</td> --}}
                                 <td>
-                                    <button class="btn edit-btn btn-sm" data-id="{{ $f->id }}" data-title="{{ $f->id }}"data-toggle="modal" data-target="#edit-qa"><i class="icon-pencil"></i>編輯</button>
-                                    <a href="/faq/upstatus/{{$f->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
+                                    @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+                                        <button class="btn edit-btn btn-sm" data-id="{{ $f->id }}" data-title="{{ $f->id }}"data-toggle="modal" data-target="#edit-qa"><i class="icon-pencil"></i>編輯</button>
+                                        <a href="/faq/upstatus/{{$f->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
+                                    @endif
                                 </td>
                             </tr>
                             <?php endforeach; ?>

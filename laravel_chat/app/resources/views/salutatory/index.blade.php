@@ -307,7 +307,10 @@
                                 <td data-subject="{{ $welcome->subject }}" class="custom-subject">{{ $welcome->subject }}</td>
                                 <td data-content="{{ $welcome->content }}" class="custom-content">{{ $welcome->content }}</td>
                                 <td>
+                                    @if($auth_service_role == 'admin' || $auth_service_role == 'admin99')
+
                                     <button class="btn edit-btn btn-sm" data-id="{{ $welcome->id }}" data-title="{{ $welcome->id }}"data-toggle="modal" data-target="#edit-welcome"><i class="icon-pencil"></i>編輯</button>
+                                    @endif
                                 </td>
                             </tr>
                             <?php endforeach; ?>

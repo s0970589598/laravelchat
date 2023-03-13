@@ -69,7 +69,7 @@ class AccountController extends Controller
             'rooms'        => $rooms,
             'users'        => $users,
             'motc_station' => $motc_station,
-            'auth'         => $auth,
+            'auth_service_role' => $auth
         ]);
     }
 
