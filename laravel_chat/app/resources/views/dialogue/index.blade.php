@@ -99,6 +99,12 @@
             height: 100px;
         }
 
+        .initFileImg{
+            width: 300px;
+            height: 300px;
+        }
+
+
         .containImg{
             object-fit: contain;
         }
@@ -201,6 +207,34 @@
                                             <!-- END RESPONCSE DIALOGUE-->
                                         <?php }?>
 
+                                    @elseif($message->type === 'file')
+                                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                                        <div class="response-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                <div class="dialogue">
+                                                    <?php
+                                                    list($msg, $file) = explode("[file]", $message->message);
+                                                    list($type, $filename) = explode("#", $file);
+                                                ?>
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                    <div class="dialogue-content">
+                                                        <div class="dialogue-info">
+                                                            <div class="activity">
+                                                                <div class="content">
+                                                                   <p>{{$msg}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="thumbnail" style="margin: 0;">
+                                                                <img src="/{{ $filename}}" alt="" class="initFileImg containImg">
+                                                            <a onclick="downloadFile(`/{{$filename}}`)">下載</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END RESPONCSE DIALOGUE-->
                                     @else
                                         <!-- BEGIN RESPONCSE DIALOGUE -->
                                         <div class="response-dialogue">
@@ -221,6 +255,7 @@
                                             </div>
                                         </div>
                                         <!-- END RESPONCSE DIALOGUE-->
+
                                     @endif
                                 @else
                                     @if ($message->type === 'msgtem')
@@ -291,6 +326,34 @@
                                         </div>
                                         <!-- END REQUEST DIALOGUE -->
                                         <?php }?>
+                                    @elseif($message->type === 'file')
+                                        <!-- BEGIN RESPONCSE DIALOGUE -->
+                                        <div class="response-dialogue">
+                                            <div class="user">
+                                                <img class="user-avatar" src="/assets/images/customer-response.png" alt="images">
+                                                <div class="dialogue">
+                                                    <?php
+                                                    list($msg, $file) = explode("[file]", $message->message);
+                                                    list($type, $filename) = explode("#", $file);
+                                                ?>
+                                                    <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
+                                                    <div class="dialogue-content">
+                                                        <div class="dialogue-info">
+                                                            <div class="activity">
+                                                                <div class="content">
+                                                                   <p>{{$msg}}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="thumbnail" style="margin: 0;">
+                                                                <img src="/{{ $filename}}" alt="" class="initFileImg containImg">
+                                                            <a onclick="downloadFile(`/{{$filename}}`)">下載</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END RESPONCSE DIALOGUE-->
                                     @else
                                         <!-- BEGIN REQUEST DIALOGUE -->
                                         <div class="request-dialogue">
@@ -797,6 +860,29 @@
     <script src="https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@2.8.4/dist/centrifuge.min.js"></script>
 
     <script type="text/javascript">
+        function downloadFile(url) {
+            var newurl = location.protocol +'//' +location.hostname+url
+            fetch(newurl, {
+                headers: {
+                'Content-Type': 'application/octet-stream'
+                }
+            })
+                .then(response => response.blob())
+                .then(blob => {
+                 // 使用 split 函數拆分網址
+                const parts = newurl.split('.');
+                // 取得最後一個元素，也就是副檔名
+                const extension = parts[parts.length - 1];
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'file.' + extension); // 檔案名稱可以自行指定
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+                });
+            }
+
         function updateuserinfo(){
             var authcode = document.getElementById("authcode").value;
             var email = document.getElementById("email").value;

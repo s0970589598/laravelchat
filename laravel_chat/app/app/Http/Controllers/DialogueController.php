@@ -118,11 +118,13 @@ class DialogueController extends Controller
 
         if (empty($is_join)){
             $room->users()->attach(Auth::user()->id);
-            $rooms = Room::find($id)
-            ->update([
-                'status' => Room::IN_CUSTOMER_SERVICEING,
-            ]);
 
+            if ($room->status == Room::WAIT_CUSTOMER_SERVICE ){
+                Room::find($id)
+                ->update([
+                    'status' => Room::IN_CUSTOMER_SERVICEING,
+                ]);
+            }
         }
 
         $media = Media::orderBy('id', 'desc')
@@ -225,7 +227,8 @@ class DialogueController extends Controller
                 $type = $file->getClientMimeType();
                 $size = $file->getSize();
                 $file->move(public_path('file'), $fileName);
-                $msg .= '[' . $type . ']' . public_path('file') . '/' . $fileName;
+                // $msg .= '[file][' . $type . ']' .'#'. public_path('file') . '/' . $fileName . '[file]';
+                $msg .= '[file][' . $type . ']' .'#'. 'file/' . $fileName . '[file]';
             } else {
                 $msg = $requestData["message"];
             }
