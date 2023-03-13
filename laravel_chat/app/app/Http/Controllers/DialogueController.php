@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
 
+use App\Export\RoomExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Throwable;
 
 class DialogueController extends Controller
@@ -264,4 +267,81 @@ class DialogueController extends Controller
             return redirect()->route('dialogue.show',$id);
         }
     }
+
+    // public function exportCsv()
+    // {
+    //     $rooms = 0;
+    //     $limit = 10;
+    //     $auth_id    = Auth::user()->id;
+    //     $params_auth = array(
+    //         'user_id' => $auth_id
+    //     );
+    //     $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+    //     if ($auth['role'] == 'admin99'){
+    //         $motc_params = array();
+    //     } else {
+    //         $motc_params = array(
+    //             'station_name' => $auth['service']
+    //         );
+    //     }
+    //     $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+    //     foreach ($motc_station as $motc) {
+    //         $sn[] = $motc['sn'];
+    //     }
+    //     $rooms = $this->rooms_repository->getAllMsgListByServiceRoleExport($sn,$auth['role']);
+
+    //     $get_customer_params = array(
+    //         'role' => 'customer'
+    //     );
+    //     $get_customer = $this->user_repository->getUserListByParams($get_customer_params);
+
+
+    //     $fileName = 'daialogue.csv';
+    //     // $faqData = FAQ::all(['question', 'answer'])->toArray();
+    //     $data = $rooms->toArray();
+    //     $headers = [
+    //         "Content-type" => "text/csv",
+    //         "Content-Disposition" => "attachment; filename=$fileName",
+    //     ];
+    //     $callback = function() use ($data) {
+    //         $file = fopen('php://output', 'w');
+    //         fputcsv($file, ['Question', 'Answer']);
+    //         foreach ($data as $row) {
+    //             fputcsv($file, $row);
+    //         }
+    //         fclose($file);
+    //     };
+    //     return response()->stream($callback, 200, $headers);
+    // }
+
+    public function exportCsv()
+    {
+        $limit = 10;
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+        // $rooms = $this->rooms_repository->getAllMsgListByServiceRoleExport($sn,$auth['role']);
+
+        return Excel::download(new RoomExport($sn,$auth['role']), 'rooms.csv');
+    }
+
 }
+
+
