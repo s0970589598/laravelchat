@@ -118,6 +118,11 @@ class DialogueController extends Controller
 
         if (empty($is_join)){
             $room->users()->attach(Auth::user()->id);
+            $rooms = Room::find($id)
+            ->update([
+                'status' => $params['status'],
+            ]);
+
         }
 
         $media = Media::orderBy('id', 'desc')
