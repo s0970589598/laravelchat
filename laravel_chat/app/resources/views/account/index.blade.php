@@ -349,14 +349,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <span class="bg-{{$user->last_seen >= now()->subMinutes(2) ? 'green':'red'}}-500 text-white py-1 px-3 rounded-full text-lg">
-                                    {{($user->last_seen >= now()->subMinutes(2)) ? 'Online' : 'Offline'}}
+                                    <span class="bg-{{$user->last_seen >= now()->subMinutes(30) ? 'green':'red'}}-500 text-white py-1 px-3 rounded-full text-lg">
+                                        {{($user->last_seen >= now()->subMinutes(30)) ? 'Online' : 'Offline'}}
                                     </span>
                                 </td>
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
-                                    <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
-                                    <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
+                                        <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                        <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
                             </tr>
