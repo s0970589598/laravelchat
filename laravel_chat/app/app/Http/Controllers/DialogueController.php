@@ -120,7 +120,7 @@ class DialogueController extends Controller
             $room->users()->attach(Auth::user()->id);
             $rooms = Room::find($id)
             ->update([
-                'status' => $params['status'],
+                'status' => Room::IN_CUSTOMER_SERVICEING,
             ]);
 
         }

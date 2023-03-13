@@ -198,13 +198,10 @@ class RoomController extends Controller
         //     'room_id'      => ['required'],
         // ]);
         $params = $request->json()->all();
-        Log::info($params);
         $status = Response::HTTP_OK;
         $res = 'success';
         try {
             $room = Room::find($params['room_id']);
-            Log::info($room);
-
             $room->users()->attach($params);
         } catch (Throwable $e) {
             DB::rollBack();
@@ -230,7 +227,7 @@ class RoomController extends Controller
             // Log::info($params);
             $rooms = Room::find($params['id'])
                 ->update([
-                    'status'     => Room::IN_CUSTOMER_SERVICEING,
+                    'status'     => $params['status'],
             ]);
 
             $getrooms = Room::where('id',$params['id'])->get();
