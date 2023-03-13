@@ -40,12 +40,14 @@ class UserRepository
             ->orderBy('users.id', 'desc')
             ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
             ->where('status','0')
+            ->where('customer_service_relation_role.role', '!=','user')
             ->paginate($limit);
         } else {
             $users = User::select('*')
             ->orderBy('users.id', 'desc')
             ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
             ->where('status','0')
+            ->where('customer_service_relation_role.role', '!=','user')
             ->where(function ($query) use ($service) {
                 foreach ($service as $station_name) {
                     $query->orWhere('service', 'like', '%' . $station_name . '%');

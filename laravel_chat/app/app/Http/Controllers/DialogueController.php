@@ -99,7 +99,8 @@ class DialogueController extends Controller
         return view('dialogue.manage', [
             'rooms'        => $rooms,
             'motc_station' => $motc_station,
-            'customer_list' => $get_customer
+            'customer_list' => $get_customer,
+            'auth_service_role' => $auth
         ]);
     }
 

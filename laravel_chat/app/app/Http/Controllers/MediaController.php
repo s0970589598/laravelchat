@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\Room;
 use App\Models\Media;
+use App\Repositories\UserRepository;
+
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,9 +19,10 @@ class MediaController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo)
+    public function __construct(Centrifugo $centrifugo,UserRepository $user_repository)
     {
         $this->centrifugo = $centrifugo;
+        $this->user_repository         = $user_repository;
     }
 
     public function index()
@@ -33,9 +36,16 @@ class MediaController extends Controller
         ->where('status','0')
         ->paginate($limit);
 
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
         return view('media.index', [
             'rooms' => $rooms,
             'media' => $media,
+            'auth_service_role' => $auth
         ]);
     }
 

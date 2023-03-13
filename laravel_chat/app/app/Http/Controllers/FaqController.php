@@ -63,7 +63,8 @@ class FaqController extends Controller
         return view('faq.index', [
             'rooms' => $rooms,
             'faq'=> $faq,
-            'motc_station' => $motc_station
+            'motc_station' => $motc_station,
+            'auth_service_role' => $auth
         ]);
     }
 
