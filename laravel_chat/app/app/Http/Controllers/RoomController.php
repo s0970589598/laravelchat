@@ -137,7 +137,7 @@ class RoomController extends Controller
             if ( count($user) == 0 ) {
                 $user = User::create([
                 'name'     =>  $params['session_id'],
-                'email'    =>  $params['session_id'] . '@motc.cu',
+                'email'    =>  $params['session_id'] . '@motc.go',
                 'password' =>  Hash::make('test123'),
                 'authcode' =>  $params['session_id'],
                 ]);
