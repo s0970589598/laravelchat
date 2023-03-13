@@ -81,6 +81,22 @@
         .page-content-wrapper .page-content {
             padding-top: 0px;
         }
+
+        .bg-red-500 {
+            background: red;
+            display: block;
+            text-align: center;
+            padding: 4px;
+            color: white;
+        }
+
+        .bg-green-500 {
+            background: green;
+            display: block;
+            text-align: center;
+            padding: 4px;
+            color: white;
+        }
     </style>
     </head>
     <!-- END HEAD -->
@@ -308,6 +324,8 @@
                                 <th>帳號</th>
                                 <th>權限</th>
                                 <th>所屬旅服中心</th>
+                                <th>最後上線時間</th>
+                                <th>上線狀態</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
@@ -324,6 +342,16 @@
                                            <span class="tag">{{$s}}</span>
                                         @endforeach
                                     @endif
+                                </td>
+                                <td>
+                                    @if(! is_null($user->last_seen))
+                                    {{Carbon\Carbon::parse($user->last_seen)->diffForHumans()}}
+                                    @endif
+                                </td>
+                                <td>
+                                    <span class="bg-{{$user->last_seen >= now()->subMinutes(2) ? 'green':'red'}}-500 text-white py-1 px-3 rounded-full text-lg">
+                                    {{($user->last_seen >= now()->subMinutes(2)) ? 'Online' : 'Offline'}}
+                                    </span>
                                 </td>
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Cache;
 
 class User extends Authenticatable
 {
@@ -27,7 +28,8 @@ class User extends Authenticatable
         'contact_email',
         'note',
         'point',
-        'is_offline'
+        'is_offline',
+        'last_seen'
     ];
 
     /**
@@ -57,6 +59,11 @@ class User extends Authenticatable
     public function service_relation()
     {
         return $this->belongsToMany(CustomerServiceRelationRole::class, 'customer_service_relation_role');
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
     }
 
 }

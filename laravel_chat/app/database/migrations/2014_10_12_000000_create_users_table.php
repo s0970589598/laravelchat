@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('point')->nullable();
             $table->integer('status')->default(0);
             $table->integer('is_offline')->default(0);
+            $table->timestamp('lest_seen')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
