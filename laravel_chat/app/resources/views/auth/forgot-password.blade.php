@@ -106,7 +106,7 @@
             </div>
             <div class="form-actions">
                 <button type="submit" class="submit-btn">確認送出</button>
-                <button type="button" id="back-btn" class="close-btn">取消</button>
+                <button onclick="location.href='/dialoguelist'" type="button" id="back-btn" class="close-btn">取消</button>
             </div>
         </form>
         <!-- END FORGOT PASSWORD FORM -->
