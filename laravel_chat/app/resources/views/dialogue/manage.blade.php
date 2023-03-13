@@ -290,10 +290,10 @@
                             <i class="fa fa-search"></i>
                             查詢
                         </button>
-                        <a class="add-btn" href="javascript:volid(0);">
-                            <i class="fa fa-download"></i>
+                        <a class="add-btn"  onclick="exportCSV()">
                             匯出
                         </a>
+
                     </form>
                 </div>
             </div>
@@ -556,6 +556,10 @@
 
 
     <script>
+        function exportCSV() {
+            window.location.href = '/export-dialogue-csv'; // 導出路徑
+        }
+
         function assignroom(selectObj,roomId){
             var selectedText = selectObj.options[selectObj.selectedIndex].text;
             console.log(Swal);

@@ -159,8 +159,8 @@ public function importCsv(Request $request)
         // process the data
         foreach ($csvData as $row) {
             $faq = new FAQ();
-            $faq->question = isset($row[0]) ? $row[0]: '';
-            $faq->answer = isset($row[1]) ? $row[1]: '';
+            $faq->question = isset($row[0]) ? $row[0]: '//';
+            $faq->answer = isset($row[1]) ? $row[1]: '//';
             // $faq->status = $row[2];
             // $faq->url = $row[3];
             // $faq->is_err = $row[4];

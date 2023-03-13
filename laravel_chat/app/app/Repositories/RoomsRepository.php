@@ -29,6 +29,21 @@ class RoomsRepository
         return $rooms;
     }
 
+    public function getAllMsgListByServiceRoleExport($sn, $role, $limit = 10)
+    {
+        if ($role == 'admin99'){
+            $rooms = Room::with(['users', 'messages' => function ($query) {
+                $query->orderBy('created_at', 'asc');
+            }])->orderBy('created_at', 'desc');
+        } else {
+            $rooms = Room::with(['users', 'messages' => function ($query) {
+                $query->orderBy('created_at', 'asc');
+            }])->orderBy('created_at', 'desc')
+            ->whereIn('service', $sn);
+        }
+        return $rooms;
+    }
+
 
 
 }
