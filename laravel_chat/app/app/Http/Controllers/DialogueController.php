@@ -66,14 +66,36 @@ class DialogueController extends Controller
         ]);
     }
 
-    public function manage()
+    public function manage(Request $request)
     {
+        //Log::info($request->all());
         $rooms = 0;
         $limit = 10;
+        $room_params = [];
         $auth_id    = Auth::user()->id;
         $params_auth = array(
             'user_id' => $auth_id
         );
+
+        if (isset($request->from) && isset($request->to) ){
+            $start = date('Y-m-d',strtotime($request->from));
+            $end = date('Y-m-d',strtotime($request->to));
+            $room_params['start_time'] = $start;
+            $room_params['end_time'] = $end;
+        }
+        if (isset($request->manager_group_sn)){
+            $room_params['sn'] = $request->manager_group_sn;
+        }
+
+        if (isset($request->status)){
+            $room_params['status'] = $request->status;
+        }
+
+        if (isset($request->question_keyword)){
+            $room_params['search'] = $request->question_keyword;
+        }
+        Log::info($room_params);
+
         $auth = $this->user_repository->getUserServiceRole($params_auth);
 
         if ($auth['role'] == 'admin99'){
@@ -88,7 +110,8 @@ class DialogueController extends Controller
         foreach ($motc_station as $motc) {
             $sn[] = $motc['sn'];
         }
-        $rooms = $this->rooms_repository->getAllMsgListByServiceRole($sn,$auth['role']);
+        $limit = 10;
+        $rooms = $this->rooms_repository->getAllMsgListByServiceRole($sn,$auth['role'],$limit, $room_params);
 
         $get_customer_params = array(
             'role' => 'customer'

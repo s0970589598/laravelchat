@@ -245,11 +245,11 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
+                    <form class="form-inline" id="form-search" action="/dialoguelist" method="GET">
                         <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy" style="margin-right: 5px;">
-                            <input type="text" class="form-control" name="from" placeholder="請選擇開始時間">
+                            <input type="text" class="form-control" name="from" placeholder="請選擇開始時間" >
                             <span class="input-group-addon"> to </span>
-                            <input type="text" class="form-control" name="to" placeholder="請選擇結束時間">
+                            <input type="text" class="form-control" name="to" placeholder="請選擇結束時間" >
                         </div>
                         <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
                             <option value="">請選擇服務中心</option>
@@ -257,14 +257,16 @@
                             <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
                             @endforeach
                         </select>
-                        <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
-                            <option value="0">請選擇狀態</option>
-                            <option value="1">待客服</option>
-                            <option value="2">客服中</option>
-                            <option value="3">已完成</option>
+
+                        <select name="status" class="form-control" style="margin-right: 5px;" >
+                            <option value="">請選擇狀態</option>
+                            <option value="1">智能客服</option>
+                            <option value="2">待客服</option>
+                            <option value="3">客服中</option>
                             <option value="4">逾期未回覆</option>
-                            <option value="5">智能客服</option>
-                            <option value="6">客服轉介</option>
+                            <option value="5">客服轉介</option>
+                            <option value="6">已完成</option>
+                            <option value="7">待聯絡</option>
                         </select>
                         <input name="question_keyword" class="form-control" placeholder="請搜尋關鍵字"
                             value="" style="margin-right: 5px;">
