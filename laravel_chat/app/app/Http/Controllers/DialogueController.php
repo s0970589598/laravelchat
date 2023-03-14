@@ -191,6 +191,7 @@ class DialogueController extends Controller
     public function publish(int $id, Request $request)
     {
         $requestData = $request->json()->all();
+        Log::info($requestData);
         $check_api = 1;
         if(isset($requestData["type"])) {
             $msg_type = $requestData["type"];
