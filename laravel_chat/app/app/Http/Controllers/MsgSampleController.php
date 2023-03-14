@@ -26,15 +26,31 @@ class MsgSampleController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $rooms = 0;
         $limit = 2;
+        $msg_params = [];
+
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
+        if (isset($request->manager_question_type)){
+            $msg_params['type'] = $request->manager_question_type;
+        }
+        if (isset($request->keyword)){
+            $msg_params['keyword'] = $request->keyword;
+        }
+
         $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
         ->where('status','0')
+        ->when(isset($msg_params['keyword']), function ($query) use ($msg_params) {
+            $query->where('reply','LIKE', '%' .$msg_params['keyword']. '%');
+            $query->orwhere('subject','LIKE', '%' .$msg_params['keyword']. '%');
+        })
+        ->when(isset($msg_params['type']), function ($query) use ($msg_params) {
+            $query->where('type', $msg_params['type']);
+        })
         ->paginate($limit);
 
         $auth_id    = Auth::user()->id;
@@ -106,4 +122,32 @@ class MsgSampleController extends Controller
 
     }
 
+    public function getMsgSample(Request $request)
+    {
+        $limit =10;
+        $msg_sample = [];
+        if (isset($request['limit']) && $request['limit']) {
+            $limit = $request['limit'] ;
+        }
+        if (isset($request->manager_question_type)){
+            $msg_params['type'] = $request->manager_question_type;
+        }
+        if (isset($request->keyword)){
+            $msg_params['keyword'] = $request->keyword;
+        }
+
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
+        ->where('status','0')
+        ->when(isset($msg_params['keyword']), function ($query) use ($msg_params) {
+            $query->where('reply','LIKE', '%' .$msg_params['keyword']. '%');
+            $query->orwhere('subject','LIKE', '%' .$msg_params['keyword']. '%');
+        })
+        ->when(isset($msg_params['type']), function ($query) use ($msg_params) {
+            $query->where('type', $msg_params['type']);
+        })
+        ->paginate($limit);
+
+        return json_encode($msg_sample);
+
+    }
 }

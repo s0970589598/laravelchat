@@ -262,7 +262,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
+                    <form class="form-inline" id="form-search" action="/msgsample" method="GET">
                         <select name="manager_question_type" class="form-control"
                             style="margin-right: 5px;">
                             <option value="">請選擇分類</option>
@@ -271,6 +271,12 @@
                             <option value="環境資訊">環境資訊</option>
                             <option value="其他">其他</option>
                         </select>
+                        <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
+                        <input name="page" type="hidden" value="1"/>
+                        <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
+                            <i class="fa fa-search"></i>
+                            查詢
+                        </button>
                         @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-message">
                             <i class="icon-plus"></i>

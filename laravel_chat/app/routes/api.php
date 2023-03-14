@@ -32,7 +32,8 @@ Route::namespace ('Api')->group(function () {
     Route::post('/api/rooms/update/status', [RoomController::class, 'updateRoomsStatus'])->name('room.updatestatus');
     Route::post('/api/rooms/asign', [RoomController::class, 'asignCustomer'])->name('room.asign');
     Route::post('/api/dialogue/{id}/publish', [DialogueController::class, 'publish'])->name('dialogue.publish');
-    Route::get('/api/media', [MediaController::class, 'getMedia'])->name('dialogue.publish');
+    Route::get('/api/media', [MediaController::class, 'getMedia'])->name('media.getMedia');
+    Route::get('/api/msgsample', [MediaController::class, 'getMsgSample'])->name('msgsample.getMsgSample');
 
 });
 
