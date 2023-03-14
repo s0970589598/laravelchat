@@ -272,8 +272,8 @@ class DialogueController extends Controller
             foreach ($room->users as $user) {
                 $channels[] = "personal:#" . $user->id;
             }
-
-            $this->centrifugo->broadcast($channels, [
+            Log::info($channels );
+            $test = $this->centrifugo->broadcast($channels, [
                 "text"               => $message->message,
                 "createdAt"          => $message->created_at->toDateTimeString(),
                 "createdAtFormatted" => $message->created_at->toFormattedDateString() . ", " . $message->created_at->toTimeString(),
@@ -282,6 +282,7 @@ class DialogueController extends Controller
                 "senderName"         => $sender_name,
                 "type"               => $msg_type,
             ]);
+            Log::info($test );
 
             $rs = array(
                 'msg'=>'success',
