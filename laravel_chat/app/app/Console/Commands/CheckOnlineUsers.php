@@ -55,19 +55,19 @@ class CheckOnlineUsers extends Command
             $onlineUsers = $user_repository->getUserListByParams($params);
 
             $now = Carbon::now('Asia/Taipei');
-            Log::info(Carbon::now('Asia/Taipei'));
-            Log::info('---');
-            Log::info($now >= $startTime);
-            Log::info($now <= $endTime);
-            Log::info($onlineUsers->isEmpty());
-            Log::info('---');
+            // Log::info(Carbon::now('Asia/Taipei'));
+            // Log::info('---');
+            // Log::info($now >= $startTime);
+            // Log::info($now <= $endTime);
+            // Log::info($onlineUsers->isEmpty());
+            // Log::info('---');
 
 
             if ($onlineUsers->isEmpty() && ($now >=$startTime) && ($now <=$endTime)) {
                 $data = [
                     'centerName' => $centerName,
                 ];
-                Log::info($centerName . 'no customer' . $now);
+                //Log::info($centerName . 'no customer' . $now);
                 Mail::send('email.no_online_users', $data, function ($message) use ($adminEmail) {
                     $message->to($adminEmail)
                             ->subject('No online users during working hours');

@@ -5,6 +5,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\SatisfactionController;
 use App\Http\Controllers\DialogueController;
+use App\Http\Controllers\MediaController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,8 @@ Route::namespace ('Api')->group(function () {
     Route::post('/api/rooms/update/status', [RoomController::class, 'updateRoomsStatus'])->name('room.updatestatus');
     Route::post('/api/rooms/asign', [RoomController::class, 'asignCustomer'])->name('room.asign');
     Route::post('/api/dialogue/{id}/publish', [DialogueController::class, 'publish'])->name('dialogue.publish');
+    Route::get('/api/media', [MediaController::class, 'getMedia'])->name('dialogue.publish');
+
 });
 
 Route::group([

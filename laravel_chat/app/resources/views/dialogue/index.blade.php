@@ -528,6 +528,7 @@
         </div>
         <div class="modal-body">
             <div class="row">
+                <form id="search-form">
                 <div class="col-md-4">
                     <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value=""
                         style="margin-right: 5px;">
@@ -537,6 +538,7 @@
                     <i class="fa fa-search"></i>
                     查詢
                 </button>
+                </form>
             </div>
             <form id="publish-msg-sample" action="/dialogue/{{$currRoom->id}}/publish" method="POST" enctype="application/json">
                 @csrf
@@ -1285,6 +1287,52 @@
 
             centrifuge.connect();
         }
+
+        // 获取元素
+const mediaContent = document.querySelector('.media-content');
+const searchForm = document.querySelector('#search-form');
+
+// 发送 AJAX 请求
+function searchMedia(keyword, page) {
+  const url = `/api/media?keyword=${keyword}&page=${page}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // 清空原来的媒体内容
+      mediaContent.innerHTML = '';
+
+      // 构建新的媒体内容
+      for (const m of data.data) {  // 改為 data.data，因為返回的媒體在 data.data 裡面
+        const div = document.createElement('div');
+        div.classList.add('col-md-4');
+        div.innerHTML = `
+          <div class="media">
+            <div class="media-info">
+              <div class="media-title">
+                <input type="checkbox" id="media-${m.id}" name="items[]" value="${m.id}">
+                <label for="media-${m.id}">${m.file}</label>
+              </div>
+              <div style="margin: 0;">
+                <img src="/file/${m.file}" alt="" class="initImg containImg">
+              </div>
+            </div>
+          </div>
+        `;
+        mediaContent.appendChild(div);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// 监听表单提交事件
+searchForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const keyword = searchForm.querySelector('[name="keyword"]').value;
+  const page = 1; // 重置为第一页
+  searchMedia(keyword, page);
+});
     </script>
 
 </body>

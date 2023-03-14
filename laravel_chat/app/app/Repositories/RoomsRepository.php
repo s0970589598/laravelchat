@@ -13,7 +13,7 @@ class RoomsRepository
 
     public function getAllMsgListByServiceRole($sn, $role, $limit = 10, $room_params)
     {
-        Log::info($sn);
+        //Log::info($sn);
 
         if ($role == 'admin99'){
             // $rooms = Room::with(['users', 'messages' => function ($query) {

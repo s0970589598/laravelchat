@@ -43,10 +43,10 @@ class NewPasswordMotcController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('save');
-        Log::info($request->token);
-        Log::info($request->email);
-        Log::info($request->password);
+        // Log::info('save');
+        // Log::info($request->token);
+        // Log::info($request->email);
+        // Log::info($request->password);
 
         // $validate = $request->validate([
         //     'token' => ['required'],
@@ -57,7 +57,7 @@ class NewPasswordMotcController extends Controller
         // Here we will attempt to reset the user's password. If it is successful we
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
-        Log::info($request->only('email'));
+        //Log::info($request->only('email'));
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
@@ -71,9 +71,9 @@ class NewPasswordMotcController extends Controller
             }
         );
 
-        Log::info('reset');
-        Log::info($status);
-        Log::info(Password::PASSWORD_RESET);
+        // Log::info('reset');
+        // Log::info($status);
+        // Log::info(Password::PASSWORD_RESET);
 
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can

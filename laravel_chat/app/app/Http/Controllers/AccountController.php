@@ -57,7 +57,7 @@ class AccountController extends Controller
             $account_params['manager_group_sn'] = $request->manager_group_sn;
         }
 
-        Log::info($account_params);
+        //Log::info($account_params);
 
 
         $auth_id    = Auth::user()->id;

@@ -94,7 +94,7 @@ class DialogueController extends Controller
         if (isset($request->question_keyword)){
             $room_params['search'] = $request->question_keyword;
         }
-        Log::info($room_params);
+        //Log::info($room_params);
 
         $auth = $this->user_repository->getUserServiceRole($params_auth);
 

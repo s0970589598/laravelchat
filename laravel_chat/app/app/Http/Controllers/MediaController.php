@@ -111,4 +111,24 @@ class MediaController extends Controller
 
     }
 
+    public function getMedia(Request $request){
+        $limit =10;
+        $media_params = [];
+        if (isset($request['limit']) && $request['limit']) {
+            $limit = $request['limit'] ;
+        }
+        if (isset($request['keyword']) && $request['keyword']) {
+            $media_params['keyword'] = $request['keyword'] ;
+        }
+
+        //Log::info($media_params);
+        $media = Media::orderBy('id', 'desc')
+        ->where('status','0')
+        ->when(isset($media_params['keyword']), function ($query) use ($media_params) {
+            $query->where('title','LIKE', '%' .$media_params['keyword']. '%');
+        })
+        ->paginate($limit);
+
+        return json_encode($media);
+    }
 }
