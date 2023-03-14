@@ -35,7 +35,7 @@ class UserRepository
         if(isset($params['user_id'])) {
             $users->where('users.id', $params['user_id']);
         }
-        Log::info(json_encode($users->get()));
+        // Log::info(json_encode($users->get()));
 
         return $users->get();
     }
