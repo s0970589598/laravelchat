@@ -31,10 +31,19 @@ class MailSampleController extends Controller
     {
         $rooms = 0;
         $limit = 10;
+        $mail_params = [];
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
+
+        if (isset($request->keyword)){
+            $mail_params['keyword'] = $request->keyword;
+        }
+
         $email_sample = EmailSample::orderBy('id', 'desc')
+        ->when(isset($mail_params['keyword']), function ($query) use ($mail_params) {
+            $query->where('content','LIKE', '%' .$mail_params['keyword']. '%');
+        })
         ->where('status','0')
         ->paginate($limit);
 

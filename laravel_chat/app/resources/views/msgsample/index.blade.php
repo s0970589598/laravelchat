@@ -265,10 +265,11 @@
                     <form class="form-inline" id="form-search" method="GET">
                         <select name="manager_question_type" class="form-control"
                             style="margin-right: 5px;">
-                            <option value="0">請選擇分類</option>
-                            <option value="1">Ａ分類</option>
-                            <option value="2">Ｂ分類</option>
-                            <option value="3">Ｃ分類</option>
+                            <option value="">請選擇分類</option>
+                            <option value="交通資訊">交通資訊</option>
+                            <option value="景點資訊">景點資訊</option>
+                            <option value="環境資訊">環境資訊</option>
+                            <option value="其他">其他</option>
                         </select>
                         @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                         <a class="add-btn" href="javascript:volid(0);" data-toggle="modal" data-target="#add-message">
@@ -369,7 +370,6 @@
                 <label class="control-label col-md-2" style="margin-bottom: 20px;">分類</label>
                 <div class="col-md-10" style="margin-bottom: 20px;">
                     <select class="bs-select form-control bs-select-hidden" name="type">
-                        <option value="全部">全部</option>
                         <option value="交通資訊">交通資訊</option>
                         <option value="景點資訊">景點資訊</option>
                         <option value="設備資訊">設備資訊</option>

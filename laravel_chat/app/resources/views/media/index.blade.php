@@ -266,9 +266,9 @@
                     <form class="form-inline" id="form-search" method="GET">
                         <select name="manager_question_type" class="form-control"
                             style="margin-right: 5px;">
-                            <option value="0">全部</option>
-                            <option value="1">問題</option>
-                            <option value="2">答案</option>
+                            <option value="圖片">圖片</option>
+                            <option value="影音">影音</option>
+                            <option value="文件">文件</option>
                         </select>
                         @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
 
@@ -366,10 +366,9 @@
                 <label class="control-label col-md-2" style="margin-bottom: 20px;">分類</label>
                 <div class="col-md-10" style="margin-bottom: 20px;">
                     <select class="bs-select form-control bs-select-hidden"  name="type">
-                        <option value="全部">全部</option>
                         <option value="圖片">圖片</option>
-                        <option value="文件">文件</option>
                         <option value="影音">影音</option>
+                        <option value="文件">文件</option>
                     </select>
                 </div>
                 <label class="col-md-2 control-label" style="margin-bottom: 20px;">標題</label>

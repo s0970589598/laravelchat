@@ -262,7 +262,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
+                    <form class="form-inline" id="form-search" action="/faq" method="GET">
                         <select name="manager_question_type" class="form-control" style="margin-right: 5px;">
                             <option value="0">全部</option>
                             <option value="1">問題</option>

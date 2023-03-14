@@ -32,16 +32,29 @@ class FaqController extends Controller
        $this->motc_station_repository = $motc_station_repository;
        $this->user_repository         = $user_repository;
     }
-    public function index()
+    public function index(Request $request)
     {
         $rooms = 0;
         $limit = 10;
+        $faqparams = [];
+
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
 
+        if (isset($request->user_name_keyword)){
+            $faqparams['keyword'] = $request->user_name_keyword;
+        }
+
+        if (isset($request->manager_group_sn)){
+            $faqparams['sn'] = $request->manager_group_sn;
+        }
+
         $faq = FAQ::orderBy('id', 'desc')
         ->where('status','0')
+        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
+            $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
+        })
         ->paginate($limit);
 
         $auth_id    = Auth::user()->id;

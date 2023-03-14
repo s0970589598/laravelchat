@@ -40,13 +40,19 @@ class UserRepository
         return $users->get();
     }
 
-    public function getAllUserListByServiceRole($service, $role, $limit = 10)
+    public function getAllUserListByServiceRole($service, $role, $limit = 10, $account_params)
     {
         if ($role == 'admin99'){
             $users = User::select('*')
             ->orderBy('users.id', 'desc')
             ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
             ->where('status','0')
+            ->when(isset($account_params['name']), function ($query) use ($account_params) {
+                $query->where('name','LIKE', '%' .$account_params['name']. '%');
+            })
+            ->when(isset($account_params['manager_group_sn']), function ($query) use ($account_params) {
+              $query->where('service', 'LIKE', '%' . $account_params['manager_group_sn'] . '%');
+            })
             ->where('customer_service_relation_role.role', '!=','user')
             ->paginate($limit);
         } else {
@@ -59,6 +65,12 @@ class UserRepository
                 foreach ($service as $station_name) {
                     $query->orWhere('service', 'like', '%' . $station_name . '%');
                 }
+            })
+            ->when(isset($account_params['name']), function ($query) use ($account_params) {
+                $query->where('name','LIKE', '%' .$account_params['name']. '%');
+            })
+            ->when(isset($account_params['manager_group_sn']), function ($query) use ($account_params) {
+              $query->where('service', 'LIKE', '%' . $account_params['manager_group_sn'] . '%');
             })
             ->paginate($limit);
         }

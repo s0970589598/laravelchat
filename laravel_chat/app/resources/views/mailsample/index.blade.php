@@ -264,8 +264,8 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
-                        <input name="user_name_keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
+                    <form class="form-inline" id="form-search" action="/mailsample" method="GET">
+                        <input name="keyword" class="form-control" placeholder="請輸入關鍵字" value="" style="margin-right: 5px;">
                         <input name="page" type="hidden" value="1"/>
                         <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
                             <i class="fa fa-search"></i>

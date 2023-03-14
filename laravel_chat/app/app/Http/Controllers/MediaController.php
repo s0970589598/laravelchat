@@ -25,7 +25,7 @@ class MediaController extends Controller
         $this->user_repository         = $user_repository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $rooms = 0;
         $limit = 2;

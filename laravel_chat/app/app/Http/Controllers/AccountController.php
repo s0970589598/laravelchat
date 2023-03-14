@@ -39,14 +39,26 @@ class AccountController extends Controller
         $this->user_repository         = $user_repository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $rooms = 0;
         $limit = 10;
+        $account_params = [];
 
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
+
+        if (isset($request->user_name_keyword)){
+            $account_params['name'] = $request->user_name_keyword;
+        }
+
+        if (isset($request->manager_group_sn)){
+            $account_params['manager_group_sn'] = $request->manager_group_sn;
+        }
+
+        Log::info($account_params);
+
 
         $auth_id    = Auth::user()->id;
         $params_auth = array(
@@ -63,7 +75,7 @@ class AccountController extends Controller
         }
 
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
-        $users        = $this->user_repository->getAllUserListByServiceRole($auth['service'], $auth['role'], $limit);
+        $users        = $this->user_repository->getAllUserListByServiceRole($auth['service'], $auth['role'], $limit , $account_params);
 
         return view('account.index', [
             'rooms'        => $rooms,
