@@ -102,7 +102,7 @@
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" id="logout-form" action="{{ route('logout') }}">
                                     @csrf
                                     <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                         this.closest('form').submit();">
@@ -627,8 +627,13 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script>
-        $(function() {
+    <script src="js/session.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                startTimer();
+            });
+            $(function() {
             $('#editModal').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element

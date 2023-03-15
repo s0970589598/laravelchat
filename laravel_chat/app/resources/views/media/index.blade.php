@@ -123,7 +123,7 @@
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" id="logout-form" action="{{ route('logout') }}">
                                     @csrf
                                     <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                         this.closest('form').submit();">
@@ -522,8 +522,12 @@
         <script src="js/all.js"></script>
 
 
-        <script type="text/javascript">
+        <script src="js/session.js" type="text/javascript"></script>
 
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                    startTimer();
+                });
             var uploadField = document.getElementById("fileedit");
             var uploadFieldadd = document.getElementById("fileadd");
 

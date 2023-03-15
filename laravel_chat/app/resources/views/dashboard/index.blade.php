@@ -104,7 +104,7 @@
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" id="logout-form" action="{{ route('logout') }}">
                                     @csrf
                                     <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                         this.closest('form').submit();">
@@ -387,7 +387,17 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="js/session.js" type="text/javascript"></script>
+
     <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                startTimer();
+            });
+            // 假設這是一個點擊事件
+            document.addEventListener('click', function() {
+                resetTimer();
+            });
+
         am5.ready(function() {
 
         // Create root element

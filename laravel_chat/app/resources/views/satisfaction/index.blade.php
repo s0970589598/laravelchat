@@ -482,8 +482,12 @@
                 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
                 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
                 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-                <script>
-                    // chartdiv
+                <script src="js/session.js" type="text/javascript"></script>
+
+                <script type="text/javascript">
+                    document.addEventListener('DOMContentLoaded', function() {
+                            startTimer();
+                     });                    // chartdiv
                     am5.ready(function () {
 
                         // Create root element

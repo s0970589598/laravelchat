@@ -122,7 +122,7 @@
                             <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                             <li class="dropdown dropdown-extended quick-sidebar-toggler">
                                 <span class="sr-only">Toggle Quick Sidebar</span>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" id="logout-form" action="{{ route('logout') }}">
                                     @csrf
                                     <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                         this.closest('form').submit();">
@@ -501,7 +501,12 @@
         src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="js/all.js"></script>
-    <script>
+    <script src="js/session.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+                startTimer();
+        });
 
         function importCSV(){
             const uploadInput = document.querySelector('#csv_file');
