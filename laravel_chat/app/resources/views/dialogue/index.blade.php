@@ -1223,7 +1223,7 @@
                                 '<div class="dialogue-content">'+
                                     '<div class="dialogue-info">'+
                                         '<div class="activity">'+
-                                            '<div class="content">'+
+                                            '<div class="content" style="max-width: 100%;">'+
                                                 '<p>' + text + '</p>'+
                                             '</div>'+
                                         '</div>'+
@@ -1242,7 +1242,7 @@
                                 '<div class="dialogue-content">'+
                                     '<div class="dialogue-info">'+
                                         '<div class="activity">'+
-                                            '<div class="content">'+
+                                            '<div class="content" style="max-width: 100%;">'+
                                                 '<p>' + text + '</p>'+
                                             '</div>'+
                                         '</div>'+
