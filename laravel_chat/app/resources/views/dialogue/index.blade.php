@@ -1220,10 +1220,10 @@
                     '<img class="user-avatar" src="/assets/images/user-request.png" alt="images">'+
                             '<div class="dialogue">' +
                                 '<span class="dialogue-time">' + date + '</span>' +
-                                '<div class="dialogue-content">'+
+                                '<div class="dialogue-content" style="max-width: 100%;">'+
                                     '<div class="dialogue-info">'+
                                         '<div class="activity">'+
-                                            '<div class="content" style="max-width: 100%;">'+
+                                            '<div class="content" >'+
                                                 '<p>' + text + '</p>'+
                                             '</div>'+
                                         '</div>'+
@@ -1239,10 +1239,10 @@
                             '<img class="user-avatar" src="https://robohash.org/'+ senderName + '" alt="images">'+
                             '<div class="dialogue">' +
                                 '<span class="dialogue-time">' + date + '</span>' +
-                                '<div class="dialogue-content">'+
+                                '<div class="dialogue-content" style="max-width: 100%;">'+
                                     '<div class="dialogue-info">'+
                                         '<div class="activity">'+
-                                            '<div class="content" style="max-width: 100%;">'+
+                                            '<div class="content" >'+
                                                 '<p>' + text + '</p>'+
                                             '</div>'+
                                         '</div>'+
