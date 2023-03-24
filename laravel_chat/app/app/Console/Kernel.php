@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         Commands\CheckOnlineUsers::class,
+        Commands\CheckUrlStatus::class,
 
     ];
 
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('check-online-users')->hourly();
+        $schedule->command('check-url-status')->hourly();
 
     }
 

@@ -14,6 +14,7 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="css/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -364,27 +365,32 @@
                                 <td>
                                     <div class="assign">
                                         @if($room->status == 2 || $room->status == 3 || $room->status == 7)
-                                        <a href="#" class="reply-btn" onclick="location.href='{{ route('dialogue.show', $room->id) }}'">
+                                        <a href="{{ route('dialogue.show', $room->id) }}" class="reply-btn"  target="_blank">
                                             <i class="icon-bubble"></i> 回覆
                                         </a>
                                         @endif
                                         @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
-
+                                        <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                         <select name="manager_group_sn" class="form-control"
                                             style="margin-right: 5px;" id="assign" onchange="assignroom(this,`{{$room->id}}`)">
+                                            @foreach($room->users as $user)
+                                            @if(! preg_match("/motc/i", $user->email))
+                                            <option value="">{{$user->name}}</option>
+                                            @endif
+                                            @endforeach
                                             <option value="">請選擇指派人員</option>
                                             @foreach ($customer_list as $customer)
                                                 <option value="{{$customer->user_id}}">{{$customer->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    @if(isset($room->users))
+                                    {{-- @if(isset($room->users))
                                         @foreach($room->users as $user)
                                             @if(! preg_match("/motc/i", $user->email))
                                             <span class="label label-info" style="margin-right: 5px;display:inline-block;margin-top:10px;re">{{$user->name}}</span>
                                             @endif
                                         @endforeach
-                                    @endif
+                                    @endif --}}
                                     @endif
                                 </td>
                             </tr>
@@ -564,11 +570,16 @@
             if (!confirm('確定要指派' + selectedText + '嗎？')) {
                 return; // 如果使用者取消，則不進行後續動作
             }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url: "/api/rooms/asign",
                 data: JSON.stringify({
                     "custom_id":selectObj.value,
-                    "room_id":roomId
+                    "room_id":roomId,
                 }),
                 dataType: 'json',
                 contentType: 'application/json;charset=UTF-8',

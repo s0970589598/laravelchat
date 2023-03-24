@@ -32,6 +32,10 @@ class UserRepository
             $users->where('service', 'like', '%' . $params['service'] . '%');
         }
 
+        if(isset($params['role'])) {
+            $users->where('role', $params['role']);
+        }
+
         if(isset($params['user_id'])) {
             $users->where('users.id', $params['user_id']);
         }

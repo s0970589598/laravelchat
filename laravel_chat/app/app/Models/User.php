@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Log;
 use Cache;
+use Illuminate\Support\Facades\Cookie;
 
 class User extends Authenticatable
 {
@@ -64,6 +66,31 @@ class User extends Authenticatable
     public function isOnline()
     {
         return Cache::has('user-is-online-' . $this->id);
+    }
+
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        Log::info('test');
+        Log::info($token);
+        $mail = Cookie::get('em');
+        Log::info('1'. cookie::get('isAdd'));
+
+        $data = Cache::get($mail);
+
+        if($data) {
+                $this->notify( new \App\Notifications\CustomNewUserResetPasswordNotification($token));
+                Cache::forget($mail);
+        } else {
+                $this->notify( new \App\Notifications\CustomResetPasswordNotification($token));
+                Cache::forget($mail);
+        }
     }
 
 }
