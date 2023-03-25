@@ -88,6 +88,7 @@ class MsgSampleController extends Controller
                 'subject'     => $params['subject'],
                 'reply'       => $params['reply'],
                 'url'         => $params['url'],
+                'is_err'      => 0,
                 'status'      => 0,
             ]);
             DB::commit();

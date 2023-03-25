@@ -28,8 +28,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('check-online-users')->hourly();
-        $schedule->command('check-url-status')->hourly();
+        $schedule->command('check-online-users')->everyMinute();
+        $schedule->command('check-url-status')->everyMinute();
 
     }
 
