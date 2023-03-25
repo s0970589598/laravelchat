@@ -354,7 +354,7 @@
 
         <!-- BEGIN ADD MEDIA MODAL -->
         <div id="add-media" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">新增媒體</h4>
@@ -403,7 +403,7 @@
     <!-- END ADD MEDIA MODAL -->
     <!-- BEGIN EDIT MEDIA MODAL -->
     <div id="edit-media" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">編輯媒體</h4>
