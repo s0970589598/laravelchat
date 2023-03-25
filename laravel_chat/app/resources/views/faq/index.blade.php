@@ -371,7 +371,7 @@
 
     <!-- BEGIN ADD QA MODAL -->
     <div id="add-qa" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">新增問答</h4>
@@ -404,7 +404,7 @@
 
     <!-- BEGIN EDIT QA MODAL -->
     <div id="edit-qa" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">編輯問答</h4>

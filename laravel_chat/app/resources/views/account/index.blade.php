@@ -396,7 +396,7 @@
 
         <!-- BEGIN ADD ACCOUNT MODAL -->
         <div id="add-account" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">新增帳號</h4>
@@ -440,7 +440,7 @@
 
     <!-- BEGIN EDIT ACCOUNT MODAL -->
     <div id="editModal" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">編輯帳號</h4>

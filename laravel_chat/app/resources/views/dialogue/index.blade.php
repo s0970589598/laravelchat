@@ -641,7 +641,7 @@
     </div>
     <!-- END MESSAGE MODAL -->
     <!-- BEGIN CUSTOMER RETURN MODAL -->
-    <div id="apply-return" class="modal container fade" tabindex="-1" aria-hidden="true" style="display: none; margin-top: -156px;">
+    <div id="apply-return" class="modal container fade" tabindex="-1" aria-hidden="true" style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">申請客服轉介</h4>

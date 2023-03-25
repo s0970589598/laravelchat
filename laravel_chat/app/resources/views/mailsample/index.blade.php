@@ -359,7 +359,7 @@
 
               <!-- BEGIN ADD MAIL MODAL -->
               <div id="add-mail" class="modal container fade" tabindex="-1" aria-hidden="true"
-              style="display: none; margin-top: -156px;">
+              style="display: none; margin-top: -397px;">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                   <h4 class="modal-title">新增信件</h4>
@@ -396,7 +396,7 @@
           <!-- END ADD MAIL MODAL -->
 
           <div id="edit-mail" class="modal container fade" tabindex="-1" aria-hidden="true"
-          style="display: none; margin-top: -156px;">
+          style="display: none; margin-top: -397px;">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
               <h4 class="modal-title">編輯信件</h4>

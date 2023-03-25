@@ -364,7 +364,7 @@
 
         <!-- BEGIN ADD MESSAGE MODAL -->
         <div id="add-message" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">新增訊息</h4>
@@ -406,7 +406,7 @@
     <!-- END ADD MESSAGE MODAL -->
     <!-- BEGIN EDIT MESSAGE MODAL -->
     <div id="edit-message" class="modal container fade" tabindex="-1" aria-hidden="true"
-        style="display: none; margin-top: -156px;">
+        style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">編輯訊息</h4>
