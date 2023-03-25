@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Faq;
+use App\Models\FAQ;
 
 class FaqRepository
 {
