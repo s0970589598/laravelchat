@@ -250,7 +250,7 @@
                             <h4 class="widget-thumb-heading">等待客服人數</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">10<small class="unit">人</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{$waitCount}}<small class="unit">人</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-orange icon-user"></i>
                             </div>
@@ -270,7 +270,7 @@
                             <h4 class="widget-thumb-heading">在線客服人數</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">02<small class="unit">人</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{$onlineCustomerCount}}<small class="unit">人</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
                             </div>
@@ -285,7 +285,7 @@
                 </div>
                 <div class="col-md-4">
                     <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="/msgsample">
+                    <a class="widget-thumb-click" href="{{$errUrlRedirect}}">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                             <h4 class="widget-thumb-heading">待審核異常URL</h4>
                             <div class="widget-thumb-wrap">
@@ -295,7 +295,7 @@
                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                             </div>
                             <div class="actions">
-                                <div class="go-btn" href="/msgsample">
+                                <div class="go-btn" href="{{$errUrlRedirect}}">
                                     <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
                                 </div>
                             </div>
