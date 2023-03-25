@@ -112,7 +112,16 @@ services:
     restart: on-failure
     networks:
       - app
-
+  # scheduler:
+  #   build:
+  #     context: ./docker
+  #     dockerfile: Dockerfile.scheduler
+  #   volumes:
+  #     - ./app/:/app:delegated
+  #   networks:
+  #     - app
+  #   depends_on:
+  #     - app
   # db:
   #   image: mysql:latest
   #   restart: always

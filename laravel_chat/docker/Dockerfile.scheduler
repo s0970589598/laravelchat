@@ -1,0 +1,11 @@
+FROM php:8.0-cli
+
+RUN apt-get update && apt-get -y install cron
+
+COPY crontab.txt /etc/cron.d/my-cron
+
+RUN chmod 0644 /etc/cron.d/my-cron
+
+RUN crontab /etc/cron.d/my-cron
+
+CMD ["cron", "-f"]
