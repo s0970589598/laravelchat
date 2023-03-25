@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Log;
 
 class PasswordResetLinkController extends Controller
 {
@@ -28,6 +29,7 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('passwordresetlinke');
         $request->validate([
             'email' => ['required', 'email'],
         ]);

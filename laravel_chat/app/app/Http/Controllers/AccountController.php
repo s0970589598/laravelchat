@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 
 
 class AccountController extends Controller
@@ -135,9 +137,15 @@ class AccountController extends Controller
                 'service' => $request->service,
                 'role' => $request->role,
             );
+            Cache::add($request->email, 'true');
+            Cookie::queue('em',$request->email,36000);
+            Log::info('2'. Cache::get($request->email));
             $status = Password::sendResetLink(
                 $request->only('email')
             );
+            Log::info('3'. Cache::get($request->email));
+
+
             DB::commit();
         } catch (Throwable $e) {
             DB::rollBack();

@@ -106,11 +106,11 @@
                 <button type="submit" class="submit-btn">登入</button>
                 <a href="/forgot-password" id="forget-password" class="forget-password">忘記密碼</a>
             </div>
-            @if (Route::has('register'))
+            {{-- @if (Route::has('register'))
             <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
                 {{ __('Not registered yet?') }}
-            </a>
-        @endif
+            </a> --}}
+        {{-- @endif --}}
 
         </form>
         <!-- END LOGIN FORM -->
