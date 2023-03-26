@@ -91,6 +91,7 @@ class SatisfactionController extends Controller
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
 
+
         $auth_id    = Auth::user()->id;
         $params_auth = array(
             'user_id' => $auth_id
@@ -106,10 +107,27 @@ class SatisfactionController extends Controller
         }
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
 
+        // foreach ($motc_station as $motc) {
+        //     $sn[] = $motc['sn'];
+        // }
+
+        // if ($auth['role'] == 'admin99'){
+        //     $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+        //     ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+        //     ->get();
+        // } else {
+        //     $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+        //     ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+        //     ->whereIn('motc_station.sn',$sn)
+        //     ->get();
+        // }
+
+
+
         return view('satisfaction.index', [
             'rooms' => $rooms,
             'users' => $users,
-            'motc_station' => $motc_station
+            'motc_station' => $motc_station,
         ]);
     }
 
@@ -141,6 +159,21 @@ class SatisfactionController extends Controller
         }
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
 
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+
+        if ($auth['role'] == 'admin99'){
+            $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->get();
+        } else {
+            $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->whereIn('motc_station.sn',$sn)
+            ->get();
+        }
+
         $users = User::orderBy('users.id', 'desc')
         ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
@@ -150,7 +183,8 @@ class SatisfactionController extends Controller
         return view('satisfaction.manage', [
             'rooms' => $rooms,
             'users' => $users,
-            'motc_station' => $motc_station
+            'motc_station' => $motc_station,
+            'survey' => $survey
         ]);
     }
 
