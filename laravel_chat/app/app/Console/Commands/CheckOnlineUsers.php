@@ -23,19 +23,19 @@ class CheckOnlineUsers extends Command
             '基隆火車站旅遊服務中心' => [
                 'start_time' => '01:00:00',
                 'end_time' => '17:00:00',
-                'admin_email' => 'st92308@gmail.com',
+                'admin_email' => 'alice.chiu@faninsights.io',
                 'role' => 'admin',
             ],
             '臺北火車站旅遊服務中心' => [
                 'start_time' => '01:30:00',
                 'end_time' => '16:30:00',
-                'admin_email' => 'st92308@yahoo.com',
+                'admin_email' => 'alice.chiu@faninsights.io',
                 'role' => 'admin',
             ],
             '桃園捷運A1台北車站旅遊服務中心' => [
                 'start_time' => '01:00:00',
                 'end_time' => '18:00:00',
-                'admin_email' => 'allen.wu@goodlinker.io',
+                'admin_email' => 'alice.chiu@faninsights.io',
                 'role' => 'admin',
             ],
         ];

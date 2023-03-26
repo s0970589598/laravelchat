@@ -53,7 +53,7 @@ class DashboardController extends Controller
         $rooms = 0;
         $limit = 10;
         $account_params = [];
-
+        $rooms_wait_count = 0;
         // $user = Auth::user();
         // Log::info(json_encode($user));
         // Log::info(json_encode($user->isOnline()));
@@ -68,7 +68,16 @@ class DashboardController extends Controller
             $err_url_count = $this->faq_repository->countUrlErr();
             $err_url_redirect = '/faq';
             $motc_params = array();
-
+            $msg_date_count = DB::table('messages')
+            ->leftJoin('rooms', 'messages.room_id', '=', 'rooms.id')
+            ->leftJoin('motc_station', 'motc_station.sn', '=', 'rooms.service')
+            ->select(DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
+            // ->select('motc_station.sn', DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
+            // ->groupBy('motc_station.sn', DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
+            ->groupBy( DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
+            //->orderBy('motc_station.sn')
+            ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
+            ->get();
         } else {
             $err_url_count = $this->msg_repository->countUrlErr();
             $err_url_redirect = '/msgsample';
@@ -84,13 +93,28 @@ class DashboardController extends Controller
         $room_params['status'] = 2;
         $rooms_wait_count = $this->rooms_repository->getAllMsgListByServiceRoleCount($sn,$auth['role'],$limit, $room_params);
 
+        If ( $auth['role'] !='admin99') {
+            $msg_date_count = DB::table('messages')
+            ->leftJoin('rooms', 'messages.room_id', '=', 'rooms.id')
+            ->leftJoin('motc_station', 'motc_station.sn', '=', 'rooms.service')
+            // ->select('motc_station.sn', DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
+            ->select( DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
+            ->whereIn('motc_station.sn', $sn)
+            // ->groupBy('motc_station.sn', DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
+            ->groupBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
+            //->orderBy('motc_station.sn')
+            ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
+            ->get();
+        }
 
+        Log::info($msg_date_count);
         return view('dashboard.index', [
             'rooms' => $rooms,
             'errUrlCount' => $err_url_count,
             'errUrlRedirect' => $err_url_redirect,
             'onlineCustomerCount' => $count_online_customer,
-            'waitCount' => $rooms_wait_count
+            'waitCount' => $rooms_wait_count,
+            'msgDayCount' => json_encode($msg_date_count)
         ]);
     }
 
