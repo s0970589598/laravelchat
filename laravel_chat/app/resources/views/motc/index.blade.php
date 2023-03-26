@@ -279,7 +279,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="page-title">
-            <h1 class="title">帳號管理</h1>
+            <h1 class="title">旅服中心管理</h1>
         </div>
         <div class="portlet light">
             <div class="portlet-title">
