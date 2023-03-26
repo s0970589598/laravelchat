@@ -50,9 +50,15 @@ class MotcStation extends Authenticatable
     protected $casts = [
     ];
 
+    protected $guarded = ['updated_at'];
+
     public function service_relation()
     {
         return $this->belongsToMany(ServiceRelationRole::class, 'customer_service_relation_role');
+    }
+
+    public function getUpdatedAtColumn() {
+        return null;
     }
 
 }
