@@ -1026,6 +1026,34 @@
                     // }
                 }
             });
+            $.ajax({
+                url: "https://qa.taiwan.net.tw/api/survey/send/" +currentRoomId,
+                dataType: 'json',
+                contentType: 'application/json;charset=UTF-8',
+                method: 'GET',
+                processData: false, // important
+                contentType: false, // important
+                cache: false,
+                success: function(data)
+                {
+                    // redirect
+                    //window.location.replace(data.redirect);
+                },
+                error: function(data)
+                {
+                    // intergrate Swal to display error
+                    // Swal.close();
+                    // if (data.status == 419) {
+                    //     window.location.reload();
+                    // } else {
+                    //     Swal.fire({
+                    //         icon: 'info',
+                    //         title: 'Error',
+                    //         html: data.responseJSON.message,
+                    //     });
+                    // }
+                }
+            });
 
         }
 
