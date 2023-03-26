@@ -54,6 +54,8 @@ class DashboardController extends Controller
         $limit = 10;
         $account_params = [];
         $rooms_wait_count = 0;
+        $onlineCustomerCount = 0;
+
         // $user = Auth::user();
         // Log::info(json_encode($user));
         // Log::info(json_encode($user->isOnline()));

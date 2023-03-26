@@ -276,7 +276,7 @@
                             <h4 class="widget-thumb-heading">在線客服人數</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{$onlineCustomerCount}}<small class="unit">人</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{ isset($onlineCustomerCount) ? $onlineCustomerCount : 0 }}<small class="unit">人</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
                             </div>
@@ -296,7 +296,7 @@
                             <h4 class="widget-thumb-heading">待審核異常URL</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{$errUrlCount}}<small class="unit">條</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{ isset($errUrlCount) ? $errUrlCount : 0 }}<small class="unit">條</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                             </div>
