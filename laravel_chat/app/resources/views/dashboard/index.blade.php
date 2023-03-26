@@ -291,7 +291,7 @@
                 </div>
                 <div class="col-md-4">
                     <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="{{$errUrlRedirect}}">
+                    <a class="widget-thumb-click" href="{{ isset($errUrlRedirect) ? $errUrlRedirect : '/faq' }}">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                             <h4 class="widget-thumb-heading">待審核異常URL</h4>
                             <div class="widget-thumb-wrap">
@@ -301,7 +301,7 @@
                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                             </div>
                             <div class="actions">
-                                <div class="go-btn" href="{{$errUrlRedirect}}">
+                                <div class="go-btn" href="{{ isset($errUrlRedirect) ? $errUrlRedirect : '/faq' }}">
                                     <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
                                 </div>
                             </div>
@@ -509,10 +509,13 @@
 
 
         // Set data
+        <?php if(isset($msgDayCount)){ ?>
         var msgDayCount = {!! $msgDayCount !!};
         var data = generateDatas(msgDayCount);
         console.log(data)
         series.data.setAll(data);
+        <?php } ?>
+
 
 
         // Make stuff animate on load
