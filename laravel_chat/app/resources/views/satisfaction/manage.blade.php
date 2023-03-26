@@ -259,7 +259,7 @@
                                             <div class="widget-thumb-wrap">
                                                 <div class="widget-thumb-body">
                                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                                        data-value="7,644">10<small class="unit">份</small></span>
+                                                        data-value="7,644">{{$countsurvey}}<small class="unit">份</small></span>
                                                 </div>
                                                 <i class="widget-thumb-icon bg-orange icon-user"></i>
                                             </div>
@@ -276,7 +276,7 @@
                                             <div class="widget-thumb-wrap">
                                                 <div class="widget-thumb-body">
                                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                                        data-value="7,644">02<small class="unit">份</small></span>
+                                                        data-value="7,644">{{$countsurvey}}<small class="unit">份</small></span>
                                                 </div>
                                                 <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
                                             </div>
@@ -292,7 +292,7 @@
                                             <div class="widget-thumb-wrap">
                                                 <div class="widget-thumb-body">
                                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                                        data-value="7,644">4.2<small class="unit">分</small></span>
+                                                        data-value="7,644">{{$avgPoints[0]->avg_point}}<small class="unit">分</small></span>
                                                 </div>
                                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                                             </div>
@@ -394,7 +394,7 @@
                                         </div>
                                         <!-- pagination -->
                                         <div class="pull-right">
-                                            <ul id="pagination" class="pagination-sm pagination"></ul>
+                                            <?php echo $survey->links(); ?>
                                         </div>
                                         <!-- /pagination -->
                                         <div style="clear:both;"></div>

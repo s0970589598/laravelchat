@@ -166,13 +166,36 @@ class SatisfactionController extends Controller
         if ($auth['role'] == 'admin99'){
             $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
             ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->paginate($limit);
+
+            $countsurvey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->count();
+
+            $avg_points = SatisfactionSurvey::selectRaw('ROUND(AVG(point), 2) AS avg_point')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->groupBy('motc_station.sn')
             ->get();
+
+
         } else {
             $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
             ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
             ->whereIn('motc_station.sn',$sn)
+            ->paginate($limit);
+            $countsurvey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->whereIn('motc_station.sn',$sn)
+            ->count();
+            $avg_points = SatisfactionSurvey::selectRaw('ROUND(AVG(point), 2) AS avg_point')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->whereIn('motc_station.sn',$sn)
+            ->groupBy('motc_station.sn')
             ->get();
+
         }
+
+
 
         $users = User::orderBy('users.id', 'desc')
         ->where('status','0')
@@ -184,7 +207,9 @@ class SatisfactionController extends Controller
             'rooms' => $rooms,
             'users' => $users,
             'motc_station' => $motc_station,
-            'survey' => $survey
+            'survey' => $survey,
+            'countsurvey' => $countsurvey,
+            'avgPoints' => $avg_points
         ]);
     }
 
