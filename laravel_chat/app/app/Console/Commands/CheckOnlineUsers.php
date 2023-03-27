@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use App\Models\MotcOfflineHistory;
+
 
 class CheckOnlineUsers extends Command
 {
@@ -21,18 +23,21 @@ class CheckOnlineUsers extends Command
     {
         $centers = [
             '基隆火車站旅遊服務中心' => [
+                'sn'        => 1,
                 'start_time' => '01:00:00',
                 'end_time' => '17:00:00',
                 'admin_email' => 'alice.chiu@faninsights.io',
                 'role' => 'admin',
             ],
             '臺北火車站旅遊服務中心' => [
+                'sn'        => 2,
                 'start_time' => '01:30:00',
                 'end_time' => '16:30:00',
                 'admin_email' => 'alice.chiu@faninsights.io',
                 'role' => 'admin',
             ],
             '桃園捷運A1台北車站旅遊服務中心' => [
+                'sn'        => 3,
                 'start_time' => '01:00:00',
                 'end_time' => '18:00:00',
                 'admin_email' => 'alice.chiu@faninsights.io',
@@ -45,6 +50,7 @@ class CheckOnlineUsers extends Command
             $endTime = date('Y-m-d') . ' ' . $center['end_time'];
             $adminEmail = $center['admin_email'];
             $role = $center['role'];
+            $sn =  $center['sn'];
 
             $params = array(
                 'role' => 'customer',
@@ -67,8 +73,13 @@ class CheckOnlineUsers extends Command
                 $data = [
                     'centerName' => $centerName,
                 ];
+                MotcOfflineHistory::create(
+                    array(
+                        'service' => $sn
+                    )
+                );
                 //Log::info($centerName . 'no customer' . $now);
-                Mail::send('email.no_online_users', $data, function ($message) use ($adminEmail) {
+                Mail::send('email.no_online_users', $data, function ($message) use ($adminEmail, $centerName) {
                     $message->to($adminEmail)
                             ->subject($centerName . '旅服中心目前沒有旅服人員上線，請立即確認')
                             ->setBody('您好，目前' . $centerName . '沒有客服人員在線上，請您確認該中心客服狀況。');

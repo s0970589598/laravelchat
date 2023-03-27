@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 use Throwable;
 
@@ -204,10 +205,13 @@ class RoomController extends Controller
             $room = Room::find($params['room_id']);
             $room->users()->attach($params);
 
-            $rooms = Room::find($params['room_id'])
-            ->update([
+            $update_params = [
                 'status'     => Room::IN_CUSTOMER_SERVICEING,
-            ]);
+                'wait_end' => Carbon::now('Asia/Taipei')->timestamp
+            ];
+
+            $rooms = Room::find($params['room_id'])
+            ->update($update_params);
 
         } catch (Throwable $e) {
             DB::rollBack();
@@ -231,10 +235,25 @@ class RoomController extends Controller
             // ]);
             $params = $request->json()->all();
             // Log::info($params);
+
+            if ($params['status'] == Room::WAIT_CUSTOMER_SERVICE){
+                $update_params = [
+                    'status'     =>$params['status'],
+                    'wait_start' =>Carbon::now('Asia/Taipei')->timestamp
+                ];
+
+            } else {
+                $update_params = [
+                    'status'     =>$params['status'],
+                ];
+            }
+
+            // $rooms = Room::find($params['id'])
+            //     ->update([
+            //         'status'     => $params['status'],
+            // ]);
             $rooms = Room::find($params['id'])
-                ->update([
-                    'status'     => $params['status'],
-            ]);
+                ->update($update_params);
 
             $getrooms = Room::where('id',$params['id'])->get();
 
