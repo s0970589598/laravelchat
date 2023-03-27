@@ -20,6 +20,8 @@ class Room extends Model
         'service',
         'score',
         'code',
+        'wait_start',
+        'wait_end'
     ];
 
     public function users()
