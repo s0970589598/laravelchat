@@ -307,15 +307,15 @@
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="actions">
-                                    <form class="form-inline" id="form-search" method="GET">
+                                    <form class="form-inline" id="form-search" action="/satisfaction" method="GET">
                                         <div class="input-group input-large date-picker input-daterange"
                                             data-date="10/11/2012" data-date-format="mm/dd/yyyy"
                                             style="margin-right: 5px;">
-                                            <input type="text" class="form-control" name="from" placeholder="請選擇開始時間">
+                                            <input type="text" class="form-control" name="start_time" placeholder="請選擇開始時間">
                                             <span class="input-group-addon"> to </span>
-                                            <input type="text" class="form-control" name="to" placeholder="請選擇結束時間">
+                                            <input type="text" class="form-control" name="end_time" placeholder="請選擇結束時間">
                                         </div>
-                                        <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                                        <select name="sn" class="form-control" style="margin-right: 5px;">
                                             <option value="">請選擇旅遊服務中心</option>
                                             @foreach($motc_station as $motc)
                                             <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
@@ -346,22 +346,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($satisfactionList as $list)
                                             <tr>
-                                                <td>嘉義高鐵旅遊服務中心</td>
-                                                <td>
-                                                    30
-                                                </td>
-                                                <td>
-                                                    29
-                                                </td>
-                                                <td>
-                                                    1%
-                                                </td>
-                                                <td>
-                                                    1小時
-                                                </td>
+                                                <td>{{$list['service']}}</td>
+                                                <td>{{$list['callcustomer']}}</td>
+                                                <td>{{$list['complete']}}</td>
+                                                <td>{{$list['waitedrate']}}</td>
+                                                <td>{{gmdate("H:i:s", $list['replyrate'])}}</td>
+                                                <td>{{$list['onlinerate']}}</td>
                                             </tr>
-
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -474,7 +468,7 @@
                     document.addEventListener('DOMContentLoaded', function() {
                             startTimer();
                      });                    // chartdiv
-                    am5.ready(function () {
+                     am5.ready(function() {
 
                         // Create root element
                         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
@@ -494,7 +488,7 @@
                             panY: true,
                             wheelX: "panX",
                             wheelY: "zoomX",
-                            pinchZoomX: true
+                            pinchZoomX:true
                         }));
 
                         // Add cursor
@@ -510,8 +504,16 @@
                         date.setHours(0, 0, 0, 0);
                         var value = 100;
 
-                        function generateData() {
-                            value = Math.round((Math.random() * 10 - 5) + value);
+                        function generateData(jsondata) {
+                            //value = Math.round((Math.random() * 10 - 5) + value);
+                            var data = msgDayCount.map(function(item) {
+                                return {
+                                date: Date.parse(item.DAY),
+                                value: item.NUM
+                                }
+                            });
+                            return data;
+                            // console.log(data);
                             am5.time.add(date, "day", 1);
                             return {
                                 date: date.getTime(),
@@ -519,12 +521,21 @@
                             };
                         }
 
-                        function generateDatas(count) {
+                        function generateDatas(jsondata) {
+
                             var data = [];
-                            for (var i = 0; i < count; ++i) {
-                                data.push(generateData());
-                            }
+                            console.log(jsondata);
+                            console.log('---');
+                            console.log(jsondata.length);
+                            console.log('---');
+
+                            // for (var i = 0; i <  jsondata.length; ++i) {
+                            //     data.push(generateData(jsondata));
+                            // }
+                            data = generateData(jsondata)
+                            //console.log(data);
                             return data;
+
                         }
 
                         // Create axes
@@ -566,19 +577,25 @@
 
 
                         // Set data
-                        var data = generateDatas(1200);
+                        <?php if(isset($replyrate)){ ?>
+                        var msgDayCount = {!! $replyrate !!};
+                        console.log(msgDayCount);
+                        var data = generateDatas(msgDayCount);
+                        console.log(data)
                         series.data.setAll(data);
+                        <?php } ?>
+
 
 
                         // Make stuff animate on load
                         // https://www.amcharts.com/docs/v5/concepts/animations/
-                        series.appear(1000);
-                        chart.appear(1000, 100);
+                        //series.appear(1000);
+                        //chart.appear(1000, 100);
 
                     }); // end am5.ready()
 
-                    // dropchart
-                    am5.ready(function () {
+                    //dropchart
+                    am5.ready(function() {
 
                         // Create root element
                         // https://www.amcharts.com/docs/v5/getting-started/#Root_element
@@ -598,7 +615,7 @@
                             panY: true,
                             wheelX: "panX",
                             wheelY: "zoomX",
-                            pinchZoomX: true
+                            pinchZoomX:true
                         }));
 
                         // Add cursor
@@ -614,8 +631,16 @@
                         date.setHours(0, 0, 0, 0);
                         var value = 100;
 
-                        function generateData() {
-                            value = Math.round((Math.random() * 10 - 5) + value);
+                        function generateData(jsondata) {
+                            //value = Math.round((Math.random() * 10 - 5) + value);
+                            var data = msgDayCount.map(function(item) {
+                                return {
+                                date: Date.parse(item.DAY),
+                                value: item.NUM
+                                }
+                            });
+                            return data;
+                            // console.log(data);
                             am5.time.add(date, "day", 1);
                             return {
                                 date: date.getTime(),
@@ -623,12 +648,21 @@
                             };
                         }
 
-                        function generateDatas(count) {
+                        function generateDatas(jsondata) {
+
                             var data = [];
-                            for (var i = 0; i < count; ++i) {
-                                data.push(generateData());
-                            }
+                            console.log(jsondata);
+                            console.log('---');
+                            console.log(jsondata.length);
+                            console.log('---');
+
+                            // for (var i = 0; i <  jsondata.length; ++i) {
+                            //     data.push(generateData(jsondata));
+                            // }
+                            data = generateData(jsondata)
+                            //console.log(data);
                             return data;
+
                         }
 
                         // Create axes
@@ -670,16 +704,24 @@
 
 
                         // Set data
-                        var data = generateDatas(1200);
+                        <?php if(isset($waitedrate)){ ?>
+                        var msgDayCount = {!! $waitedrate !!};
+                        console.log(msgDayCount);
+                        var data = generateDatas(msgDayCount);
+                        console.log(data)
                         series.data.setAll(data);
+                        <?php } ?>
+
 
 
                         // Make stuff animate on load
                         // https://www.amcharts.com/docs/v5/concepts/animations/
-                        series.appear(1000);
-                        chart.appear(1000, 100);
+                        //series.appear(1000);
+                        //chart.appear(1000, 100);
 
                     }); // end am5.ready()
+
+                    // dropchart
                 </script>
 </body>
 
