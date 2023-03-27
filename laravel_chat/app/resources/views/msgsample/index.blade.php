@@ -231,10 +231,16 @@
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                         <li class="nav-item ">
                             <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/motc" class="nav-link nav-toggle">
+                                <i class="fa fa-building-o"></i>
+                            <span class="title">旅服中心管理</span>
                             </a>
                         </li>
                     </ul>

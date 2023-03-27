@@ -213,10 +213,16 @@
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                         <li class="nav-item ">
                             <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/motc" class="nav-link nav-toggle">
+                                <i class="fa fa-building-o"></i>
+                            <span class="title">旅服中心管理</span>
                             </a>
                         </li>
                     </ul>
@@ -250,7 +256,7 @@
                             <h4 class="widget-thumb-heading">等待客服人數</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">10<small class="unit">人</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{ isset($waitCount) ? $waitCount : 0 }}<small class="unit">人</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-orange icon-user"></i>
                             </div>
@@ -270,7 +276,7 @@
                             <h4 class="widget-thumb-heading">在線客服人數</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">02<small class="unit">人</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{ isset($onlineCustomerCount) ? $onlineCustomerCount : 0 }}<small class="unit">人</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-green-jungle icon-earphones-alt"></i>
                             </div>
@@ -285,17 +291,17 @@
                 </div>
                 <div class="col-md-4">
                     <!-- BEGIN WIDGET THUMB -->
-                    <a class="widget-thumb-click" href="/msgsample">
+                    <a class="widget-thumb-click" href="{{ isset($errUrlRedirect) ? $errUrlRedirect : '/faq' }}">
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                             <h4 class="widget-thumb-heading">待審核異常URL</h4>
                             <div class="widget-thumb-wrap">
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">00<small class="unit">條</small></span>
+                                    <span class="widget-thumb-body-stat" data-counter="counterup" data-value="7,644">{{ isset($errUrlCount) ? $errUrlCount : 0 }}<small class="unit">條</small></span>
                                 </div>
                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                             </div>
                             <div class="actions">
-                                <div class="go-btn" href="/msgsample">
+                                <div class="go-btn" href="{{ isset($errUrlRedirect) ? $errUrlRedirect : '/faq' }}">
                                     <div class="title">立即處理&nbsp;<i class="icon-arrow-right"></i></div>
                                 </div>
                             </div>
@@ -434,8 +440,16 @@
         date.setHours(0, 0, 0, 0);
         var value = 100;
 
-        function generateData() {
-            value = Math.round((Math.random() * 10 - 5) + value);
+        function generateData(jsondata) {
+            //value = Math.round((Math.random() * 10 - 5) + value);
+            var data = msgDayCount.map(function(item) {
+                return {
+                date: Date.parse(item.DAY),
+                value: item.NUM
+                }
+            });
+             return data;
+            // console.log(data);
             am5.time.add(date, "day", 1);
             return {
                 date: date.getTime(),
@@ -443,12 +457,17 @@
             };
         }
 
-        function generateDatas(count) {
+        function generateDatas(jsondata) {
+
             var data = [];
-            for (var i = 0; i < count; ++i) {
-                data.push(generateData());
-            }
+            console.log(jsondata.length);
+            // for (var i = 0; i <  jsondata.length; ++i) {
+            //     data.push(generateData(jsondata));
+            // }
+            data = generateData(jsondata)
+            //console.log(data);
             return data;
+
         }
 
         // Create axes
@@ -490,14 +509,19 @@
 
 
         // Set data
-        var data = generateDatas(1200);
+        <?php if(isset($msgDayCount)){ ?>
+        var msgDayCount = {!! $msgDayCount !!};
+        var data = generateDatas(msgDayCount);
+        console.log(data)
         series.data.setAll(data);
+        <?php } ?>
+
 
 
         // Make stuff animate on load
         // https://www.amcharts.com/docs/v5/concepts/animations/
-        series.appear(1000);
-        chart.appear(1000, 100);
+        //series.appear(1000);
+        //chart.appear(1000, 100);
 
         }); // end am5.ready()
         </script>

@@ -72,6 +72,11 @@ class CheckUrlStatus extends Command
                     ->update([
                         'is_err' => 1
                     ]);
+                } else {
+                    FrequentlyMsg::find($m['id'])
+                    ->update([
+                        'is_err' => 0
+                    ]);
                 }
                 //} else {
                 // 如果沒有找到網址，就顯示訊息

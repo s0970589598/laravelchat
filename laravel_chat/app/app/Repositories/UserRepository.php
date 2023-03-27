@@ -96,5 +96,46 @@ class UserRepository
 
     }
 
+    public function getOnlineCustomer($service, $role, $limit = 10, $account_params){
+        $now = now(); // 取得當前時間
+        $thirtyMinutesAgo = $now->subMinutes(30); // 取得 30 分鐘前的時間
+        if ($role == 'admin99'){
+            $users = User::select('*')
+            ->orderBy('users.id', 'desc')
+            ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
+            ->where('status','0')
+            ->when(isset($account_params['name']), function ($query) use ($account_params) {
+                $query->where('name','LIKE', '%' .$account_params['name']. '%');
+            })
+            ->when(isset($account_params['manager_group_sn']), function ($query) use ($account_params) {
+              $query->where('service', 'LIKE', '%' . $account_params['manager_group_sn'] . '%');
+            })
+            ->where('customer_service_relation_role.role', '!=','user')
+            ->where('users.last_seen', '>=',$thirtyMinutesAgo)
+            ->count();
+        } else {
+            $users = User::select('*')
+            ->orderBy('users.id', 'desc')
+            ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
+            ->where('status','0')
+            ->where('customer_service_relation_role.role', '!=','user')
+            ->where(function ($query) use ($service) {
+                foreach ($service as $station_name) {
+                    $query->orWhere('service', 'like', '%' . $station_name . '%');
+                }
+            })
+            ->when(isset($account_params['name']), function ($query) use ($account_params) {
+                $query->where('name','LIKE', '%' .$account_params['name']. '%');
+            })
+            ->when(isset($account_params['manager_group_sn']), function ($query) use ($account_params) {
+              $query->where('service', 'LIKE', '%' . $account_params['manager_group_sn'] . '%');
+            })
+            ->where('users.last_seen', '>=',$thirtyMinutesAgo)
+            ->count();
+        }
+        return $users;
+
+    }
+
 
 }

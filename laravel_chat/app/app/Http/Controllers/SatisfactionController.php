@@ -91,6 +91,7 @@ class SatisfactionController extends Controller
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
 
+
         $auth_id    = Auth::user()->id;
         $params_auth = array(
             'user_id' => $auth_id
@@ -106,14 +107,31 @@ class SatisfactionController extends Controller
         }
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
 
+        // foreach ($motc_station as $motc) {
+        //     $sn[] = $motc['sn'];
+        // }
+
+        // if ($auth['role'] == 'admin99'){
+        //     $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+        //     ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+        //     ->get();
+        // } else {
+        //     $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+        //     ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+        //     ->whereIn('motc_station.sn',$sn)
+        //     ->get();
+        // }
+
+
+
         return view('satisfaction.index', [
             'rooms' => $rooms,
             'users' => $users,
-            'motc_station' => $motc_station
+            'motc_station' => $motc_station,
         ]);
     }
 
-    public function manage()
+    public function manage(Request $request)
     {
         $rooms = 0;
         // $rooms = Room::with(['users', 'messages' => function ($query) {
@@ -122,10 +140,28 @@ class SatisfactionController extends Controller
         $rooms = 0;
         //$email_sample = EmailSample::get();
         $limit = 10;
+        $satisfaction_params = [];
+
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
+        if (isset($request->start_time)){
+            $satisfaction_params['start_time'] = $request->start_time;
+        }
+        if (isset($request->end_time)){
+            $satisfaction_params['end_time'] = $request->end_time;
+        }
+        if (isset($request->sn)){
+            $satisfaction_params['sn'] = $request->sn;
+        }
+        if (isset($request->status)){
+            $satisfaction_params['status'] = $request->status;
+        }
+        if (isset($request->point)){
+            $satisfaction_params['point'] = $request->point;
+        }
 
+        Log::info($satisfaction_params);
         $auth_id    = Auth::user()->id;
         $params_auth = array(
             'user_id' => $auth_id
@@ -140,6 +176,75 @@ class SatisfactionController extends Controller
             );
         }
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+
+        if ($auth['role'] == 'admin99'){
+            $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
+                $query->where('created_at', '>=',$satisfaction_params['start_time'] . ' 00:00:00');
+            })
+            ->when(isset($satisfaction_params['end_time']), function ($query) use ($satisfaction_params) {
+                $query->where('created_at', '<=', $satisfaction_params['end_time'] . ' 23:59:59');
+            })
+            ->when(isset($satisfaction_params['sn']), function ($query) use ($satisfaction_params) {
+                $query->where('service', $satisfaction_params['sn']);
+            })
+            ->when(isset($satisfaction_params['status']), function ($query) use ($satisfaction_params) {
+                $query->where('status', $satisfaction_params['status']);
+            })
+            ->when(isset($satisfaction_params['point']), function ($query) use ($satisfaction_params) {
+                $query->where('point', $satisfaction_params['point']);
+            })
+            ->paginate($limit);
+
+            $countsurvey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->count();
+
+            $avg_points = SatisfactionSurvey::selectRaw('ROUND(AVG(point), 2) AS avg_point')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->groupBy('motc_station.sn')
+            ->get();
+
+
+        } else {
+            $survey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->whereIn('motc_station.sn',$sn)
+            ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
+                $query->where('created_at', '>=',$satisfaction_params['start_time'] . ' 00:00:00');
+            })
+            ->when(isset($satisfaction_params['end_time']), function ($query) use ($satisfaction_params) {
+                $query->where('created_at', '<=', $satisfaction_params['end_time'] . ' 23:59:59');
+            })
+            ->when(isset($satisfaction_params['sn']), function ($query) use ($satisfaction_params) {
+                $query->where('service', $satisfaction_params['sn']);
+            })
+            ->when(isset($satisfaction_params['status']), function ($query) use ($satisfaction_params) {
+                $query->where('status', $satisfaction_params['status']);
+            })
+            ->when(isset($satisfaction_params['point']), function ($query) use ($satisfaction_params) {
+                $query->where('point', $satisfaction_params['point']);
+            })
+            ->paginate($limit);
+
+            $countsurvey = SatisfactionSurvey::select('satisfaction_survey.id', 'point', 'memo', 'motc_station.station_name', 'satisfaction_survey.created_at')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->whereIn('motc_station.sn',$sn)
+            ->count();
+            $avg_points = SatisfactionSurvey::selectRaw('ROUND(AVG(point), 2) AS avg_point')
+            ->leftJoin('motc_station', 'satisfaction_survey.service', '=', 'motc_station.sn')
+            ->whereIn('motc_station.sn',$sn)
+            ->groupBy('motc_station.sn')
+            ->get();
+
+        }
+
+
 
         $users = User::orderBy('users.id', 'desc')
         ->where('status','0')
@@ -150,7 +255,10 @@ class SatisfactionController extends Controller
         return view('satisfaction.manage', [
             'rooms' => $rooms,
             'users' => $users,
-            'motc_station' => $motc_station
+            'motc_station' => $motc_station,
+            'survey' => $survey,
+            'countsurvey' => $countsurvey,
+            'avgPoints' => $avg_points
         ]);
     }
 

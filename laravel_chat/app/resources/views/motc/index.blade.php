@@ -7,7 +7,7 @@
     <!-- BEGIN HEAD -->
     <head>
     <meta charset="utf-8" />
-    <title>帳號管理</title>
+    <title>旅服中心管理</title>
     <meta name="robots" content="noindex , nofollow">
     <!-- <base href="https://app.starcharger.com.tw/" /> -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -247,13 +247,13 @@
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item ">
                             <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
                             </a>
                         </li>
-                        <li class="nav-item ">
+                        <li class="nav-item active">
                             <a href="/motc" class="nav-link nav-toggle">
                                 <i class="fa fa-building-o"></i>
                             <span class="title">旅服中心管理</span>
@@ -279,12 +279,12 @@
 <div class="row">
     <div class="col-md-12">
         <div class="page-title">
-            <h1 class="title">帳號管理</h1>
+            <h1 class="title">旅服中心管理</h1>
         </div>
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" action="/account" method="GET">
+                    {{-- <form class="form-inline" id="form-search" action="/account" method="GET">
                         <input name="user_name_keyword" class="form-control" placeholder="請輸入姓名或帳號" value="" style="margin-right: 5px;">
                         <input name="page" type="hidden" value="1"/>
                         <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
@@ -303,7 +303,7 @@
                             新增人員
                         </a>
                         @endif
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <div class="portlet-body">
@@ -311,45 +311,26 @@
                     <table class="table table-striped table-bordered table-hover" id="table_member">
                         <thead>
                             <tr>
-                                <th>帳號</th>
-                                <th>權限</th>
-                                <th>所屬旅服中心</th>
-                                <th>最後上線時間</th>
-                                <th>上線狀態</th>
+                                <th>旅服中心名稱</th>
+                                <th>電話</th>
+                                <th>地址</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
                         <tbody>
-
-                        @foreach ($users as $user)
+                        @foreach ($motc_station as $motc)
                             <tr>
-                                <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>
-                                <td data-role="{{ $user->role }}" class="custom-role">{{ Config::get('motcrole.'.$user->role) }}</td>
-                                <td data-service="{{ $user->service }}" class="custom-service">
-                                    @if(!empty($user->service))
-                                        @foreach(json_decode($user->service) as $s)
-                                           <span class="tag">{{$s}}</span>
-                                        @endforeach
-                                    @endif
-                                </td>
-                                <td>
-                                    @if(! is_null($user->last_seen))
-                                    {{Carbon\Carbon::parse($user->last_seen)->diffForHumans()}}
-                                    @endif
-                                </td>
-                                <td>
-                                    <span class="bg-{{$user->last_seen >= now()->subMinutes(30) ? 'green':'red'}}-500 text-white py-1 px-3 rounded-full text-lg">
-                                        {{($user->last_seen >= now()->subMinutes(30)) ? 'Online' : 'Offline'}}
-                                    </span>
-                                </td>
+                                <td data-service="{{ $motc->station_name }}" class="custom-service">{{  $motc->station_name }}</td>
+                                <td data-phone="{{ $motc->contact_phone }}" class="custom-phone">{{ $motc->contact_phone }}</td>
+                                <td data-address="{{ $motc->contact_address }}" class="custom-address">{{ $motc->contact_address }}</td>
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
-                                        <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
-                                        <a href="/account/upstatus/{{$user->user_id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
+                                        <button class="btn edit-btn btn-sm" data-id="{{ $motc->sn }}" data-title="{{ $motc->sn }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                        <a href="/motc/upstatus/{{$motc->sn}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
                             </tr>
-                            @endforeach
+                        @endforeach
 
 
                         </tbody>
@@ -378,7 +359,7 @@
                 <!-- pagination -->
                 <div class="pull-right">
                     <ul id="pagination" class="pagination-sm pagination"></ul>
-                    <?php echo $users->links(); ?>
+                    <?php echo $motc_station->links(); ?>
 
                 </div>
                 <!-- /pagination -->
@@ -449,47 +430,26 @@
         style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">編輯帳號</h4>
+            <h4 class="modal-title">編輯旅服中心</h4>
         </div>
-        <form action="/account/edit" method="post">
+        <form action="/motc/edit" method="post">
             {{ csrf_field() }}
         <div class="modal-body">
             <div class="row">
-                <label class="col-md-3 control-label" style="margin-bottom: 20px;">Email</label>
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;">名稱</label>
                 <div class="col-md-9" style="margin-bottom: 20px;">
-                    <input type="email" class="form-control" placeholder="請輸入Email" id="email" name="email">
-                    <input type="hidden" class="form-control" id="id" name="id">
+                    <input type="text" class="form-control" placeholder="請輸入名稱" id="service" name="station_name">
+                    <input type="hidden" class="form-control" id="id" name="sn">
                 </div>
-                <label class="control-label col-md-3" style="margin-bottom: 20px;">所屬旅服中心</label>
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;">電話</label>
                 <div class="col-md-9" style="margin-bottom: 20px;">
-                    <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
-                        aria-hidden="true" name="service[]" id="serviceedit">
-
-                        <optgroup label="旅遊服務中心">
-                            @foreach($motc_station as $motc)
-                            <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
-                            @endforeach
-                        </optgroup>
-
-                        {{-- <optgroup label="基隆市">
-                            <option value="基隆火車站旅遊服務中心">基隆火車站旅遊服務中心</option>
-                        </optgroup>
-                        <optgroup label="台北市">
-                            <option value="臺北火車站旅遊服務中心">臺北火車站旅遊服務中心</option>
-                            <option value="桃園捷運A1台北車站旅遊服務中心">桃園捷運A1台北車站旅遊服務中心</option>
-                            <option value="捷運西門站旅遊服務中心">捷運西門站旅遊服務中心</option>
-                            <option value="捷運臺北101/世貿站旅遊服務中心">捷運臺北101/世貿站旅遊服務中心</option>
-                        </optgroup> --}}
-                    </select>
+                    <input type="text" class="form-control" placeholder="請輸入電話" id="phone" name="contact_phone">
                 </div>
-                <label class="control-label col-md-3" style="margin-bottom: 20px;">權限</label>
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;">地址</label>
                 <div class="col-md-9" style="margin-bottom: 20px;">
-                    <select class="bs-select form-control bs-select-hidden" name="role" id ="roleedit">
-                        <option id="roleOption" value="customer">客服人員</option>
-                        <option id="roleOption" value="admin">站長</option>
-                        <option id="roleOption" value="admin99">超級管理員</option>
-                </select>
+                    <input type="text" class="form-control" placeholder="請輸入地址" id="address" name="contact_address">
                 </div>
+                <input type="hidden" class="form-control" id="id" name="sn">
             </div>
         </div>
         <div class="modal-footer">
@@ -614,21 +574,18 @@
 
         // 非同型陣列
         $(function() {
-            const arr4 = [{ admin: "站長", admin99: "超級管理員",customer: "客服" }]
-            //console.log(arr4[0].admin)
 
             $('#editModal').on('show.bs.modal', function(e) {
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
-                let email = btn.closest('td').siblings('.custom-email').data('email');
-                let role = btn.closest('td').siblings('.custom-role').data('role');
                 let service = btn.closest('td').siblings('.custom-service').data('service');
+                let phone = btn.closest('td').siblings('.custom-phone').data('phone');
+                let address = btn.closest('td').siblings('.custom-address').data('address');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
-                modal.find('.modal-body input#email').val(email);//把抓到的資料顯示在input內
-                modal.find('#roleedit').val(role);
-                var serviceStrAry = String(service).split(',');
-                $('#serviceedit').select2('val',serviceStrAry);
+                modal.find('.modal-body input#service').val(service);//把抓到的資料顯示在input內
+                modal.find('.modal-body input#phone').val(phone);
+                modal.find('.modal-body input#address').val(address);
                 modal.find('.modal-body input#id').val(id);
             })
         })

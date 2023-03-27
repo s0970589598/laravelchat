@@ -10,6 +10,7 @@ use App\Http\Controllers\MailSampleController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SatisfactionController;
 use App\Http\Controllers\SalutatoryController;
+use App\Http\Controllers\MotcController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -34,8 +35,8 @@ Route::group([
     });
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
-    Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
+    // Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
+    // Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
     Route::get('/rooms/{id}', [RoomController::class, 'show'])->name('rooms.show');
     Route::post('/rooms/{id}', [RoomController::class, 'join'])->name('rooms.join');
 
@@ -47,6 +48,10 @@ Route::group([
     Route::get('/account/upstatus/{id}', [AccountController::class, 'upstatus'])->name('account.upstatus');
     Route::post('/account/add', [AccountController::class, 'store'])->name('account.store');
     Route::post('/account/edit', [AccountController::class, 'update'])->name('account.update');
+
+    Route::get('/motc', [MotcController::class, 'index'])->name('motc.index');
+    Route::get('/motc/upstatus/{sn}', [MotcController::class, 'upstatus'])->name('motc.upstatus');
+    Route::post('/motc/edit', [MotcController::class, 'update'])->name('motc.update');
 
     Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
     Route::post('/faq/add', [FaqController::class, 'store'])->name('faq.store');

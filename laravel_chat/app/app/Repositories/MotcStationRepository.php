@@ -20,8 +20,15 @@ class MotcStationRepository
             $motc_sation->whereIn('sn', $params['sn']);
         }
 
-        return $motc_sation->get();
+        if(isset($params['limit'])) {
+            return $motc_sation->paginate($params['limit']);
+        } else {
+            return $motc_sation->get();
+
+        }
 
     }
+
+
 
 }
