@@ -26,10 +26,10 @@ class RoomsRepository
                 ->orderBy('created_at', 'asc');
             }])
             ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '>=',$room_params['start_time']);
+                $query->where('created_at', '>=',$room_params['start_time'].' 00:00:00');
             })
             ->when(isset($room_params['end_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '<=', $room_params['end_time']);
+                $query->where('created_at', '<=', $room_params['end_time'].' 23:59:59');
             })
             ->when(isset($room_params['sn']), function ($query) use ($room_params) {
                 $query->where('service', $room_params['sn']);
@@ -60,10 +60,10 @@ class RoomsRepository
                 ->orderBy('created_at', 'asc');
             }])
             ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '>=',$room_params['start_time']);
+                $query->where('created_at', '>=',$room_params['start_time'].' 00:00:00');
             })
             ->when(isset($room_params['end_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '<=', $room_params['end_time']);
+                $query->where('created_at', '<=', $room_params['end_time'].' 23:59:59');
             })
             ->when(isset($room_params['sn']), function ($query) use ($room_params) {
                 $query->where('service', $room_params['sn']);
@@ -115,11 +115,11 @@ class RoomsRepository
                 $query->select('message')
                 ->orderBy('created_at', 'asc');
             }])
-            ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '>=',$room_params['start_time']);
+              ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
+                $query->where('created_at', '>=',$room_params['start_time'].' 00:00:00');
             })
             ->when(isset($room_params['end_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '<=', $room_params['end_time']);
+                $query->where('created_at', '<=', $room_params['end_time'].' 23:59:59');
             })
             ->when(isset($room_params['sn']), function ($query) use ($room_params) {
                 $query->where('service', $room_params['sn']);
@@ -150,10 +150,10 @@ class RoomsRepository
                 ->orderBy('created_at', 'asc');
             }])
             ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '>=',$room_params['start_time']);
+                $query->where('created_at', '>=',$room_params['start_time'].' 00:00:00');
             })
             ->when(isset($room_params['end_time']), function ($query) use ($room_params) {
-                $query->where('created_at', '<=', $room_params['end_time']);
+                $query->where('created_at', '<=', $room_params['end_time'].' 23:59:59');
             })
             ->when(isset($room_params['sn']), function ($query) use ($room_params) {
                 $query->where('service', $room_params['sn']);

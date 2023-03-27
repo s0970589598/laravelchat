@@ -305,24 +305,25 @@
                                 <div class="portlet-title">
                                     <div class="actions">
                                         <div class="form-group">
-                                            <form class="form-inline">
+                                            <form class="form-inline" id="form-search" action="/satisfaction/manage" method="GET">
+
                                                 <div class="input-group input-large date-picker input-daterange"
-                                                    data-date="10/11/2012" data-date-format="mm/dd/yyyy"
+                                                    data-date="2023-02-23" data-date-format="yyyy-mm-dd"
                                                     style="margin-right: 5px;">
-                                                    <input type="text" class="form-control" name="from"
+                                                    <input type="text" class="form-control" name="start_time"
                                                         placeholder="請選擇開始時間">
                                                     <span class="input-group-addon"> to </span>
-                                                    <input type="text" class="form-control" name="to"
+                                                    <input type="text" class="form-control" name="end_time"
                                                         placeholder="請選擇結束時間">
                                                 </div>
-                                                <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
+                                                <select name="sn" class="form-control" style="margin-right: 5px;">
                                                     <option value="">請選擇所屬單位</option>
                                                     @foreach($motc_station as $motc)
-                                                    <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
+                                                    <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
                                                     @endforeach
                                                 </select>
-                                                <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
-                                                    <option value="0">請選擇滿意度評分</option>
+                                                <select name="point" class="form-control" style="margin-right: 5px;">
+                                                    <option value="">請選擇滿意度評分</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
