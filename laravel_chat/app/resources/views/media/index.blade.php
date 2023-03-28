@@ -306,7 +306,7 @@
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                     <button class="btn edit-btn btn-sm" data-id="{{ $m->id }}" data-title="{{ $m->id }}"data-toggle="modal" data-target="#edit-media"><i class="icon-pencil"></i>編輯</button>
-                                    <a href="/media/upstatus/{{$m->id}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
+                                    <a href="/media/upstatus/{{$m->id}}" class="btn delet-btn btn-sm"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
                             </tr>

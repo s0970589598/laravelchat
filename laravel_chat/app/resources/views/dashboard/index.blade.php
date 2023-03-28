@@ -213,7 +213,7 @@
                                 <span class="title">知識庫FAQ</span>
                             </a>
                         </li>
-                         <li class="nav-item ">
+                        <li class="nav-item ">
                             <a href="/account" class="nav-link nav-toggle">
                                 <i class="icon-user"></i>
                                 <span class="title">帳號管理</span>
@@ -318,10 +318,17 @@
                 <div class="actions">
                     <div class="form-group">
                         <form class="form-inline">
-                            <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy" style="margin-right: 5px;">
-                                <input type="text" class="form-control" name="from">
-                                <span class="input-group-addon"> to </span>
-                                <input type="text" class="form-control" name="to">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">開始時間</label>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" placeholder="開始時間">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">結束時間</label>
+                                <div class="col-md-3">
+                                    <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" placeholder="結束時間">
+                                </div>
                             </div>
                             <button type="submit" class="search-btn" id="btn-search" style="margin-right: 5px;">
                                 <i class="fa fa-search"></i>

@@ -111,28 +111,22 @@
                         <li class="dropdown dropdown-user dropdown-dark">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true">
-                                <span class="username username-hide-on-mobile">User</span>
+                                <span class="username username-hide-on-mobile">{{ Auth::user()->email }}</span>
                                 <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
                                 <img alt="" class="img-circle" src="assets/images/user-default.png" />
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-default">
-                                <li>
-                                    <a href="https://app.starcharger.com.tw/index.php/administrator/manager/form/7">
-                                        <i class="icon-user"></i> 個人資料修改
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://app.starcharger.com.tw/index.php/administrator/user/logout">
-                                        <i class="icon-key"></i> Log Out
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <!-- END USER LOGIN DROPDOWN -->
                         <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                         <li class="dropdown dropdown-extended quick-sidebar-toggler">
                             <span class="sr-only">Toggle Quick Sidebar</span>
-                            <i class="icon-logout"></i>
+                            <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                                        this.closest('form').submit();">
+                                        <i class="icon-logout"></i>
+                                    </x-dropdown-link>
+                                </form>
                         </li>
                         <!-- END QUICK SIDEBAR TOGGLER -->
                     </ul>
@@ -241,6 +235,12 @@
                             <span class="title">帳號管理</span>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a href="/motc" class="nav-link nav-toggle">
+                            <i class="fa fa-building-o"></i>
+                        <span class="title">旅服中心管理</span>
+                        </a>
+                    </li>
                 </ul>
             <!-- END SIDEBAR MENU -->
             </div>
@@ -308,12 +308,17 @@
                             <div class="portlet-title">
                                 <div class="actions">
                                     <form class="form-inline" id="form-search" method="GET">
-                                        <div class="input-group input-large date-picker input-daterange"
-                                            data-date="10/11/2012" data-date-format="mm/dd/yyyy"
-                                            style="margin-right: 5px;">
-                                            <input type="text" class="form-control" name="from" placeholder="請選擇開始時間">
-                                            <span class="input-group-addon"> to </span>
-                                            <input type="text" class="form-control" name="to" placeholder="請選擇結束時間">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">開始時間</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" placeholder="開始時間">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">結束時間</label>
+                                            <div class="col-md-3">
+                                                <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" placeholder="結束時間">
+                                            </div>
                                         </div>
                                         <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
                                             <option value="">請選擇旅遊服務中心</option>
