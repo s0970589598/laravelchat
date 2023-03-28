@@ -1122,9 +1122,9 @@
             const uploadInput = document.querySelector('#upload_img');
             const csrfToken = "{{ csrf_token() }}";
 
-            const message = messageInput.value;
+            var message = messageInput.value;
             const preview = document.querySelector('#preview');
-            var type;
+            var type = 'message';
             const formData = new FormData();
 
             // Add message to form data
@@ -1136,6 +1136,10 @@
                 formData.append('file', file);
                 type = 'file';
                 //messageInput.value += ' [附加圖片] ';
+            }
+
+            if (type == 'file') {
+                 message = 'file';
             }
 
             //e.preventDefault();
@@ -1204,32 +1208,59 @@
 
             const chatHistory = document.querySelector('#chat-history');
             const messageInput = document.querySelector('#chat-message-input');
+            const uploadInput = document.querySelector('#upload_img');
+            const formData = new FormData();
+
+            var type = 'message';
 
             function scrollToLastMessage() {
                 chatHistory.scrollTop = chatHistory.scrollHeight;
             }
             scrollToLastMessage();
-
             if (messageInput !== null) {
                 messageInput.focus();
 
                 const csrfToken = "{{ csrf_token() }}";
                 messageInput.onkeypress = function(e) {
                     if (e.key === "Enter" && document.activeElement === messageInput) { // enter, return
+
+                        alert('aa');
+                        // Add selected file to form data
+                        if (uploadInput.files.length > 0) {
+                            const file = uploadInput.files[0];
+                            formData.append('file', file);
+                            type = 'file';
+                            //messageInput.value += ' [附加圖片] ';
+                        }
+
+
                         if (window.getSelection().toString().length !== 0 && window.getSelection().anchorNode.parentElement !== messageInput) {
                             return;
                         }
                         e.preventDefault();
-                        const message = messageInput.value;
+                        var message = messageInput.value;
+                        // Add message to form data
+                        formData.append('message', message);
+
+                        if (type == 'file') {
+                            message = 'file';
+                        }
                         if (!message) {
                             return;
                         }
                         const xhttp = new XMLHttpRequest();
                         xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
                         xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
-                        xhttp.send(JSON.stringify({
-                            message: message
-                        }));
+                        // xhttp.send(JSON.stringify({
+                        //     message: message
+                        // }));
+                        if (uploadInput.files.length == 0) {
+                            xhttp.send(JSON.stringify({
+                                message: message
+                            }));
+                        } else {
+                            xhttp.send(formData);
+                        }
                         messageInput.value = '';
                     }
                 };
