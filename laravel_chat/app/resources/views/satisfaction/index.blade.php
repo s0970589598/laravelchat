@@ -309,7 +309,7 @@
                                 <div class="actions">
                                     <form class="form-inline" id="form-search" action="/satisfaction" method="GET">
                                         <div class="input-group input-large date-picker input-daterange"
-                                            data-date="10/11/2012" data-date-format="mm/dd/yyyy"
+                                            data-date="2023-03-28" data-date-format="yyyy-mm-dd"
                                             style="margin-right: 5px;">
                                             <input type="text" class="form-control" name="start_time" placeholder="請選擇開始時間">
                                             <span class="input-group-addon"> to </span>
@@ -318,7 +318,7 @@
                                         <select name="sn" class="form-control" style="margin-right: 5px;">
                                             <option value="">請選擇旅遊服務中心</option>
                                             @foreach($motc_station as $motc)
-                                            <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
+                                            <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
                                             @endforeach                                        </select>
                                         <button type="submit" class="search-btn" id="btn-search"
                                             style="margin-right: 5px;">
