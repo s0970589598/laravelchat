@@ -7,8 +7,6 @@
 </head>
 <body>
     <p>Dear admin,</p>
-    <p><?php echo $centerName; ?> are currently no online customer in this center.</p>
-    <p>Best regards,</p>
-    <p><?php echo $centerName; ?> </p>
+    <p><?php echo '您好，目前' . $centerName . '沒有客服人員在線上，請您確認該中心客服狀況。'; ?> </p>
 </body>
 </html>
