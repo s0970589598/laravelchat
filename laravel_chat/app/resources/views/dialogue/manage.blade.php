@@ -253,17 +253,10 @@
             <div class="portlet-title">
                 <div class="actions">
                     <form class="form-inline" id="form-search" action="/dialoguelist" method="GET">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">開始時間</label>
-                            <div class="col-md-3">
-                                <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" placeholder="開始時間">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">結束時間</label>
-                            <div class="col-md-3">
-                                <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" placeholder="結束時間">
-                            </div>
+                        <div class="input-group input-large date-picker input-daterange" data-date="2023-03-16" data-date-format="yyyy-mm-dd" style="margin-right: 5px;">
+                            <input type="text" class="form-control" name="from" placeholder="請選擇開始時間" >
+                            <span class="input-group-addon"> to </span>
+                            <input type="text" class="form-control" name="to" placeholder="請選擇結束時間" >
                         </div>
                         <select name="manager_group_sn" class="form-control" style="margin-right: 5px;">
                             <option value="">請選擇服務中心</option>
