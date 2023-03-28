@@ -449,6 +449,86 @@
                 <div class="col-md-9" style="margin-bottom: 20px;">
                     <input type="text" class="form-control" placeholder="請輸入地址" id="address" name="contact_address">
                 </div>
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;" for="#address">營業時間</label>
+                <div class="col-md-9" style="margin-bottom: 20px;">
+                    <div class="monday">
+                        <label class="control-label col-md-2">週一</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tuesday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週二</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wednesday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週三</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thursday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週四</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="friday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週五</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="saturday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週六</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sunday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週日</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" class="form-control" id="id" name="sn">
             </div>
         </div>
