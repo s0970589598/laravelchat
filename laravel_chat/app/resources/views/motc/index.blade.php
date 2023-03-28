@@ -493,6 +493,17 @@
                 </div>
                 <label class="col-md-3 control-label" style="margin-bottom: 20px;" for="#address">營業時間</label>
                 <div class="col-md-9" style="margin-bottom: 20px;">
+<<<<<<< HEAD
+                    <div class="monday">
+                        <label class="control-label col-md-2">週一</label>
+                        <div class="input-group col-md-10">
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+=======
 
                     <div class="monday">
                         <label class="control-label col-md-2">週一</label>
@@ -510,11 +521,20 @@
                                     <i class="fa fa-clock-o"></i>
                                 </button>
                             </span>
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                         </div>
                     </div>
                     <div class="tuesday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週二</label>
                         <div class="input-group col-md-10">
+<<<<<<< HEAD
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+=======
                             <input type="text" id="tueopen" class="form-control timepicker timepicker-no-seconds">
                             <span class="input-group-btn">
                                 <button class="btn default" type="button" style="margin-right: 15px;">
@@ -527,11 +547,20 @@
                                     <i class="fa fa-clock-o"></i>
                                 </button>
                             </span>
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                         </div>
                     </div>
                     <div class="wednesday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週三</label>
                         <div class="input-group col-md-10">
+<<<<<<< HEAD
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+=======
                             <input type="text" id="wedopen" class="form-control timepicker timepicker-no-seconds">
                             <span class="input-group-btn">
                                 <button class="btn default" type="button" style="margin-right: 15px;">
@@ -544,11 +573,20 @@
                                     <i class="fa fa-clock-o"></i>
                                 </button>
                             </span>
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                         </div>
                     </div>
                     <div class="thursday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週四</label>
                         <div class="input-group col-md-10">
+<<<<<<< HEAD
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+=======
                             <input type="text" id="thuopen" class="form-control timepicker timepicker-no-seconds">
                             <span class="input-group-btn">
                                 <button class="btn default" type="button" style="margin-right: 15px;">
@@ -561,11 +599,20 @@
                                     <i class="fa fa-clock-o"></i>
                                 </button>
                             </span>
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                         </div>
                     </div>
                     <div class="friday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週五</label>
                         <div class="input-group col-md-10">
+<<<<<<< HEAD
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+=======
                             <input type="text" id="friopen" class="form-control timepicker timepicker-no-seconds">
                             <span class="input-group-btn">
                                 <button class="btn default" type="button" style="margin-right: 15px;">
@@ -578,11 +625,20 @@
                                     <i class="fa fa-clock-o"></i>
                                 </button>
                             </span>
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                         </div>
                     </div>
                     <div class="saturday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週六</label>
                         <div class="input-group col-md-10">
+<<<<<<< HEAD
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+=======
                             <input type="text" value="09:00 AM" id="satopen" class="form-control timepicker timepicker-no-seconds">
                             <span class="input-group-btn">
                                 <button class="btn default" type="button" style="margin-right: 15px;">
@@ -595,11 +651,23 @@
                                     <i class="fa fa-clock-o"></i>
                                 </button>
                             </span>
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                         </div>
                     </div>
                     <div class="sunday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週日</label>
                         <div class="input-group col-md-10">
+<<<<<<< HEAD
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="開始時間">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="time" class="form-control" placeholder="結束時間">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+=======
                             <input type="text" id="sunopen" class="form-control timepicker timepicker-no-seconds">
                             <span class="input-group-btn">
                                 <button class="btn default" type="button" style="margin-right: 15px;">
@@ -616,6 +684,7 @@
                     </div>
                 </div>
 
+>>>>>>> c38eed17b70edcf02b39583d26b181d49c3a8324
                 <input type="hidden" class="form-control" id="id" name="sn">
             </div>
         </div>
