@@ -85,7 +85,9 @@ class SatisfactionController extends Controller
         $rooms = 0;
         $limit = 10;
         $satisfaction_params = [];
-
+        $replyrate = [];
+        $waitedrate = [];
+        $satisfactionList = [];
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
