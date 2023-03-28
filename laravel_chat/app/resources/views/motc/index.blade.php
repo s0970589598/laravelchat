@@ -14,6 +14,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
     <meta content="" name="author" />
+
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet"
@@ -40,6 +41,8 @@
     <link href="assets/metronic/theme/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet">
     <link href="assets/metronic/theme/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link href="assets/metronic/theme/assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet">
+    <link href="assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet">
+
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="assets/metronic/theme/assets/global/css/components.min.css" rel="stylesheet" id="style_components"
@@ -319,6 +322,31 @@
                         </thead>
                         <tbody>
                         @foreach ($motc_station as $motc)
+                            <?php
+
+                                // $exstring    = explode("每日",$motc->open_hours);
+                                // $extime      = explode("~",$exstring[1]);
+                                // $start = isset($extime[0]) ? $extime[0] : 0;
+                                // $end   = isset($extime[1]) ? $extime[1] : 0;
+
+                                // App\Models\MotcOpen::create([
+                                //     'service'        => $motc->sn,
+                                //     'sun_open_hour'  => $start,
+                                //     'sun_close_hour' => $end ,
+                                //     'mon_open_hour'  => $start,
+                                //     'mon_close_hour' => $end ,
+                                //     'tue_open_hour'  => $start,
+                                //     'tue_close_hour' => $end ,
+                                //     'wen_open_hour'  => $start,
+                                //     'wen_close_hour' => $end ,
+                                //     'thu_open_hour'  => $start,
+                                //     'thu_close_hour' => $end ,
+                                //     'fri_open_hour'  => $start,
+                                //     'fri_close_hour' => $end ,
+                                //     'sat_open_hour'  => $start,
+                                //     'sat_close_hour' => $end ,
+                                // ]);
+                            ?>
                             <tr>
                                 <td data-service="{{ $motc->station_name }}" class="custom-service">{{  $motc->station_name }}</td>
                                 <td data-phone="{{ $motc->contact_phone }}" class="custom-phone">{{ $motc->contact_phone }}</td>
@@ -326,9 +354,23 @@
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                         <button class="btn edit-btn btn-sm" data-id="{{ $motc->sn }}" data-title="{{ $motc->sn }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
-                                        <a href="/motc/upstatus/{{$motc->sn}}" class="btn delet-btn btn-sm"><i class="icon-trash"></i>刪除</button></a>
+                                        <a href="/motc/upstatus/{{$motc->sn}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
+                                <input type="hidden" data-sunopen="{{ $motc->sun_open_hour }}" class="custom-sunopen">
+                                <input type="hidden" data-sunclose="{{ $motc->sun_close_hour }}" class="custom-sunclose">
+                                <input type="hidden" data-monopen="{{ $motc->mon_open_hour }}" class="custom-monopen">
+                                <input type="hidden" data-monclose="{{ $motc->mon_close_hour }}" class="custom-monclose">
+                                <input type="hidden" data-tueopen="{{ $motc->tue_open_hour }}" class="custom-tueopen">
+                                <input type="hidden" data-tueclose="{{ $motc->tue_close_hour }}" class="custom-tueclose">
+                                <input type="hidden" data-wedopen="{{ $motc->wed_open_hour }}" class="custom-wedopen">
+                                <input type="hidden" data-wedclose="{{ $motc->wed_close_hour }}" class="custom-wedclose">
+                                <input type="hidden" data-thuopen="{{ $motc->thu_open_hour }}" class="custom-thuopen">
+                                <input type="hidden" data-thuclose="{{ $motc->thu_close_hour }}" class="custom-thuclose">
+                                <input type="hidden" data-friopen="{{ $motc->fri_open_hour }}" class="custom-friopen">
+                                <input type="hidden" data-friclose="{{ $motc->fri_close_hour }}" class="custom-friclose">
+                                <input type="hidden" data-satopen="{{ $motc->sat_open_hour }}" class="custom-satopen">
+                                <input type="hidden" data-satclose="{{ $motc->sat_close_hour }}" class="custom-satclose">
                             </tr>
                         @endforeach
 
@@ -386,7 +428,7 @@
         style="display: none; margin-top: -397px;">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">新增帳號</h4>
+            <h4 class="modal-title">新增</h4>
         </div>
         <form action="/account/add" method="post">
             {{ csrf_field() }}
@@ -449,6 +491,131 @@
                 <div class="col-md-9" style="margin-bottom: 20px;">
                     <input type="text" class="form-control" placeholder="請輸入地址" id="address" name="contact_address">
                 </div>
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;" for="#address">營業時間</label>
+                <div class="col-md-9" style="margin-bottom: 20px;">
+
+                    <div class="monday">
+                        <label class="control-label col-md-2">週一</label>
+                        <div class="input-group col-md-10">
+                            <input type="time"  class="form-control timepicker ">
+                            <input type="text" id="monopen"  class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="monclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="tuesday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週二</label>
+                        <div class="input-group col-md-10">
+                            <input type="text" id="tueopen" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="tueclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="wednesday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週三</label>
+                        <div class="input-group col-md-10">
+                            <input type="text" id="wedopen" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="wedclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="thursday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週四</label>
+                        <div class="input-group col-md-10">
+                            <input type="text" id="thuopen" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="thuclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="friday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週五</label>
+                        <div class="input-group col-md-10">
+                            <input type="text" id="friopen" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="friclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="saturday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週六</label>
+                        <div class="input-group col-md-10">
+                            <input type="text" value="09:00 AM" id="satopen" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="satclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="sunday" style="margin-top: 10px;">
+                        <label class="control-label col-md-2">週日</label>
+                        <div class="input-group col-md-10">
+                            <input type="text" id="sunopen" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" style="margin-right: 15px;">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                            <input type="text" id="sunclose" class="form-control timepicker timepicker-no-seconds">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button">
+                                    <i class="fa fa-clock-o"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
                 <input type="hidden" class="form-control" id="id" name="sn">
             </div>
         </div>
@@ -534,6 +701,7 @@
         type="text/javascript"></script>
     <script src="assets/metronic/theme/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"
         type="text/javascript"></script>
+
     <script
         src="assets/metronic/theme/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
         type="text/javascript"></script>
@@ -566,7 +734,6 @@
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="js/all.js"></script>
     <script src="js/session.js" type="text/javascript"></script>
-
     <script>
             document.addEventListener('DOMContentLoaded', function() {
                 startTimer();
@@ -581,14 +748,46 @@
                 let service = btn.closest('td').siblings('.custom-service').data('service');
                 let phone = btn.closest('td').siblings('.custom-phone').data('phone');
                 let address = btn.closest('td').siblings('.custom-address').data('address');
+                let sunopen = btn.closest('input').siblings('.custom-sunopen').data('sunopen');
+                let sunclose = btn.closest('input').siblings('.custom-sunclose').data('sunclose');
+                let monopen = btn.closest('input').siblings('.custom-monopen').data('sunopen');
+                let monclose = btn.closest('input').siblings('.custom-monclose').data('monclose');
+                let tueopen = btn.closest('input').siblings('.custom-tueopen').data('tueopen');
+                let tueclose = btn.closest('input').siblings('.custom-tueclose').data('tueclose');
+                let wedopen = btn.closest('input').siblings('.custom-wedopen').data('wedopen');
+                let wedclose = btn.closest('input').siblings('.custom-wedclose').data('wedclose');
+                let thuopen = btn.closest('input').siblings('.custom-thuopen').data('thuopen');
+                let thuclose = btn.closest('input').siblings('.custom-thuclose').data('thuclose');
+                let friopen = btn.closest('input').siblings('.custom-friopen').data('friopen');
+                let friclose = btn.closest('input').siblings('.custom-friclose').data('friclose');
+                let satopen = btn.closest('input').siblings('.custom-satopen').data('satopen');
+                let satclose = btn.closest('input').siblings('.custom-satclose').data('satclose');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
                 modal.find('.modal-body input#service').val(service);//把抓到的資料顯示在input內
                 modal.find('.modal-body input#phone').val(phone);
                 modal.find('.modal-body input#address').val(address);
                 modal.find('.modal-body input#id').val(id);
+                modal.find('.modal-body input#sunopen').val(sunopen);
+                modal.find('.modal-body input#sunclose').val(sunclose);
+                modal.find('.modal-body input#monopen').val(monopen);
+                modal.find('.modal-body input#monclose').val(monclose);
+                modal.find('.modal-body input#tueopen').val(tueopen);
+                modal.find('.modal-body input#tueclose').val(tueclose);
+                modal.find('.modal-body input#wedopen').val(wedopen);
+                modal.find('.modal-body input#wedclose').val(wedclose);
+                modal.find('.modal-body input#thuopen').val(thuopen);
+                modal.find('.modal-body input#thuclose').val(thuclose);
+                modal.find('.modal-body input#friopen').val(friopen);
+                modal.find('.modal-body input#friclose').val(friclose);
+                modal.find('.modal-body input#satopen').val(satopen);
+                modal.find('.modal-body input#satclose').val(satclose);
+
             })
         })
+
+
     </script>
+
     </body>
 </html>

@@ -9,8 +9,9 @@ class MotcStationRepository
 {
     public function motcStationList($params)
     {
-        $motc_sation = MotcStation::orderBy('sn', 'asc')
-        ->where('status','1');
+        $motc_sation = MotcStation::where('status','1')
+        ->leftJoin('motc_open','motc_station.sn','=','motc_open.service')
+        ->orderBy('sn', 'asc');
 
         if(isset($params['station_name'])) {
             $motc_sation->whereIn('station_name', $params['station_name']);
