@@ -88,6 +88,11 @@ class SatisfactionController extends Controller
         $replyrate = [];
         $waitedrate = [];
         $satisfaction_list = [];
+        $wait_array = [];
+        $waited_array = [];
+        $ing_array = [];
+        $complete_array = [];
+
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
