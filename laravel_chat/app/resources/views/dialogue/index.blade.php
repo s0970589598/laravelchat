@@ -1224,7 +1224,6 @@
                 messageInput.onkeypress = function(e) {
                     if (e.key === "Enter" && document.activeElement === messageInput) { // enter, return
 
-                        alert('aa');
                         // Add selected file to form data
                         if (uploadInput.files.length > 0) {
                             const file = uploadInput.files[0];
@@ -1249,6 +1248,23 @@
                             return;
                         }
                         const xhttp = new XMLHttpRequest();
+                        if (type == 'file') {
+                            xhttp.onreadystatechange = function() {
+                                if (this.readyState === 4) {
+                                    if (this.status === 200) {
+                                        const response = JSON.parse(this.responseText);
+                                        if (response.msg == 'success') {
+                                            window.location.href = "/dialogue/" + currentRoomId ;
+                                        } else {
+                                            console.error('Redirect failed');
+                                        }
+                                    } else {
+                                        console.error(`Server error: ${this.status}`);
+                                    }
+                                }
+                            };
+                        }
+
                         xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
                         xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
                         // xhttp.send(JSON.stringify({
