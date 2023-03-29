@@ -55,6 +55,7 @@ class DashboardController extends Controller
         $account_params = [];
         $rooms_wait_count = 0;
         $onlineCustomerCount = 0;
+        $motc_params = [];
 
         // $user = Auth::user();
         // Log::info(json_encode($user));
@@ -70,7 +71,6 @@ class DashboardController extends Controller
         if ($auth['role'] == 'admin99'){
             $err_url_count = $this->faq_repository->countUrlErr();
             $err_url_redirect = '/faq';
-            $motc_params = array();
             $msg_date_count = DB::table('messages')
             ->leftJoin('rooms', 'messages.room_id', '=', 'rooms.id')
             ->leftJoin('motc_station', 'motc_station.sn', '=', 'rooms.service')
@@ -81,12 +81,12 @@ class DashboardController extends Controller
             //->orderBy('motc_station.sn')
             ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
             ->get();
-        // } else {
-        //     $err_url_count = $this->msg_repository->countUrlErr();
-        //     $err_url_redirect = '/msgsample';
-        //     $motc_params = array(
-        //         'station_name' => $auth['service']
-        //     );
+        } else {
+            $err_url_count = $this->msg_repository->countUrlErr();
+            $err_url_redirect = '/msgsample';
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
 
         }
 
