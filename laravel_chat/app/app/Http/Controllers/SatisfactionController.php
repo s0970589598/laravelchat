@@ -153,7 +153,7 @@ class SatisfactionController extends Controller
         ->get();
 
         // 已完成
-        $everyday_complete = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_wait'))
+        $everyday_complete = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_complete'))
         ->where('status', 6)
         ->whereIn('service', $sn)
         ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
@@ -184,17 +184,28 @@ class SatisfactionController extends Controller
             $ing_array[$ing['rooms_created_at']]['count_wait'] = $ing['count_wait'];
         }
         foreach($everyday_complete as $complete){
-            $complete_array[$ing['rooms_created_at']]['rooms_created_at'] = $complete['rooms_created_at'];
-            $complete_array[$ing['rooms_created_at']]['count_wait'] = $complete['count_wait'];
+            $complete_array[$complete['rooms_created_at']]['rooms_created_at'] = $complete['rooms_created_at'];
+            $complete_array[$complete['rooms_created_at']]['count_complete'] = $complete['count_complete'];
         }
         $keys = 0;
-        foreach ($wait_array as $key => $wait) {
-           if(isset($ing_array[$key]['count_wait'])) {
-                $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
+        // foreach ($wait_array as $key => $wait) {
+
+        //     if(isset($ing_array[$key]['count_wait'])) {
+        //         $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
+        //         $waitedrate[$keys]['DAY'] = $key;
+        //         $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
+        //         $keys++;
+        //    }
+        // }
+        foreach ($waited_array as $key => $waited) {
+               $complete = isset($complete_array[$key]['count_complete']) ? $complete_array[$key]['count_complete'] : 0;
+                $nocomplete = $waited['count_wait'] - $complete;
+            // if(isset($ing_array[$key]['count_wait'])) {
+                // $all = $waited['count_wait'] + $ing_array[$key]['count_wait'];
                 $waitedrate[$keys]['DAY'] = $key;
-                $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
+                $waitedrate[$keys]['NUM'] = ($nocomplete/ $waited['count_wait']) * 100;
                 $keys++;
-           }
+           // }
         }
 
          // 回覆時間

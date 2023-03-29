@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\MotcStation;
+use App\Models\MotcOpen;
 
 use App\Models\CustomerServiceRelationRole;
 use App\Repositories\MotcStationRepository;
@@ -166,7 +167,27 @@ class MotcController extends Controller
                 'station_name'        => $request['station_name'],
                 'contact_phone'       => $request['contact_phone'],
                 'contact_address'     => $request['contact_address'],
-            ]);
+        ]);
+
+        MotcOpen::where('service',$request['sn'])
+        ->update([
+            'sun_open_hour'  => isset($request['sun_open_hour']) ? $request['sun_open_hour'] :'09:00' ,
+            'sun_close_hour' => isset($request['sun_close_hour']) ? $request['sun_close_hour'] :'18:00' ,
+            'mon_open_hour'  => isset($request['mon_open_hour']) ? $request['mon_open_hour'] :'09:00' ,
+            'mon_close_hour' => isset($request['mon_close_hour']) ? $request['mon_close_hour'] :'18:00' ,
+            'tue_open_hour'  => isset($request['tue_open_hour']) ? $request['tue_open_hour'] :'09:00' ,
+            'tue_close_hour' => isset($request['tue_close_hour']) ? $request['tue_close_hour'] :'18:00' ,
+            'wed_open_hour'  => isset($request['wed_open_hour']) ? $request['wed_open_hour'] :'09:00' ,
+            'wed_close_hour' => isset($request['wed_close_hour']) ? $request['wed_close_hour'] :'18:00' ,
+            'thu_open_hour'  => isset($request['thu_open_hour']) ? $request['thu_open_hour'] :'09:00' ,
+            'thu_close_hour' => isset($request['thu_close_hour']) ? $request['thu_close_hour'] :'18:00' ,
+            'fri_open_hour'  => isset($request['fri_open_hour']) ? $request['fri_open_hour'] :'09:00' ,
+            'fri_close_hour' => isset($request['fri_close_hour']) ? $request['fri_close_hour'] :'18:00' ,
+            'sat_open_hour'  => isset($request['sat_open_hour']) ? $request['sat_open_hour'] :'09:00' ,
+            'sat_close_hour' => isset($request['sat_close_hour']) ? $request['sat_close_hour'] :'18:00' ,
+        ]);
+
+
         return redirect()->route('motc.index');
     }
 

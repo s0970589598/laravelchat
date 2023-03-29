@@ -55,6 +55,7 @@ class DashboardController extends Controller
         $account_params = [];
         $rooms_wait_count = 0;
         $onlineCustomerCount = 0;
+        $motc_params = [];
 
         // $user = Auth::user();
         // Log::info(json_encode($user));
@@ -66,10 +67,10 @@ class DashboardController extends Controller
 
         $auth = $this->user_repository->getUserServiceRole($params_auth);
         $count_online_customer = $this->user_repository->getOnlineCustomer($auth['service'], $auth['role'], $limit , $account_params);
+
         if ($auth['role'] == 'admin99'){
             $err_url_count = $this->faq_repository->countUrlErr();
             $err_url_redirect = '/faq';
-            $motc_params = array();
             $msg_date_count = DB::table('messages')
             ->leftJoin('rooms', 'messages.room_id', '=', 'rooms.id')
             ->leftJoin('motc_station', 'motc_station.sn', '=', 'rooms.service')
@@ -81,13 +82,14 @@ class DashboardController extends Controller
             ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
             ->get();
         } else {
-            $err_url_count = $this->msg_repository->countUrlErr();
+            $err_url_count = $this->msgsample_repository->countUrlErr();
             $err_url_redirect = '/msgsample';
             $motc_params = array(
                 'station_name' => $auth['service']
             );
 
         }
+
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
         foreach ($motc_station as $motc) {
             $sn[] = $motc['sn'];

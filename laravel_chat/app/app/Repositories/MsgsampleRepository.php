@@ -7,7 +7,7 @@ use App\Models\FrequentlyMsg;
 
 class MsgsampleRepository
 {
-    public function countUrlErr($params)
+    public function countUrlErr()
     {
         return FrequentlyMsg::where('status','0')
         ->where('is_err','1')
