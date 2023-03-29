@@ -82,7 +82,7 @@ class DashboardController extends Controller
             ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
             ->get();
         } else {
-            $err_url_count = $this->msg_repository->countUrlErr();
+            $err_url_count = $this->msgsample_repository->countUrlErr();
             $err_url_redirect = '/msgsample';
             $motc_params = array(
                 'station_name' => $auth['service']
