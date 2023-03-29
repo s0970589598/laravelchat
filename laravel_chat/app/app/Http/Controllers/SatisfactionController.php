@@ -198,6 +198,7 @@ class SatisfactionController extends Controller
         //    }
         // }
         foreach ($waited_array as $key => $waited) {
+               $complete = isset($complete_array[$key]['count_complete']) ? $complete_array[$key]['count_complete'] : 0;
                 $nocomplete = $waited['count_wait'] - $complete_array[$key]['count_complete'];
             // if(isset($ing_array[$key]['count_wait'])) {
                 // $all = $waited['count_wait'] + $ing_array[$key]['count_wait'];
