@@ -324,11 +324,19 @@
                         @foreach ($motc_station as $motc)
                             <?php
 
-                                // $exstring    = explode("每日",$motc->open_hours);
-                                // $extime      = explode("~",$exstring[1]);
-                                // $start = isset($extime[0]) ? $extime[0] : 0;
-                                // $end   = isset($extime[1]) ? $extime[1] : 0;
-
+                                $exstring    = explode("每日",$motc->open_hours);
+                                // print_r($exstring );
+                                $extime      = isset($exstring[1]) ? explode("~",$exstring[1]) : explode("~",$exstring[0]);
+                                // $extime   = explode("~",$exstring[1]);
+                                // print_r($extime );
+                                // echo '</br>';
+                                if (count($extime)>=2) {
+                                    $start = isset($extime[0]) ? $extime[0] : '';
+                                    $end   = isset($extime[1]) ? $extime[1] : '';
+                                } else {
+                                    $start = '';
+                                    $end = '';
+                                }
                                 // App\Models\MotcOpen::create([
                                 //     'service'        => $motc->sn,
                                 //     'sun_open_hour'  => $start,
@@ -357,7 +365,7 @@
                                         <a href="/motc/upstatus/{{$motc->sn}}" class="delet-btn"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
-                                <input type="hidden" data-sunopen="{{ $motc->sun_open_hour }}" class="custom-sunopen">
+                                <td style="display:none" data-sunopen="{{ $motc->sun_open_hour }}" class="custom-sunopen">{{  $motc->sun_open_hour }}</td>
                                 <input type="hidden" data-sunclose="{{ $motc->sun_close_hour }}" class="custom-sunclose">
                                 <input type="hidden" data-monopen="{{ $motc->mon_open_hour }}" class="custom-monopen">
                                 <input type="hidden" data-monclose="{{ $motc->mon_close_hour }}" class="custom-monclose">
@@ -497,18 +505,19 @@
                         <label class="control-label col-md-2">週一</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time" id="sunopen" class="form-control" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="sunclose" class="form-control" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
+
                     <div class="tuesday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週二</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time" id="" class="form-control" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
                                 <input type="time" class="form-control" placeholder="結束時間">
@@ -703,7 +712,7 @@
                 let service = btn.closest('td').siblings('.custom-service').data('service');
                 let phone = btn.closest('td').siblings('.custom-phone').data('phone');
                 let address = btn.closest('td').siblings('.custom-address').data('address');
-                let sunopen = btn.closest('input').siblings('.custom-sunopen').data('sunopen');
+                let sunopen = btn.closest('td').siblings('.custom-sunopen').data('sunopen');
                 let sunclose = btn.closest('input').siblings('.custom-sunclose').data('sunclose');
                 let monopen = btn.closest('input').siblings('.custom-monopen').data('sunopen');
                 let monclose = btn.closest('input').siblings('.custom-monclose').data('monclose');
@@ -718,7 +727,7 @@
                 let satopen = btn.closest('input').siblings('.custom-satopen').data('satopen');
                 let satclose = btn.closest('input').siblings('.custom-satclose').data('satclose');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
-
+                alert(sunopen);
                 modal.find('.modal-body input#service').val(service);//把抓到的資料顯示在input內
                 modal.find('.modal-body input#phone').val(phone);
                 modal.find('.modal-body input#address').val(address);

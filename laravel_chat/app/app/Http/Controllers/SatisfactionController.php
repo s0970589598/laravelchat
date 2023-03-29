@@ -188,11 +188,13 @@ class SatisfactionController extends Controller
         }
         $keys = 0;
         foreach ($wait_array as $key => $wait) {
-           $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
+           if(isset($ing_array[$key]['count_wait'])) {
+                $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
+                $waitedrate[$keys]['DAY'] = $key;
+                $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
+                $keys++;
+           }
 
-           $waitedrate[$keys]['DAY'] = $key;
-           $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
-           $keys++;
         }
 
          // 回覆時間
