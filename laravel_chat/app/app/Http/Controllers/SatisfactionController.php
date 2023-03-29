@@ -88,6 +88,11 @@ class SatisfactionController extends Controller
         $replyrate = [];
         $waitedrate = [];
         $satisfaction_list = [];
+        $wait_array = [];
+        $waited_array = [];
+        $ing_array = [];
+        $complete_array = [];
+
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
@@ -154,7 +159,8 @@ class SatisfactionController extends Controller
         ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
         ->orderBy('rooms_created_at', 'asc')
         ->get();
-        Log::info($sn);
+        // Log::info($sn);
+
          // 曾經待客服狀態，包含待客服的
          $everyday_waited  = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_wait'))
          ->where('status', '<>', 1)
@@ -162,7 +168,7 @@ class SatisfactionController extends Controller
          ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
          ->orderBy('rooms_created_at', 'asc')
          ->get();
-        Log::info($everyday_waited);
+        // Log::info($everyday_waited);
 
         foreach ($everyday_wait as $wait) {
             $wait_array[$wait['rooms_created_at']]['rooms_created_at'] = $wait['rooms_created_at'];
@@ -183,11 +189,12 @@ class SatisfactionController extends Controller
         }
         $keys = 0;
         foreach ($wait_array as $key => $wait) {
-           $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
-
-           $waitedrate[$keys]['DAY'] = $key;
-           $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
-           $keys++;
+           if(isset($ing_array[$key]['count_wait'])) {
+                $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
+                $waitedrate[$keys]['DAY'] = $key;
+                $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
+                $keys++;
+           }
         }
 
          // 回覆時間
@@ -291,6 +298,11 @@ class SatisfactionController extends Controller
         ->groupBy('service')
         ->get();
 
+        $offlineHistoryDates = MotcOfflineHistory::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+        ->count();
+
+
          foreach($wait as $wa){
             $wait_arr[$wa['service']]['count_ing'] = $wa['count_ing'];
          }
@@ -308,10 +320,15 @@ class SatisfactionController extends Controller
          foreach($customered as $cu) {
             $satisfaction_list[$cu['service']]['service'] = $cu['station_name'];
             $satisfaction_list[$cu['service']]['callcustomer'] = $cu['count_ing'];
-            $satisfaction_list[$cu['service']]['complete'] = isset($com_arr[$cu['service']]['count_ing']) ? $com_arr[$cu['service']]['count_ing'] : 0;
-            $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round(($wait_arr[$cu['service']]['count_ing']/$cu['count_ing'])*100 , 2) : 0 ;
+
+            $satisfaction_list[$cu['service']]['complete'] = isset($com_arr[$cu['service']]) ? $com_arr[$cu['service']]['count_ing'] : 0;
+            $satisfaction_list[$cu['service']]['nocomplete'] = $cu['count_ing'] - $satisfaction_list[$cu['service']]['complete'];
+            // $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round(($wait_arr[$cu['service']]['count_ing']/$cu['count_ing'])*100 , 2) : 0 ;
+            $satisfaction_list[$cu['service']]['waitedrate'] = round(($satisfaction_list[$cu['service']]['nocomplete']/$cu['count_ing'])*100 , 2);
+
+
             $satisfaction_list[$cu['service']]['replyrate'] = isset($satisfaction_reply_arr[$cu['service']]['diffsec']) ? round(($satisfaction_reply_arr[$cu['service']]['diffsec']/ $cu['count_ing'])*100,2) : 0 ;
-            $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round(((8-$motc_off_arr[$cu['service']]['count_ing'])/ 8)*100,2) : 100 ;
+            $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round((((8 * $offlineHistoryDates)-$motc_off_arr[$cu['service']]['count_ing'])/ (8 * $offlineHistoryDates) )*100,2) : 100 ;
          }
 
 

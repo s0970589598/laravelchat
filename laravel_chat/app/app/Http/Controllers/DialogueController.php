@@ -146,6 +146,7 @@ class DialogueController extends Controller
                 Room::find($id)
                 ->update([
                     'status' => Room::IN_CUSTOMER_SERVICEING,
+                    'wait_end' => Carbon::now('Asia/Taipei')->timestamp
                 ]);
             }
         }

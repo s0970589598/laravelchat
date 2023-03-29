@@ -134,11 +134,11 @@ class RoomController extends Controller
        DB::beginTransaction();
        try {
 
-           $user = User::where('email',$params['session_id'] . '@motc.go')->get();
+           $user = User::where('email',$params['session_id'] . '@motc')->get();
             if ( count($user) == 0 ) {
                 $user = User::create([
                 'name'     =>  $params['session_id'],
-                'email'    =>  $params['session_id'] . '@motc.go',
+                'email'    =>  $params['session_id'] . '@motc',
                 'password' =>  Hash::make('test123'),
                 'authcode' =>  $params['session_id'],
                 ]);
