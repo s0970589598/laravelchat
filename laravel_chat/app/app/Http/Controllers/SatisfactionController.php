@@ -298,6 +298,11 @@ class SatisfactionController extends Controller
         ->groupBy('service')
         ->get();
 
+        $offlineHistoryDates = MotcOfflineHistory::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+        ->count();
+
+
          foreach($wait as $wa){
             $wait_arr[$wa['service']]['count_ing'] = $wa['count_ing'];
          }
@@ -323,7 +328,7 @@ class SatisfactionController extends Controller
 
 
             $satisfaction_list[$cu['service']]['replyrate'] = isset($satisfaction_reply_arr[$cu['service']]['diffsec']) ? round(($satisfaction_reply_arr[$cu['service']]['diffsec']/ $cu['count_ing'])*100,2) : 0 ;
-            $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round(((8-$motc_off_arr[$cu['service']]['count_ing'])/ 8)*100,2) : 100 ;
+            $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round(((8-$motc_off_arr[$cu['service']]['count_ing'])/ (8 * $offlineHistoryDates) )*100,2) : 100 ;
          }
 
 
