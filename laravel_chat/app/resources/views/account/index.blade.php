@@ -83,19 +83,21 @@
         }
 
         .bg-red-500 {
-            background: red;
+            background: #D0522C;
             display: block;
             text-align: center;
-            padding: 4px;
+            padding: 6px 4px;
             color: white;
+            font-size: 12px;
         }
 
         .bg-green-500 {
-            background: green;
+            background: #21ab68;
             display: block;
             text-align: center;
-            padding: 4px;
+            padding: 6px 4px;
             color: white;
+            font-size: 12px;
         }
     </style>
     </head>
@@ -328,7 +330,7 @@
                                 <td data-service="{{ $user->service }}" class="custom-service">
                                     @if(!empty($user->service))
                                         @foreach(json_decode($user->service) as $s)
-                                           <span class="tag">{{$s}}</span>
+                                        <span class="tag" style="display: inline-block;margin-top: 6px;">{{$s}}</span>
                                         @endforeach
                                     @endif
                                 </td>
