@@ -275,7 +275,7 @@
                                         </div>
                                         <div class="tools">
                                             <button class="btn btn-default tooltips" data-container="body"
-                                                data-placement="top" data-original-title="未成單率=（未處理客服數 / 呼叫人工客服數）x 100">
+                                                data-placement="top" data-original-title="平均回覆時間= 回覆時間累計 / room數量">
                                                 <img src="assets/images/info.png" alt="images" height="15" width="15">
                                             </button>
                                         </div>
