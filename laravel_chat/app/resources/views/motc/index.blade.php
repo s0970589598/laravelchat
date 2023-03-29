@@ -365,20 +365,21 @@
                                         <a href="/motc/upstatus/{{$motc->sn}}" class="btn delet-btn btn-sm"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
+                                <td style="display:none" data-monopen="{{ $motc->mon_open_hour }}" class="custom-monopen">{{  $motc->mon_open_hour }}</td>
+                                <td style="display:none" data-monclose="{{ $motc->mon_close_hour }}" class="custom-monclose">{{  $motc->mon_close_hour }}</td>
+                                <td style="display:none" data-tueopen="{{ $motc->tue_open_hour }}" class="custom-tueopen">{{  $motc->tue_open_hour }}</td>
+                                <td style="display:none" data-tueclose="{{ $motc->tue_close_hour }}" class="custom-tueclose">{{  $motc->tue_close_hour }}</td>
+                                <td style="display:none" data-wedopen="{{ $motc->wed_open_hour }}" class="custom-wedopen">{{  $motc->wed_open_hour }}</td>
+                                <td style="display:none" data-wedclose="{{ $motc->wed_close_hour }}" class="custom-wedclose">{{  $motc->wed_close_hour }}</td>
+                                <td style="display:none" data-thuopen="{{ $motc->thu_open_hour }}" class="custom-thuopen">{{  $motc->thu_open_hour }}</td>
+                                <td style="display:none" data-thuclose="{{ $motc->thu_close_hour }}" class="custom-thuclose">{{  $motc->thu_close_hour }}</td>
+                                <td style="display:none" data-friopen="{{ $motc->fri_open_hour }}" class="custom-friopen">{{  $motc->fri_open_hour }}</td>
+                                <td style="display:none" data-friclose="{{ $motc->fri_close_hour }}" class="custom-friclose">{{  $motc->fri_close_hour }}</td>
+                                <td style="display:none" data-satopen="{{ $motc->sat_open_hour }}" class="custom-satopen">{{  $motc->sat_open_hour }}</td>
+                                <td style="display:none" data-satclose="{{ $motc->sat_close_hour }}" class="custom-satclose">{{  $motc->sat_close_hour }}</td>
                                 <td style="display:none" data-sunopen="{{ $motc->sun_open_hour }}" class="custom-sunopen">{{  $motc->sun_open_hour }}</td>
-                                <input type="hidden" data-sunclose="{{ $motc->sun_close_hour }}" class="custom-sunclose">
-                                <input type="hidden" data-monopen="{{ $motc->mon_open_hour }}" class="custom-monopen">
-                                <input type="hidden" data-monclose="{{ $motc->mon_close_hour }}" class="custom-monclose">
-                                <input type="hidden" data-tueopen="{{ $motc->tue_open_hour }}" class="custom-tueopen">
-                                <input type="hidden" data-tueclose="{{ $motc->tue_close_hour }}" class="custom-tueclose">
-                                <input type="hidden" data-wedopen="{{ $motc->wed_open_hour }}" class="custom-wedopen">
-                                <input type="hidden" data-wedclose="{{ $motc->wed_close_hour }}" class="custom-wedclose">
-                                <input type="hidden" data-thuopen="{{ $motc->thu_open_hour }}" class="custom-thuopen">
-                                <input type="hidden" data-thuclose="{{ $motc->thu_close_hour }}" class="custom-thuclose">
-                                <input type="hidden" data-friopen="{{ $motc->fri_open_hour }}" class="custom-friopen">
-                                <input type="hidden" data-friclose="{{ $motc->fri_close_hour }}" class="custom-friclose">
-                                <input type="hidden" data-satopen="{{ $motc->sat_open_hour }}" class="custom-satopen">
-                                <input type="hidden" data-satclose="{{ $motc->sat_close_hour }}" class="custom-satclose">
+                                <td style="display:none"data-sunclose="{{ $motc->sun_close_hour }}" class="custom-sunclose">{{  $motc->sun_close_hour }}</td>
+
                             </tr>
                         @endforeach
 
@@ -505,22 +506,21 @@
                         <label class="control-label col-md-2">週一</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" id="sunopen" class="form-control" placeholder="開始時間">
+                                <input type="time" id="monopen" class="form-control"  name="mon_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" id="sunclose" class="form-control" placeholder="結束時間">
+                                <input type="time" id="monclose" class="form-control" name="mon_close_hour" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
-
                     <div class="tuesday" style="margin-top: 10px;">
                         <label class="control-label col-md-2">週二</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" id="" class="form-control" placeholder="開始時間">
+                                <input type="time" id="tueopen" class="form-control" name="tue_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="tueclose" class="form-control" name="tue_close_hour" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
@@ -528,10 +528,10 @@
                         <label class="control-label col-md-2">週三</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time"  id="wedopen" class="form-control" name="wed_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="wedclose" class="form-control" name="wed_close_hour" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
@@ -539,10 +539,10 @@
                         <label class="control-label col-md-2">週四</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time" id="thuopen" class="form-control" name="thu_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="thuclose" class="form-control" name="thu_close_hour" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
@@ -550,10 +550,10 @@
                         <label class="control-label col-md-2">週五</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time" id="friopen"  class="form-control" name="fri_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="friclose"  class="form-control" name="fri_close_hour"  placeholder="結束時間">
                             </div>
                         </div>
                     </div>
@@ -561,10 +561,10 @@
                         <label class="control-label col-md-2">週六</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time" id="satopen" class="form-control" name="sat_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="satclose" class="form-control" name="sat_close_hour" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
@@ -572,10 +572,10 @@
                         <label class="control-label col-md-2">週日</label>
                         <div class="input-group col-md-10">
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="開始時間">
+                                <input type="time" id="sunopen"  class="form-control" name="sun_open_hour" placeholder="開始時間">
                             </div>
                             <div class="col-md-6">
-                                <input type="time" class="form-control" placeholder="結束時間">
+                                <input type="time" id="sunclose" class="form-control" name="sun_close_hour" placeholder="結束時間">
                             </div>
                         </div>
                     </div>
@@ -713,27 +713,24 @@
                 let phone = btn.closest('td').siblings('.custom-phone').data('phone');
                 let address = btn.closest('td').siblings('.custom-address').data('address');
                 let sunopen = btn.closest('td').siblings('.custom-sunopen').data('sunopen');
-                let sunclose = btn.closest('input').siblings('.custom-sunclose').data('sunclose');
-                let monopen = btn.closest('input').siblings('.custom-monopen').data('sunopen');
-                let monclose = btn.closest('input').siblings('.custom-monclose').data('monclose');
-                let tueopen = btn.closest('input').siblings('.custom-tueopen').data('tueopen');
-                let tueclose = btn.closest('input').siblings('.custom-tueclose').data('tueclose');
-                let wedopen = btn.closest('input').siblings('.custom-wedopen').data('wedopen');
-                let wedclose = btn.closest('input').siblings('.custom-wedclose').data('wedclose');
-                let thuopen = btn.closest('input').siblings('.custom-thuopen').data('thuopen');
-                let thuclose = btn.closest('input').siblings('.custom-thuclose').data('thuclose');
-                let friopen = btn.closest('input').siblings('.custom-friopen').data('friopen');
-                let friclose = btn.closest('input').siblings('.custom-friclose').data('friclose');
-                let satopen = btn.closest('input').siblings('.custom-satopen').data('satopen');
-                let satclose = btn.closest('input').siblings('.custom-satclose').data('satclose');
+                let sunclose = btn.closest('td').siblings('.custom-sunclose').data('sunclose');
+                let monopen = btn.closest('td').siblings('.custom-monopen').data('monopen');
+                let monclose = btn.closest('td').siblings('.custom-monclose').data('monclose');
+                let tueopen = btn.closest('td').siblings('.custom-tueopen').data('tueopen');
+                let tueclose = btn.closest('td').siblings('.custom-tueclose').data('tueclose');
+                let wedopen = btn.closest('td').siblings('.custom-wedopen').data('wedopen');
+                let wedclose = btn.closest('td').siblings('.custom-wedclose').data('wedclose');
+                let thuopen = btn.closest('td').siblings('.custom-thuopen').data('thuopen');
+                let thuclose = btn.closest('td').siblings('.custom-thuclose').data('thuclose');
+                let friopen = btn.closest('td').siblings('.custom-friopen').data('friopen');
+                let friclose = btn.closest('td').siblings('.custom-friclose').data('friclose');
+                let satopen = btn.closest('td').siblings('.custom-satopen').data('satopen');
+                let satclose = btn.closest('td').siblings('.custom-satclose').data('satclose');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
-                alert(sunopen);
                 modal.find('.modal-body input#service').val(service);//把抓到的資料顯示在input內
                 modal.find('.modal-body input#phone').val(phone);
                 modal.find('.modal-body input#address').val(address);
                 modal.find('.modal-body input#id').val(id);
-                modal.find('.modal-body input#sunopen').val(sunopen);
-                modal.find('.modal-body input#sunclose').val(sunclose);
                 modal.find('.modal-body input#monopen').val(monopen);
                 modal.find('.modal-body input#monclose').val(monclose);
                 modal.find('.modal-body input#tueopen').val(tueopen);
@@ -746,6 +743,8 @@
                 modal.find('.modal-body input#friclose').val(friclose);
                 modal.find('.modal-body input#satopen').val(satopen);
                 modal.find('.modal-body input#satclose').val(satclose);
+                modal.find('.modal-body input#sunopen').val(sunopen);
+                modal.find('.modal-body input#sunclose').val(sunclose);
 
             })
         })

@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\MotcStation;
+use App\Models\MotcOpen;
 
 use App\Models\CustomerServiceRelationRole;
 use App\Repositories\MotcStationRepository;
@@ -166,7 +167,27 @@ class MotcController extends Controller
                 'station_name'        => $request['station_name'],
                 'contact_phone'       => $request['contact_phone'],
                 'contact_address'     => $request['contact_address'],
-            ]);
+        ]);
+
+        MotcOpen::where('service',$request['sn'])
+        ->update([
+            'sun_open_hour' => $request['sun_open_hour'],
+            'sun_close_hour' => $request['sun_close_hour'],
+            'mon_open_hour' => $request['mon_open_hour'],
+            'mon_close_hour' => $request['mon_close_hour'],
+            'tue_open_hour' => $request['tue_open_hour'],
+            'tue_close_hour' => $request['tue_close_hour'],
+            'wed_open_hour' => $request['wed_open_hour'],
+            'wed_close_hour' => $request['wed_close_hour'],
+            'thu_open_hour' => $request['thu_open_hour'],
+            'thu_close_hour' => $request['thu_close_hour'],
+            'fri_open_hour' => $request['fri_open_hour'],
+            'fri_close_hour' => $request['fri_close_hour'],
+            'sat_open_hour' => $request['sat_open_hour'],
+            'sat_close_hour' => $request['sat_close_hour'],
+        ]);
+
+
         return redirect()->route('motc.index');
     }
 
