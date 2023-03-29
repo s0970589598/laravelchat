@@ -328,7 +328,7 @@ class SatisfactionController extends Controller
 
 
             $satisfaction_list[$cu['service']]['replyrate'] = isset($satisfaction_reply_arr[$cu['service']]['diffsec']) ? round(($satisfaction_reply_arr[$cu['service']]['diffsec']/ $cu['count_ing'])*100,2) : 0 ;
-            $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round(((8-$motc_off_arr[$cu['service']]['count_ing'])/ (8 * $offlineHistoryDates) )*100,2) : 100 ;
+            $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round((((8 * $offlineHistoryDates)-$motc_off_arr[$cu['service']]['count_ing'])/ (8 * $offlineHistoryDates) )*100,2) : 100 ;
          }
 
 
