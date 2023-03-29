@@ -171,20 +171,20 @@ class MotcController extends Controller
 
         MotcOpen::where('service',$request['sn'])
         ->update([
-            'sun_open_hour' => $request['sun_open_hour'],
-            'sun_close_hour' => $request['sun_close_hour'],
-            'mon_open_hour' => $request['mon_open_hour'],
-            'mon_close_hour' => $request['mon_close_hour'],
-            'tue_open_hour' => $request['tue_open_hour'],
-            'tue_close_hour' => $request['tue_close_hour'],
-            'wed_open_hour' => $request['wed_open_hour'],
-            'wed_close_hour' => $request['wed_close_hour'],
-            'thu_open_hour' => $request['thu_open_hour'],
-            'thu_close_hour' => $request['thu_close_hour'],
-            'fri_open_hour' => $request['fri_open_hour'],
-            'fri_close_hour' => $request['fri_close_hour'],
-            'sat_open_hour' => $request['sat_open_hour'],
-            'sat_close_hour' => $request['sat_close_hour'],
+            'sun_open_hour'  => isset($request['sun_open_hour']) ? $request['sun_open_hour'] :'09:00' ,
+            'sun_close_hour' => isset($request['sun_close_hour']) ? $request['sun_close_hour'] :'18:00' ,
+            'mon_open_hour'  => isset($request['mon_open_hour']) ? $request['mon_open_hour'] :'09:00' ,
+            'mon_close_hour' => isset($request['mon_close_hour']) ? $request['mon_close_hour'] :'18:00' ,
+            'tue_open_hour'  => isset($request['tue_open_hour']) ? $request['tue_open_hour'] :'09:00' ,
+            'tue_close_hour' => isset($request['tue_close_hour']) ? $request['tue_close_hour'] :'18:00' ,
+            'wed_open_hour'  => isset($request['wed_open_hour']) ? $request['wed_open_hour'] :'09:00' ,
+            'wed_close_hour' => isset($request['wed_close_hour']) ? $request['wed_close_hour'] :'18:00' ,
+            'thu_open_hour'  => isset($request['thu_open_hour']) ? $request['thu_open_hour'] :'09:00' ,
+            'thu_close_hour' => isset($request['thu_close_hour']) ? $request['thu_close_hour'] :'18:00' ,
+            'fri_open_hour'  => isset($request['fri_open_hour']) ? $request['fri_open_hour'] :'09:00' ,
+            'fri_close_hour' => isset($request['fri_close_hour']) ? $request['fri_close_hour'] :'18:00' ,
+            'sat_open_hour'  => isset($request['sat_open_hour']) ? $request['sat_open_hour'] :'09:00' ,
+            'sat_close_hour' => isset($request['sat_close_hour']) ? $request['sat_close_hour'] :'18:00' ,
         ]);
 
 
