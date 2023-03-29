@@ -194,7 +194,6 @@ class SatisfactionController extends Controller
                 $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
                 $keys++;
            }
-
         }
 
          // 回覆時間
@@ -315,8 +314,12 @@ class SatisfactionController extends Controller
          foreach($customered as $cu) {
             $satisfaction_list[$cu['service']]['service'] = $cu['station_name'];
             $satisfaction_list[$cu['service']]['callcustomer'] = $cu['count_ing'];
+
             $satisfaction_list[$cu['service']]['complete'] = isset($com_arr[$cu['service']]['count_ing']) ? $com_arr[$cu['service']]['count_ing'] : 0;
-            $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round(($wait_arr[$cu['service']]['count_ing']/$cu['count_ing'])*100 , 2) : 0 ;
+            // $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round(($wait_arr[$cu['service']]['count_ing']/$cu['count_ing'])*100 , 2) : 0 ;
+            $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round((($cu['count_ing'] - $satisfaction_list[$cu['service']]['complete'])/$cu['count_ing'])*100 , 2) : 0 ;
+
+
             $satisfaction_list[$cu['service']]['replyrate'] = isset($satisfaction_reply_arr[$cu['service']]['diffsec']) ? round(($satisfaction_reply_arr[$cu['service']]['diffsec']/ $cu['count_ing'])*100,2) : 0 ;
             $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round(((8-$motc_off_arr[$cu['service']]['count_ing'])/ 8)*100,2) : 100 ;
          }
