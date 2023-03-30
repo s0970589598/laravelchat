@@ -363,7 +363,7 @@ class SatisfactionController extends Controller
         //$email_sample = EmailSample::get();
         $limit = 10;
         $satisfaction_params = [];
-
+        $survey= [];
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
