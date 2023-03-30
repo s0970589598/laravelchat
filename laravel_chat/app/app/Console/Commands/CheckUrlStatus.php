@@ -22,7 +22,7 @@ class CheckUrlStatus extends Command
 
     public function handle(UserRepository $user_repository)
     {
-        Log::info('check-url-status');
+        // Log::info('check-url-status');
 
         $faq = FAQ::orderBy('id', 'desc')
         ->where('status','0')
@@ -41,8 +41,8 @@ class CheckUrlStatus extends Command
                 // 如果有找到網址，就取出來
                 $url = $matches[0];
                 // echo '找到網址：' . $url;
-                Log::info('faq');
-                Log::info($url);
+                // Log::info('faq');
+                // Log::info($url);
                 $is_success = $this->curlUrl($url);
                 if (! $is_success ) {
                     FAQ::find($f['id'])
@@ -64,8 +64,8 @@ class CheckUrlStatus extends Command
                 // 如果有找到網址，就取出來
                 $url = $matches[0];
                 // echo '找到網址：' . $url;
-                Log::info('msgsample');
-                Log::info($url);
+                // Log::info('msgsample');
+                // Log::info($url);
                 $is_success = $this->curlUrl($url);
                 if (! $is_success ) {
                     FrequentlyMsg::find($m['id'])
