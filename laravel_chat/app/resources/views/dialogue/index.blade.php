@@ -404,7 +404,7 @@
                                             <img src="/assets/images/file.png" id="showImg" width="80" height="80">
                                         </div>
                                         <label class="upload-btn">
-                                            <input id="upload_img" style="display:none;" type="file">
+                                            <input id="upload_img" style="display:none;" type="file" accept=".jpg,.jpeg,.gif,.png,.pdf,.mov,.mp4">
                                             <i class="icon-paper-clip" id="uploadfile"></i>
                                         </label>
                                         <label class="upload-btn">
@@ -1076,6 +1076,16 @@
             const file = this.files[0];
             const reader = new FileReader();
 
+            if(file.size > 2097152){
+                alert("您上傳的檔案過大，僅可上傳2mb內的檔案。");
+                return;
+            };
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'image/tiff', 'video/quicktime', 'video/mp4'];
+
+            if (!allowedTypes.includes(file.type)) {
+                alert('此檔案類型不支援，僅可上傳2mb內的PDF、JPG、PNG、GIF、JPEG、TIF、MOV、MP4檔案');
+                return;
+            }
 
             reader.addEventListener('load', function() {
                 const img = document.createElement('img');
