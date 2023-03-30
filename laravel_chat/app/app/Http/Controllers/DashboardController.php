@@ -94,7 +94,7 @@ class DashboardController extends Controller
         foreach ($motc_station as $motc) {
             $sn[] = $motc['sn'];
         }
-        $room_params['status'] = 2;
+        $room_params['status'] = [2,7];
         $rooms_wait_count = $this->rooms_repository->getAllMsgListByServiceRoleCount($sn,$auth['role'],$limit, $room_params);
 
         If ( $auth['role'] !='admin99') {
@@ -111,7 +111,6 @@ class DashboardController extends Controller
             ->get();
         }
 
-        Log::info($msg_date_count);
         return view('dashboard.index', [
             'rooms' => $rooms,
             'errUrlCount' => $err_url_count,
