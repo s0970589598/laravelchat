@@ -80,12 +80,12 @@ class CustomNewUserResetPasswordNotification extends Notification
      */
     protected function buildMailMessage($url)
     {
-        // Log::info('新增帳號');
+        Log::info('新增帳號');
         $email_sample = EmailSample::where('type','新增帳號')
         ->orderBy('id', 'desc')
         ->first();
-        // Log::info($email_sample['subject']);
-        // Log::info($email_sample['content']);
+        Log::info($email_sample['subject']);
+        Log::info($email_sample['content']);
 
         try {
             return (new MailMessage)
@@ -97,6 +97,7 @@ class CustomNewUserResetPasswordNotification extends Notification
         } catch (Throwable $e) {
             Log::info($e);
         }
+
 
     }
 

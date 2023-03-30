@@ -151,8 +151,8 @@ class DialogueController extends Controller
             }
         }
 
-        $media = Media::orderBy('id', 'desc')
-        ->where('status','0')
+        $media = Media::where('status','0')
+        ->orderBy('id', 'desc')
         ->paginate($limit);
 
         $msg_sample = FrequentlyMsg::orderBy('id', 'desc')

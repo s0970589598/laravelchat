@@ -137,7 +137,7 @@ class AccountController extends Controller
                 'service' => $request->service,
                 'role' => $request->role,
             );
-            Cache::add($request->email, 'true');
+            Cache::put($request->email, 'true');
             Cookie::queue('em',$request->email,36000);
             Log::info('2'. Cache::get($request->email));
             $status = Password::sendResetLink(

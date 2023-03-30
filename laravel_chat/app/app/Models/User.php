@@ -91,6 +91,10 @@ class User extends Authenticatable
                 $this->notify( new \App\Notifications\CustomResetPasswordNotification($token));
                 Cache::forget($mail);
         }
+        Cache::put($mail, 'false');
+        Log::info('change mail is false');
+        Log::info(Cache::get($mail));
+
     }
 
 }
