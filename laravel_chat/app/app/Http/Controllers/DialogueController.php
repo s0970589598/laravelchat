@@ -130,7 +130,7 @@ class DialogueController extends Controller
 
     public function show(int $id)
     {
-        $limit = 9;
+        $limit = 10;
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
 
         $room  = Room::with(['users', 'messages.user' => function ($query) {

@@ -28,7 +28,7 @@ class MediaController extends Controller
     public function index(Request $request)
     {
         $rooms = 0;
-        $limit = 2;
+        $limit = 10;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
