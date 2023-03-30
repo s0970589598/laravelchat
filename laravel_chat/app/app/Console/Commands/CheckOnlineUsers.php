@@ -105,7 +105,7 @@ class CheckOnlineUsers extends Command
                 // Log::info($station_name);
                 // exit;
                 $params = array(
-                    'role'      => 'customer',
+                    // 'role'      => 'customer',
                     'start_time'=> $subone_one_hour,
                     'end_time'  => $right_now ,
                     'service'   => $station_name,

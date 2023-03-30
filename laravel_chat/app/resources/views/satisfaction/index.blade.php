@@ -490,7 +490,6 @@
                             wheelY: "zoomX",
                             pinchZoomX:true
                         }));
-
                         // Add cursor
                         // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
                         var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
@@ -513,12 +512,6 @@
                                 }
                             });
                             return data;
-                            // console.log(data);
-                            am5.time.add(date, "day", 1);
-                            return {
-                                date: date.getTime(),
-                                value: value
-                            };
                         }
 
                         function generateDatas(jsondata) {
@@ -551,8 +544,18 @@
                         }));
 
                         var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                            renderer: am5xy.AxisRendererY.new(root, {})
+                        renderer: am5xy.AxisRendererY.new(root, {}),
+                            labelFunction: function(value, valueText, axis) {
+                                return valueText + " 秒";
+                            }
                         }));
+
+                        var yAxisRenderer = yAxis.get("renderer");
+                        yAxisRenderer.labels.template.setAll({
+                        fontSize: 14, // 设置标签的字体大小
+                        fill: am5.color("#333"), // 设置标签的字体颜色
+                        fontWeight: "bold" // 设置标签的字体粗细
+                        });
 
 
                         // Add series
