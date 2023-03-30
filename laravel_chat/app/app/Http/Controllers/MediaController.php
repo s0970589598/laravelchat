@@ -32,8 +32,8 @@ class MediaController extends Controller
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
-        $media = Media::orderBy('id', 'desc')
-        ->where('status','0')
+        $media = Media::where('status','0')
+        ->orderBy('id', 'desc')
         ->paginate($limit);
 
         $auth_id    = Auth::user()->id;
