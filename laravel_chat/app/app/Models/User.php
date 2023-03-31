@@ -80,14 +80,17 @@ class User extends Authenticatable
         Log::info('test');
         Log::info($token);
         $mail = Cookie::get('em');
-        Log::info('1'. cookie::get('isAdd'));
+        Log::info('-1-'. cookie::get('isAdd'));
 
         $data = Cache::get($mail);
-
-        if($data) {
+        Log::info($mail);
+        Log::info($data);
+        if($data == 'true') {
+            Log::info('new user');
                 $this->notify( new \App\Notifications\CustomNewUserResetPasswordNotification($token));
                 Cache::forget($mail);
         } else {
+            Log::info('forget user');
                 $this->notify( new \App\Notifications\CustomResetPasswordNotification($token));
                 Cache::forget($mail);
         }

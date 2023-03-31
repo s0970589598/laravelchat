@@ -138,12 +138,14 @@ class AccountController extends Controller
                 'role' => $request->role,
             );
             Cache::put($request->email, 'true');
+            Log::info('add user mail');
+            Log::info($request->email);
             Cookie::queue('em',$request->email,36000);
-            Log::info('2'. Cache::get($request->email));
+            Log::info('-2-'. Cache::get($request->email));
             $status = Password::sendResetLink(
                 $request->only('email')
             );
-            Log::info('3'. Cache::get($request->email));
+            Log::info('-3-'. Cache::get($request->email));
 
 
             DB::commit();
