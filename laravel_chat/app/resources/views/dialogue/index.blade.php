@@ -122,12 +122,12 @@
                         @if (!empty($currRoom))
                             @foreach($currRoom->messages as $message)
                                 <?php
-                                    $user_name     = $message->user->name;
-                                    $contact_email = $message->user->contact_email;
-                                    $line          = $message->user->line;
-                                    $phone         = $message->user->phone;
-                                    $user_authcode = $message->user->authcode;
-                                    $note          = $message->user->note;
+                                    // $user_name     = $message->user->name;
+                                    // $contact_email = $message->user->contact_email;
+                                    // $line          = $message->user->line;
+                                    // $phone         = $message->user->phone;
+                                    // $user_authcode = $message->user->authcode;
+                                    // $note          = $message->user->note;
                                 ?>
                                 @if ($message->sender_id === Auth::user()->id)
                                     @if ($message->type === 'msgtem')
@@ -431,12 +431,12 @@
             </div>
             <div class="col-md-3" style="padding: 0;border: 1px solid #F5F5F5;">
                 <?php
-                    $user_name  = $rooms_users[0]['name'];
-                    $contact_email = $rooms_users[0]['contact_email'];
-                    $phone = $rooms_users[0]['contact_email'];
-                    $line = $rooms_users[0]['contact_email'];
-                    $note = $rooms_users[0]['note'];
-                    $user_authcode = $rooms_users[0]['authcode'];
+                    $user_name  = $rooms_users[0]->name;
+                    $contact_email = $rooms_users[0]->contact_email;
+                    $phone = $rooms_users[0]->phone;
+                    $line = $rooms_users[0]->line;
+                    $note = $rooms_users[0]->note;
+                    $user_authcode = $rooms_users[0]->authcode;
                 ?>
                 <div class="feature-section">
                     <div class="portlet">
