@@ -968,6 +968,8 @@
             var note = document.getElementById("note").value;
             var authcode = document.getElementById("authcode").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+            const xhttp = new XMLHttpRequest();
+
             xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
             xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
             xhttp.send(JSON.stringify({
