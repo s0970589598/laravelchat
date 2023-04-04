@@ -968,6 +968,12 @@
             var note = document.getElementById("note").value;
             var authcode = document.getElementById("authcode").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+            xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            xhttp.send(JSON.stringify({
+                message: 'completed'
+            }));
+
             $.ajax({
                 url: "/api/contact/" + authcode + "/update",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -1034,34 +1040,37 @@
                     // }
                 }
             });
-            $.ajax({
-                url: "https://qa.taiwan.net.tw/api/survey/send/" +currentRoomId,
-                dataType: 'json',
-                contentType: 'application/json;charset=UTF-8',
-                method: 'GET',
-                processData: false, // important
-                contentType: false, // important
-                cache: false,
-                success: function(data)
-                {
-                    // redirect
-                    //window.location.replace(data.redirect);
-                },
-                error: function(data)
-                {
-                    // intergrate Swal to display error
-                    // Swal.close();
-                    // if (data.status == 419) {
-                    //     window.location.reload();
-                    // } else {
-                    //     Swal.fire({
-                    //         icon: 'info',
-                    //         title: 'Error',
-                    //         html: data.responseJSON.message,
-                    //     });
-                    // }
-                }
-            });
+
+
+
+            // $.ajax({
+            //     url: "https://qa.taiwan.net.tw/api/survey/send/" +currentRoomId,
+            //     dataType: 'json',
+            //     contentType: 'application/json;charset=UTF-8',
+            //     method: 'GET',
+            //     processData: false, // important
+            //     contentType: false, // important
+            //     cache: false,
+            //     success: function(data)
+            //     {
+            //         // redirect
+            //         //window.location.replace(data.redirect);
+            //     },
+            //     error: function(data)
+            //     {
+            //         // intergrate Swal to display error
+            //         // Swal.close();
+            //         // if (data.status == 419) {
+            //         //     window.location.reload();
+            //         // } else {
+            //         //     Swal.fire({
+            //         //         icon: 'info',
+            //         //         title: 'Error',
+            //         //         html: data.responseJSON.message,
+            //         //     });
+            //         // }
+            //     }
+            // });
 
         }
 
