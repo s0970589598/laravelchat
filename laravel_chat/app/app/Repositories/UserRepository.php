@@ -137,5 +137,19 @@ class UserRepository
 
     }
 
+    public function rooms_users($room_id){
+
+        $results = DB::table('users_rooms')
+        ->select('authcode', 'phone', 'line', 'contact_email', 'note')
+        ->leftJoin('users', 'users_rooms.user_id', '=', 'users.id')
+        ->leftJoin('customer_service_relation_role', 'customer_service_relation_role.user_id', '=', 'users.id')
+        ->where('customer_service_relation_role.role', '=', 'user')
+        ->where('users_rooms.room_id', '=', $room_id)
+        ->orderByDesc('users_rooms.room_id')
+        ->get();
+
+        return $results;
+    }
+
 
 }

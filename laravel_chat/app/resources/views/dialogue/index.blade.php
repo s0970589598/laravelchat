@@ -430,6 +430,14 @@
                 </div>
             </div>
             <div class="col-md-3" style="padding: 0;border: 1px solid #F5F5F5;">
+                <?php
+                    $user_name  = $rooms_users[0]['name'];
+                    $contact_email = $rooms_users[0]['contact_email'];
+                    $phone = $rooms_users[0]['contact_email'];
+                    $line = $rooms_users[0]['contact_email'];
+                    $note = $rooms_users[0]['note'];
+                    $user_authcode = $rooms_users[0]['authcode'];
+                ?>
                 <div class="feature-section">
                     <div class="portlet">
                         <div class="portlet-title">

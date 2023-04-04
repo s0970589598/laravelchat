@@ -175,6 +175,8 @@ class DialogueController extends Controller
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
         $motc_station_transfer = $this->motc_station_repository->motcStationList($motc_params=[]);
 
+        $rooms_users = $this->user_repository->rooms_users($id);
+
         return view('dialogue.index', [
             'rooms' => $rooms,
             'currRoom' => $room,
@@ -183,7 +185,8 @@ class DialogueController extends Controller
             'isJoin' => $room->users->contains('id', Auth::user()->id),
             'now' => Carbon::now('GMT+8')->toDateString(),
             'media' => $media,
-            'msg_sample' => $msg_sample
+            'msg_sample' => $msg_sample,
+            'rooms_users' => $rooms_users
         ]);
     }
 
