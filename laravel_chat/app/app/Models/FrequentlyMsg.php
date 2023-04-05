@@ -24,7 +24,8 @@ class FrequentlyMsg extends Authenticatable
         'status',
         'reply',
         'url',
-        'is_err'
+        'is_err',
+        'service'
     ];
     /**
      * The attributes that should be hidden for serialization.

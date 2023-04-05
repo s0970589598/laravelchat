@@ -21,6 +21,7 @@ class CreateFrequentlyMsgTable extends Migration
             $table->text('reply');
             $table->string('url')->nullable();
             $table->integer('is_err')->default(0);
+            $table->string('service')->nullable();
             $table->timestamps();
         });
     }

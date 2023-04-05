@@ -51,7 +51,8 @@ class FaqController extends Controller
         }
 
         $faq = FAQ::orderBy('id', 'desc')
-        ->where('status','0')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'faq.service')
+        ->where('faq.status','0')
         ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
             $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
         })
@@ -95,8 +96,9 @@ class FaqController extends Controller
         $faq = FAQ::find($request['id'])
             ->update([
                 'question'     => $request['question'],
+                'service'     => $request['service'],
                 'answer'       => $request['answer'],
-                'url'          => $request['url'],
+                //'url'          => $request['url'],
         ]);
         return redirect()->route('faq.index');
 
@@ -116,6 +118,7 @@ class FaqController extends Controller
     {
         $params = $request->validate([
             'question'   => ['required'],
+            'service'   => ['required'],
             'answer'   => ['required'],
             //'url'   => ['required'],
         ]);
@@ -125,6 +128,7 @@ class FaqController extends Controller
                 'question'     => $params['question'],
                 'answer'       => $params['answer'],
                 //'url'          => $params['url'],
+                'service'          => $params['service'],
                 'status'       => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);

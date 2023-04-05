@@ -22,6 +22,7 @@ class Media extends Authenticatable
         'title',
         'file',
         'status',
+        'service'
     ];
 
     /**
