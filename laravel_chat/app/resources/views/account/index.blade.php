@@ -314,6 +314,7 @@
                         <thead>
                             <tr>
                                 <th>帳號</th>
+                                <th>姓名</th>
                                 <th>權限</th>
                                 <th>所屬旅服中心</th>
                                 <th>最後上線時間</th>
@@ -326,6 +327,7 @@
                         @foreach ($users as $user)
                             <tr>
                                 <td data-email="{{ $user->email }}" class="custom-email">{{  $user->email }}</td>
+                                <td data-username="{{ $user->name }}" class="custom-username">{{ $user->name }}</td>
                                 <td data-role="{{ $user->role }}" class="custom-role">{{ Config::get('motcrole.'.$user->role) }}</td>
                                 <td data-service="{{ $user->service }}" class="custom-service">
                                     @if(!empty($user->service))
@@ -413,6 +415,10 @@
             {{ csrf_field() }}
             <div class="modal-body">
                 <div class="row">
+                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">姓名</label>
+                    <div class="col-md-9" style="margin-bottom: 20px;">
+                        <input type="text" class="form-control" placeholder="請輸入姓名" name="name" id="name">
+                    </div>
                     <label class="col-md-3 control-label" style="margin-bottom: 20px;">Email</label>
                     <div class="col-md-9" style="margin-bottom: 20px;">
                         <input type="email" class="form-control" placeholder="請輸入Email" name="email" id="email">
@@ -457,6 +463,10 @@
             {{ csrf_field() }}
         <div class="modal-body">
             <div class="row">
+                {{-- <label class="col-md-3 control-label" style="margin-bottom: 20px;">姓名</label>
+                <div class="col-md-9" style="margin-bottom: 20px;">
+                    <input type="text" class="form-control" placeholder="請輸入姓名" id="username" name="name">
+                </div> --}}
                 <label class="col-md-3 control-label" style="margin-bottom: 20px;">Email</label>
                 <div class="col-md-9" style="margin-bottom: 20px;">
                     <input type="email" class="form-control" placeholder="請輸入Email" id="email" name="email">
@@ -625,10 +635,12 @@
                 let email = btn.closest('td').siblings('.custom-email').data('email');
                 let role = btn.closest('td').siblings('.custom-role').data('role');
                 let service = btn.closest('td').siblings('.custom-service').data('service');
+                let username = btn.closest('td').siblings('.custom-username').data('username');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
 
                 modal.find('.modal-body input#email').val(email);//把抓到的資料顯示在input內
                 modal.find('#roleedit').val(role);
+                modal.find('#username').val(username);
                 var serviceStrAry = String(service).split(',');
                 $('#serviceedit').select2('val',serviceStrAry);
                 modal.find('.modal-body input#id').val(id);

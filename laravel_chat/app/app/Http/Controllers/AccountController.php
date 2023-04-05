@@ -113,6 +113,7 @@ class AccountController extends Controller
     {
         $params = $request->validate([
              'email' => ['required'],
+             'name' => ['required'],
              'service' => ['required'],
              'role' => ['required'],
          ]);
@@ -120,7 +121,7 @@ class AccountController extends Controller
         DB::beginTransaction();
         try {
             $user = User::create([
-                'name'  =>  $params['email'],
+                'name'  =>  $params['name'],
                 'email' =>  $params['email'],
                 'password' => Hash::make('test123'),
                 'authcode' => $this->generateRandomString(5),

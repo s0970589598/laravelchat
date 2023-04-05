@@ -271,7 +271,7 @@
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <span class="caption-subject bold uppercase">平均回覆時間</span>
+                                            <span class="caption-subject bold uppercase">平均回覆時間(秒)</span>
                                         </div>
                                         <div class="tools">
                                             <button class="btn btn-default tooltips" data-container="body"
@@ -289,7 +289,7 @@
                                 <div class="portlet light">
                                     <div class="portlet-title">
                                         <div class="caption">
-                                            <span class="caption-subject bold uppercase">未成單率</span>
+                                            <span class="caption-subject bold uppercase">未成單率(%)</span>
                                         </div>
                                         <div class="tools">
                                             <button class="btn btn-default tooltips" data-container="body"
@@ -353,7 +353,7 @@
                                                 <td>{{$list['complete']}}</td>
                                                 <td>{{$list['waitedrate']}}</td>
                                                 <td>{{gmdate("H:i:s", $list['replyrate'])}}</td>
-                                                <td>{{$list['onlinerate']}}</td>
+                                                <td>{{$list['onlinerate']}}%</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
