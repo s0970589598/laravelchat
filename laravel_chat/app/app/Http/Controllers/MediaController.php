@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\Media;
 use App\Repositories\UserRepository;
+use App\Repositories\MotcStationRepository;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
@@ -19,10 +20,14 @@ class MediaController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo,UserRepository $user_repository)
+    protected $motc_station_repository;
+
+    public function __construct(Centrifugo $centrifugo,UserRepository $user_repository ,MotcStationRepository $motc_station_repository   )
     {
         $this->centrifugo = $centrifugo;
         $this->user_repository         = $user_repository;
+        $this->motc_station_repository = $motc_station_repository;
+
     }
 
     public function index(Request $request)
@@ -32,8 +37,9 @@ class MediaController extends Controller
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }
-        $media = Media::where('status','0')
-        ->orderBy('id', 'desc')
+        $media = Media::where('media.status','0')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'media.service')
+        ->orderBy('media.id', 'desc')
         ->paginate($limit);
 
         $auth_id    = Auth::user()->id;
@@ -42,10 +48,21 @@ class MediaController extends Controller
         );
         $auth = $this->user_repository->getUserServiceRole($params_auth);
 
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
         return view('media.index', [
             'rooms' => $rooms,
             'media' => $media,
-            'auth_service_role' => $auth
+            'auth_service_role' => $auth,
+            'motc_station' => $motc_station
         ]);
     }
 
@@ -53,6 +70,7 @@ class MediaController extends Controller
     {
         $params = $request->validate([
             'type'   => ['required'],
+            'service'   => ['required'],
             'title'  => ['required'],
             'file'   => ['required'],
         ]);
@@ -70,6 +88,7 @@ class MediaController extends Controller
                 'type'        => $params['type'],
                 'title'       => $params['title'],
                 'file'        => $fileName,
+                'service'     => $params['service'],
                 'status'      => 0,
             ]);
             DB::commit();
@@ -86,6 +105,7 @@ class MediaController extends Controller
         $params = array(
             'type' =>$request['type'],
             'title' =>$request['title'],
+            'service' =>$request['service'],
         );
         if ($request->file) {
             $fileName = time() . '.'. $request->file->extension();

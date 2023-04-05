@@ -294,6 +294,7 @@
                                 <th>分類</th>
                                 <th>標題</th>
                                 <th>檔案</th>
+                                <th>旅遊服務中心</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
@@ -303,6 +304,8 @@
                                 <td data-type="{{ $m->type }}" class="custom-type">{{ $m->type }}</td>
                                 <td data-title="{{ $m->title }}" class="custom-title">{{ $m->title }}</td>
                                 <td data-file="{{ $m->file }}" class="custom-file"><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
+                                <td data-service="{{ $m->station_name }}" class="custom-service">{{ $m->station_name }}</td>
+                                <td style="display:none" data-sn="{{ $m->service }}" class="custom-sn">{{ $m->service }}</td>
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                     <button class="btn edit-btn btn-sm" data-id="{{ $m->id }}" data-title="{{ $m->id }}"data-toggle="modal" data-target="#edit-media"><i class="icon-pencil"></i>編輯</button>
@@ -398,6 +401,15 @@
                     <div class="clearfix margin-top-10">
                         <span class="label label-success">提醒</span>檔案支援格式jpg、jpeg、gif、png、pdf、mov、mp4，大小限制2MB。</div>
                 </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">旅服中心</label>
+                <div class="col-md-10" style="margin-bottom: 20px;">
+                <select name="service" class="form-control">
+                    <option value="">旅遊服務中心</option>
+                    @foreach($motc_station as $motc)
+                    <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                    @endforeach
+                </select>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -449,6 +461,15 @@
                     <div class="clearfix margin-top-10">
                         <span class="label label-success">提醒</span>檔案支援格式jpg、jpeg、gif、png、pdf、mov、mp4，大小限制2MB。</div>
                 </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">旅服中心</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select name="service" class="form-control"  id="serviceedit" >
+                        <option value="">旅遊服務中心</option>
+                        @foreach($motc_station as $motc)
+                        <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                        @endforeach
+                    </select>
+                    </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -586,7 +607,12 @@
                 let title = btn.closest('td').siblings('.custom-title').data('title');
                 let file = btn.closest('td').siblings('.custom-file').data('file');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
+                let service = btn.closest('td').siblings('.custom-service').data('service');
+                let sn = btn.closest('td').siblings('.custom-sn').data('sn');
+
                 $('.modalTextInput').val('');
+                $('#serviceedit').val(sn);
+
                 $('.saveEdit').data('id', id); // then pass it to the button inside the modal
                 modal.find('.modal-body input#type').val(type);//把抓到的資料顯示在input內
                 modal.find('.modal-body input#title').val(title);
