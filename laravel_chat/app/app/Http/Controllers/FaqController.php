@@ -50,13 +50,6 @@ class FaqController extends Controller
             $faqparams['sn'] = $request->manager_group_sn;
         }
 
-        $faq = FAQ::orderBy('id', 'desc')
-        ->leftJoin('motc_station', 'motc_station.sn', '=', 'faq.service')
-        ->where('faq.status','0')
-        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
-            $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
-        })
-        ->paginate($limit);
 
         $auth_id    = Auth::user()->id;
         $params_auth = array(
@@ -73,6 +66,19 @@ class FaqController extends Controller
         }
 
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+
+        $faq = FAQ::orderBy('id', 'desc')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'faq.service')
+        ->where('faq.status','0')
+        ->whereIn('sn', $sn)
+        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
+            $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
+        })
+        ->paginate($limit);
 
         return view('faq.index', [
             'rooms' => $rooms,

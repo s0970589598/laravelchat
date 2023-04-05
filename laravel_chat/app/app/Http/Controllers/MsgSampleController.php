@@ -46,17 +46,7 @@ class MsgSampleController extends Controller
             $msg_params['keyword'] = $request->keyword;
         }
 
-        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
-        ->leftJoin('motc_station', 'motc_station.sn', '=', 'frequently_msg.service')
-        ->where('frequently_msg.status','0')
-        ->when(isset($msg_params['keyword']), function ($query) use ($msg_params) {
-            $query->where('reply','LIKE', '%' .$msg_params['keyword']. '%');
-            $query->orwhere('subject','LIKE', '%' .$msg_params['keyword']. '%');
-        })
-        ->when(isset($msg_params['type']), function ($query) use ($msg_params) {
-            $query->where('type', $msg_params['type']);
-        })
-        ->paginate($limit);
+
 
         $auth_id    = Auth::user()->id;
         $params_auth = array(
@@ -73,6 +63,23 @@ class MsgSampleController extends Controller
         }
 
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+
+        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'frequently_msg.service')
+        ->where('frequently_msg.status','0')
+        ->whereIn('sn', $sn)
+        ->when(isset($msg_params['keyword']), function ($query) use ($msg_params) {
+            $query->where('reply','LIKE', '%' .$msg_params['keyword']. '%');
+            $query->orwhere('subject','LIKE', '%' .$msg_params['keyword']. '%');
+        })
+        ->when(isset($msg_params['type']), function ($query) use ($msg_params) {
+            $query->where('type', $msg_params['type']);
+        })
+        ->paginate($limit);
 
         return view('msgsample.index', [
             'rooms' => $rooms,

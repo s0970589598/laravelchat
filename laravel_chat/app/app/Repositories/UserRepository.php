@@ -67,6 +67,7 @@ class UserRepository
             ->where('customer_service_relation_role.role', '!=','user')
             ->where(function ($query) use ($service) {
                 foreach ($service as $station_name) {
+                    //Log::info($station_name);
                     $query->orWhere('service', 'like', '%' . $station_name . '%');
                 }
             })

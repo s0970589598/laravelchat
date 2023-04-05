@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use App\Models\MotcOfflineHistory;
 use App\Repositories\MotcStationRepository;
+use Illuminate\Support\Facades\DB;
 
 class CheckOnlineUsers extends Command
 {
@@ -59,10 +60,22 @@ class CheckOnlineUsers extends Command
 
         foreach($motc_list as $motc) {
             $station_name = $motc->station_name;
-            $contact_name = $motc->contact_name;
+            // $contact_name = $motc->contact_name;
             // $contact_email = $motc->contact_email;
-            $contact_email = 'alice.chiu@faninsights.io';
+            // $contact_email = 'alice.chiu@faninsights.io';
             $sn            = $motc->sn;
+
+            $contact = DB::table('customer_service_relation_role')
+            ->select('users.email', 'users.name', 'customer_service_relation_role.role')
+            ->leftJoin('users','users.id','=','customer_service_relation_role.user_id')
+            ->where(function ($query) {
+                $query->where('role', '=', 'admin99')
+                      ->orWhere('role', '=', 'admin');
+            })
+            ->where('service', 'like',  '%' . $station_name . '%')
+            ->orderByDesc('customer_service_relation_role.id')
+            ->get();
+
             switch ($w) {
                 case 0:
                     $start_time = Carbon::parse($motc->sun_open_hour)->timestamp;
@@ -104,6 +117,7 @@ class CheckOnlineUsers extends Command
                 // Log::info('on');
                 // Log::info($station_name);
                 // exit;
+
                 $params = array(
                     // 'role'      => 'customer',
                     'start_time'=> $subone_one_hour,
@@ -120,12 +134,23 @@ class CheckOnlineUsers extends Command
                     // Log::info($station_name . 'no customer' . $right_now);
                     $data = [
                         'centerName' => $station_name,
+                        'userName' => $con->name
                     ];
-                    Mail::send('email.no_online_users', $data, function ($message) use ($contact_email, $station_name) {
-                        $message->to($contact_email)
-                                ->subject($station_name . '旅服中心目前沒有旅服人員上線，請立即確認')
-                                ->setBody('您好，目前' . $station_name . '沒有客服人員在線上，請您確認該中心客服狀況。');
-                    });
+
+                    Log::info($station_name);
+
+                    foreach($contact as $con){
+                        Log::info($con->name);
+                        Log::info($con->email);
+                        Log::info($con->role);
+                        // Mail::send('email.no_online_users', $data, function ($message) use ($contact_email, $station_name) {
+                        //     $message->to($contact_email)
+                        //             ->subject($station_name . '旅服中心目前沒有旅服人員上線，請立即確認')
+                        //             ->setBody('您好，目前' . $station_name . '沒有客服人員在線上，請您確認該中心客服狀況。');
+                        // });
+                    }
+                    Log::info('.....');
+
                 }
             }
         }
