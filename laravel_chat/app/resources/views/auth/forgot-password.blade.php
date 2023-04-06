@@ -95,16 +95,30 @@
 
             <h3 class="form-title">忘記密碼</h3>
             <!-- Session Status -->
-            <x-auth-session-status class="mb-4" :status="session('status')" />
-            <?php if (session('status') == 'passwords.sent' ){?>
+            {{-- <x-auth-session-status class="mb-4" :status="session('status')" /> --}}
+            <?php
+
+
+            if (session('status') == 'passwords.sent' ){?>
                 <script>
                     setTimeout(function() {
                         location.href = "/login";
-                    }, 2000);
+                    }, 1000);
                 </script>
-            <?php }?>
+            <?php } else {
+                if ($errors <> '[]'){
+                    echo '系統忙碌中，請在1分鐘後重新輸入信箱';
+                }
+
+             ?>
+             <script>
+                setTimeout(function() {
+                    location.href = "/login";
+                }, 10000);
+            </script>
+            <?php } ?>
             <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
             <p>請於下方輸入您的Email，系統將會寄送「重新設定密碼」連結到您的信箱。</p>
             <div class="form-group">
