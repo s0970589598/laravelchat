@@ -109,8 +109,8 @@
             {{-- @if (Route::has('register'))
             <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
                 {{ __('Not registered yet?') }}
-            </a> --}}
-        {{-- @endif --}}
+            </a>
+        @endif --}}
 
         </form>
         <!-- END LOGIN FORM -->

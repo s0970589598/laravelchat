@@ -552,28 +552,28 @@
                 @csrf
                 <input type="hidden" id="msg-type" name="type" value="media">
 
-            <div class="media-content">
-                <div class="row">
-                    <?php foreach ($media as $m): ?>
-                    <div class="col-md-4">
-                        <div class="media">
-                            <div class="media-info">
-                                <div class="media-title">
-                                    <input type="checkbox" id="media-{{ $m->id }}" name="items[]" value="{{ $m->id }}">
+                <div class="media-content">
+                    <div class="row">
+                        <?php foreach ($media as $m): ?>
+                        <div class="col-md-4">
+                            <div class="media">
+                                <div class="media-info">
+                                    <div class="media-title">
+                                        <input type="checkbox" id="media-{{ $m->id }}" name="items[]" value="{{ $m->id }}">
 
-                                    <label for="media-{{ $m->id }}">{{ $m->file}}</label>
-                                </div>
-                                {{-- <div class="thumbnail" style="margin: 0;"> --}}
-                                <div  style="margin: 0;">
-                                        <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
+                                        <label for="media-{{ $m->id }}">{{ $m->file}}</label>
+                                    </div>
+                                    {{-- <div class="thumbnail" style="margin: 0;"> --}}
+                                    <div  style="margin: 0;">
+                                            <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
 
+                    </div>
                 </div>
-            </div>
         </div>
         <div class="modal-footer">
             <button class="close-btn" data-dismiss="modal">關閉</button>

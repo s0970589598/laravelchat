@@ -8,7 +8,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Log;
 use Cache;
+<<<<<<< Updated upstream
 use Illuminate\Support\Facades\Cookie;
+=======
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Notifications\Messages\MailMessage;
+>>>>>>> Stashed changes
 
 class User extends Authenticatable
 {
@@ -68,31 +73,14 @@ class User extends Authenticatable
         return Cache::has('user-is-online-' . $this->id);
     }
 
-
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
     public function sendPasswordResetNotification($token)
     {
-        // Log::info('test');
-        // Log::info($token);
-        $mail = session('email');
+        $this->notify(new ResetPassword($token, new MailMessage, 'emails.custom-reset-password'));
+    }
 
-        $data = Cache::get($mail);
-        if($data == 'true') {
-            Log::info('new user');
-                $this->notify( new \App\Notifications\CustomNewUserResetPasswordNotification($token));
-                Cache::forget($mail);
-        } else {
-            Log::info('forget user');
-                $this->notify( new \App\Notifications\CustomResetPasswordNotification($token));
-                Cache::forget($mail);
-        }
-        Cache::put($mail, 'false');
-
+    public function getResetPasswordSource()
+    {
+        return $this->resetPasswordSource;
     }
 
 }
