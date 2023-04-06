@@ -8,12 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Log;
 use Cache;
-<<<<<<< Updated upstream
-use Illuminate\Support\Facades\Cookie;
-=======
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
->>>>>>> Stashed changes
 
 class User extends Authenticatable
 {
