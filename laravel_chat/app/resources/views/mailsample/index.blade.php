@@ -308,7 +308,7 @@
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
 
-                                    <button class="btn edit-btn btn-sm" data-id="{{ $mail->id }}" data-title="{{ $mail->id }}"data-toggle="modal" data-target="#edit-mail"><i class="icon-pencil"></i>編輯</button>
+                                    <button class="btn edit-btn btn-sm" data-id="{{ $mail->id }}" data-title="{{ $mail->id }}"data-toggle="modal" data-target="#edit-mail" style="margin-right: 0;"><i class="icon-pencil"></i>編輯</button>
                                     <a href="/mailsample/upstatus/{{$mail->id}}" class="btn delet-btn btn-sm"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>

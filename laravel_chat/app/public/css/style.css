@@ -290,6 +290,7 @@ body .user-content .form-actions .close-btn:hover {
   border-radius: 3px !important;
   color: #ffffff;
   text-decoration: none;
+  margin-right: 0;
 }
 .edit-btn:hover {
   background-color: #34B0DD;
@@ -321,7 +322,7 @@ body .user-content .form-actions .close-btn:hover {
 }
 
 table thead .feature {
-  width: 300px;
+  width: 200px;
   text-align: center;
 }
 

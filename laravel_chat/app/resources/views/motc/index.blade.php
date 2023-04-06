@@ -361,7 +361,7 @@
                                 <td data-address="{{ $motc->contact_address }}" class="custom-address">{{ $motc->contact_address }}</td>
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
-                                        <button class="btn edit-btn btn-sm" data-id="{{ $motc->sn }}" data-title="{{ $motc->sn }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>
+                                        <button class="btn edit-btn btn-sm" data-id="{{ $motc->sn }}" data-title="{{ $motc->sn }}" data-toggle="modal" data-target="#editModal" style="margin-right: 0;"><i class="icon-pencil"></i>編輯</button>
                                         <a href="/motc/upstatus/{{$motc->sn}}" class="btn delet-btn btn-sm"><i class="icon-trash"></i>刪除</button></a>
                                     @endif
                                 </td>
