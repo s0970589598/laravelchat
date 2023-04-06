@@ -317,6 +317,7 @@
                                 <th>旅服中心名稱</th>
                                 <th>電話</th>
                                 <th>地址</th>
+                                <th>營業時間</th>
                                 <th class="feature">功能</th>
                             </tr>
                         </thead>
@@ -324,19 +325,19 @@
                         @foreach ($motc_station as $motc)
                             <?php
 
-                                $exstring    = explode("每日",$motc->open_hours);
-                                // print_r($exstring );
-                                $extime      = isset($exstring[1]) ? explode("~",$exstring[1]) : explode("~",$exstring[0]);
-                                // $extime   = explode("~",$exstring[1]);
-                                // print_r($extime );
-                                // echo '</br>';
-                                if (count($extime)>=2) {
-                                    $start = isset($extime[0]) ? $extime[0] : '';
-                                    $end   = isset($extime[1]) ? $extime[1] : '';
-                                } else {
-                                    $start = '';
-                                    $end = '';
-                                }
+                                // $exstring    = explode("每日",$motc->open_hours);
+                                // // print_r($exstring );
+                                // $extime      = isset($exstring[1]) ? explode("~",$exstring[1]) : explode("~",$exstring[0]);
+                                // // $extime   = explode("~",$exstring[1]);
+                                // // print_r($extime );
+                                // // echo '</br>';
+                                // if (count($extime)>=2) {
+                                //     $start = isset($extime[0]) ? $extime[0] : '';
+                                //     $end   = isset($extime[1]) ? $extime[1] : '';
+                                // } else {
+                                //     $start = '';
+                                //     $end = '';
+                                // }
                                 // App\Models\MotcOpen::create([
                                 //     'service'        => $motc->sn,
                                 //     'sun_open_hour'  => $start,
@@ -354,11 +355,47 @@
                                 //     'sat_open_hour'  => $start,
                                 //     'sat_close_hour' => $end ,
                                 // ]);
+                                $current = Carbon::now('Asia/Taipei');
+                                $right_now = $current->toDateTimeString();
+                                $w = $current->dayOfWeek;// $dt = 0 ~ 6 星期天是 0
+                                switch ($w) {
+                                    case 0:
+                                        $start_time = $motc->sun_open_hour;
+                                        $end_time = $motc->sun_close_hour;
+                                    break;
+                                    case 1:
+                                        $start_time = $motc->mon_open_hour;
+                                        $end_time = $motc->mon_close_hour;
+                                    break;
+                                    case 2:
+                                        $start_time = $motc->tue_open_hour;
+                                        $end_time = $motc->tue_close_hour;
+                                    break;
+                                    case 3:
+                                        $start_time = $motc->wed_open_hour;
+                                        $end_time = $motc->wed_close_hour;
+                                    break;
+                                    case 4:
+                                        $start_time = $motc->thu_open_hour;
+                                        $end_time = $motc->thu_close_hour;
+                                    break;
+                                    case 5:
+                                        $start_time = $motc->fri_open_hour;
+                                        $end_time = $motc->fri_close_hour;
+                                    break;
+                                    case 6:
+                                        $start_time = $motc->sat_open_hour;
+                                        $end_time = $motc->sat_close_hour;
+                                    break;
+                                }
+
+
                             ?>
                             <tr>
                                 <td data-service="{{ $motc->station_name }}" class="custom-service">{{  $motc->station_name }}</td>
                                 <td data-phone="{{ $motc->contact_phone }}" class="custom-phone">{{ $motc->contact_phone }}</td>
                                 <td data-address="{{ $motc->contact_address }}" class="custom-address">{{ $motc->contact_address }}</td>
+                                <td data-open="{{ $start_time . '~' . $end_time }}" class="custom-open">{{ $start_time . '~' . $end_time }}</td>
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                         <button class="btn edit-btn btn-sm" data-id="{{ $motc->sn }}" data-title="{{ $motc->sn }}" data-toggle="modal" data-target="#editModal"><i class="icon-pencil"></i>編輯</button>

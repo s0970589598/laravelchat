@@ -20,6 +20,10 @@ class CheckOnlineUsers extends Command
 
     protected $description = 'Check if there are online users during working hours and send email to the admin if no one is online';
 
+// 2.請於登入紀錄資料表內(待Allen建立)，確認未上線中心的帳號是否皆為登出，判定登出條件如下：
+// 2-1.帳號登入次數與登出次數相同，即為下線。
+// 2-2.帳號登入次數大於登出次數，即為上線中。
+// *每次登入、不同device登入都會有一筆資料，關閉網頁、登出、閒置機制時會寫入登出紀錄。
 
     public function handle(UserRepository $user_repository,MotcStationRepository $motc_station_repository)
     {
