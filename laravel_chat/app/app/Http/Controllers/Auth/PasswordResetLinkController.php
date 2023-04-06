@@ -29,10 +29,10 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('passwordresetlinke');
         $request->validate([
             'email' => ['required', 'email'],
         ]);
+        session(['email' => $request->email]);
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we

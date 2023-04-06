@@ -77,14 +77,11 @@ class User extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        Log::info('test');
-        Log::info($token);
-        $mail = Cookie::get('em');
-        Log::info('-1-'. cookie::get('isAdd'));
+        // Log::info('test');
+        // Log::info($token);
+        $mail = session('email');
 
         $data = Cache::get($mail);
-        Log::info($mail);
-        Log::info($data);
         if($data == 'true') {
             Log::info('new user');
                 $this->notify( new \App\Notifications\CustomNewUserResetPasswordNotification($token));
@@ -95,8 +92,6 @@ class User extends Authenticatable
                 Cache::forget($mail);
         }
         Cache::put($mail, 'false');
-        Log::info('change mail is false');
-        Log::info(Cache::get($mail));
 
     }
 

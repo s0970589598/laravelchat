@@ -139,15 +139,17 @@ class AccountController extends Controller
                 'role' => $request->role,
             );
             Cache::put($request->email, 'true');
-            Log::info('add user mail');
-            Log::info($request->email);
-            Cookie::queue('em',$request->email,36000);
-            Log::info('-2-'. Cache::get($request->email));
+            // Log::info('add user mail');
+            // Log::info($request->email);
+            // Cookie::queue('em',$request->email,36000);
+            // Log::info('-2-'. Cache::get($request->email));
+            session(['email' => $params['email']]);
+
             $status = Password::sendResetLink(
                 $request->only('email')
             );
-            Log::info('-3-'. Cache::get($request->email));
-
+            // Log::info('-3-'. Cache::get($request->email));
+            // 存储电子邮件地址在会话中
 
             DB::commit();
         } catch (Throwable $e) {
