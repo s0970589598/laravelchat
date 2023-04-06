@@ -80,9 +80,12 @@ class CustomResetPasswordNotification extends Notification
      */
     protected function buildMailMessage($url)
     {
-        $email_sample = EmailSample::orderBy('id', 'desc')
-        ->where('type','忘記密碼')
+        // Log::info('忘記密碼');
+        $email_sample = EmailSample::where('type','忘記密碼')
+        ->orderBy('id', 'desc')
         ->first();
+        // Log::info($email_sample['subject']);
+        // Log::info($email_sample['content']);
 
         try {
             return (new MailMessage)

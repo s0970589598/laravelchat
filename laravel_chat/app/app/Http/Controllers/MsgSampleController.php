@@ -6,6 +6,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\FrequentlyMsg;
 use App\Repositories\UserRepository;
+use App\Repositories\MotcStationRepository;
 
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
@@ -19,10 +20,13 @@ class MsgSampleController extends Controller
 {
     //private Centrifugo $centrifugo;
     protected $centrifugo;
-    public function __construct(Centrifugo $centrifugo,UserRepository $user_repository)
+    protected $motc_station_repository;
+
+    public function __construct(Centrifugo $centrifugo,UserRepository $user_repository,    MotcStationRepository $motc_station_repository    )
     {
         $this->centrifugo = $centrifugo;
         $this->user_repository         = $user_repository;
+        $this->motc_station_repository = $motc_station_repository;
 
     }
 
@@ -42,8 +46,32 @@ class MsgSampleController extends Controller
             $msg_params['keyword'] = $request->keyword;
         }
 
+
+
+        $auth_id    = Auth::user()->id;
+        $params_auth = array(
+            'user_id' => $auth_id
+        );
+        $auth = $this->user_repository->getUserServiceRole($params_auth);
+
+        if ($auth['role'] == 'admin99'){
+            $motc_params = array();
+        } else {
+            $motc_params = array(
+                'station_name' => $auth['service']
+            );
+        }
+
+        $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+
         $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
-        ->where('status','0')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'frequently_msg.service')
+        ->where('frequently_msg.status','0')
+        ->whereIn('sn', $sn)
         ->when(isset($msg_params['keyword']), function ($query) use ($msg_params) {
             $query->where('reply','LIKE', '%' .$msg_params['keyword']. '%');
             $query->orwhere('subject','LIKE', '%' .$msg_params['keyword']. '%');
@@ -53,17 +81,11 @@ class MsgSampleController extends Controller
         })
         ->paginate($limit);
 
-        $auth_id    = Auth::user()->id;
-        $params_auth = array(
-            'user_id' => $auth_id
-        );
-        $auth = $this->user_repository->getUserServiceRole($params_auth);
-
-
         return view('msgsample.index', [
             'rooms' => $rooms,
             'msg_sample' => $msg_sample,
-            'auth_service_role' => $auth
+            'auth_service_role' => $auth,
+            'motc_station' => $motc_station
         ]);
     }
 
@@ -73,6 +95,7 @@ class MsgSampleController extends Controller
             'type'     => ['required'],
             'subject'  => ['required'],
             'reply'    => ['required'],
+            'service'   => ['required'],
         ]);
 
         if (isset($request->url)){
@@ -88,6 +111,7 @@ class MsgSampleController extends Controller
                 'subject'     => $params['subject'],
                 'reply'       => $params['reply'],
                 'url'         => $params['url'],
+                'service'     => $params['service'],
                 'is_err'      => 0,
                 'status'      => 0,
             ]);
@@ -108,6 +132,7 @@ class MsgSampleController extends Controller
                 'subject'     => $request['subject'],
                 'reply'       => $request['reply'],
                 'url'         => $request['url'],
+                'service'     => $request['service'],
         ]);
         return redirect()->route('msgsample.index');
 

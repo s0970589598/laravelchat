@@ -18,6 +18,7 @@ class CreateMediaTable extends Migration
             $table->string('type');
             $table->string('title');
             $table->string('file');
+            $table->string('service')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('check-online-users')->hourly();
-        $schedule->command('check-url-status')->everyThirtyMinutes();
+        $schedule->command('check-url-status')->hourly();
 
     }
 

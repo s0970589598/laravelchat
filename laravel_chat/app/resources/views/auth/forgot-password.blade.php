@@ -96,7 +96,13 @@
             <h3 class="form-title">忘記密碼</h3>
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
-
+            <?php if (session('status') == 'passwords.sent' ){?>
+                <script>
+                    setTimeout(function() {
+                        location.href = "/login";
+                    }, 2000);
+                </script>
+            <?php }?>
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -106,7 +112,7 @@
             </div>
             <div class="form-actions">
                 <button type="submit" class="submit-btn">確認送出</button>
-                <button onclick="location.href='/dialoguelist'" type="button" id="back-btn" class="close-btn">取消</button>
+                <button onclick="location.href='/login'" type="button" id="back-btn" class="close-btn">取消</button>
             </div>
         </form>
         <!-- END FORGOT PASSWORD FORM -->
@@ -172,6 +178,7 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
 </body>
 
 </html>

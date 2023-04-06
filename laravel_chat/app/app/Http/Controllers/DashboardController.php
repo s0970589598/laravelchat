@@ -17,6 +17,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+
 use Throwable;
 
 class DashboardController extends Controller
@@ -68,6 +70,10 @@ class DashboardController extends Controller
         $auth = $this->user_repository->getUserServiceRole($params_auth);
         $count_online_customer = $this->user_repository->getOnlineCustomer($auth['service'], $auth['role'], $limit , $account_params);
 
+
+        $startDate = Carbon::now()->subDays(7);
+        $endDate   = Carbon::now();
+
         if ($auth['role'] == 'admin99'){
             $err_url_count = $this->faq_repository->countUrlErr();
             $err_url_redirect = '/faq';
@@ -77,6 +83,7 @@ class DashboardController extends Controller
             ->select(DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
             // ->select('motc_station.sn', DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
             // ->groupBy('motc_station.sn', DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
+            ->whereBetween('messages.created_at', [$startDate, $endDate])
             ->groupBy( DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
             //->orderBy('motc_station.sn')
             ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
@@ -94,7 +101,7 @@ class DashboardController extends Controller
         foreach ($motc_station as $motc) {
             $sn[] = $motc['sn'];
         }
-        $room_params['status'] = 2;
+        $room_params['status'] = [2,7];
         $rooms_wait_count = $this->rooms_repository->getAllMsgListByServiceRoleCount($sn,$auth['role'],$limit, $room_params);
 
         If ( $auth['role'] !='admin99') {
@@ -104,6 +111,7 @@ class DashboardController extends Controller
             // ->select('motc_station.sn', DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
             ->select( DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
             ->whereIn('motc_station.sn', $sn)
+            ->whereBetween('messages.created_at', [$startDate, $endDate])
             // ->groupBy('motc_station.sn', DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
             ->groupBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
             //->orderBy('motc_station.sn')
@@ -111,7 +119,6 @@ class DashboardController extends Controller
             ->get();
         }
 
-        Log::info($msg_date_count);
         return view('dashboard.index', [
             'rooms' => $rooms,
             'errUrlCount' => $err_url_count,

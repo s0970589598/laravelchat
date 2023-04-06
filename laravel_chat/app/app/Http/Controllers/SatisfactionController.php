@@ -10,6 +10,7 @@ use App\Models\MotcOfflineHistory;
 use App\Models\CustomerServiceRelationRole;
 use App\Repositories\MotcStationRepository;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 
 
 use denis660\Centrifugo\Centrifugo;
@@ -134,11 +135,14 @@ class SatisfactionController extends Controller
             $satisfaction_params['end_time'] = $request->end_time;
         }
 
+        $startDate = Carbon::now()->subDays(7);
+        $endDate   = Carbon::now();
 
         // 每日未成單率
         // 未處理
         $everyday_wait = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_wait'))
         ->where('status', 2)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->whereIn('service', $sn)
         ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
         ->orderBy('rooms_created_at', 'asc')
@@ -147,6 +151,7 @@ class SatisfactionController extends Controller
         // 客服中
         $everyday_ing  = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_wait'))
         ->where('status', 3)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->whereIn('service', $sn)
         ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
         ->orderBy('rooms_created_at', 'asc')
@@ -155,6 +160,7 @@ class SatisfactionController extends Controller
         // 已完成
         $everyday_complete = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_complete'))
         ->where('status', 6)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->whereIn('service', $sn)
         ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
         ->orderBy('rooms_created_at', 'asc')
@@ -164,6 +170,7 @@ class SatisfactionController extends Controller
          // 曾經待客服狀態，包含待客服的
          $everyday_waited  = Room::select(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d') as rooms_created_at"), DB::raw('count(id) as count_wait'))
          ->where('status', '<>', 1)
+         ->whereBetween('rooms.created_at', [$startDate, $endDate])
          ->whereIn('service', $sn)
          ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
          ->orderBy('rooms_created_at', 'asc')
@@ -213,6 +220,7 @@ class SatisfactionController extends Controller
          ->where('wait_start', '!=', '')
          ->where('wait_end', '!=', '')
          ->whereIn('service', $sn)
+         ->whereBetween('rooms.created_at', [$startDate, $endDate])
          // ->groupBy('service')
          ->groupBy(DB::raw("DATE_FORMAT(rooms.created_at, '%Y-%m-%d')"))
          ->havingRaw('sum(wait_end) - sum(wait_start) != ""')
@@ -246,6 +254,7 @@ class SatisfactionController extends Controller
         $wait = Room::select('service', DB::raw('count(id) as count_ing'))
         ->where('status', 2)
         ->whereIn('service', $sn)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
         })
@@ -257,6 +266,7 @@ class SatisfactionController extends Controller
         $ing = Room::select('service', DB::raw('count(id) as count_ing'))
         ->where('status', 3)
         ->whereIn('service', $sn)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
         })
@@ -268,6 +278,7 @@ class SatisfactionController extends Controller
         $complete = Room::select('service', DB::raw('count(id) as count_ing'))
         ->where('status', 6)
         ->whereIn('service', $sn)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
         })
@@ -280,6 +291,7 @@ class SatisfactionController extends Controller
         ->leftJoin('motc_station', 'motc_station.sn', '=', 'rooms.service')
         ->where('rooms.status', '<>' , 1)
         ->whereIn('service', $sn)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
         })
@@ -293,6 +305,7 @@ class SatisfactionController extends Controller
         ->where('wait_start', '!=', '')
         ->where('wait_end', '!=', '')
         ->whereIn('service', $sn)
+        ->whereBetween('rooms.created_at', [$startDate, $endDate])
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
         })
@@ -305,12 +318,14 @@ class SatisfactionController extends Controller
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
         })
+        ->whereBetween('motc_offline_history.created_at', [$startDate, $endDate])
         ->whereIn('service', $sn)
         ->groupBy('service')
         ->get();
 
         $offlineHistoryDates = MotcOfflineHistory::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
-            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
+        ->whereBetween('motc_offline_history.created_at', [$startDate, $endDate])
+        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
         ->count();
 
 
@@ -363,6 +378,9 @@ class SatisfactionController extends Controller
         //$email_sample = EmailSample::get();
         $limit = 10;
         $satisfaction_params = [];
+        $survey= [];
+        $startDate = Carbon::now()->subDays(7);
+        $endDate   = Carbon::now();
 
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;

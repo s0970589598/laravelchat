@@ -300,6 +300,7 @@
                                 <th>分類</th>
                                 <th>標題</th>
                                 <th>內容</th>
+                                <th>旅遊服務中心</th>
                                 <th>Url</th>
                                 <th class="feature">功能</th>
                             </tr>
@@ -310,6 +311,8 @@
                                 <td data-type="{{ $msg->type }}" class="custom-type">{{ $msg->type }}</td>
                                 <td data-subject="{{ $msg->subject }}" class="custom-subject">{{ $msg->subject }}</td>
                                 <td data-reply="{{ $msg->reply }}" class="custom-reply">{{ $msg->reply }}</td>
+                                <td data-service="{{ $msg->station_name }}" class="custom-service">{{ $msg->station_name }}</td>
+                                <td style="display:none" data-sn="{{ $msg->service }}" class="custom-sn">{{ $msg->service }}</td>
                                 <td data-url="{{ $msg->url }}" class="custom-url">{{ $msg->url }}</td>
 
                                 <td>
@@ -400,6 +403,15 @@
                 <div class="col-md-10" style="margin-bottom: 20px;">
                     <input type="text" class="form-control" placeholder="請輸入google連結" id="url" name="url">
                 </div>
+                <label class="col-md-2 control-label" style="margin-bottom: 20px;">旅服中心</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select name="service" class="form-control">
+                        <option value="">旅遊服務中心</option>
+                        @foreach($motc_station as $motc)
+                        <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                        @endforeach
+                    </select>
+                    </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -443,6 +455,15 @@
                     <label class="col-md-2 control-label" style="margin-bottom: 20px;">地圖連結</label>
                     <div class="col-md-10" style="margin-bottom: 20px;">
                         <input type="text" class="form-control" placeholder="請輸入google連結" id="url" name="url">
+                    </div>
+                    <label class="col-md-2 control-label" style="margin-bottom: 20px;">旅服中心</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select name="service" class="form-control"  id="serviceedit" >
+                        <option value="">旅遊服務中心</option>
+                        @foreach($motc_station as $motc)
+                        <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                        @endforeach
+                    </select>
                     </div>
                 </div>
             </div>
@@ -527,6 +548,8 @@
                 let reply = btn.closest('td').siblings('.custom-reply').data('reply');
                 let url = btn.closest('td').siblings('.custom-url').data('url');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
+                let service = btn.closest('td').siblings('.custom-service').data('service');
+                let sn = btn.closest('td').siblings('.custom-sn').data('sn');
 
                 $('.modalTextInput').val('');
                 $('.saveEdit').data('id', id); // then pass it to the button inside the modal
@@ -535,6 +558,8 @@
                 modal.find('.modal-body textarea#reply').val(reply);
                 modal.find('.modal-body input#id').val(id);
                 modal.find('.modal-body input#url').val(url);
+                $('#serviceedit').val(sn);
+
             })
 
             $('.saveEdit').on('click', function() {

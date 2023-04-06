@@ -130,7 +130,7 @@ class DialogueController extends Controller
 
     public function show(int $id)
     {
-        $limit = 9;
+        $limit = 10;
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
 
         $room  = Room::with(['users', 'messages.user' => function ($query) {
@@ -151,13 +151,6 @@ class DialogueController extends Controller
             }
         }
 
-        $media = Media::orderBy('id', 'desc')
-        ->where('status','0')
-        ->paginate($limit);
-
-        $msg_sample = FrequentlyMsg::orderBy('id', 'desc')
-        ->where('status','0')
-        ->paginate($limit);
 
         $auth_id    = Auth::user()->id;
         $params_auth = array(
@@ -175,6 +168,24 @@ class DialogueController extends Controller
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
         $motc_station_transfer = $this->motc_station_repository->motcStationList($motc_params=[]);
 
+        $rooms_users = $this->user_repository->rooms_users($id);
+
+        foreach ($motc_station as $motc) {
+          $sn[] = $motc['sn'];
+        }
+
+        $media = Media::where('media.status','0')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'media.service')
+        ->whereIn('sn', $sn)
+        ->orderBy('media.id', 'desc')
+        ->paginate($limit);
+
+        $msg_sample = FrequentlyMsg::where('frequently_msg.status','0')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'frequently_msg.service')
+        ->whereIn('sn', $sn)
+        ->orderBy('frequently_msg.id', 'desc')
+        ->paginate($limit);
+
         return view('dialogue.index', [
             'rooms' => $rooms,
             'currRoom' => $room,
@@ -183,7 +194,8 @@ class DialogueController extends Controller
             'isJoin' => $room->users->contains('id', Auth::user()->id),
             'now' => Carbon::now('GMT+8')->toDateString(),
             'media' => $media,
-            'msg_sample' => $msg_sample
+            'msg_sample' => $msg_sample,
+            'rooms_users' => $rooms_users
         ]);
     }
 

@@ -20,6 +20,7 @@ class CreateFaqTable extends Migration
             $table->string('url')->nullable();
             $table->integer('status')->default(0);
             $table->integer('is_err')->default(0);
+            $table->string('service')->nullable();
             $table->timestamps();
         });
     }

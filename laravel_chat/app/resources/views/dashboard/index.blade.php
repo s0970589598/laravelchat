@@ -313,7 +313,7 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <span class="caption-subject">客服對話量</span>
+                    <span class="caption-subject">客服對話量(則)</span>
                 </div>
                 <div class="actions">
                     <div class="form-group">

@@ -125,7 +125,7 @@ class RoomsRepository
                 $query->where('service', $room_params['sn']);
             })
             ->when(isset($room_params['status']), function ($query) use ($room_params) {
-                $query->where('status', $room_params['status']);
+                $query->whereIn('status', $room_params['status']);
             })
             ->when(isset($room_params['search']), function ($query) use ($room_params) {
                 $query->where(function ($q) use ($room_params) {
@@ -159,7 +159,7 @@ class RoomsRepository
                 $query->where('service', $room_params['sn']);
             })
             ->when(isset($room_params['status']), function ($query) use ($room_params) {
-                $query->where('status', $room_params['status']);
+                $query->whereIn('status', $room_params['status']);
             })
             ->when(isset($room_params['search']), function ($query) use ($room_params) {
                 $query->where(function ($q) use ($room_params) {

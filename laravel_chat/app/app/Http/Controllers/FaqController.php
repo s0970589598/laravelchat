@@ -50,12 +50,6 @@ class FaqController extends Controller
             $faqparams['sn'] = $request->manager_group_sn;
         }
 
-        $faq = FAQ::orderBy('id', 'desc')
-        ->where('status','0')
-        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
-            $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
-        })
-        ->paginate($limit);
 
         $auth_id    = Auth::user()->id;
         $params_auth = array(
@@ -72,6 +66,19 @@ class FaqController extends Controller
         }
 
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
+
+        foreach ($motc_station as $motc) {
+            $sn[] = $motc['sn'];
+        }
+
+        $faq = FAQ::orderBy('id', 'desc')
+        ->leftJoin('motc_station', 'motc_station.sn', '=', 'faq.service')
+        ->where('faq.status','0')
+        ->whereIn('sn', $sn)
+        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
+            $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
+        })
+        ->paginate($limit);
 
         return view('faq.index', [
             'rooms' => $rooms,
@@ -95,8 +102,9 @@ class FaqController extends Controller
         $faq = FAQ::find($request['id'])
             ->update([
                 'question'     => $request['question'],
+                'service'     => $request['service'],
                 'answer'       => $request['answer'],
-                'url'          => $request['url'],
+                //'url'          => $request['url'],
         ]);
         return redirect()->route('faq.index');
 
@@ -116,6 +124,7 @@ class FaqController extends Controller
     {
         $params = $request->validate([
             'question'   => ['required'],
+            'service'   => ['required'],
             'answer'   => ['required'],
             //'url'   => ['required'],
         ]);
@@ -125,6 +134,7 @@ class FaqController extends Controller
                 'question'     => $params['question'],
                 'answer'       => $params['answer'],
                 //'url'          => $params['url'],
+                'service'          => $params['service'],
                 'status'       => 0,
             ]);
             // $room->users()->attach(Auth::user()->id);

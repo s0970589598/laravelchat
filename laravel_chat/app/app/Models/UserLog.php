@@ -7,26 +7,26 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class FrequentlyMsg extends Authenticatable
+class UserLog extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-    protected $table = 'frequently_msg';
+    protected $table = 'user_logs';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
+
     protected $fillable = [
-        'subject',
-        'type',
-        'status',
-        'reply',
-        'url',
-        'is_err',
-        'service'
+        'user_id',
+        'name',
+        'ip',
+        'device',
+        'action_time',
+        'action_type'
     ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -43,9 +43,6 @@ class FrequentlyMsg extends Authenticatable
     protected $casts = [
     ];
 
-    public function service_relation()
-    {
-        return $this->belongsToMany(ServiceRelationRole::class, 'customer_service_relation_role');
-    }
+
 
 }

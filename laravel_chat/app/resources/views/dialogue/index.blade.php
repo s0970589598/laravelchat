@@ -122,12 +122,12 @@
                         @if (!empty($currRoom))
                             @foreach($currRoom->messages as $message)
                                 <?php
-                                    $user_name     = $message->user->name;
-                                    $contact_email = $message->user->contact_email;
-                                    $line          = $message->user->line;
-                                    $phone         = $message->user->phone;
-                                    $user_authcode = $message->user->authcode;
-                                    $note          = $message->user->note;
+                                    // $user_name     = $message->user->name;
+                                    // $contact_email = $message->user->contact_email;
+                                    // $line          = $message->user->line;
+                                    // $phone         = $message->user->phone;
+                                    // $user_authcode = $message->user->authcode;
+                                    // $note          = $message->user->note;
                                 ?>
                                 @if ($message->sender_id === Auth::user()->id)
                                     @if ($message->type === 'msgtem')
@@ -404,7 +404,7 @@
                                             <img src="/assets/images/file.png" id="showImg" width="80" height="80">
                                         </div>
                                         <label class="upload-btn">
-                                            <input id="upload_img" style="display:none;" type="file">
+                                            <input id="upload_img" style="display:none;" type="file" accept=".jpg,.jpeg,.gif,.png,.pdf,.mov,.mp4">
                                             <i class="icon-paper-clip" id="uploadfile"></i>
                                         </label>
                                         <label class="upload-btn">
@@ -430,6 +430,14 @@
                 </div>
             </div>
             <div class="col-md-3" style="padding: 0;border: 1px solid #F5F5F5;">
+                <?php
+                    $user_name  = $rooms_users[0]->name;
+                    $contact_email = $rooms_users[0]->contact_email;
+                    $phone = $rooms_users[0]->phone;
+                    $line = $rooms_users[0]->line;
+                    $note = $rooms_users[0]->note;
+                    $user_authcode = $rooms_users[0]->authcode;
+                ?>
                 <div class="feature-section">
                     <div class="portlet">
                         <div class="portlet-title">
@@ -960,6 +968,15 @@
             var note = document.getElementById("note").value;
             var authcode = document.getElementById("authcode").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+            const xhttp = new XMLHttpRequest();
+            const csrfToken = "{{ csrf_token() }}";
+
+            xhttp.open("POST", "/dialogue/" + currentRoomId + "/publish");
+            xhttp.setRequestHeader("X-CSRF-TOKEN", csrfToken);
+            xhttp.send(JSON.stringify({
+                message: 'completed'
+            }));
+
             $.ajax({
                 url: "/api/contact/" + authcode + "/update",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -1026,34 +1043,37 @@
                     // }
                 }
             });
-            $.ajax({
-                url: "https://qa.taiwan.net.tw/api/survey/send/" +currentRoomId,
-                dataType: 'json',
-                contentType: 'application/json;charset=UTF-8',
-                method: 'GET',
-                processData: false, // important
-                contentType: false, // important
-                cache: false,
-                success: function(data)
-                {
-                    // redirect
-                    //window.location.replace(data.redirect);
-                },
-                error: function(data)
-                {
-                    // intergrate Swal to display error
-                    // Swal.close();
-                    // if (data.status == 419) {
-                    //     window.location.reload();
-                    // } else {
-                    //     Swal.fire({
-                    //         icon: 'info',
-                    //         title: 'Error',
-                    //         html: data.responseJSON.message,
-                    //     });
-                    // }
-                }
-            });
+
+
+
+            // $.ajax({
+            //     url: "https://qa.taiwan.net.tw/api/survey/send/" +currentRoomId,
+            //     dataType: 'json',
+            //     contentType: 'application/json;charset=UTF-8',
+            //     method: 'GET',
+            //     processData: false, // important
+            //     contentType: false, // important
+            //     cache: false,
+            //     success: function(data)
+            //     {
+            //         // redirect
+            //         //window.location.replace(data.redirect);
+            //     },
+            //     error: function(data)
+            //     {
+            //         // intergrate Swal to display error
+            //         // Swal.close();
+            //         // if (data.status == 419) {
+            //         //     window.location.reload();
+            //         // } else {
+            //         //     Swal.fire({
+            //         //         icon: 'info',
+            //         //         title: 'Error',
+            //         //         html: data.responseJSON.message,
+            //         //     });
+            //         // }
+            //     }
+            // });
 
         }
 
@@ -1076,6 +1096,16 @@
             const file = this.files[0];
             const reader = new FileReader();
 
+            if(file.size > 2097152){
+                alert("您上傳的檔案過大，僅可上傳2mb內的檔案。");
+                return;
+            };
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/gif', 'image/tiff', 'video/quicktime', 'video/mp4'];
+
+            if (!allowedTypes.includes(file.type)) {
+                alert('此檔案類型不支援，僅可上傳2mb內的PDF、JPG、PNG、GIF、JPEG、TIF、MOV、MP4檔案');
+                return;
+            }
 
             reader.addEventListener('load', function() {
                 const img = document.createElement('img');

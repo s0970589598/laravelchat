@@ -113,6 +113,7 @@ class AccountController extends Controller
     {
         $params = $request->validate([
              'email' => ['required'],
+             'name' => ['required'],
              'service' => ['required'],
              'role' => ['required'],
          ]);
@@ -120,7 +121,7 @@ class AccountController extends Controller
         DB::beginTransaction();
         try {
             $user = User::create([
-                'name'  =>  $params['email'],
+                'name'  =>  $params['name'],
                 'email' =>  $params['email'],
                 'password' => Hash::make('test123'),
                 'authcode' => $this->generateRandomString(5),
@@ -137,13 +138,15 @@ class AccountController extends Controller
                 'service' => $request->service,
                 'role' => $request->role,
             );
-            Cache::add($request->email, 'true');
+            Cache::put($request->email, 'true');
+            Log::info('add user mail');
+            Log::info($request->email);
             Cookie::queue('em',$request->email,36000);
-            Log::info('2'. Cache::get($request->email));
+            Log::info('-2-'. Cache::get($request->email));
             $status = Password::sendResetLink(
                 $request->only('email')
             );
-            Log::info('3'. Cache::get($request->email));
+            Log::info('-3-'. Cache::get($request->email));
 
 
             DB::commit();

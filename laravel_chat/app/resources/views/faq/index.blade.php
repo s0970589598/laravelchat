@@ -311,6 +311,7 @@
                             <tr>
                                 <th>問題</th>
                                 <th>答案</th>
+                                <th>所屬中心</th>
                                 {{-- <th>Url</th> --}}
                                 <th class="feature">功能</th>
                             </tr>
@@ -320,6 +321,8 @@
                             <tr>
                                 <td data-question="{{ $f->question }}" class="custom-question">{{ $f->question }}</td>
                                 <td data-answer="{{ $f->answer }}" class="custom-answer">{{ $f->answer }}</td>
+                                <td data-service="{{ $f->station_name }}" class="custom-service">{{ $f->station_name }}</td>
+                                <td style="display:none" data-sn="{{ $f->service }}" class="custom-sn">{{ $f->service }}</td>
                                 {{-- <td data-url="{{ $f->url }}" class="custom-url">{{ $f->url }}</td> --}}
                                 <td>
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
@@ -394,6 +397,15 @@
                     <div class="col-md-10" style="margin-bottom: 20px;">
                         <textarea class="form-control" row="10" placeholder="請輸入答案" style="height: 400px;" id="answer" name="answer"></textarea>
                     </div>
+                    <label class="col-md-2 control-label" style="margin-bottom: 20px;">旅服中心</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select name="service" class="form-control">
+                        <option value="">旅遊服務中心</option>
+                        @foreach($motc_station as $motc)
+                        <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                        @endforeach
+                    </select>
+                    </div>
                     {{-- <label class="col-md-2 control-label" style="margin-bottom: 20px;">URL</label>
                     <div class="col-md-10" style="margin-bottom: 20px;">
                         <input type="text" class="form-control" id="url" name="url">
@@ -432,6 +444,15 @@
                     <div class="col-md-10" style="margin-bottom: 20px;">
                         <input type="text" class="form-control" placeholder="請輸入url" id="url" name="url">
                     </div> --}}
+                    <label class="col-md-2 control-label" style="margin-bottom: 20px;">旅服中心</label>
+                    <div class="col-md-10" style="margin-bottom: 20px;">
+                    <select name="service" class="form-control"  id="serviceedit" >
+                        <option value="">旅遊服務中心</option>
+                        @foreach($motc_station as $motc)
+                        <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
+                        @endforeach
+                    </select>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -557,6 +578,8 @@
                 let btn = $(e.relatedTarget); // e.related here is the element that opened the modal, specifically the row button
                 let id = btn.data('id'); // this is how you get the of any `data` attribute of an element
                 let question = btn.closest('td').siblings('.custom-question').data('question');
+                let service = btn.closest('td').siblings('.custom-service').data('service');
+                let sn = btn.closest('td').siblings('.custom-sn').data('sn');
                 let answer = btn.closest('td').siblings('.custom-answer').data('answer');
                 let url = btn.closest('td').siblings('.custom-url').data('url');
                 let modal = $(this); //要修改的modal就是現在開啟的這個modal
@@ -565,6 +588,8 @@
                 $('.saveEdit').data('id', id); // then pass it to the button inside the modal
                 modal.find('.modal-body input#question').val(question);//把抓到的資料顯示在input內
                 modal.find('.modal-body textarea#answer').val(answer);
+                $('#serviceedit').val(sn);
+
                 modal.find('.modal-body input#url').val(url);
                 modal.find('.modal-body input#id').val(id);
             })
