@@ -355,7 +355,7 @@
                                 //     'sat_open_hour'  => $start,
                                 //     'sat_close_hour' => $end ,
                                 // ]);
-                                $current = Carbon::now('Asia/Taipei');
+                                $current = \Carbon\Carbon::now('Asia/Taipei');
                                 $right_now = $current->toDateTimeString();
                                 $w = $current->dayOfWeek;// $dt = 0 ~ 6 星期天是 0
                                 switch ($w) {
