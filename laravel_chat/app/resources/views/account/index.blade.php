@@ -346,7 +346,7 @@
                                         {{($user->last_seen >= now()->subMinutes(30)) ? 'Online' : 'Offline'}}
                                     </span>
                                 </td>
-                                <td>
+                                <td style="white-space: nowrap;">
                                     @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
                                         <button class="btn edit-btn btn-sm" data-id="{{ $user->user_id }}" data-title="{{ $user->user_id }}" data-toggle="modal" data-target="#editModal" style="margin-right: 0;"><i class="icon-pencil"></i>編輯</button>
                                         <a href="/account/upstatus/{{$user->user_id}}" class="btn delet-btn btn-sm"><i class="icon-trash"></i>刪除</button></a>
