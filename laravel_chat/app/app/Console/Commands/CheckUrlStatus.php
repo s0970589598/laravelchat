@@ -58,6 +58,11 @@ class CheckUrlStatus extends Command
                 //} else {
                 // 如果沒有找到網址，就顯示訊息
                 // echo '找不到網址。';
+            } else {
+                FAQ::find($f['id'])
+                ->update([
+                    'is_err' => 0
+                ]);
             }
         }
         foreach ($msg_sample as $m) {
