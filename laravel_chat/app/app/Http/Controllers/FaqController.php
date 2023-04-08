@@ -37,6 +37,7 @@ class FaqController extends Controller
         $rooms = 0;
         $limit = 10;
         $faqparams = [];
+        $manager_question_type = 0;
 
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
@@ -46,8 +47,16 @@ class FaqController extends Controller
             $faqparams['keyword'] = $request->user_name_keyword;
         }
 
+        if (isset($request->manager_question_type)){
+            $manager_question_type = $request->manager_question_type;
+        }
+
         if (isset($request->manager_group_sn)){
             $faqparams['sn'] = $request->manager_group_sn;
+        }
+
+        if (isset($request->url_status)){
+            $url_status = $request->url_status;
         }
 
 
@@ -66,7 +75,6 @@ class FaqController extends Controller
         }
 
         $motc_station = $this->motc_station_repository->motcStationList($motc_params);
-
         foreach ($motc_station as $motc) {
             $sn[] = $motc['sn'];
         }
@@ -74,9 +82,24 @@ class FaqController extends Controller
         $faq = FAQ::orderBy('id', 'desc')
         ->leftJoin('motc_station', 'motc_station.sn', '=', 'faq.service')
         ->where('faq.status','0')
-        ->whereIn('sn', $sn)
-        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams) {
-            $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
+        ->when(! isset($faqparams['sn']), function ($query) use ($sn) {
+            $query->whereIn('sn', $sn);
+        })
+        ->when( isset($faqparams['sn']), function ($query) use ($faqparams) {
+            $query->where('sn', $faqparams['sn']);
+        })
+        ->when( isset($url_status), function ($query) use ($faqparams) {
+            $query->where('is_err', 1);
+        })
+        ->when(isset($faqparams['keyword']), function ($query) use ($faqparams,$manager_question_type) {
+            if ($manager_question_type == 1) {
+                $query->where('question','LIKE', '%' .$faqparams['keyword']. '%');
+            } else if($manager_question_type == 2) {
+                $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
+            } else {
+                $query->where('answer','LIKE', '%' .$faqparams['keyword']. '%');
+                $query->orwhere('question','LIKE', '%' .$faqparams['keyword']. '%');
+            }
         })
         ->paginate($limit);
 

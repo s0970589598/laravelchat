@@ -287,7 +287,7 @@
                             @endforeach
                         </select>
                         <label class="d-inline margin-right-10">
-                            <input type="checkbox">
+                            <input type="checkbox" name="url_status">
                             異常URL
                         </label>
                         @if($auth_service_role['role'] == 'admin' || $auth_service_role['role'] == 'admin99')
