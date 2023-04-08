@@ -470,6 +470,7 @@
 
                                 </li>
                                 <li class="list-items">
+                                    <span class="info"><i class="fa fa-sticky-note-o"></i>回覆備註</span>
                                 <textarea class="form-control" rows="5" placeholder="請輸入備註" id="note" name="note" >{{isset($note) ? $note :''}}</textarea>
                                 </li>
                                 {{-- <li class="list-items">
