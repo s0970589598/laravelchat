@@ -664,7 +664,7 @@
                     <input type="hidden" name="room_id" value="{{ $currRoom->id }}">
                     <input type="hidden" name="assign_id" value="{{ Auth::user() -> id }}">
                     <select class="form-control select2-multiple select2-hidden-accessible" multiple="" tabindex="-1"
-                    aria-hidden="true"  name="assigned_service">
+                    aria-hidden="true"  name="assigned_service" required>
                         <optgroup label="旅遊服務中心">
                             @foreach($motc_station_transfer as $motc)
                             <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
@@ -683,7 +683,7 @@
                 </div>
                 <label class="col-md-2 control-label" style="margin-bottom: 20px;">指派原因</label>
                 <div class="col-md-10" style="margin-bottom: 20px;">
-                    <textarea class="form-control" row="10" placeholder="請輸入指派原因" style="height: 400px;" name="assign_reason"></textarea>
+                    <textarea class="form-control" row="10" placeholder="請輸入指派原因" style="height: 400px;" name="assign_reason" required></textarea>
                 </div>
             </div>
         </div>

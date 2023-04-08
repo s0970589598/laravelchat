@@ -108,7 +108,7 @@
             <?php } else {
                 if ($errors <> '[]'){
                     echo '系統忙碌中，請在1分鐘後重新輸入信箱';
-                }
+
 
              ?>
              <script>
@@ -116,7 +116,7 @@
                     location.href = "/login";
                 }, 10000);
             </script>
-            <?php } ?>
+            <?php } } ?>
             <!-- Validation Errors -->
             {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
 
