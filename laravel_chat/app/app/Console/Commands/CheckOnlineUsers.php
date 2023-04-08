@@ -141,19 +141,24 @@ class CheckOnlineUsers extends Command
                         'userName' => $con->name
                     ];
 
-                    Log::info($station_name);
+                    // Log::info($station_name);
 
                     foreach($contact as $con){
-                        Log::info($con->name);
-                        Log::info($con->email);
-                        Log::info($con->role);
-                        // Mail::send('email.no_online_users', $data, function ($message) use ($contact_email, $station_name) {
-                        //     $message->to($contact_email)
-                        //             ->subject($station_name . '旅服中心目前沒有旅服人員上線，請立即確認')
-                        //             ->setBody('您好，目前' . $station_name . '沒有客服人員在線上，請您確認該中心客服狀況。');
-                        // });
+                        // Log::info($con->name);
+                        // Log::info($con->email);
+                        // Log::info($con->role);
+
+                        if ($contact_email =='mandy@faninsights.io'){
+                            Mail::send('email.no_online_users', $data, function ($message) use ($contact_email, $station_name) {
+                                $message->to($contact_email)
+                                        ->subject($station_name . '旅服中心目前沒有旅服人員上線，請立即確認')
+                                        ->setBody('您好，目前' . $station_name . '沒有客服人員在線上，請您確認該中心客服狀況。');
+                            });
+                        }
+
+
                     }
-                    Log::info('.....');
+                    // Log::info('.....');
 
                 }
             }
