@@ -932,7 +932,7 @@
             var line = document.getElementById("line").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
             var note = document.getElementById("note").value;
-
+            alert(note);
             $.ajax({
                 url: "/api/contact/" + authcode + "/update",
                 data: JSON.stringify({
