@@ -469,6 +469,9 @@
                                     <input class="form-control input"  type="text" name="line" id="line" value="{{isset($line) ? $line : ''}}">
 
                                 </li>
+                                <li class="list-items">
+                                <textarea class="form-control" rows="5" placeholder="請輸入備註" id="note" name="note" >{{isset($note) ? $note :''}}</textarea>
+                                </li>
                                 {{-- <li class="list-items">
                                     <span class="info"><i class="fa fa-location-arrow"></i>定位點</span>
                                     <span class="num"></span>
@@ -506,7 +509,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="portlet">
+                    {{-- <div class="portlet">
                         <div class="portlet-title">
                             <div class="caption">
                                 <span class="caption-subject">回覆備註</span>
@@ -518,7 +521,7 @@
                                 <textarea class="form-control" rows="5" placeholder="請輸入備註" id="note" name="note" >{{isset($note) ? $note :''}}</textarea>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="feature-btn">
                         <button class="return-btn" onClick="location.href='/dialoguelist'">返回</button>
                         <button class="submit-btn" type="submit" onclick="roomcomplete()">客服完成</button>
@@ -928,13 +931,15 @@
             var phone = document.getElementById("phone").value;
             var line = document.getElementById("line").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
+            var note = document.getElementById("note").value;
 
             $.ajax({
                 url: "/api/contact/" + authcode + "/update",
                 data: JSON.stringify({
                     "contact_email":email,
                     "phone":phone,
-                    "line":line
+                    "line":line,
+                    "note":note
                 }),
                 dataType: 'json',
                 contentType: 'application/json;charset=UTF-8',
@@ -965,7 +970,7 @@
         }
 
         function roomcomplete(){
-            var note = document.getElementById("note").value;
+            // var note = document.getElementById("note").value;
             var authcode = document.getElementById("authcode").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
             const xhttp = new XMLHttpRequest();
@@ -977,38 +982,38 @@
                 message: 'completed'
             }));
 
-            $.ajax({
-                url: "/api/contact/" + authcode + "/update",
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                data: JSON.stringify({
-                    "note":note
-                }),
-                dataType: 'json',
-                contentType: 'application/json;charset=UTF-8',
-                method: 'POST',
-                processData: false, // important
-                contentType: false, // important
-                cache: false,
-                success: function(data)
-                {
-                    // redirect
-                    //window.location.replace(data.redirect);
-                },
-                error: function(data)
-                {
-                    // intergrate Swal to display error
-                    // Swal.close();
-                    // if (data.status == 419) {
-                    //     window.location.reload();
-                    // } else {
-                    //     Swal.fire({
-                    //         icon: 'info',
-                    //         title: 'Error',
-                    //         html: data.responseJSON.message,
-                    //     });
-                    // }
-                }
-            });
+            // $.ajax({
+            //     url: "/api/contact/" + authcode + "/update",
+            //     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            //     data: JSON.stringify({
+            //         "note":note
+            //     }),
+            //     dataType: 'json',
+            //     contentType: 'application/json;charset=UTF-8',
+            //     method: 'POST',
+            //     processData: false, // important
+            //     contentType: false, // important
+            //     cache: false,
+            //     success: function(data)
+            //     {
+            //         // redirect
+            //         //window.location.replace(data.redirect);
+            //     },
+            //     error: function(data)
+            //     {
+            //         // intergrate Swal to display error
+            //         // Swal.close();
+            //         // if (data.status == 419) {
+            //         //     window.location.reload();
+            //         // } else {
+            //         //     Swal.fire({
+            //         //         icon: 'info',
+            //         //         title: 'Error',
+            //         //         html: data.responseJSON.message,
+            //         //     });
+            //         // }
+            //     }
+            // });
             $.ajax({
                 url: "/api/rooms/update/status",
                 data: JSON.stringify({
