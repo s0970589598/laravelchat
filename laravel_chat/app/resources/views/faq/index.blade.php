@@ -283,7 +283,7 @@
                         <select name="manager_group_sn" class="form-control">
                             <option value="">請選擇所屬單位</option>
                             @foreach($motc_station as $motc)
-                            <option value="{{$motc->station_name}}">{{$motc->station_name}}</option>
+                            <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
                             @endforeach
                         </select>
                         <label class="d-inline margin-right-10">
