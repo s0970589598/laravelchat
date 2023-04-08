@@ -142,7 +142,7 @@ body{
 //             &:active{
 //                 background-color: lighten($primary-light,30%) !important;
 //                 color: $primary !important;
-//             }      
+//             }
 //         }
 //     }
 // }
@@ -240,7 +240,7 @@ body{
         }
     }
     .tools{
-        button{  
+        button{
             border: transparent;
             img{
                 width: 20px;
@@ -451,7 +451,7 @@ table{
                         left: -10px;
                         border-style: solid;
                         border-width: 7.5px 13.0px 7.5px 0;
-                        border-color: transparent $text-light transparent transparent;     
+                        border-color: transparent $text-light transparent transparent;
                     }
                     p{
                         margin: 0;
@@ -492,7 +492,7 @@ table{
                             right: -10px;
                             border-style: solid;
                             border-width: 7.5px 0 7.5px 13.0px;
-                            border-color: transparent transparent transparent $text-light;  
+                            border-color: transparent transparent transparent $text-light;
                         }
                         p{
                             margin: 0;
@@ -648,7 +648,7 @@ table{
             padding: 0 0 15px 0;
             .info{
                 display:inline-block;
-                width: 70px;
+                width: 80px;
             }
         }
     }
