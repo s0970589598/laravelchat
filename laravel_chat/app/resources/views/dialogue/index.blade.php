@@ -477,6 +477,7 @@
                                     <span class="num"></span>
                                 </li> --}}
                             </ul>
+                            <input type="hidden" name="authcode" id="authcode" value="{{isset($user_authcode) ? $user_authcode : ''}}">
                             <button  type="button" id="updateUserInfo" onclick="updateuserinfo()" class="search-btn" id="btn-search" style="margin-right: 5px;">更新聯絡資料</button>
                         </div>
                     </div>
@@ -517,7 +518,6 @@
                         </div>
                         <div class="portlet-body">
                             <div class="form-group">
-                                <input type="hidden" name="authcode" id="authcode" value="{{isset($user_authcode) ? $user_authcode : ''}}">
                                 <textarea class="form-control" rows="5" placeholder="請輸入備註" id="note" name="note" >{{isset($note) ? $note :''}}</textarea>
                             </div>
                         </div>
@@ -932,7 +932,6 @@
             var line = document.getElementById("line").value;
             var currentRoomId = "{{ !empty($currRoom) ? $currRoom -> id : 0 }}";
             var note = document.getElementById("note").value;
-            alert(note);
             $.ajax({
                 url: "/api/contact/" + authcode + "/update",
                 data: JSON.stringify({
