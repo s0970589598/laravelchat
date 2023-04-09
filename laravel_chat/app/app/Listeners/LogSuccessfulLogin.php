@@ -37,13 +37,13 @@ class LogSuccessfulLogin
         $device = request()->header('User-Agent');
         $loginTime = now();
 
-        Log::info('User logged in', [
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'ip' => $ip,
-            'device' => $device,
-            'login_time' => $loginTime,
-        ]);
+        // Log::info('User logged in', [
+        //     'user_id' => $user->id,
+        //     'name' => $user->name,
+        //     'ip' => $ip,
+        //     'device' => $device,
+        //     'login_time' => $loginTime,
+        // ]);
         UserLog::create([
             'user_id' => $user->id,
             'name' => $user->name,

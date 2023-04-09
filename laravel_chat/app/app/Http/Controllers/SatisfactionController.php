@@ -401,7 +401,7 @@ class SatisfactionController extends Controller
             $satisfaction_params['point'] = $request->point;
         }
 
-        Log::info($satisfaction_params);
+        // Log::info($satisfaction_params);
         $auth_id    = Auth::user()->id;
         $params_auth = array(
             'user_id' => $auth_id

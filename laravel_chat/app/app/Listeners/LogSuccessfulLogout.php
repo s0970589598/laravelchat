@@ -33,13 +33,13 @@ class LogSuccessfulLogout
         $device = request()->header('User-Agent');
         $logoutTime = now();
 
-        Log::info('User logged out', [
-            'user_id' => $user->id,
-            'name' => $user->name,
-            'ip' => $ip,
-            'device' => $device,
-            'logout_time' => $logoutTime,
-        ]);
+        // Log::info('User logged out', [
+        //     'user_id' => $user->id,
+        //     'name' => $user->name,
+        //     'ip' => $ip,
+        //     'device' => $device,
+        //     'logout_time' => $logoutTime,
+        // ]);
 
             UserLog::create([
                 'user_id' => $user->id,
