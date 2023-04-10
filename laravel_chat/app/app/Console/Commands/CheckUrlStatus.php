@@ -80,12 +80,14 @@ class CheckUrlStatus extends Command
                 if (! $is_success ) {
                     FrequentlyMsg::find($m['id'])
                     ->update([
-                        'is_err' => 1
+                        'is_err' => 1,
+                        'url' => $url
                     ]);
                 } else {
                     FrequentlyMsg::find($m['id'])
                     ->update([
-                        'is_err' => 0
+                        'is_err' => 0,
+                        'url' => $url
                     ]);
                 }
                 //} else {
