@@ -379,6 +379,8 @@ class SatisfactionController extends Controller
         $limit = 10;
         $satisfaction_params = [];
         $survey= [];
+        $countsurvey = 0;
+        $avg_points = 0;
         $startDate = Carbon::now()->subDays(7);
         $endDate   = Carbon::now();
 

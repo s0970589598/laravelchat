@@ -570,7 +570,8 @@
                                     {{-- <div class="thumbnail" style="margin: 0;"> --}}
                                     <div  style="margin: 0;">
                                         <?php
-                                            list($fiel, $type)= $m->file;
+                                            list($fiel, $type)= explode(".", $m->file);
+
                                             if (strpos($type, "png") || strpos($type, "jpg") || strpos($type, "tiff")
                                                     || strpos($type, "gif") || strpos($type, "jpeg")  )
                                                 {

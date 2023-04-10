@@ -351,7 +351,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @if(isset($survey ))
+                                                    @if(isset($survey))
                                                     @foreach ($survey as $sur)
                                                     <tr>
                                                         <td>{{$sur->station_name}}</td>
