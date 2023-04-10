@@ -17,8 +17,12 @@ class MotcStationRepository
             $motc_sation->whereIn('station_name', $params['station_name']);
         }
 
-        if(isset($params['sn'])) {
-            $motc_sation->whereIn('sn', $params['sn']);
+        if(isset($params['station_name'])) {
+            $motc_sation->whereIn('station_name', $params['station_name']);
+        }
+
+        if(isset($params['domain_alias'])) {
+            $motc_sation->where('domain_alias', $params['domain_alias']);
         }
 
         if(isset($params['limit'])) {
