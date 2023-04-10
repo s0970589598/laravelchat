@@ -572,8 +572,8 @@
                                         <?php
                                             list($fiel, $type)= explode(".", $m->file);
                                             echo $type;
-                                            echo strpos($type, "jpg");
-                                            if ( (strpos($type, "png")!= false ) || (strpos($type, "jpg")!= false )  || (strpos($type, "tiff") != false ) || (strpos($type, "gif") != false ) || (strpos($type, "jpeg")!= false )){
+                                            echo stripos($type, "jpg");
+                                            if ( (stripos($type, "png")!= false ) || (stripos($type, "jpg")!= false )  || (stripos($type, "tiff") != false ) || (stripos($type, "gif") != false ) || (stripos($type, "jpeg")!= false )){
                                          ?>
                                             <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
                                         <?php   } else { ?>
