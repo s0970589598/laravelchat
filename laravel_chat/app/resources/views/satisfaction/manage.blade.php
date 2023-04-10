@@ -351,7 +351,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
+                                                    @if(isset($survey ))
                                                     @foreach ($survey as $sur)
                                                     <tr>
                                                         <td>{{$sur->station_name}}</td>
@@ -364,6 +364,7 @@
                                                         </td>
                                                     </tr>
                                                     @endforeach
+                                                    @endif
 
                                                 </tbody>
                                             </table>

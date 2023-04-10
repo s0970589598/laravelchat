@@ -565,11 +565,21 @@
                                     <div class="media-title">
                                         <input type="checkbox" id="media-{{ $m->id }}" name="items[]" value="{{ $m->id }}">
 
-                                        <label for="media-{{ $m->id }}">{{ $m->file}}</label>
+                                        <label for="media-{{ $m->id }}">{{ $m->title}}</label>
                                     </div>
                                     {{-- <div class="thumbnail" style="margin: 0;"> --}}
                                     <div  style="margin: 0;">
+                                        <?php
+                                            list($fiel, $type)= $m->file;
+                                            if (strpos($type, "png") || strpos($type, "jpg") || strpos($type, "tiff")
+                                                    || strpos($type, "gif") || strpos($type, "jpeg")  )
+                                                {
+                                         ?>
                                             <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
+                                        <?php   } else { ?>
+                                            <img src="/assets/images/file.png" alt="" class="initImg containImg">
+                                        <?php   } ?>
+
                                     </div>
                                 </div>
                             </div>
