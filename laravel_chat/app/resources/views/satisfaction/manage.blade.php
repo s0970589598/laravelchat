@@ -325,15 +325,16 @@
                                                     <option value="4">4</option>
                                                     <option value="5">5</option>
                                                 </select>
-                                                <button type="submit" class="search-btn" id="btn-search"
+                                                <button type="submit" name="submit"  value="search" class="search-btn" id="btn-search"
                                                     style="margin-right: 5px;">
                                                     <i class="fa fa-search"></i>
                                                     查詢
                                                 </button>
-                                                <a class="add-btn" href="javascript:volid(0);">
+                                                <button type="submit" name="submit" value="dowload"  class="search-btn" id="btn-search"
+                                                    style="margin-right: 5px;">
                                                     <i class="fa fa-download"></i>
                                                     匯出
-                                                </a>
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
