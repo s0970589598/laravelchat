@@ -11,6 +11,9 @@ use App\Models\CustomerServiceRelationRole;
 use App\Repositories\MotcStationRepository;
 use App\Repositories\UserRepository;
 use Carbon\Carbon;
+use App\Export\SatisfactionExport;
+use App\Export\SatisfactionIndexExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 use denis660\Centrifugo\Centrifugo;
@@ -96,6 +99,7 @@ class SatisfactionController extends Controller
         $everyday_wait = [];
         $everyday_ing = [];
         $everyday_complete = [];
+
 
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
@@ -346,8 +350,10 @@ class SatisfactionController extends Controller
             $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round((((8 * $offlineHistoryDates)-$motc_off_arr[$cu['service']]['count_ing'])/ (8 * $offlineHistoryDates) )*100,2) : 100 ;
          }
 
-
-         return view('satisfaction.index', [
+         if ($request->submit == 'dowload') {
+            return Excel::download(new SatisfactionExport($satisfaction_list), 'satisfaction.csv');
+         }
+        return view('satisfaction.index', [
             'rooms' => $rooms,
             'users' => $users,
             'motc_station' => $motc_station,
@@ -355,6 +361,7 @@ class SatisfactionController extends Controller
             'replyrate' => json_encode($replyrate),
             'satisfactionList' => $satisfaction_list,
         ]);
+
     }
 
     public function manage(Request $request)
@@ -474,6 +481,10 @@ class SatisfactionController extends Controller
         ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
+
+        if ($request->submit == 'dowload') {
+            return Excel::download(new SatisfactionIndexExport($survey), 'satisfactionindEX.csv');
+        }
 
         return view('satisfaction.manage', [
             'rooms' => $rooms,
