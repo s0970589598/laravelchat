@@ -572,6 +572,7 @@
                                         <?php
                                             list($fiel, $type)= explode(".", $m->file);
                                             echo $type;
+                                            echo strpos($type, "jpg");
                                             if (strpos($type, "png") || strpos($type, "jpg") || strpos($type, "tiff")
                                                     || strpos($type, "gif") || strpos($type, "jpeg")  )
                                                 {
