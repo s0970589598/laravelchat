@@ -50,7 +50,7 @@ class DashboardController extends Controller
         $this->centrifugo = $centrifugo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $rooms = 0;
         $limit = 10;
@@ -58,10 +58,18 @@ class DashboardController extends Controller
         $rooms_wait_count = 0;
         $onlineCustomerCount = 0;
         $motc_params = [];
-
+        $satisfaction_params = [];
         // $user = Auth::user();
         // Log::info(json_encode($user));
         // Log::info(json_encode($user->isOnline()));
+
+        if (isset($request->from)){
+            $satisfaction_params['start_time'] = $request->from;
+        }
+        if (isset($request->to)){
+            $satisfaction_params['end_time'] = $request->to;
+        }
+
         $auth_id    = Auth::user()->id;
         $params_auth = array(
             'user_id' => $auth_id
@@ -69,7 +77,6 @@ class DashboardController extends Controller
 
         $auth = $this->user_repository->getUserServiceRole($params_auth);
         $count_online_customer = $this->user_repository->getOnlineCustomer($auth['service'], $auth['role'], $limit , $account_params);
-
 
         $startDate = Carbon::now()->subDays(7);
         $endDate   = Carbon::now();
@@ -84,6 +91,12 @@ class DashboardController extends Controller
             // ->select('motc_station.sn', DB::raw('COUNT(messages.id) AS NUM'), DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d') AS DAY"))
             // ->groupBy('motc_station.sn', DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
             ->whereBetween('messages.created_at', [$startDate, $endDate])
+            ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
+                $query->where('messages.created_at', '>=',$satisfaction_params['start_time'] . ' 00:00:00');
+            })
+            ->when(isset($satisfaction_params['end_time']), function ($query) use ($satisfaction_params) {
+                $query->where('messages.created_at', '<=', $satisfaction_params['end_time'] . ' 23:59:59');
+            })
             ->groupBy( DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
             //->orderBy('motc_station.sn')
             ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
@@ -113,6 +126,12 @@ class DashboardController extends Controller
             ->whereIn('motc_station.sn', $sn)
             ->whereBetween('messages.created_at', [$startDate, $endDate])
             // ->groupBy('motc_station.sn', DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
+            ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
+                $query->where('created_at', '>=',$satisfaction_params['start_time'] . ' 00:00:00');
+            })
+            ->when(isset($satisfaction_params['end_time']), function ($query) use ($satisfaction_params) {
+                $query->where('created_at', '<=', $satisfaction_params['end_time'] . ' 23:59:59');
+            })
             ->groupBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"))
             //->orderBy('motc_station.sn')
             ->orderBy(DB::raw("DATE_FORMAT(messages.created_at, '%Y-%m-%d')"), 'desc')
