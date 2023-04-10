@@ -144,11 +144,11 @@ class MotcController extends Controller
             );
             Cache::add($request->email, 'true');
             Cookie::queue('em',$request->email,36000);
-            Log::info('2'. Cache::get($request->email));
+            // Log::info('2'. Cache::get($request->email));
             $status = Password::sendResetLink(
                 $request->only('email')
             );
-            Log::info('3'. Cache::get($request->email));
+            // Log::info('3'. Cache::get($request->email));
 
 
             DB::commit();

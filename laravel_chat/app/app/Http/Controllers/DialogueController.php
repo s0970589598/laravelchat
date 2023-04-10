@@ -204,7 +204,7 @@ class DialogueController extends Controller
     public function publish(int $id, Request $request)
     {
         $requestData = $request->json()->all();
-        Log::info($requestData);
+        // Log::info($requestData);
         $check_api = 1;
         if(isset($requestData["type"])) {
             $msg_type = $requestData["type"];
@@ -285,7 +285,7 @@ class DialogueController extends Controller
             foreach ($room->users as $user) {
                 $channels[] = "personal:#" . $user->id;
             }
-            Log::info($channels );
+            // Log::info($channels );
             $test = $this->centrifugo->broadcast($channels, [
                 "text"               => $message->message,
                 "createdAt"          => $message->created_at->toDateTimeString(),
@@ -295,7 +295,7 @@ class DialogueController extends Controller
                 "senderName"         => $sender_name,
                 "type"               => $msg_type,
             ]);
-            Log::info($test );
+            // Log::info($test );
 
             $rs = array(
                 'msg'=>'success',
