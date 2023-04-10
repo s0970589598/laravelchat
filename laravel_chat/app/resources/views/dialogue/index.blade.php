@@ -177,7 +177,14 @@
                                                         <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>
                                                         <div class="dialogue-content">
                                                             <div class="dialogue-info">
-                                                                <img src="/file/{{ $med->file}}" alt="" class="initStickersImg containImg">
+                                                                <?php
+                                                                    list($fiel, $type)= explode(".", $med->file);
+                                                                    if ( (stripos($type, "png") !== false)|| (stripos($type, "jpg") !== false)  || (stripos($type, "tiff") !== false) || (stripos($type, "gif") !== false) || (stripos($type, "jpeg")!== false) ){
+                                                                ?>
+                                                                    <img src="/file/{{ $med->file}}" alt="" class="initImg containImg">
+                                                                <?php   } else { ?>
+                                                                    <img src="/assets/images/file.png" alt="" class="initImg containImg">
+                                                                <?php   } ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -309,7 +316,14 @@
                                                 <img class="user-avatar" src="/assets/images/user-request.png" alt="images">
                                                 <div class="dialogue-content">
                                                 <div class="dialogue-info">
-                                                    <img src="/file/{{ $med->file}}" alt="" class="initStickersImg containImg">
+                                                    <?php
+                                                    list($fiel, $type)= explode(".", $med->file);
+                                                        if ( (stripos($type, "png") !== false)|| (stripos($type, "jpg") !== false)  || (stripos($type, "tiff") !== false) || (stripos($type, "gif") !== false) || (stripos($type, "jpeg")!== false) ){
+                                                    ?>
+                                                        <img src="/file/{{ $med->file}}" alt="" class="initImg containImg">
+                                                    <?php   } else { ?>
+                                                        <img src="/assets/images/file.png" alt="" class="initImg containImg">
+                                                    <?php   } ?>
                                                 </div>
                                                 </div>
                                                 <span class="dialogue-time">{{ $message->created_at->toFormattedDateString() }}, {{ $message->created_at->toTimeString() }}</span>

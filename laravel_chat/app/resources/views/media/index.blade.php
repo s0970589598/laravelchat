@@ -303,7 +303,16 @@
                             <tr>
                                 <td data-type="{{ $m->type }}" class="custom-type">{{ $m->type }}</td>
                                 <td data-title="{{ $m->title }}" class="custom-title">{{ $m->title }}</td>
-                                <td data-file="{{ $m->file }}" class="custom-file"><img src="/file/{{ $m->file}}" alt="" height ="100" width="100"></td>
+                                <td data-file="{{ $m->file }}" class="custom-file">
+                                    <?php
+                                    list($fiel, $type)= explode(".", $m->file);
+                                    if ( (stripos($type, "png") !== false)|| (stripos($type, "jpg") !== false)  || (stripos($type, "tiff") !== false) || (stripos($type, "gif") !== false) || (stripos($type, "jpeg")!== false) ){
+                                    ?>
+                                        <img src="/file/{{ $m->file}}" alt=""  height ="100" width="100">
+                                    <?php   } else { ?>
+                                        <img src="/assets/images/file.png" alt="" height ="100" width="100">
+                                    <?php   } ?>
+                                </td>
                                 <td data-service="{{ $m->station_name }}" class="custom-service">{{ $m->station_name }}</td>
                                 <td style="display:none" data-sn="{{ $m->service }}" class="custom-sn">{{ $m->service }}</td>
                                 <td>
