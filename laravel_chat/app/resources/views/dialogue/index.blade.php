@@ -573,9 +573,7 @@
                                             list($fiel, $type)= explode(".", $m->file);
                                             echo $type;
                                             echo strpos($type, "jpg");
-                                            if ( (strpos($type, "png")!= false )|| (strpos($type, "jpg") || (strpos($type, "tiff")
-                                            != false ) || (strpos($type, "gif")!= false ) || (strpos($type, "jpeg")!= false )  )
-                                                {
+                                            if ( (strpos($type, "png")!= false ) || (strpos($type, "jpg")!= false )  || (strpos($type, "tiff") != false ) || (strpos($type, "gif") != false ) || (strpos($type, "jpeg")!= false )){
                                          ?>
                                             <img src="/file/{{ $m->file}}" alt="" class="initImg containImg">
                                         <?php   } else { ?>
