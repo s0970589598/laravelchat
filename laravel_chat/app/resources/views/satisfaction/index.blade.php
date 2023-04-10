@@ -320,15 +320,16 @@
                                             @foreach($motc_station as $motc)
                                             <option value="{{$motc->sn}}">{{$motc->station_name}}</option>
                                             @endforeach                                        </select>
-                                        <button type="submit" class="search-btn" id="btn-search"
+                                        <button type="submit" name="submit" value="search" class="search-btn" id="btn-search"
                                             style="margin-right: 5px;">
                                             <i class="fa fa-search"></i>
                                             查詢
                                         </button>
-                                        <a class="add-btn" href="javascript:volid(0);">
+                                        <button type="submit" class="add-btn" name="submit" value="dowload" id="btn-search"
+                                            style="margin-right: 5px;">
                                             <i class="fa fa-download"></i>
                                             匯出
-                                        </a>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
