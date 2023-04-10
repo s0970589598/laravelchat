@@ -34,7 +34,8 @@ class DialogueController extends Controller
     protected $user_repository;
     protected $rooms_repository;
 
-    public function __construct(Centrifugo $centrifugo,
+    public function __construct(
+      Centrifugo $centrifugo,
       MotcStationRepository $motc_station_repository,
       UserRepository $user_repository,
       RoomsRepository $rooms_repository

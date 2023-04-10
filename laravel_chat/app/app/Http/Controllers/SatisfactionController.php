@@ -93,6 +93,9 @@ class SatisfactionController extends Controller
         $waited_array = [];
         $ing_array = [];
         $complete_array = [];
+        $everyday_wait = [];
+        $everyday_ing = [];
+        $everyday_complete = [];
 
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
@@ -126,7 +129,6 @@ class SatisfactionController extends Controller
 
         // 以日為單位 tablelist 區域	呼叫人工客服人次	人工客服完成人次	未成單率	平均回覆時間	客服上線率(8/8)*100%)
         // 每個小時檢測各中心是否有人員在線上，若有中心一天被檢測到一次沒人在線，在線率=(7/8)*100%
-
 
         if (isset($request->start_time)){
             $satisfaction_params['start_time'] = $request->start_time;
@@ -185,7 +187,6 @@ class SatisfactionController extends Controller
             $waited_array[$wait['rooms_created_at']]['rooms_created_at'] = $wait['rooms_created_at'];
             $waited_array[$wait['rooms_created_at']]['count_wait'] = $wait['count_wait'];
         }
-
         foreach($everyday_ing as $ing){
             $ing_array[$ing['rooms_created_at']]['rooms_created_at'] = $ing['rooms_created_at'];
             $ing_array[$ing['rooms_created_at']]['count_wait'] = $ing['count_wait'];
@@ -195,15 +196,7 @@ class SatisfactionController extends Controller
             $complete_array[$complete['rooms_created_at']]['count_complete'] = $complete['count_complete'];
         }
         $keys = 0;
-        // foreach ($wait_array as $key => $wait) {
 
-        //     if(isset($ing_array[$key]['count_wait'])) {
-        //         $all = $wait_array[$key]['count_wait'] + $ing_array[$key]['count_wait'];
-        //         $waitedrate[$keys]['DAY'] = $key;
-        //         $waitedrate[$keys]['NUM'] = ($wait_array[$key]['count_wait'] / $all) * 100;
-        //         $keys++;
-        //    }
-        // }
         foreach ($waited_array as $key => $waited) {
                $complete = isset($complete_array[$key]['count_complete']) ? $complete_array[$key]['count_complete'] : 0;
                 $nocomplete = $waited['count_wait'] - $complete;
@@ -236,20 +229,12 @@ class SatisfactionController extends Controller
             }
          }
 
-
         // talbe
         if (isset($request->sn)){
             $satisfaction_params['sn'] = $request->sn;
             unset($sn);
             $sn[] = $satisfaction_params['sn'];
         }
-        // 待處理的客服
-        // ->when(isset($account_params['name']), function ($query) use ($account_params) {
-        //     $query->where('name','LIKE', '%' .$account_params['name']. '%');
-        // })
-        // ->when(isset($account_params['manager_group_sn']), function ($query) use ($account_params) {
-        //   $query->where('service', 'LIKE', '%' . $account_params['manager_group_sn'] . '%');
-        // })
 
         $wait = Room::select('service', DB::raw('count(id) as count_ing'))
         ->where('status', 2)
@@ -286,7 +271,7 @@ class SatisfactionController extends Controller
         ->orderBy('service', 'asc')
         ->get();
 
-        // 曾經客服
+        // 曾經客服 (除了智能客服)
         $customered = Room::select('service','station_name', DB::raw('count(id) as count_ing'))
         ->leftJoin('motc_station', 'motc_station.sn', '=', 'rooms.service')
         ->where('rooms.status', '<>' , 1)
@@ -298,7 +283,6 @@ class SatisfactionController extends Controller
         ->groupBy('service','station_name')
         ->orderBy('service', 'asc')
         ->get();
-
 
          // 回覆時間
         $satisfaction_reply = Room::selectRaw('service, (sum(wait_end) - sum(wait_start)) as diffsec')
@@ -314,6 +298,7 @@ class SatisfactionController extends Controller
         ->orderBy('service', 'asc')
         ->get();
 
+        // 未上線次數
         $motc_offline_history = MotcOfflineHistory::select('service',DB::raw('count(id) as count_ing'))
         ->when(isset($satisfaction_params['start_time']), function ($query) use ($satisfaction_params) {
             $query->whereBetween('created_at', [$satisfaction_params['start_time'] . ' 00:00:00', $satisfaction_params['end_time'] . ' 23:59:59']);
@@ -323,11 +308,11 @@ class SatisfactionController extends Controller
         ->groupBy('service')
         ->get();
 
+        // 未上線資料天數
         $offlineHistoryDates = MotcOfflineHistory::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
         ->whereBetween('motc_offline_history.created_at', [$startDate, $endDate])
         ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d')"))
         ->count();
-
 
          foreach($wait as $wa){
             $wait_arr[$wa['service']]['count_ing'] = $wa['count_ing'];
@@ -344,16 +329,20 @@ class SatisfactionController extends Controller
 
          //Log::info($com_arr);
          foreach($customered as $cu) {
+            // 中心
             $satisfaction_list[$cu['service']]['service'] = $cu['station_name'];
+            // 呼叫人工客服次數
             $satisfaction_list[$cu['service']]['callcustomer'] = $cu['count_ing'];
-
+            // 人工客服完成人數
             $satisfaction_list[$cu['service']]['complete'] = isset($com_arr[$cu['service']]) ? $com_arr[$cu['service']]['count_ing'] : 0;
+
             $satisfaction_list[$cu['service']]['nocomplete'] = $cu['count_ing'] - $satisfaction_list[$cu['service']]['complete'];
-            // $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round(($wait_arr[$cu['service']]['count_ing']/$cu['count_ing'])*100 , 2) : 0 ;
+            // 未成單率
             $satisfaction_list[$cu['service']]['waitedrate'] = round(($satisfaction_list[$cu['service']]['nocomplete']/$cu['count_ing'])*100 , 2);
-
-
+            // $satisfaction_list[$cu['service']]['waitedrate'] = (isset($wait_arr[$cu['service']]['count_ing'])) ? round(($wait_arr[$cu['service']]['count_ing']/$cu['count_ing'])*100 , 2) : 0 ;
+            // 平均回覆時間
             $satisfaction_list[$cu['service']]['replyrate'] = isset($satisfaction_reply_arr[$cu['service']]['diffsec']) ? round(($satisfaction_reply_arr[$cu['service']]['diffsec']/ $cu['count_ing'])*100,2) : 0 ;
+            // 客服上線率
             $satisfaction_list[$cu['service']]['onlinerate'] = isset($motc_off_arr[$cu['service']]['count_ing']) ? round((((8 * $offlineHistoryDates)-$motc_off_arr[$cu['service']]['count_ing'])/ (8 * $offlineHistoryDates) )*100,2) : 100 ;
          }
 
@@ -371,11 +360,6 @@ class SatisfactionController extends Controller
     public function manage(Request $request)
     {
         $rooms = 0;
-        // $rooms = Room::with(['users', 'messages' => function ($query) {
-        //     $query->orderBy('created_at', 'asc');
-        // }])->orderBy('created_at', 'desc')->get();
-        $rooms = 0;
-        //$email_sample = EmailSample::get();
         $limit = 10;
         $satisfaction_params = [];
         $survey= [];
@@ -486,13 +470,10 @@ class SatisfactionController extends Controller
 
         }
 
-
-
         $users = User::orderBy('users.id', 'desc')
         ->where('status','0')
         ->leftJoin('customer_service_relation_role', 'users.id', '=', 'customer_service_relation_role.user_id')
         ->paginate($limit);
-
 
         return view('satisfaction.manage', [
             'rooms' => $rooms,
