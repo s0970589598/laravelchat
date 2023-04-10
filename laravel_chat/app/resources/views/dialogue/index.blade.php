@@ -571,7 +571,7 @@
                                     <div  style="margin: 0;">
                                         <?php
                                             list($fiel, $type)= explode(".", $m->file);
-
+                                            echo $type;
                                             if (strpos($type, "png") || strpos($type, "jpg") || strpos($type, "tiff")
                                                     || strpos($type, "gif") || strpos($type, "jpeg")  )
                                                 {

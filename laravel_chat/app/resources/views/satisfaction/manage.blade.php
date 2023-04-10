@@ -292,7 +292,7 @@
                                             <div class="widget-thumb-wrap">
                                                 <div class="widget-thumb-body">
                                                     <span class="widget-thumb-body-stat" data-counter="counterup"
-                                                        data-value="7,644">{{$avgPoints[0]->avg_point}}<small class="unit">分</small></span>
+                                                        data-value="7,644">{{isset($avgPoints[0]->avg_point) ? $avgPoints[0]->avg_point : 0}}<small class="unit">分</small></span>
                                                 </div>
                                                 <i class="widget-thumb-icon bg-red icon-link"></i>
                                             </div>
