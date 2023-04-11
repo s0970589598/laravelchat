@@ -47,12 +47,14 @@ class CheckUrlStatus extends Command
                 if (! $is_success ) {
                     FAQ::find($f['id'])
                     ->update([
-                        'is_err' => 1
+                        'is_err' => 1,
+                        'url' => $url
                     ]);
                 } else {
                     FAQ::find($f['id'])
                     ->update([
-                        'is_err' => 0
+                        'is_err' => 0,
+                        'url' => $url
                     ]);
                 }
                 //} else {
@@ -93,6 +95,11 @@ class CheckUrlStatus extends Command
                 //} else {
                 // 如果沒有找到網址，就顯示訊息
                 // echo '找不到網址。';
+            } else {
+                FrequentlyMsg::find($m['id'])
+                ->update([
+                    'is_err' => 0
+                ]);
             }
         }
     }
