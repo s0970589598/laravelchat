@@ -40,7 +40,7 @@ class CheckUrlStatus extends Command
             if (isset($matches[0])) {
                 // 如果有找到網址，就取出來
                 $url = $matches[0];
-                // echo '找到網址：' . $url;
+                // echo '找到faq網址：' . $url;
                 // Log::info('faq');
                 // Log::info($url);
                 $is_success = $this->curlUrl($url);
@@ -75,7 +75,7 @@ class CheckUrlStatus extends Command
             if (isset($matches[0])) {
                 // 如果有找到網址，就取出來
                 $url = $matches[0];
-                // echo '找到網址：' . $url;
+                // echo '找到msgsample網址：' . $url;
                 // Log::info('msgsample');
                 // Log::info($url);
                 $is_success = $this->curlUrl($url);
@@ -109,6 +109,18 @@ class CheckUrlStatus extends Command
         $ch = curl_init($url);
         // 設定 cURL 選項
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
+
+         // 檢查是否有錯誤發生
+        if (curl_errno($ch)) {
+            $info = curl_getinfo($ch);
+            // Log::error('Curl error: ' . curl_error($ch) . ',Took ' . $info['total_time'] . ' seconds to send a request to ' . $url);
+            echo $url;
+            //curl_close($curl);
+            //return false;
+        }
+
         // 執行 cURL 請求
         $response = curl_exec($ch);
         // 檢查請求是否成功
@@ -122,7 +134,6 @@ class CheckUrlStatus extends Command
             $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             // echo 'HTTP 狀態碼：' . $httpCode;
             $is_success = true;
-
         }
         // 關閉 cURL 對象
         curl_close($ch);

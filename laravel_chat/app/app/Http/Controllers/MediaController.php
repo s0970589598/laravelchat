@@ -34,8 +34,13 @@ class MediaController extends Controller
     {
         $rooms = 0;
         $limit = 10;
+        $media_params = [];
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
+        }
+
+        if (isset($request->media_type)){
+            $media_params['type'] = $request->media_type;
         }
 
         $auth_id    = Auth::user()->id;
@@ -61,6 +66,9 @@ class MediaController extends Controller
         $media = Media::where('media.status','0')
         ->leftJoin('motc_station', 'motc_station.sn', '=', 'media.service')
         ->whereIn('sn', $sn)
+        ->when(isset($media_params['type']), function ($query) use ($media_params) {
+            $query->where('type', $media_params['type']);
+        })
         ->orderBy('media.id', 'desc')
         ->paginate($limit);
 

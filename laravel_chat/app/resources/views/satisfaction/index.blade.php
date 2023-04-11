@@ -364,26 +364,26 @@
                                 <div class="pull-left">
                                     <div class="pagination-panel">
                                         顯示第 1 到 10 筆
-                                        <select name="limit" id="select_limit"
-                                            class="pagination-panel-input form-control input-sm input-inline"
-                                            style="width: 72px;">
-                                            <option value="administrator/manager/table/1?limit=10&">
-                                                10
-                                            </option>
-                                            <option value="administrator/manager/table/1?limit=30&">
-                                                30
-                                            </option>
-                                            <option value="administrator/manager/table/1?limit=50&">
-                                                50
-                                            </option>
-                                            <option value="administrator/manager/table/1?limit=100&">
-                                                100
-                                            </option>
-                                        </select>
+                                        <form class="form-inline" id="form-search" method="GET" action="/satisfaction">
+                                            <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;" onchange="this.form.submit()">
+                                                <option value="10">
+                                                    10
+                                                </option>
+                                                <option value="30">
+                                                    30
+                                                </option>
+                                                <option value="50">
+                                                    50
+                                                </option>
+                                                <option value="100">
+                                                    100
+                                                </option>
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="pull-right">
-                                    <ul id="pagination" class="pagination-sm pagination"></ul>
+                                    <?php echo $satisfactionList->links(); ?>
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>

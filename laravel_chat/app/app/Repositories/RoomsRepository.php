@@ -22,8 +22,8 @@ class RoomsRepository
             // ->paginate($limit);
 
             $rooms = Room::with(['users', 'messages' => function ($query) {
-                $query->select('message')
-                ->orderBy('created_at', 'asc');
+                //$query->select('message','type')
+                $query->orderBy('created_at', 'asc');
             }])
             ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
                 $query->where('created_at', '>=',$room_params['start_time'].' 00:00:00');
@@ -56,8 +56,8 @@ class RoomsRepository
             // ->paginate($limit);
 
             $rooms = Room::with(['users', 'messages' => function ($query) {
-                $query->select('message')
-                ->orderBy('created_at', 'asc');
+                //$query->select('message','type')
+                $query->orderBy('created_at', 'asc');
             }])
             ->when(isset($room_params['start_time']), function ($query) use ($room_params) {
                 $query->where('created_at', '>=',$room_params['start_time'].' 00:00:00');
@@ -83,6 +83,7 @@ class RoomsRepository
             ->whereIn('service', $sn)
             ->paginate($limit);
         }
+        Log::info(json_encode($rooms));
         return $rooms;
     }
 

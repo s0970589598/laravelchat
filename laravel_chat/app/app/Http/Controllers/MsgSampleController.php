@@ -33,7 +33,7 @@ class MsgSampleController extends Controller
     public function index(Request $request)
     {
         $rooms = 0;
-        $limit = 2;
+        $limit = 10;
         $msg_params = [];
 
         if (isset($request['limit']) && $request['limit']) {
@@ -45,8 +45,6 @@ class MsgSampleController extends Controller
         if (isset($request->keyword)){
             $msg_params['keyword'] = $request->keyword;
         }
-
-
 
         $auth_id    = Auth::user()->id;
         $params_auth = array(

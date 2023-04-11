@@ -28,7 +28,7 @@ class SalutatoryController extends Controller
     public function index()
     {
         $rooms = 0;
-        $limit = 2;
+        $limit = 10;
         if (isset($request['limit']) && $request['limit']) {
             $limit = $request['limit'] ;
         }

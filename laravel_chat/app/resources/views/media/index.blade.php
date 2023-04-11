@@ -269,9 +269,9 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="actions">
-                    <form class="form-inline" id="form-search" method="GET">
-                        <select name="manager_question_type" class="form-control"
-                            style="margin-right: 5px;">
+                    <form class="form-inline" id="form-search" method="GET" action="/media">
+                        <select name="media_type" class="form-control"
+                            style="margin-right: 5px;" onchange="this.form.submit()">
                             <option value="圖片">圖片</option>
                             <option value="影音">影音</option>
                             <option value="文件">文件</option>
@@ -330,20 +330,22 @@
                 <div class="pull-left">
                     <div class="pagination-panel">
                         顯示第 1 到 10 筆
-                        <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;">
-                            <option value="administrator/manager/table/1?limit=10&">
-                                10
-                            </option>
-                            <option value="administrator/manager/table/1?limit=30&">
-                                30
-                            </option>
-                            <option value="administrator/manager/table/1?limit=50&">
-                                50
-                            </option>
-                            <option value="administrator/manager/table/1?limit=100&">
-                                100
-                            </option>
-                        </select>
+                        <form class="form-inline" id="form-search" method="GET" action="/media">
+                            <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;" onchange="this.form.submit()">
+                                <option value="10">
+                                    10
+                                </option>
+                                <option value="30">
+                                    30
+                                </option>
+                                <option value="50">
+                                    50
+                                </option>
+                                <option value="100">
+                                    100
+                                </option>
+                            </select>
+                        </form>
                     </div>
                 </div>
                 <!-- pagination -->

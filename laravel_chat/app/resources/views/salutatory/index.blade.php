@@ -310,7 +310,7 @@
                 </div>
                 <div style="clear:both;"></div>
                 <div class="pull-left">
-                    <div class="pagination-panel">
+                    {{-- <div class="pagination-panel">
                         顯示第 1 到 10 筆
                         <select name="limit" id="select_limit" class="pagination-panel-input form-control input-sm input-inline" style="width: 72px;">
                             <option value="administrator/manager/table/1?limit=10&">
@@ -326,7 +326,7 @@
                                 100
                             </option>
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- pagination -->
                 <div class="pull-right">

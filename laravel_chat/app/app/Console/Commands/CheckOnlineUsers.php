@@ -23,50 +23,41 @@ class CheckOnlineUsers extends Command
 // 2.請於登入紀錄資料表內(待Allen建立)，確認未上線中心的帳號是否皆為登出，判定登出條件如下：
 // 2-1.帳號登入次數與登出次數相同，即為下線。
 // 2-2.帳號登入次數大於登出次數，即為上線中。
-// *每次登入、不同device登入都會有一筆資料，關閉網頁、登出、閒置機制時會寫入登出紀錄。
+// 每次登入、不同device登入都會有一筆資料，關閉網頁、登出、閒置機制時會寫入登出紀錄。
 
     public function handle(UserRepository $user_repository,MotcStationRepository $motc_station_repository)
     {
-        // $centers = [
-        //     '基隆火車站旅遊服務中心' => [
-        //         'sn'        => 1,
-        //         'start_time' => '01:00:00',
-        //         'end_time' => '17:00:00',
-        //         'admin_email' => 'st92308@gmail.com',
-        //         'role' => 'admin',
-        //     ],
-        //     '臺北火車站旅遊服務中心' => [
-        //         'sn'        => 2,
-        //         'start_time' => '01:30:00',
-        //         'end_time' => '16:30:00',
-        //         'admin_email' => 'st92308@gmail.com',
-        //         'role' => 'admin',
-        //     ],
-        //     '桃園捷運A1台北車站旅遊服務中心' => [
-        //         'sn'        => 3,
-        //         'start_time' => '01:00:00',
-        //         'end_time' => '18:00:00',
-        //         'admin_email' => 'st92308@gmail.com',
-        //         'role' => 'admin',
-        //     ],
-        // ];
         $motc_list = $motc_station_repository->motcStationList([]);
 
         $current = Carbon::now('Asia/Taipei');
+        $current3 = Carbon::now('Asia/Taipei');
         $right_now = $current->toDateTimeString();
+        $right_now_date = $current3->toDateString();
         $w = $current->dayOfWeek;// $dt = 0 ~ 6 星期天是 0
-
+        $user_logs = [];
+        $l = [];
 
         $subone_one_hour = $current->subHours(1)->toDateTimeString();
         // Log::info($subone_one_hour);
         // Log::info($right_now);
         // Log::info($w);
 
+        $user_logs = DB::table('user_logs')
+        ->select('user_id', DB::raw('count(user_logs.id) as countlogs'), 'action_type', DB::raw("DATE_FORMAT(user_logs.created_at, '%Y-%m-%d') as data_date"))
+        ->join('users', 'user_logs.user_id', '=', 'users.id')
+        ->where(DB::raw("DATE_FORMAT(user_logs.created_at, '%Y-%m-%d')"), '=', $right_now_date)
+        ->groupBy('user_id', 'action_type', DB::raw("DATE_FORMAT(user_logs.created_at, '%Y-%m-%d')"))
+        ->orderBy('user_id', 'ASC')
+        ->get();
+
+
+        foreach($user_logs as $logs) {
+            $l[$logs->user_id]['user_id'] = $logs->user_id;
+            $l[$logs->user_id][$logs->action_type]['countlogs']  = $logs->countlogs;
+        }
+
         foreach($motc_list as $motc) {
             $station_name = $motc->station_name;
-            // $contact_name = $motc->contact_name;
-            // $contact_email = $motc->contact_email;
-            // $contact_email = 'alice.chiu@faninsights.io';
             $sn            = $motc->sn;
 
             $contact = DB::table('customer_service_relation_role')
@@ -79,6 +70,38 @@ class CheckOnlineUsers extends Command
             ->where('service', 'like',  '%' . $station_name . '%')
             ->orderByDesc('customer_service_relation_role.id')
             ->get();
+
+            $motc_user = DB::table('customer_service_relation_role')
+            ->select('users.email','customer_service_relation_role.user_id', 'users.name', 'customer_service_relation_role.role')
+            ->leftJoin('users','users.id','=','customer_service_relation_role.user_id')
+            ->where('service', 'like',  '%' . $station_name . '%')
+            ->where(function ($query) {
+                $query->where('role', '<>', 'user');
+            })
+            ->orderByDesc('customer_service_relation_role.id')
+            ->get();
+
+            $motc_all_users = count($motc_user);
+            //$motc_users = $motc_all_users;
+            // Log::info($sn . '/' .$motc_all_users );
+            $check_users_log =[];
+            // 2-1.帳號登入次數與登出次數相同，即為下線。
+            // 2-2.帳號登入次數大於登出次數，即為上線中。
+            foreach ($motc_user as $mu) {
+                $login_count = isset($l[$mu->user_id]['login']['countlogs']) ?$l[$mu->user_id]['login']['countlogs'] : 0;
+                $logout_count = isset($l[$mu->user_id]['logout']['countlogs']) ?$l[$mu->user_id]['logout']['countlogs'] : 0;
+
+                if ($login_count <= $logout_count ){
+                    $motc_all_users -= 1;
+                }
+
+                if ($motc_all_users == 0) {
+                    // Log::info($sn . 'offline');
+                    $check_users_log[$sn] = 'offline';
+                } else {
+                    $check_users_log[$sn] = 'on';
+                }
+            }
 
             switch ($w) {
                 case 0:
@@ -129,24 +152,24 @@ class CheckOnlineUsers extends Command
                     'service'   => $station_name,
                 );
                 $onlineUsers = $user_repository->getUserListByParams($params);
-                if ($onlineUsers->isEmpty() ){
+                if ($onlineUsers->isEmpty() || $check_users_log[$sn] == 'offline'){
                     MotcOfflineHistory::create(
                         array(
                             'service' => $sn
                         )
                     );
                     // Log::info($station_name . 'no customer' . $right_now);
-                    $data = [
-                        'centerName' => $station_name,
-                        'userName' => $con->name
-                    ];
-
                     // Log::info($station_name);
 
                     foreach($contact as $con){
                         // Log::info($con->name);
                         // Log::info($con->email);
                         // Log::info($con->role);
+                        $data = [
+                            'centerName' => $station_name,
+                            'userName' => $con->name
+                        ];
+                        $contact_email = $con->email;
 
                         if ($contact_email =='mandy@faninsights.io'){
                             Mail::send('email.no_online_users', $data, function ($message) use ($contact_email, $station_name) {
@@ -164,48 +187,6 @@ class CheckOnlineUsers extends Command
             }
         }
 
-        // foreach ($centers as $centerName => $center) {
-        //     $startTime = date('Y-m-d') . ' ' . $center['start_time'];
-        //     $endTime = date('Y-m-d') . ' ' . $center['end_time'];
-        //     $adminEmail = $center['admin_email'];
-        //     $role = $center['role'];
-        //     $sn =  $center['sn'];
-
-        //     $params = array(
-        //         'role' => 'customer',
-        //         'start_time'=>$current,
-        //         'end_time'=>$right_now ,
-        //         'service'=>$centerName,
-        //     );
-        //     $onlineUsers = $user_repository->getUserListByParams($params);
-        //     Log::info($onlineUsers);
-        //     exit;
-        //     // Log::info(Carbon::now('Asia/Taipei'));
-        //     // Log::info('---');
-        //     // Log::info($now >= $startTime);
-        //     // Log::info($now <= $endTime);
-        //     // Log::info($onlineUsers->isEmpty());
-        //     // Log::info('---');
-
-
-        //     if ($onlineUsers->isEmpty() && ($now >=$startTime) && ($now <=$endTime)) {
-        //         $data = [
-        //             'centerName' => $centerName,
-        //         ];
-        //         MotcOfflineHistory::create(
-        //             array(
-        //                 'service' => $sn
-        //             )
-        //         );
-        //         //Log::info($centerName . 'no customer' . $now);
-        //         Mail::send('email.no_online_users', $data, function ($message) use ($adminEmail, $centerName) {
-        //             $message->to($adminEmail)
-        //                     ->subject($centerName . '旅服中心目前沒有旅服人員上線，請立即確認')
-        //                     ->setBody('您好，目前' . $centerName . '沒有客服人員在線上，請您確認該中心客服狀況。');
-        //         });
-
-        //     }
-        // }
     }
 
 }

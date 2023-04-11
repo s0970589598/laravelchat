@@ -78,6 +78,10 @@ class DialogueController extends Controller
             'user_id' => $auth_id
         );
 
+        if (isset($request['limit']) && $request['limit']) {
+            $limit = $request['limit'] ;
+        }
+
         if (isset($request->from) && isset($request->to) ){
             $start = date('Y-m-d',strtotime($request->from));
             $end = date('Y-m-d',strtotime($request->to));
@@ -111,7 +115,7 @@ class DialogueController extends Controller
         foreach ($motc_station as $motc) {
             $sn[] = $motc['sn'];
         }
-        $limit = 10;
+
         $rooms = $this->rooms_repository->getAllMsgListByServiceRole($sn,$auth['role'],$limit, $room_params);
 
         $get_customer_params = array(
