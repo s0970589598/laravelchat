@@ -136,6 +136,8 @@ class DialogueController extends Controller
     public function show(int $id)
     {
         $limit = 10;
+        $media = [];
+        $msg_sample= [];
         $rooms = Room::with('users')->orderBy('created_at', 'desc')->get();
 
         $room  = Room::with(['users', 'messages.user' => function ($query) {
