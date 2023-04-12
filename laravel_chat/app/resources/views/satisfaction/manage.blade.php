@@ -394,7 +394,9 @@
                                         </div>
                                         <!-- pagination -->
                                         <div class="pull-right">
+                                            @if(isset($survey))
                                             <?php echo $survey->links(); ?>
+                                            @endif
                                         </div>
                                         <!-- /pagination -->
                                         <div style="clear:both;"></div>

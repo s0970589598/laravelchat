@@ -361,7 +361,7 @@
                                     </table>
                                 </div>
                                 <div style="clear:both;"></div>
-                                <div class="pull-left">
+                                {{-- <div class="pull-left">
                                     <div class="pagination-panel">
                                         顯示第 1 到 10 筆
                                         <form class="form-inline" id="form-search" method="GET" action="/satisfaction">
@@ -381,9 +381,8 @@
                                             </select>
                                         </form>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="pull-right">
-                                    <?php echo $satisfactionList->links(); ?>
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>
