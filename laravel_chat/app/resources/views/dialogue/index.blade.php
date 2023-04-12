@@ -427,7 +427,7 @@
                                     </div>
                                 </div>
                                 <!-- BEGIN FOOTER -->
-                                <div class="page-footer-inner">Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.
+                                <div class="page-footer-inner">Copyright © 2023 交通部觀光局 ALL RIGHTS RESERVED.
                                 </div>
                                 <!-- END FOOTER -->
                             </div>

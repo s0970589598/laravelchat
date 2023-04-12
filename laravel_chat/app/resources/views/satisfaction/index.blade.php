@@ -393,7 +393,7 @@
                 <!-- END CONTAINER -->
                 <!-- BEGIN FOOTER -->
                 <div class="page-footer" style="padding: 0;">
-                    <div class="page-footer-inner"> Copyright © 2023 FANINSIGHTS.IO ALL RIGHTS RESERVED.</div>
+                    <div class="page-footer-inner"> Copyright © 2023 交通部觀光局 ALL RIGHTS RESERVED.</div>
                     <div class="scroll-to-top">
                         <i class="icon-arrow-up"></i>
                     </div>
