@@ -530,7 +530,7 @@
         src="assets/metronic/theme/assets/global/plugins/jquery.twbsPagination.min.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="js/all.js"></script>
-    <script src="js/session.js" type="text/javascript"></script>
+    <script src="js/session.js?202304121404" type="text/javascript"></script>
 
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {

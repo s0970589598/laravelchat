@@ -484,7 +484,7 @@
         <script src="assets/emojionearea-master/dist/emojionearea.min.js"></script>
         <link href="assets/emojionearea-master/dist/emojionearea.min.css" rel="stylesheet">
 
-        <script src="js/session.js" type="text/javascript"></script>
+        <script src="js/session.js?202304121404" type="text/javascript"></script>
 
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {

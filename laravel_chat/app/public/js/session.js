@@ -1,6 +1,8 @@
 let timer = null;
-const TIMEOUT_WARNING = 25 * 60 * 1000; // 25 分鐘
-const TIMEOUT_LOGOUT = 30 * 60 * 1000; // 30 分鐘
+//const TIMEOUT_WARNING = 25 * 60 * 1000; // 25 分鐘
+//const TIMEOUT_LOGOUT = 30 * 60 * 1000; // 30 分鐘
+const TIMEOUT_WARNING = 600 * 60 * 1000; // 600 分鐘
+const TIMEOUT_LOGOUT = 650 * 60 * 1000; // 650 分鐘
 
 
 
