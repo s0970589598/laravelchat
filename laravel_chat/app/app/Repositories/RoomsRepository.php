@@ -83,7 +83,7 @@ class RoomsRepository
             ->whereIn('service', $sn)
             ->paginate($limit);
         }
-        Log::info(json_encode($rooms));
+        // Log::info(json_encode($rooms));
         return $rooms;
     }
 

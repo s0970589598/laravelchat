@@ -109,17 +109,18 @@ class CheckUrlStatus extends Command
         $ch = curl_init($url);
         // 設定 cURL 選項
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0);
-        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
+        // curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,0);
+        // curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,0);
+
 
          // 檢查是否有錯誤發生
-        if (curl_errno($ch)) {
-            $info = curl_getinfo($ch);
-            // Log::error('Curl error: ' . curl_error($ch) . ',Took ' . $info['total_time'] . ' seconds to send a request to ' . $url);
-            echo $url;
-            //curl_close($curl);
-            //return false;
-        }
+        // if (curl_errno($ch)) {
+        //     $info = curl_getinfo($ch);
+        //     // Log::error('Curl error: ' . curl_error($ch) . ',Took ' . $info['total_time'] . ' seconds to send a request to ' . $url);
+        //     echo $url;
+        //     //curl_close($curl);
+        //     //return false;
+        // }
 
         // 執行 cURL 請求
         $response = curl_exec($ch);
@@ -135,6 +136,9 @@ class CheckUrlStatus extends Command
             // echo 'HTTP 狀態碼：' . $httpCode;
             $is_success = true;
         }
+
+
+
         // 關閉 cURL 對象
         curl_close($ch);
         return $is_success;
